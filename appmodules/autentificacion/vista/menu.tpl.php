@@ -16,7 +16,7 @@ elseif ( $lugar == 3 ) $base_url = 'http://localhost/neointelperu_apps/appmodule
       <li class="has-submenu" data-dropdown-menu>
         <a href="#">Menu</a>
         <ul class="submenu menu vertical" data-submenu>
-          <li><a href="<?php echo $base_url . 'ubigeo/tree2.php' ?>">Ubigeos</a></li>
+          <li><a href="<?php echo $base_url . 'ventas/index.php' ?>">Ventas</a></li>
         </ul>
       </li>
     </ul>

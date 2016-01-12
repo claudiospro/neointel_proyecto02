@@ -14,7 +14,6 @@
   <body>
     <?php echo $content ?>
     <script src="../../lib/vendor/foundation-6/js/vendor/jquery.min.js"></script>
-    <script src="../../lib/vendor/foundation-6/js/vendor/what-input.min.js"></script>
     <script src="../../lib/vendor/foundation-6/js/foundation.min.js"></script>
     <script src="../../lib/vendor/foundation-6/js/app.js"></script>
   </body>

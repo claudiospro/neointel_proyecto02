@@ -40,14 +40,12 @@ class ModeloAuten {
         LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
         LEFT JOIN usu_perfil_recurso pr ON pr.perfil_id=up.perfil_id
         LEFT JOIN usu_recurso r ON r.id=pr.recurso_id
-        WHERE u.nombre = "' . $in['nombre'] . '"
+        WHERE u.login = "' . $in['nombre'] . '"
         AND u.pwd ="' . crypt($in['pwd'], '$4a$85$estoesparati$') . '"
         ';
-        // print $q->sql;
-        
         $q->data = NULL;
         $data = $q->exe();        
-        if ($data) {            
+        if ($data) {
             $_SESSION["user_name"] = $in['nombre'];
             $_SESSION["user_id"] = $data[0]['user_id'];
             $resources = ' ';
@@ -55,6 +53,43 @@ class ModeloAuten {
                 $resources .= ' ' . $row['modulo'];
             }
             $_SESSION["resources"] = $resources;
+            $q->fields = array('linea' => '');
+            $q->sql = '
+            SELECT ul.lineal_id
+            FROM usu_usuario u
+            JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
+            WHERE u.id="' . $_SESSION["user_id"] . '"';
+            // print $q->sql;
+            $q->data = NULL;
+            $data = $q->exe();
+            // var_dump($data);
+            if ($data) {
+                $lineas = ' ';
+                foreach ($data as $row) {
+                    $lineas .= ' ' . $row['linea'];
+                }
+                $_SESSION["lineas"] = $lineas;
+            } else {
+                $_SESSION["lineas"] = ' All';
+            }
+            $q->fields = array('perfil' => '');
+            $q->sql = '
+            SELECT p.nombre
+            FROM usu_usuario u
+            LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
+            LEFT JOIN usu_perfil p ON p.id=up.perfil_id
+            WHERE u.id="' . $_SESSION["user_id"] . '"';            
+            // echo $q->sql;
+            $q->data = NULL;
+            $data = $q->exe();
+            // var_dump($data);
+            if ($data) {
+                $perfiles = ' ';
+                foreach ($data as $row) {
+                    $perfiles .= ' ' . $row['perfil'];
+                }
+                $_SESSION["perfiles"] = $perfiles;
+            }            
         }
     }
 

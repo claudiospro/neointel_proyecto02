@@ -1,4 +1,4 @@
-<?php $title = 'List of Posts' ?>
+<?php $title = 'Autentificación' ?>
 
 <?php ob_start() ?>
 
