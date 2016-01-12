@@ -1,0 +1,26 @@
+<!-- ----------------------------- datatable ---------------------------------- -->
+<link rel="stylesheet" href="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/css/dataTables.foundation.min.css">
+<script src="../../lib/vendor/datatable-1.10.10/datatables.min.js"></script>
+<script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
+<script>
+ $(document).ready(function() {
+     $('#example').DataTable();
+ } );
+</script>
+
+
+<!-- ------------------------------ datepicler --------------------------------- -->
+<link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">w
+<script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
+<script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
+<script>
+ $('.datapicker-simple').fdatepicker({
+     format: 'dd-mm-yyyy'
+     , language: 'es'
+     , weekStart: 1
+ });
+</script>
+<div class="input-group">
+  <input class="datapicker-simple no-margin" type="text" readonly="">
+  <i class="input-group-label fi-calendar size-24"></i>
+</div>
