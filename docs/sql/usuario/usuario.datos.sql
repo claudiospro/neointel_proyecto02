@@ -1,15 +1,26 @@
-INSERT INTO usu_usuario (id, login, pwd) VALUES
-(1, 'crodriguez', '$4M4mpfilkNnU'),
-(2, 'jperez1', '$4M4mpfilkNnU'),
-(3, 'jperez2', '$4M4mpfilkNnU'),
-(4, 'jperez3', '$4M4mpfilkNnU'),
-(5, 'jperez4', '$4M4mpfilkNnU')
+INSERT INTO campania (id, nombre) VALUES
+(1, 'Campania 01'),
+(2, 'Campania 02')
 ;
 
-INSERT INTO usu_lineal (id, nombre) VALUES
-(1, 'Lineal 01'),
-(2, 'Lineal 02'),
-(3, 'Lineal 03')
+INSERT INTO lineal (id, nombre, supervisor_id) VALUES
+(1, 'Lineal 01', 4),
+(2, 'Lineal 02', 0),
+(3, 'Lineal 03', 0)
+;
+
+INSERT INTO campania_lineal (id, campania_id, lineal_id) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 2, 3)
+;
+
+INSERT INTO usu_usuario (id, nombre, login, pwd) VALUES
+(1, 'claudio rodriguez', 'crodriguez', '$4M4mpfilkNnU'),
+(2, 'juan perez 1', 'jperez1', '$4M4mpfilkNnU'),
+(3, 'juan perez 2', 'jperez2', '$4M4mpfilkNnU'),
+(4, 'juan perez 3', 'jperez3', '$4M4mpfilkNnU'),
+(5, 'juan perez 4', 'jperez4', '$4M4mpfilkNnU')
 ;
 
 INSERT INTO usu_perfil (id, nombre) VALUES

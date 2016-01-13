@@ -20,10 +20,6 @@
 
 <?php ob_start() ?>
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
-<div class="input-group">
-  <input class="datapicker-simple no-margin" type="text" readonly="">
-  <i class="input-group-label fi-calendar size-24"></i>
-</div>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>

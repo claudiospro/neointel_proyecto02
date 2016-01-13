@@ -10,17 +10,12 @@
 
 
 <!-- ------------------------------ datepicler --------------------------------- -->
-<link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">w
+<link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
 <script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
-<script>
- $('.datapicker-simple').fdatepicker({
-     format: 'dd-mm-yyyy'
-     , language: 'es'
-     , weekStart: 1
- });
-</script>
-<div class="input-group">
-  <input class="datapicker-simple no-margin" type="text" readonly="">
-  <i class="input-group-label fi-calendar size-24"></i>
+<script src="../../static/ventas/ventas_datapicker.js"></script>
+
+<div class="input-group datapicker-simple">
+  <input type="text" readonly="" class="no-margin">
+  <a class="input-group-label" title="Limpiar"><i class="fi-calendar size-24"></i></a>
 </div>

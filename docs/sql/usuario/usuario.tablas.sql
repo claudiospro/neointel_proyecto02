@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS usu_lineal;
-CREATE TABLE usu_lineal (
+DROP TABLE IF EXISTS campania;
+CREATE TABLE campania (
    info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    info_create_user INT DEFAULT 1,
    info_update TIMESTAMP,
@@ -13,8 +13,38 @@ CREATE TABLE usu_lineal (
 ) ENGINE = MYISAM
 ;
 
-DROP TABLE IF EXISTS usu_lineal_history;
-CREATE TABLE usu_lineal_history (
+DROP TABLE IF EXISTS campania_history;
+CREATE TABLE campania_history (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id INT NOT NULL AUTO_INCREMENT,
+   history_id INT,
+   nombre TEXT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+
+DROP TABLE IF EXISTS lineal;
+CREATE TABLE lineal (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_update TIMESTAMP,
+   info_update_user INT,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id INT NOT NULL AUTO_INCREMENT,
+   nombre TEXT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS lineal_history;
+CREATE TABLE lineal_history (
    info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    info_create_user INT DEFAULT 1,
    info_status TINYINT(1) DEFAULT 1,
@@ -22,6 +52,37 @@ CREATE TABLE usu_lineal_history (
    id INT NOT NULL AUTO_INCREMENT,
    history_id BIGINT,
    nombre TEXT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS campania_lineal;
+CREATE TABLE campania_lineal (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_update TIMESTAMP,
+   info_update_user INT,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   lineal_id INT,
+   campania_id INT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS campania_lineal_history;
+CREATE TABLE campania_lineal_history (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   history_id BIGINT,
+   lineal_id INT,
+   campania_id INT,
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM

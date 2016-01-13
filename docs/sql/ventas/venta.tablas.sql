@@ -77,6 +77,7 @@ CREATE TABLE ven_producto (
    --
    id BIGINT NOT NULL AUTO_INCREMENT,
    nombre VARCHAR(500),
+   campania_id BIGINT,
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
@@ -91,6 +92,7 @@ CREATE TABLE ven_producto_history (
    id BIGINT NOT NULL AUTO_INCREMENT,
    history_id BIGINT,
    nombre VARCHAR(500),
+   campania_id BIGINT,
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
@@ -170,6 +172,37 @@ CREATE TABLE ven_localidad_history (
 ) ENGINE = MYISAM
 ;
 
+DROP TABLE IF EXISTS ven_direccion;
+CREATE TABLE ven_direccion (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_update TIMESTAMP,
+   info_update_user INT,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   nombre VARCHAR(400),
+   localidad_id BIGINT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS ven_direccion_history;
+CREATE TABLE ven_direccion_history (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   history_id BIGINT,
+   nombre VARCHAR(400),
+   localidad_id BIGINT,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
 DROP TABLE IF EXISTS ven_venta;
 CREATE TABLE ven_venta (
    info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -179,9 +212,10 @@ CREATE TABLE ven_venta (
    info_status TINYINT(1) DEFAULT 1,
    --
    id BIGINT NOT NULL AUTO_INCREMENT,
+   estado_id BIGINT,
    cliente_id BIGINT,
    alta_nueva VARCHAR(300),
-   direccion TEXT,
+   direccion_id BIGINT,
    localidad_id BIGINT,
    provincia_id BIGINT,
    codigo_postal VARCHAR(50),
@@ -190,7 +224,12 @@ CREATE TABLE ven_venta (
    producto_id BIGINT,
    observaciones TEXT,
    asesor_comercial_id BIGINT,
+   tramitacion_id BIGINT,
+   supervisor_id BIGINT,
+   fecha_agendada TIMESTAMP,
    fecha_venta TIMESTAMP,
+   fecha_instalacion TIMESTAMP,
+   fecha_cancelacion TIMESTAMP,
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
@@ -203,10 +242,11 @@ CREATE TABLE ven_venta_history (
    info_status TINYINT(1) DEFAULT 1,
    --
    id BIGINT NOT NULL AUTO_INCREMENT,
+   estado_id BIGINT,
    history_id BIGINT,
    cliente_id BIGINT,
    alta_nueva VARCHAR(300),
-   direccion TEXT,
+   direccion_id BIGINT,
    localidad_id BIGINT,
    provincia_id BIGINT,
    codigo_postal VARCHAR(50),
@@ -215,7 +255,12 @@ CREATE TABLE ven_venta_history (
    producto_id BIGINT,
    observaciones TEXT,
    asesor_comercial_id BIGINT,
+   tramitacion_id BIGINT,
+   supervisor_id BIGINT,
+   fecha_agendada TIMESTAMP,
    fecha_venta TIMESTAMP,
+   fecha_instalacion TIMESTAMP,
+   fecha_cancelacion TIMESTAMP,   
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
