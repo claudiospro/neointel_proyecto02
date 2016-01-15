@@ -1,9 +1,13 @@
-INSERT INTO cliente(id, nombre, documento, documento_tipo, correo)
-VALUES(1, 'Juan Perez', '777777777', 'nif', 'correo@gmail.com')
+INSERT INTO cliente_nacionalidad(id, nombre)
+VALUES(1, 'Española')
 ;
 
-INSERT INTO cliente_telefono(id, cliente_id, numero, tipo)
-VALUES(1, 1, '999 999 999', 'movil')
+INSERT INTO cliente_documento_tipo(id, nombre)
+VALUES(1, 'NIF')
+;
+
+INSERT INTO cliente(id, nombre, documento, documento_tipo_id, fecha_nacimiento, nacionalidad_id, correo)
+VALUES(1, 'Juan Perez', '777777777', 1, '1986-12-21', 1, 'correo@gmail.com')
 ;
 
 INSERT INTO ven_producto(id, nombre, campania_id)

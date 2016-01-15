@@ -3,10 +3,10 @@ INSERT INTO campania (id, nombre) VALUES
 (2, 'Campania 02')
 ;
 
-INSERT INTO lineal (id, nombre, supervisor_id) VALUES
-(1, 'Lineal 01', 4),
-(2, 'Lineal 02', 0),
-(3, 'Lineal 03', 0)
+INSERT INTO lineal (id, nombre) VALUES
+(1, 'Lineal 01'),
+(2, 'Lineal 02'),
+(3, 'Lineal 03')
 ;
 
 INSERT INTO campania_lineal (id, campania_id, lineal_id) VALUES
@@ -26,7 +26,7 @@ INSERT INTO usu_usuario (id, nombre, login, pwd) VALUES
 INSERT INTO usu_perfil (id, nombre) VALUES
 (1, 'Admin'),
 (2, 'Gerencia'),
-(3, 'Enlace'),
+(3, 'Tramitacion'),
 (4, 'Supervisor'),
 (5, 'Asesor Comercial')
 ;

@@ -7,4 +7,4 @@ ModeloAuten::user_log('Ventas', '../autentificacion/index.php');
 
 
 
-require 'vista/listado_1.tpl.php';
+require 'vista/listado.tpl.php';

@@ -1,3 +1,61 @@
+DROP TABLE IF EXISTS cliente_nacionalidad;
+CREATE TABLE cliente_nacionalidad (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_update TIMESTAMP,
+   info_update_user INT,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   nombre VARCHAR(600) NULL,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS cliente_nacionalidad_history;
+CREATE TABLE cliente_nacionalidad_history (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   history_id BIGINT,
+   nombre VARCHAR(600) NULL,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS cliente_documento_tipo;
+CREATE TABLE cliente_documento_tipo (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_update TIMESTAMP,
+   info_update_user INT,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   nombre VARCHAR(600) NULL,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
+DROP TABLE IF EXISTS cliente_documento_tipo_history;
+CREATE TABLE cliente_documento_tipo_history (
+   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   info_create_user INT DEFAULT 1,
+   info_status TINYINT(1) DEFAULT 1,
+   --
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   history_id BIGINT,
+   nombre VARCHAR(600) NULL,
+   --        
+   PRIMARY KEY (id) 
+) ENGINE = MYISAM
+;
+
 DROP TABLE IF EXISTS cliente;
 CREATE TABLE cliente (
    info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -9,7 +67,9 @@ CREATE TABLE cliente (
    id BIGINT NOT NULL AUTO_INCREMENT,
    nombre VARCHAR(600) NULL,
    documento VARCHAR(100) NULL,
-   documento_tipo VARCHAR(50) NULL,
+   documento_tipo_id BIGINT,
+   fecha_nacimiento VARCHAR(50),
+   nacionalidad_id BIGINT,
    correo TEXT NULL,
    --        
    PRIMARY KEY (id) 
@@ -26,46 +86,14 @@ CREATE TABLE cliente_history (
    history_id BIGINT NULL,
    nombre VARCHAR(600) NULL,
    documento VARCHAR(100) NULL,
-   documento_tipo VARCHAR(50) NULL,
+   documento_tipo_id BIGINT,
+   fecha_nacimiento TIMESTAMP,
+   nacionalidad_id BIGINT,
    correo TEXT NULL,
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
 ;
-
-DROP TABLE IF EXISTS cliente_telefono;
-CREATE TABLE cliente_telefono (
-   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   info_create_user INT DEFAULT 1,
-   info_update TIMESTAMP,
-   info_update_user INT,
-   info_status TINYINT(1) DEFAULT 1,
-   --
-   id BIGINT NOT NULL AUTO_INCREMENT,
-   cliente_id BIGINT,
-   numero VARCHAR(200),
-   tipo VARCHAR(30),
-   --        
-   PRIMARY KEY (id) 
-) ENGINE = MYISAM
-;
-
-DROP TABLE IF EXISTS cliente_telefono_history;
-CREATE TABLE cliente_telefono_history (
-   info_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   info_create_user INT DEFAULT 1,
-   info_status TINYINT(1) DEFAULT 1,
-   --
-   id BIGINT NOT NULL AUTO_INCREMENT,
-   history_id BIGINT,
-   cliente_id BIGINT,
-   numero VARCHAR(200),
-   tipo VARCHAR(30),
-   --        
-   PRIMARY KEY (id) 
-) ENGINE = MYISAM
-;
-
 
 DROP TABLE IF EXISTS ven_producto;
 CREATE TABLE ven_producto (
