@@ -1,6 +1,7 @@
 INSERT INTO campania (id, nombre) VALUES
-(1, 'Campania 01'),
-(2, 'Campania 02')
+(1, 'Canal +'),
+(2, 'Movistar Fusión'),
+(3, 'Ono-Vodafon')
 ;
 
 INSERT INTO lineal (id, nombre) VALUES
