@@ -8,6 +8,7 @@ CREATE TABLE campania (
    --
    id INT NOT NULL AUTO_INCREMENT,
    nombre TEXT,
+   indice VARCHAR(20),
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM
@@ -22,6 +23,7 @@ CREATE TABLE campania_history (
    id INT NOT NULL AUTO_INCREMENT,
    history_id INT,
    nombre TEXT,
+   indice VARCHAR(20),
    --        
    PRIMARY KEY (id) 
 ) ENGINE = MYISAM

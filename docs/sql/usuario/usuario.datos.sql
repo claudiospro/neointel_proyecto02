@@ -1,7 +1,7 @@
-INSERT INTO campania (id, nombre) VALUES
-(1, 'Canal +'),
-(2, 'Movistar Fusión'),
-(3, 'Ono-Vodafon')
+INSERT INTO campania (id, nombre, indice) VALUES
+(1, 'Canal +', 'campania_002'),
+(2, 'Movistar Fusión', 'campania_003'),
+(3, 'Ono-Vodafon', 'campania_001')
 ;
 
 INSERT INTO lineal (id, nombre) VALUES

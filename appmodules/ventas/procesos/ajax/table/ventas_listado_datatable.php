@@ -10,7 +10,10 @@ $sql_columns= "
   ve.info_create
 , ve.fecha_venta
 , ve.fecha_instalacion
-, TIMESTAMPDIFF(DAY, '" . date('Y-m-d'). "', ve.fecha_instalacion) dias_instalacion
+, IF(ve.estado_id=2,      
+    ''
+  , TIMESTAMPDIFF(DAY, '" . date('Y-m-d'). "', ve.fecha_instalacion)
+  ) dias_instalacion
 , es.nombre estado_nombre
 , su.nombre supervisor_nombre
 , tr.nombre tramitacion_nombre

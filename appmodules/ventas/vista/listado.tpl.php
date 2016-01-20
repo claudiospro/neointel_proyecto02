@@ -1,5 +1,5 @@
 <?php
-$title = 'Ventas';
+$title = 'Ventas Listado';
 $prefix = 'venta_listado_';
 ?>
 
