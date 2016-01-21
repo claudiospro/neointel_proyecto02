@@ -18,6 +18,7 @@
     <script src="../../lib/vendor/foundation-6/js/vendor/jquery.min.js"></script>
     <script src="../../lib/vendor/foundation-6/js/foundation.min.js"></script>
     <script src="../../lib/vendor/foundation-6/js/app.js"></script>
+    <script src="../../lib/main/reutilizables.js "></script>
     <?php if(isset($js)) echo $js ?>
   </body>
 </html>

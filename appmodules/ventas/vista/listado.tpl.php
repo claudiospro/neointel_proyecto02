@@ -21,6 +21,19 @@ $prefix = 'venta_listado_';
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
+    <!-- <tr> -->
+    <!--   <td>0</td> -->
+    <!--   <td>1</td> -->
+    <!--   <td>2</td> -->
+    <!--   <td>3</td> -->
+    <!--   <td>4</td> -->
+    <!--   <td>5</td> -->
+    <!--   <td>6</td> -->
+    <!--   <td>7</td> -->
+    <!--   <td>8</td> -->
+    <!--   <td>9</td> -->
+    <!--   <td>10</td> -->
+    <!-- </tr> -->
     <tr>
       <td><input class="no-margin search-input-text" data-column="0" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="1" type="text"></td>
@@ -32,30 +45,30 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="7" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="8" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="9" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
       <td></td>      
     </tr>
     <tr>
-      <th>Fecha de Creación</th>
-      <th>Fecha de Venta</th>
-      <th>Fecha Instalada</th>
-      <th>Días para Instalar</th>
-      <th>Estado</th>
-      <th>Supervisor</th>
-      <th>Tramitación</th>
-      <th>Acesor Comercial</th>
-      <th>Teléfono Fijo</th>
-      <th>Cliente</th>
-      <th>Documento</th>
-      <th>Producto</th>
       <th>Campaña</th>
+      <th>Producto</th>
+      <th>Cliente</th>
+      <th>Estado</th>
+      <th>Ultima Fecha</th>
+      <th>Fecha Instalada</th>
+      <th>Asesor de Venta</th>
+      <th>Tramitación</th>
+      <th>Supervisor</th>
+      <th>Coordinador</th>      
       <th>Acciones</th>
     </tr>
   </thead>
 </table>
-
+<div class="reveal" id="<?php echo $prefix ?>modal_div" data-reveal>
+  <div class="ajax">
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>

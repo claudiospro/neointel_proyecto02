@@ -66,11 +66,14 @@ class ModeloAuten {
             if ($data) {
                 $lineas = ' ';
                 foreach ($data as $row) {
-                    $lineas .= ' ' . $row['linea'];
+                    if ($lineas != ' ') {
+                        $lineas .= ', ';    
+                    }
+                    $lineas .= $row['linea'];
                 }
                 $_SESSION["lineas"] = $lineas;
             } else {
-                $_SESSION["lineas"] = ' All';
+                $_SESSION["lineas"] = '';
             }
             $q->fields = array('perfil' => '');
             $q->sql = '

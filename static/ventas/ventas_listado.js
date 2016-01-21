@@ -4,7 +4,7 @@ $(document).ready(function() {
     var prefixClass = '.venta_listado_';
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
-    ubigeo_direcciones_tabla ();
+    venta_listado_tabla();
     
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
@@ -19,23 +19,25 @@ $(document).ready(function() {
             }
         }
     });
-    // $(prefixId+'').on('click', function () {
-    //     ubigeo_tree_list_a_edit_save();
-    // });
+    $(prefixId+'tabla').on('click', '.view', function (event) {
+        venta_listado_modal_link($(this));
+    });
 
     // ---------------------------------------------------------- FUNCIONES
-    function ubigeo_direcciones_tabla () {
+    function venta_listado_tabla() {
         var enviar = {
             'perfil': $(prefixId+'perfiles').val()
         };
         var ver = [];
 
-        if(enviar.perfil == 'Tramitacion') {
-            ver = [6];
+        if(enviar.perfil == 'Asesor Comercial') {
+            ver = [6, 7, 8, 9];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [5];
-        } else if(enviar.perfil == 'Asesor Comercial') {
-             ver = [5, 6, 7];
+            ver = [8, 9];
+        } else if(enviar.perfil == 'Tramitacion') {
+            ver = [7, 9];
+        } else {
+             ver = [];
         }
         dataTable_listado = $(prefixId+'tabla').DataTable({
             "processing" : true,
@@ -49,9 +51,9 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 50,
-            "order"      : [ 0, 'desc' ],
+            "order"      : [ 4, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 13 ], 'bSortable': false },
+                { 'aTargets': [ 10 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 
@@ -61,5 +63,17 @@ $(document).ready(function() {
             },
         });
         $(prefixId+'tabla_filter').hide();
+    }
+    function venta_listado_modal_link(item) {
+        var enviar = {
+            'campania': item.attr('campania'),
+            'venta_id': item.attr('venta_id'),
+        }
+        // c(enviar);
+        element_simple(
+            './procesos/ajax/click/ventas_listado_view_modal.php',
+            prefixId+'modal_div .ajax',
+            enviar
+        );
     }
 });

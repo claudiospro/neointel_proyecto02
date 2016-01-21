@@ -6,62 +6,65 @@ $cnn= new DBConnector_Alternative();
 
 $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->dbname) or die("Connection failed: " . mysqli_connect_error());
 
-$sql_columns= "
-  ve.info_create
-, ve.fecha_venta
-, ve.fecha_instalacion
-, IF(ve.estado_id=2,      
-    ''
-  , TIMESTAMPDIFF(DAY, '" . date('Y-m-d'). "', ve.fecha_instalacion)
-  ) dias_instalacion
-, es.nombre estado_nombre
-, su.nombre supervisor_nombre
-, tr.nombre tramitacion_nombre
-, ac.nombre asesor_comercial_nombre
-, 'ddd' telefono_fijo
-, cl.nombre cliente_nombre
-, cl.documento cliente_documento
-, pr.nombre producto_nombre
-, ca.nombre campania_nombre
+
+session_start();
+$perfiles = trim($_SESSION['perfiles']);
+$sql_usuario = '';
+if ($_SESSION['lineas'] != '') {
+    $sql_usuario.= 'AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
+} 
+if ($perfiles=='Asesor Comercial') {
+    $sql_usuario.= ' AND v.asesor_venta_id="' . $_SESSION['user_id'] . '"';
+}
+
+
+$sql = 'SELECT indice FROM campania WHERE info_status=1';
+$query=mysqli_query($conn, $sql) or die("00");
+$sql_ini='';
+while( $row=mysqli_fetch_array($query) ) {
+    if ($sql_ini!='') {
+        $sql_ini.= ' UNION ';
+    }
+    $sql_ini.= "
+SELECT
+  d1.nombre campania_nombre
+, d2.nombre producto
+, d.cliente_nombre
+, d3.nombre estado
+, v.info_update_fecha fecha_actualizacion
+, d.fecha_instalada
+, d4.nombre asesor_venta
+, d5.nombre tramitacion
+, d6.nombre supervisor
+, d7.nombre coordinador
 --
-, ve.id venta_id
-, ve.estado_id
-, ve.asesor_comercial_id
-, ve.tramitacion_id
-, ve.supervisor_id
-";
+, v.id venta_id
+, v.campania
+FROM venta v
+JOIN  venta_".$row['indice']." d
+-- definiciones
+LEFT JOIN campania d1 ON d1.indice=v.campania
+LEFT JOIN venta_producto d2 ON d2.id=d.producto
+LEFT JOIN venta_estado d3 ON d3.id=d.estado
+LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
+LEFT JOIN usu_usuario d5 ON d5.id=v.tramitacion_id
+LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
+LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
+WHERE v.campania = '".$row['indice']."'
+  " . $sql_usuario . "
+"
+        ;
+    
+}
+
 
 $sql_ini = "
 SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
-  SELECT
-  " . $sql_columns . "
-FROM ven_venta ve
-LEFT JOIN ven_estado es ON es.id=ve.estado_id
-LEFT JOIN cliente cl ON cl.id=ve.cliente_id
-LEFT JOIN ven_producto pr ON pr.id=ve.producto_id
-LEFT JOIN campania ca ON ca.id=pr.campania_id
-LEFT JOIN usu_usuario ac ON ac.id=ve.asesor_comercial_id
-LEFT JOIN usu_usuario tr ON tr.id=ve.tramitacion_id
-LEFT JOIN usu_usuario su ON su.id=ve.supervisor_id
+" . $sql_ini . "
 ) unido, (SELECT @rownum:=0) R
 WHERE 1=1
 ";
 
-
-/*
-, ve.
-, ve.
-, ve.
-*/
-session_start();
-$perfiles = trim($_SESSION['perfiles']);
-if ($perfiles=='Tramitacion') {
-    $sql_ini.= ' AND tramitacion_id="' . $_SESSION['user_id'] . '"';
-} elseif ($perfiles=='Supervisor') {
-    $sql_ini.= ' AND supervisor_id="' . $_SESSION['user_id'] . '"';
-} elseif ($perfiles=='Asesor Comercial') {
-    $sql_ini.= ' AND asesor_comercial_id="' . $_SESSION['user_id'] . '"';
-}
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
@@ -69,8 +72,9 @@ $requestData= $_REQUEST;
 
 // getting total number records without any search
 $sql = $sql_ini;
+// echo $sql;
 $query=mysqli_query($conn, $sql) or die("01");
-// print $sql;
+
 
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
@@ -79,45 +83,38 @@ $sql = $sql_ini;
 
 $sql_filter = '';
 if( !empty($requestData['columns'][0]['search']['value']) ) {
-    $sql_filter.=' AND info_create LIKE "%' . $requestData['columns'][0]['search']['value'] . '%"';
+    $sql_filter.=' AND campania_nombre LIKE "%' . $requestData['columns'][0]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][1]['search']['value']) ) {
-    $sql_filter.=' AND fecha_venta LIKE "%' . $requestData['columns'][1]['search']['value'] . '%"';
+    $sql_filter.=' AND producto LIKE "%' . $requestData['columns'][1]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalacion LIKE "%' . $requestData['columns'][2]['search']['value'] . '%"';
+    $sql_filter.=' AND cliente_nombre LIKE "%' . $requestData['columns'][2]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND dias_instalacion = "' . $requestData['columns'][3]['search']['value'] . '"';
+    $sql_filter.=' AND estado LIKE "%' . $requestData['columns'][3]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(estado_nombre) LIKE "%' . strtolower($requestData['columns'][4]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . $requestData['columns'][4]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(supervisor_nombre) LIKE "%' . strtolower($requestData['columns'][5]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_instalada LIKE "%' . $requestData['columns'][5]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(tramitacion_nombre) LIKE "%' . strtolower($requestData['columns'][6]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . $requestData['columns'][6]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(asesor_comercial_nombre) LIKE "%' . strtolower($requestData['columns'][7]['search']['value']) . '%"';
+    $sql_filter.=' AND tramitacion LIKE "%' . $requestData['columns'][7]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(telefono_fijo) LIKE "%' . strtolower($requestData['columns'][8]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . $requestData['columns'][8]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(cliente_nombre) LIKE "%' . strtolower($requestData['columns'][9]['search']['value']) . '%"';
+    $sql_filter.=' AND coordinador LIKE "%' . $requestData['columns'][9]['search']['value'] . '%"';
 }
-if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(cliente_documento) LIKE "%' . strtolower($requestData['columns'][10]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(producto_nombre) LIKE "%' . strtolower($requestData['columns'][11]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND LOWER(campania_nombre) LIKE "%' . strtolower($requestData['columns'][12]['search']['value']) . '%"';
-}
-// 13 (acciones)
+
+
+// 10 (acciones)
 
 $sql.= $sql_filter;
 
@@ -145,31 +142,28 @@ $sql.= $sql_filter;
 $query=mysqli_query($conn, $sql) or die("02");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 
-$sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start']." ,".$requestData['length']." ";
+$sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start']." ,".$requestData['length']." ";// print $sql;
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 
-// print $sql;
+
 $query=mysqli_query($conn, $sql) or die("03");
 
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
-    // venta_id | estado_id | row_num |
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['info_create']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_venta']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalacion']);
-    $nestedData[] = $row['dias_instalacion'];
-    $nestedData[] = utf8_encode($row['estado_nombre']);
-    $nestedData[] = utf8_encode($row['supervisor_nombre']);
-    $nestedData[] = utf8_encode($row['tramitacion_nombre']);
-    $nestedData[] = utf8_encode($row['asesor_comercial_nombre']);
-    $nestedData[] = utf8_encode($row['telefono_fijo']);
-    $nestedData[] = utf8_encode($row['cliente_nombre']);
-    $nestedData[] = utf8_encode($row['cliente_documento']);
-    $nestedData[] = utf8_encode($row['producto_nombre']);
+
     $nestedData[] = utf8_encode($row['campania_nombre']);
-    $acciones = '<a class="button edit no-margin" codigo="'.$row['venta_id'].'" title="Editar"><i class="fi-pencil medium"></i></a>';
-    $acciones.= '<a class="button edit secondary no-margin" codigo="'.$row['venta_id'].'" title="Ver"><i class="fi-info medium"></i></a>';
+    $nestedData[] = utf8_encode($row['producto']);
+    $nestedData[] = utf8_encode($row['cliente_nombre']);
+    $nestedData[] = utf8_encode($row['estado']);
+    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
+    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
+    $nestedData[] = utf8_encode($row['asesor_venta']);
+    $nestedData[] = utf8_encode($row['tramitacion']);
+    $nestedData[] = utf8_encode($row['supervisor']);
+    $nestedData[] = utf8_encode($row['coordinador']);
+    $acciones = '<a class="button edit no-margin" codigo="'.$row['venta_id'].'" title="Editar" ><i class="fi-pencil medium"></i></a>';
+    $acciones.= '<a class="button view secondary no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
     $nestedData[] = $acciones;
 
     $data[] = $nestedData;
