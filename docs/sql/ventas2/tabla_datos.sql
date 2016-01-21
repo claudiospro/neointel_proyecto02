@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2016 at 09:28 AM
+-- Generation Time: Jan 21, 2016 at 04:30 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `neointelperu_apps2`
+-- Database: `neointelperu_apps`
 --
 
 -- --------------------------------------------------------
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `campania`
 --
 
-DROP TABLE IF EXISTS `campania`;
 CREATE TABLE `campania` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -53,7 +52,6 @@ INSERT INTO `campania` (`info_create`, `info_create_user`, `info_update`, `info_
 -- Table structure for table `campania_history`
 --
 
-DROP TABLE IF EXISTS `campania_history`;
 CREATE TABLE `campania_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -70,7 +68,6 @@ CREATE TABLE `campania_history` (
 -- Table structure for table `campania_lineal`
 --
 
-DROP TABLE IF EXISTS `campania_lineal`;
 CREATE TABLE `campania_lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -97,7 +94,6 @@ INSERT INTO `campania_lineal` (`info_create`, `info_create_user`, `info_update`,
 -- Table structure for table `campania_lineal_history`
 --
 
-DROP TABLE IF EXISTS `campania_lineal_history`;
 CREATE TABLE `campania_lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -114,7 +110,6 @@ CREATE TABLE `campania_lineal_history` (
 -- Table structure for table `lineal`
 --
 
-DROP TABLE IF EXISTS `lineal`;
 CREATE TABLE `lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -140,7 +135,6 @@ INSERT INTO `lineal` (`info_create`, `info_create_user`, `info_update`, `info_up
 -- Table structure for table `lineal_history`
 --
 
-DROP TABLE IF EXISTS `lineal_history`;
 CREATE TABLE `lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -156,7 +150,6 @@ CREATE TABLE `lineal_history` (
 -- Table structure for table `usu_perfil`
 --
 
-DROP TABLE IF EXISTS `usu_perfil`;
 CREATE TABLE `usu_perfil` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL
@@ -171,7 +164,8 @@ INSERT INTO `usu_perfil` (`id`, `nombre`) VALUES
 (2, 'Gerencia'),
 (3, 'Tramitacion'),
 (4, 'Supervisor'),
-(5, 'Asesor Comercial');
+(5, 'Asesor Comercial'),
+(6, 'Coordinador');
 
 -- --------------------------------------------------------
 
@@ -179,7 +173,6 @@ INSERT INTO `usu_perfil` (`id`, `nombre`) VALUES
 -- Table structure for table `usu_perfil_recurso`
 --
 
-DROP TABLE IF EXISTS `usu_perfil_recurso`;
 CREATE TABLE `usu_perfil_recurso` (
   `id` bigint(20) NOT NULL,
   `perfil_id` int(11) NOT NULL,
@@ -196,7 +189,8 @@ INSERT INTO `usu_perfil_recurso` (`id`, `perfil_id`, `recurso_id`) VALUES
 (3, 2, 1),
 (4, 3, 1),
 (5, 4, 1),
-(6, 5, 1);
+(6, 5, 1),
+(7, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -204,7 +198,6 @@ INSERT INTO `usu_perfil_recurso` (`id`, `perfil_id`, `recurso_id`) VALUES
 -- Table structure for table `usu_recurso`
 --
 
-DROP TABLE IF EXISTS `usu_recurso`;
 CREATE TABLE `usu_recurso` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -224,7 +217,6 @@ INSERT INTO `usu_recurso` (`id`, `nombre`) VALUES
 -- Table structure for table `usu_usuario`
 --
 
-DROP TABLE IF EXISTS `usu_usuario`;
 CREATE TABLE `usu_usuario` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -244,10 +236,11 @@ CREATE TABLE `usu_usuario` (
 
 INSERT INTO `usu_usuario` (`info_create`, `info_create_user`, `info_update`, `info_update_user`, `info_status`, `id`, `nombre`, `imagen`, `login`, `pwd`) VALUES
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 1, 'claudio rodriguez', NULL, 'crodriguez', '$4M4mpfilkNnU'),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 2, 'juan perez 1', NULL, 'jperez1', '$4M4mpfilkNnU'),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 3, 'juan perez 2', NULL, 'jperez2', '$4M4mpfilkNnU'),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 4, 'juan perez 3', NULL, 'jperez3', '$4M4mpfilkNnU'),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 'juan perez 4', NULL, 'jperez4', '$4M4mpfilkNnU');
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 2, 'juan perez Gerencia', NULL, 'ger', '$4M4mpfilkNnU'),
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 3, 'juan perez Tramitacion', NULL, 'tra', '$4M4mpfilkNnU'),
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 4, 'juan perez Supervisor', NULL, 'sup', '$4M4mpfilkNnU'),
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 'juan perez Asesor de Ventas', NULL, 'ase', '$4M4mpfilkNnU'),
+('2016-01-21 17:57:34', 1, '0000-00-00 00:00:00', NULL, 1, 6, 'Juan Perez Coordinador', NULL, 'cor', '$4M4mpfilkNnU');
 
 -- --------------------------------------------------------
 
@@ -255,7 +248,6 @@ INSERT INTO `usu_usuario` (`info_create`, `info_create_user`, `info_update`, `in
 -- Table structure for table `usu_usuario_history`
 --
 
-DROP TABLE IF EXISTS `usu_usuario_history`;
 CREATE TABLE `usu_usuario_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -274,7 +266,6 @@ CREATE TABLE `usu_usuario_history` (
 -- Table structure for table `usu_usuario_lineal`
 --
 
-DROP TABLE IF EXISTS `usu_usuario_lineal`;
 CREATE TABLE `usu_usuario_lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -291,11 +282,12 @@ CREATE TABLE `usu_usuario_lineal` (
 --
 
 INSERT INTO `usu_usuario_lineal` (`info_create`, `info_create_user`, `info_update`, `info_update_user`, `info_status`, `id`, `usuario_id`, `lineal_id`) VALUES
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 1, 2, 1),
+('2016-01-21 18:01:47', 1, '0000-00-00 00:00:00', NULL, 1, 6, 6, 1),
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 2, 3, 1),
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 3, 3, 2),
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 4, 4, 1),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 5, 1);
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 5, 1),
+('2016-01-21 18:01:47', 1, '0000-00-00 00:00:00', NULL, 1, 7, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -303,7 +295,6 @@ INSERT INTO `usu_usuario_lineal` (`info_create`, `info_create_user`, `info_updat
 -- Table structure for table `usu_usuario_lineal_history`
 --
 
-DROP TABLE IF EXISTS `usu_usuario_lineal_history`;
 CREATE TABLE `usu_usuario_lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -320,7 +311,6 @@ CREATE TABLE `usu_usuario_lineal_history` (
 -- Table structure for table `usu_usuario_perfil`
 --
 
-DROP TABLE IF EXISTS `usu_usuario_perfil`;
 CREATE TABLE `usu_usuario_perfil` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -341,7 +331,8 @@ INSERT INTO `usu_usuario_perfil` (`info_create`, `info_create_user`, `info_updat
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 2, 2, 2),
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 3, 3, 3),
 ('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 4, 4, 4),
-('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 5, 5);
+('2016-01-20 19:47:48', 1, '0000-00-00 00:00:00', NULL, 1, 5, 5, 5),
+('2016-01-21 18:00:08', 1, '0000-00-00 00:00:00', NULL, 1, 6, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -349,7 +340,6 @@ INSERT INTO `usu_usuario_perfil` (`info_create`, `info_create_user`, `info_updat
 -- Table structure for table `usu_usuario_perfil_history`
 --
 
-DROP TABLE IF EXISTS `usu_usuario_perfil_history`;
 CREATE TABLE `usu_usuario_perfil_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -366,7 +356,6 @@ CREATE TABLE `usu_usuario_perfil_history` (
 -- Table structure for table `venta`
 --
 
-DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `id` bigint(20) NOT NULL,
   `info_create_fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -395,7 +384,6 @@ INSERT INTO `venta` (`id`, `info_create_fecha`, `info_create_user`, `info_update
 -- Table structure for table `venta_campania_001`
 --
 
-DROP TABLE IF EXISTS `venta_campania_001`;
 CREATE TABLE `venta_campania_001` (
   `id` bigint(20) NOT NULL,
   `cliente_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -432,7 +420,6 @@ INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `clien
 -- Table structure for table `venta_campania_001_campos`
 --
 
-DROP TABLE IF EXISTS `venta_campania_001_campos`;
 CREATE TABLE `venta_campania_001_campos` (
   `id` bigint(20) NOT NULL,
   `grupo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -478,7 +465,6 @@ INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombr
 -- Table structure for table `venta_cliente_documento_tipo`
 --
 
-DROP TABLE IF EXISTS `venta_cliente_documento_tipo`;
 CREATE TABLE `venta_cliente_documento_tipo` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
@@ -499,7 +485,6 @@ INSERT INTO `venta_cliente_documento_tipo` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_cliente_tipo`
 --
 
-DROP TABLE IF EXISTS `venta_cliente_tipo`;
 CREATE TABLE `venta_cliente_tipo` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
@@ -519,7 +504,6 @@ INSERT INTO `venta_cliente_tipo` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_direccion_nombre`
 --
 
-DROP TABLE IF EXISTS `venta_direccion_nombre`;
 CREATE TABLE `venta_direccion_nombre` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL
@@ -538,7 +522,6 @@ INSERT INTO `venta_direccion_nombre` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_direccion_tipo`
 --
 
-DROP TABLE IF EXISTS `venta_direccion_tipo`;
 CREATE TABLE `venta_direccion_tipo` (
   `id` int(11) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
@@ -558,7 +541,6 @@ INSERT INTO `venta_direccion_tipo` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_estado`
 --
 
-DROP TABLE IF EXISTS `venta_estado`;
 CREATE TABLE `venta_estado` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
@@ -586,7 +568,6 @@ INSERT INTO `venta_estado` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_localidad`
 --
 
-DROP TABLE IF EXISTS `venta_localidad`;
 CREATE TABLE `venta_localidad` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL
@@ -605,7 +586,6 @@ INSERT INTO `venta_localidad` (`id`, `nombre`) VALUES
 -- Table structure for table `venta_producto`
 --
 
-DROP TABLE IF EXISTS `venta_producto`;
 CREATE TABLE `venta_producto` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL,
@@ -625,7 +605,6 @@ INSERT INTO `venta_producto` (`id`, `nombre`, `campania`) VALUES
 -- Table structure for table `venta_provincia`
 --
 
-DROP TABLE IF EXISTS `venta_provincia`;
 CREATE TABLE `venta_provincia` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
@@ -836,12 +815,12 @@ ALTER TABLE `lineal_history`
 -- AUTO_INCREMENT for table `usu_perfil`
 --
 ALTER TABLE `usu_perfil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `usu_perfil_recurso`
 --
 ALTER TABLE `usu_perfil_recurso`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `usu_recurso`
 --
@@ -851,7 +830,7 @@ ALTER TABLE `usu_recurso`
 -- AUTO_INCREMENT for table `usu_usuario`
 --
 ALTER TABLE `usu_usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `usu_usuario_history`
 --
@@ -861,7 +840,7 @@ ALTER TABLE `usu_usuario_history`
 -- AUTO_INCREMENT for table `usu_usuario_lineal`
 --
 ALTER TABLE `usu_usuario_lineal`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `usu_usuario_lineal_history`
 --
@@ -871,7 +850,7 @@ ALTER TABLE `usu_usuario_lineal_history`
 -- AUTO_INCREMENT for table `usu_usuario_perfil`
 --
 ALTER TABLE `usu_usuario_perfil`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `usu_usuario_perfil_history`
 --
@@ -886,7 +865,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT for table `venta_campania_001_campos`
 --
 ALTER TABLE `venta_campania_001_campos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `venta_cliente_documento_tipo`
 --
