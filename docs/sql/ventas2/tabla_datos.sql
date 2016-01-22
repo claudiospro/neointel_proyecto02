@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2016 at 04:30 PM
+-- Generation Time: Jan 22, 2016 at 04:46 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -392,6 +392,7 @@ CREATE TABLE `venta_campania_001` (
   `cliente_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_nacimiento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_correo` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
+  `cuenta_bancaria` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_contacto_fijo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_contacto_movil` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `provincia` bigint(20) NOT NULL,
@@ -404,6 +405,7 @@ CREATE TABLE `venta_campania_001` (
   `direccion_puerta` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `producto` bigint(20) NOT NULL,
   `estado` bigint(20) NOT NULL,
+  `estado_observacion` text COLLATE utf8_unicode_ci NOT NULL,
   `fecha_instalada` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -411,8 +413,8 @@ CREATE TABLE `venta_campania_001` (
 -- Dumping data for table `venta_campania_001`
 --
 
-INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `cliente_documento_tipo`, `cliente_documento`, `cliente_nacimiento`, `cliente_correo`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `producto`, `estado`, `fecha_instalada`) VALUES
-(1, 'Juan Perez', 1, 1, '45460385D', '1987-10-10', 'profins@gmail.com', '959678300', '600230199\r\n', 1, 1, '28052', 1, 1, '20', '1', 'B', 1, 10, '2016-01-21 14:13:40');
+INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `cliente_documento_tipo`, `cliente_documento`, `cliente_nacimiento`, `cliente_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `producto`, `estado`, `estado_observacion`, `fecha_instalada`) VALUES
+(1, 'Juan Perez', 1, 1, '45460385D', '1987-10-10', 'profins@gmail.com', '456457457456745457', '959678300', '600230199\r\n', 1, 1, '28052', 1, 1, '20', '1', 'B', 1, 10, 'algunas observaciones', '2016-01-22 16:50:53');
 
 -- --------------------------------------------------------
 
@@ -441,23 +443,25 @@ CREATE TABLE `venta_campania_001_campos` (
 INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombre`, `etiqueta`, `orden`, `tabla`, `diccionario`, `tipo`, `perfiles`, `permisos`) VALUES
 (1, '', '', 'cliente_nombre', 'Cliente', 1, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
 (2, '', '', 'cliente_tipo', 'Tipo Cliente', 2, 'cliente', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(3, '', '', 'cliente_documento_tipo', 'Tipo de Documento', 3, 'cliente', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(4, '', '', 'cliente_documento', 'Documento', 4, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(3, 'cliente_documento', 'Documento', 'cliente_documento_tipo', 'Tipo', 3, 'cliente', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(4, 'cliente_documento', 'Documento', 'cliente_documento', 'Número', 4, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
 (5, '', '', 'cliente_nacimiento', 'Fecha de Nacimiento', 5, 'cliente', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
 (7, '', '', 'cliente_correo', 'Correo', 6, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 7, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 8, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(10, '', '', 'provincia', 'Provincia', 9, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(11, '', '', 'localidad', 'Localidad', 10, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 12, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 13, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 14, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(15, 'direccion', 'Dirección', 'direccion_piso', 'Piso', 15, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 16, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(17, '', '', 'producto', 'Producto', 17, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(18, '', '', 'estado', 'Estado', 18, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 19, 'venta', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(20, '', '', 'codigo_postal', 'Código Postal', 11, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6 ', 'w, w, w, w ,w, w');
+(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 8, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 9, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(10, '', '', 'provincia', 'Provincia', 10, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(11, '', '', 'localidad', 'Localidad', 11, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 13, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 14, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 15, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(15, 'direccion', 'Dirección', 'direccion_piso', 'Piso', 16, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 17, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(17, '', '', 'producto', 'Producto', 18, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(18, 'estado_venta', 'Estado', 'estado', 'Estado', 19, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 21, 'venta', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(20, '', '', 'codigo_postal', 'Código Postal', 12, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6 ', 'w, w, w, w ,w, w'),
+(21, '', '', 'cuenta_bancaria', 'Cuenta Bancaria', 7, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
+(22, 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 20, 'venta', 0, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w');
 
 -- --------------------------------------------------------
 
@@ -865,7 +869,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT for table `venta_campania_001_campos`
 --
 ALTER TABLE `venta_campania_001_campos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `venta_cliente_documento_tipo`
 --
