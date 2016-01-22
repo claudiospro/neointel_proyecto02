@@ -36,6 +36,8 @@ $(document).ready(function() {
             ver = [8, 9];
         } else if(enviar.perfil == 'Tramitacion') {
             ver = [7, 9];
+        } else if(enviar.perfil == 'Coordinador') {
+            ver = [9];
         } else {
              ver = [];
         }

@@ -162,8 +162,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['tramitacion']);
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
-    $acciones = '<a class="button edit no-margin" codigo="'.$row['venta_id'].'" title="Editar" ><i class="fi-pencil medium"></i></a>';
-    $acciones.= '<a class="button view secondary no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
+    $acciones = '<a class="button view no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar / Ver" ><i class="fi-pencil medium"></i></a>';
     $nestedData[] = $acciones;
 
     $data[] = $nestedData;

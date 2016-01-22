@@ -217,6 +217,11 @@ class Utilidades {
         );
         return $string;
     }
+    static function printr($in) {
+        echo '<pre style="border:1px solid">';
+        print_r($in);
+        echo '</pre>';
+    }
 }
 
     

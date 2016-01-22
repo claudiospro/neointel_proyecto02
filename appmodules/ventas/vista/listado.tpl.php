@@ -19,6 +19,24 @@ $prefix = 'venta_listado_';
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
 <?php // print_r($_SESSION) ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
+<div class="text-right">
+  <a class="button success no-margin"
+     title="Añadir"
+     data-open="venta_listado_modal_div"
+     venta_id="0"
+     campania=""
+  ><i class="fi-plus"></i></a>
+</div>
+
+<div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal>
+  <div class="ajax">
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
     <!-- <tr> -->
@@ -62,13 +80,6 @@ $prefix = 'venta_listado_';
     </tr>
   </thead>
 </table>
-<div class="reveal" id="<?php echo $prefix ?>modal_div" data-reveal>
-  <div class="ajax">
-  </div>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>
