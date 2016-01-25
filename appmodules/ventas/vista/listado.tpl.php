@@ -5,12 +5,17 @@ $prefix = 'venta_listado_';
 
 <?php ob_start() ?>
 <link rel="stylesheet" href="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/css/dataTables.foundation.min.css">
+
+<link rel="stylesheet" href="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css">
+
+<link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
 <?php $css = ob_get_clean() ?>
 
 
 <?php ob_start() ?>
 <script src="../../lib/vendor/datatable-1.10.10/datatables.min.js"></script>
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
+
 <script src="../../static/ventas/ventas_listado.js"></script>
 <?php $js = ob_get_clean() ?>
 
@@ -19,13 +24,22 @@ $prefix = 'venta_listado_';
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
 <?php // print_r($_SESSION) ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
-<div class="text-right">
-  <a class="button success no-margin"
-     title="Añadir"
-     data-open="venta_listado_modal_div"
-     venta_id="0"
-     campania=""
-  ><i class="fi-plus"></i></a>
+<div class="row">
+  <div class="large-1 columns">
+    <a id="<?php echo $prefix ?>add"
+       class="button success no-margin"     
+       data-open="venta_listado_modal_div"
+       title="Añadir"
+       venta_id="0"
+       campania=""
+    ><i class="fi-plus"></i>
+    </a>
+  </div>
+  <div class="large-11 columns">
+    <select id="<?php echo $prefix ?>campanias">
+    </select>
+  </div>  
+
 </div>
 
 <div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal>

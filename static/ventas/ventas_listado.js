@@ -5,7 +5,7 @@ $(document).ready(function() {
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
     venta_listado_tabla();
-    
+    venta_listado_campanias();
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
@@ -22,6 +22,7 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('click', '.view', function (event) {
         venta_listado_modal_link($(this));
     });
+
 
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
@@ -75,6 +76,14 @@ $(document).ready(function() {
         element_simple(
             './procesos/ajax/click/ventas_listado_view_modal.php',
             prefixId+'modal_div .ajax',
+            enviar
+        );
+    }
+    function venta_listado_campanias() {
+        var enviar = {}
+        element_simple(
+            './procesos/ajax/select/ventas_listado_campanias_onload.php',
+            prefixId+'campanias',
             enviar
         );
     }

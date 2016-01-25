@@ -19,3 +19,9 @@
     margin: 0 0 0.4em;
     padding: 0.5em;
 }
+.autocomplete.active {
+    background-color: #cef4ce;
+}
+.ui-autocomplete {
+    z-index: 9999;
+}

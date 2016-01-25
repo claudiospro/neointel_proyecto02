@@ -75,9 +75,9 @@ class ModeloAuten {
             } else {
                 $_SESSION["lineas"] = '';
             }
-            $q->fields = array('perfil' => '');
+            $q->fields = array('id' => '', 'perfil' => '');
             $q->sql = '
-            SELECT p.nombre
+            SELECT p.id, p.nombre
             FROM usu_usuario u
             LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
             LEFT JOIN usu_perfil p ON p.id=up.perfil_id
@@ -87,11 +87,14 @@ class ModeloAuten {
             $data = $q->exe();
             // var_dump($data);
             if ($data) {
-                $perfiles = ' ';
+                $perfiles = '';
+              $perfiles_id = '';
                 foreach ($data as $row) {
                     $perfiles .= ' ' . $row['perfil'];
+                    $perfiles_id .= ' ' . $row['id'];
                 }
                 $_SESSION["perfiles"] = $perfiles;
+                $_SESSION["perfiles_id"] = trim($perfiles_id);
             }            
         }
     }
