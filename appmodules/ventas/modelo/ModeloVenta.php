@@ -55,39 +55,54 @@ class ModeloVenta {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
                 $ou = '<input name="' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP') {
-                $ou = '<div class="input-group datapicker-simple">
+                $ou = '<div class="input-group datapicker-simple no-margin">
                           <input name="' . $campo['nombre'] . '" type="text" class="no-margin" value="' . substr($ou, 0, 10) . '" readonly>
                           <a class="input-group-label" title="Limpiar"><i class="fi-calendar size-24"></i></a>
-                         </div>
-                        ';
+                       </div>
+                      ';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP-VARCHAR') {
-                $ou = '<div class="input-group">
+                $ou = '<div class="input-group no-margin">
                           <input name="' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $ou . '" >
                           <i class="input-group-label fi-calendar size-24"></i>
                          </div>
                         ';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TEXT') {
-                $ou = '<textarea name="' . $campo['nombre'] . '" rows="2">' . $ou . '</textarea>
+                $ou = '<textarea name="' . $campo['nombre'] . '" class="no-margin" rows="2">' . $ou . '</textarea>
                         ';
             } elseif ($campo['diccionario']=='1') {
-                $this->q->fields = array('nombre' => '');
-                $this->q->sql = '
-                SELECT nombre FROM venta_' . $campo['nombre'] . ' WHERE id="' . $dato . '"';
-                // echo $this->q->sql;        
-                $this->q->data = NULL;
-                $data = $this->q->exe();
-                $data = $data[0]['nombre'];
-                $ou = '<input name="' . $campo['nombre'] . '" 
+                if ($dato == '') {
+                    $ou = '<input name="' . $campo['nombre'] . '_id" 
+                              type="hidden"
+                              value="0">
+                           <input name="' . $campo['nombre'] . '" 
+                              type="text" 
+                              class="autocomplete no-margin" 
+                              campo="' . $campo['nombre'] . '" 
+                              value="">';
+                } else {
+                    $this->q->fields = array('nombre' => '');
+                    $this->q->sql = '
+                    SELECT nombre FROM venta_' . $campo['nombre'] . ' WHERE id="' . $dato . '"';
+                    // echo $this->q->sql;        
+                    $this->q->data = NULL;
+                    $data = $this->q->exe();
+                    $data = $data[0]['nombre'];
+                    $ou = '<input name="' . $campo['nombre'] . '"
+                              type="hidden"
+                              value="' . $dato . '">
+                           <input name="' . $campo['nombre'] . '_value" 
                               type="text" 
                               class="autocomplete no-margin active" 
                               campo="' . $campo['nombre'] . '" 
                               value="' . utf8_encode($data) . '">';
+                }
+
             } elseif ($campo['diccionario']=='2') {
-                $ou = '<select name="' . $campo['nombre'] . '">';
+                $ou = '<select name="' . $campo['nombre'] . '" class="no-margin">';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $this->q->sql = '
-                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1';
+                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ORDER BY 2';
                 // echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
@@ -101,10 +116,10 @@ class ModeloVenta {
                 }
                 $ou.= '</select>';
             } elseif ($campo['diccionario']=='3') {
-                $ou = '<select name="' . $campo['nombre'] . '">';
+                $ou = '<select name="' . $campo['nombre'] . '" class="no-margin">';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $this->q->sql = '
-                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '"';
+                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
                 // echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
@@ -139,6 +154,23 @@ class ModeloVenta {
         }
         return $ou;
     }
+    function sqlCampo($dato, $campo, $tipo) {
+        $ou = '';
+        $perfiles = explode(', ', trim($campo['perfiles']));
+        $permisos = explode(', ', trim($campo['permisos']));
+        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+        
+        if ($permiso == 'w') {
+            if ($tipo == 'insert') {
+                $ou['campos'] = $campo['nombre'];
+                $ou['valores'] = '"' . $dato . '"';
+            } elseif($tipo == 'update') {
+                $ou = $campo['nombre'] . '="' . $dato . '"';
+            }            
+        }
+
+        return $ou;            
+    }
     //
     function getCampaniaActivas() {
         $this->q->fields = array(
@@ -154,5 +186,21 @@ class ModeloVenta {
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
+    }
+    //
+    function getAutoComplete($in) {
+        $this->q->fields = array(
+            'termino' => '',
+        );
+        $this->q->sql = '
+        SELECT nombre FROM venta_' . $in['campo'] . '
+        WHERE info_status = 1 AND nombre LIKE "%' . $in['termino'] . '%"
+        ORDER BY 1
+        LIMIT 15
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;        
     }
 }

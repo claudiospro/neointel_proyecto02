@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 22, 2016 at 04:46 PM
+-- Generation Time: Jan 26, 2016 at 03:32 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -432,8 +432,8 @@ CREATE TABLE `venta_campania_001_campos` (
   `tabla` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `diccionario` tinyint(2) NOT NULL,
   `tipo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `perfiles` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `permisos` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'w, w, w, w ,w, w'
+  `perfiles` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '1, 2, 3, 4, 5, 6',
+  `permisos` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'w, w, w, w, w, w'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -441,27 +441,27 @@ CREATE TABLE `venta_campania_001_campos` (
 --
 
 INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombre`, `etiqueta`, `orden`, `tabla`, `diccionario`, `tipo`, `perfiles`, `permisos`) VALUES
-(1, '', '', 'cliente_nombre', 'Cliente', 1, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(2, '', '', 'cliente_tipo', 'Tipo Cliente', 2, 'cliente', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(3, 'cliente_documento', 'Documento', 'cliente_documento_tipo', 'Tipo', 3, 'cliente', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(4, 'cliente_documento', 'Documento', 'cliente_documento', 'Número', 4, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(5, '', '', 'cliente_nacimiento', 'Fecha de Nacimiento', 5, 'cliente', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(7, '', '', 'cliente_correo', 'Correo', 6, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 8, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 9, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(10, '', '', 'provincia', 'Provincia', 10, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(11, '', '', 'localidad', 'Localidad', 11, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 13, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 14, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 15, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(15, 'direccion', 'Dirección', 'direccion_piso', 'Piso', 16, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 17, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(17, '', '', 'producto', 'Producto', 18, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(18, 'estado_venta', 'Estado', 'estado', 'Estado', 19, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 21, 'venta', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(20, '', '', 'codigo_postal', 'Código Postal', 12, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6 ', 'w, w, w, w ,w, w'),
-(21, '', '', 'cuenta_bancaria', 'Cuenta Bancaria', 7, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w'),
-(22, 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 20, 'venta', 0, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w ,w, w');
+(1, '', '', 'cliente_nombre', 'Cliente', 1, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(2, '', '', 'cliente_tipo', 'Tipo Cliente', 2, 'cliente', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(3, 'cliente_documento', 'Documento', 'cliente_documento_tipo', 'Tipo', 3, 'cliente', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(4, 'cliente_documento', 'Documento', 'cliente_documento', 'Número', 4, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(5, '', '', 'cliente_nacimiento', 'Fecha de Nacimiento', 5, 'cliente', 0, 'TIMESTAMP-VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(7, '', '', 'cliente_correo', 'Correo', 6, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 8, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 9, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(10, 'ubigeo', 'Ubigeo', 'provincia', 'Provincia', 10, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(11, 'ubigeo', 'Ubigeo', 'localidad', 'Localidad', 11, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 13, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 14, 'venta', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 15, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(15, 'direccion', 'Dirección', 'direccion_piso', 'Piso', 16, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 17, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(17, '', '', 'producto', 'Producto', 18, 'venta', 3, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(18, 'estado_venta', 'Estado', 'estado', 'Estado', 19, 'venta', 2, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 21, 'venta', 0, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(20, 'ubigeo', 'Ubigeo', 'codigo_postal', 'Código Postal', 12, 'venta', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(21, '', '', 'cuenta_bancaria', 'Cuenta Bancaria', 7, 'cliente', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(22, 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 20, 'venta', 0, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w');
 
 -- --------------------------------------------------------
 
@@ -471,17 +471,18 @@ INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombr
 
 CREATE TABLE `venta_cliente_documento_tipo` (
   `id` bigint(20) NOT NULL,
-  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_cliente_documento_tipo`
 --
 
-INSERT INTO `venta_cliente_documento_tipo` (`id`, `nombre`) VALUES
-(1, 'NIF'),
-(2, 'CIF'),
-(3, 'NIE');
+INSERT INTO `venta_cliente_documento_tipo` (`id`, `nombre`, `info_status`) VALUES
+(1, 'NIF', 1),
+(2, 'CIF', 1),
+(3, 'NIE', 1);
 
 -- --------------------------------------------------------
 
@@ -491,16 +492,17 @@ INSERT INTO `venta_cliente_documento_tipo` (`id`, `nombre`) VALUES
 
 CREATE TABLE `venta_cliente_tipo` (
   `id` bigint(20) NOT NULL,
-  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_cliente_tipo`
 --
 
-INSERT INTO `venta_cliente_tipo` (`id`, `nombre`) VALUES
-(1, 'Recidencial'),
-(2, 'Autonomo o Empresa');
+INSERT INTO `venta_cliente_tipo` (`id`, `nombre`, `info_status`) VALUES
+(1, 'Recidencial', 1),
+(2, 'Autonomo o Empresa', 1);
 
 -- --------------------------------------------------------
 
@@ -510,15 +512,16 @@ INSERT INTO `venta_cliente_tipo` (`id`, `nombre`) VALUES
 
 CREATE TABLE `venta_direccion_nombre` (
   `id` bigint(20) NOT NULL,
-  `nombre` text COLLATE utf8_unicode_ci NOT NULL
+  `nombre` text COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_direccion_nombre`
 --
 
-INSERT INTO `venta_direccion_nombre` (`id`, `nombre`) VALUES
-(1, 'de Aurora');
+INSERT INTO `venta_direccion_nombre` (`id`, `nombre`, `info_status`) VALUES
+(1, 'de Aurora', 1);
 
 -- --------------------------------------------------------
 
@@ -528,16 +531,17 @@ INSERT INTO `venta_direccion_nombre` (`id`, `nombre`) VALUES
 
 CREATE TABLE `venta_direccion_tipo` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_direccion_tipo`
 --
 
-INSERT INTO `venta_direccion_tipo` (`id`, `nombre`) VALUES
-(1, 'Calle'),
-(2, 'Avenida');
+INSERT INTO `venta_direccion_tipo` (`id`, `nombre`, `info_status`) VALUES
+(1, 'Calle', 1),
+(2, 'Avenida', 1);
 
 -- --------------------------------------------------------
 
@@ -547,24 +551,25 @@ INSERT INTO `venta_direccion_tipo` (`id`, `nombre`) VALUES
 
 CREATE TABLE `venta_estado` (
   `id` bigint(20) NOT NULL,
-  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_estado`
 --
 
-INSERT INTO `venta_estado` (`id`, `nombre`) VALUES
-(1, 'Pendiente'),
-(2, 'Pendiente por Documentación'),
-(3, 'Pendiente por instalación'),
-(4, 'En Tramitación'),
-(5, 'Cancelada Por Operador'),
-(6, 'Cancelada Por Cliente'),
-(7, 'Cancelada Por Incidencia del Cliente'),
-(8, 'Cancelada por Asesor Comercial'),
-(9, 'AutoInstalable'),
-(10, 'Instalado');
+INSERT INTO `venta_estado` (`id`, `nombre`, `info_status`) VALUES
+(1, 'Pendiente', 1),
+(2, 'Pendiente por Documentación', 1),
+(3, 'Pendiente por instalación', 1),
+(4, 'En Tramitación', 1),
+(5, 'Cancelada Por Operador', 1),
+(6, 'Cancelada Por Cliente', 1),
+(7, 'Cancelada Por Incidencia del Cliente', 1),
+(8, 'Cancelada por Asesor Comercial', 1),
+(9, 'AutoInstalable', 1),
+(10, 'Instalado', 1);
 
 -- --------------------------------------------------------
 
@@ -574,15 +579,16 @@ INSERT INTO `venta_estado` (`id`, `nombre`) VALUES
 
 CREATE TABLE `venta_localidad` (
   `id` bigint(20) NOT NULL,
-  `nombre` text COLLATE utf8_unicode_ci NOT NULL
+  `nombre` text COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_localidad`
 --
 
-INSERT INTO `venta_localidad` (`id`, `nombre`) VALUES
-(1, 'Tres Cantos');
+INSERT INTO `venta_localidad` (`id`, `nombre`, `info_status`) VALUES
+(1, 'Tres Cantos', 1);
 
 -- --------------------------------------------------------
 
@@ -593,15 +599,16 @@ INSERT INTO `venta_localidad` (`id`, `nombre`) VALUES
 CREATE TABLE `venta_producto` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL,
-  `campania` bigint(20) NOT NULL
+  `campania` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'campania_00',
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_producto`
 --
 
-INSERT INTO `venta_producto` (`id`, `nombre`, `campania`) VALUES
-(1, 'One S 50', 1);
+INSERT INTO `venta_producto` (`id`, `nombre`, `campania`, `info_status`) VALUES
+(1, 'One S 50', 'campania_001', 1);
 
 -- --------------------------------------------------------
 
@@ -611,15 +618,67 @@ INSERT INTO `venta_producto` (`id`, `nombre`, `campania`) VALUES
 
 CREATE TABLE `venta_provincia` (
   `id` bigint(20) NOT NULL,
-  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `venta_provincia`
 --
 
-INSERT INTO `venta_provincia` (`id`, `nombre`) VALUES
-(1, 'Madrid');
+INSERT INTO `venta_provincia` (`id`, `nombre`, `info_status`) VALUES
+(1, 'Madrid', 1),
+(2, 'Almaria', 1),
+(3, 'Cadiz', 1),
+(4, 'Cordoba', 1),
+(5, 'Granada', 1),
+(6, 'Huelva', 1),
+(7, 'Jaen', 1),
+(8, 'Malaga', 1),
+(9, 'Sevilla', 1),
+(10, 'Huesca', 1),
+(11, 'Terel', 1),
+(22, 'Zaragoza', 1),
+(23, 'Las palmas', 1),
+(24, 'Santa cruz de tenerife', 1),
+(25, 'Cantabria', 1),
+(26, 'Albacete', 1),
+(32, 'Guadalajara', 1),
+(33, 'Toledo', 1),
+(34, 'Burgos', 1),
+(35, 'Leon', 1),
+(36, 'Palencia', 1),
+(37, 'Salamanca', 1),
+(38, 'Segovia', 1),
+(39, 'Soria', 1),
+(40, 'Valladolid', 1),
+(41, 'Zamora', 1),
+(42, 'Avila', 1),
+(43, 'Barcelona', 1),
+(44, 'Gerona', 1),
+(45, 'Lerida', 1),
+(46, 'Tarragona', 1),
+(47, 'Ceuta', 1),
+(48, 'Navarra', 1),
+(49, 'Alicante', 1),
+(50, 'Castellon', 1),
+(51, 'Valencia', 1),
+(52, 'Badajoz ', 1),
+(53, 'Caceres', 1),
+(54, 'La acoruña', 1),
+(55, 'Lugo', 1),
+(56, 'Orense', 1),
+(57, 'Pontevedra', 1),
+(58, 'Islas baleares', 1),
+(59, 'La rioja ', 1),
+(60, 'Melilla', 1),
+(61, 'Guipuzcoa', 1),
+(62, 'Vizcaya', 1),
+(63, 'Alava', 1),
+(64, 'Asturias', 1),
+(65, 'Murcia', 1),
+(66, 'Cuidad real', 1),
+(67, 'Cuenca', 1);
 
 --
 -- Indexes for dumped tables
@@ -909,7 +968,7 @@ ALTER TABLE `venta_producto`
 -- AUTO_INCREMENT for table `venta_provincia`
 --
 ALTER TABLE `venta_provincia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

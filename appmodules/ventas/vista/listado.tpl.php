@@ -29,10 +29,8 @@ $prefix = 'venta_listado_';
     <a id="<?php echo $prefix ?>add"
        class="button success no-margin"     
        data-open="venta_listado_modal_div"
-       title="Añadir"
-       venta_id="0"
-       campania=""
-    ><i class="fi-plus"></i>
+       title="Añadir">
+      <i class="fi-plus"></i>
     </a>
   </div>
   <div class="large-11 columns">
