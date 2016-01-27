@@ -71,7 +71,7 @@ echo '<div class="row fields">
          <div class="small-2 columns">
          </div>
          <div class="small-10 columns">
-           <a class="button expanded">Guardar</a>
+           <a class="button expanded" data-close>Guardar</a>
          </div>
       </div>
      ';
@@ -85,15 +85,20 @@ echo '
 <script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script>
 $(".autocomplete").focus(function() {
-   var my_url = "./procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?campo=" + $(this).attr("campo");
+   var my_url = "./procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?";
+   my_url += "campo=" + $(this).attr("campo")+ "&";
+   my_url += "dependencia=" + $(this).attr("dependencia")+"&";
+   my_url += "dependencia_value=" + $("#field_"+$(this).attr("dependencia")).val();
    $(this).autocomplete({
      source: my_url,
      minLength: 0,
-     search: function( event, ui ) {             
+     search: function( event, ui ) {
         $(this).removeClass("active");
+        $(this).prev().val("0");
      },
      select: function( event, ui ) {            
         $(this).val(ui.item.label).addClass("active");
+        $(this).prev().val(ui.item.id);
         return false;
      }
    });

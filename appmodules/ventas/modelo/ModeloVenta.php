@@ -12,6 +12,7 @@ class ModeloVenta {
             'etiqueta' => '',
             'tabla' => '',
             'diccionario' => '',
+            'dependencia' => '',
             'tipo' => '',
             'perfiles' => '',
             'permisos' => ''
@@ -24,6 +25,7 @@ class ModeloVenta {
         , etiqueta
         , tabla
         , diccionario
+        , diccionario_dependencia
         , tipo
         , perfiles
         , permisos
@@ -53,32 +55,35 @@ class ModeloVenta {
         $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
         if ($permiso == 'w') {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
-                $ou = '<input name="' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
+                $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP') {
                 $ou = '<div class="input-group datapicker-simple no-margin">
-                          <input name="' . $campo['nombre'] . '" type="text" class="no-margin" value="' . substr($ou, 0, 10) . '" readonly>
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . substr($ou, 0, 10) . '" readonly>
                           <a class="input-group-label" title="Limpiar"><i class="fi-calendar size-24"></i></a>
                        </div>
                       ';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP-VARCHAR') {
                 $ou = '<div class="input-group no-margin">
-                          <input name="' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $ou . '" >
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $ou . '" >
                           <i class="input-group-label fi-calendar size-24"></i>
                          </div>
                         ';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TEXT') {
-                $ou = '<textarea name="' . $campo['nombre'] . '" class="no-margin" rows="2">' . $ou . '</textarea>
+                $ou = '<textarea name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin" rows="2">' . $ou . '</textarea>
                         ';
             } elseif ($campo['diccionario']=='1') {
                 if ($dato == '') {
-                    $ou = '<input name="' . $campo['nombre'] . '_id" 
-                              type="hidden"
-                              value="0">
-                           <input name="' . $campo['nombre'] . '" 
-                              type="text" 
-                              class="autocomplete no-margin" 
-                              campo="' . $campo['nombre'] . '" 
-                              value="">';
+                    $ou = '<input name="' . $campo['nombre'] . '"
+                                  id="field_' . $campo['nombre'] . '"
+                                  type="hidden"
+                                  value="0">
+                           <input name="' . $campo['nombre'] . '_value"
+                                  id="field_' . $campo['nombre'] . '_value"
+                                  type="text" 
+                                  class="autocomplete no-margin" 
+                                  campo="' . $campo['nombre'] . '" 
+                                  dependencia="' . $campo['dependencia'] . '"
+                                  value="">';
                 } else {
                     $this->q->fields = array('nombre' => '');
                     $this->q->sql = '
@@ -88,17 +93,20 @@ class ModeloVenta {
                     $data = $this->q->exe();
                     $data = $data[0]['nombre'];
                     $ou = '<input name="' . $campo['nombre'] . '"
-                              type="hidden"
-                              value="' . $dato . '">
+                                  id="field_' . $campo['nombre'] . '"
+                                  type="hidden"
+                                  value="' . $dato . '">
                            <input name="' . $campo['nombre'] . '_value" 
-                              type="text" 
-                              class="autocomplete no-margin active" 
-                              campo="' . $campo['nombre'] . '" 
-                              value="' . utf8_encode($data) . '">';
+                                  id="field_' . $campo['nombre'] . '_value"
+                                  type="text"
+                                  class="autocomplete no-margin active"
+                                  campo="' . $campo['nombre'] . '"
+                                  dependencia="' . $campo['dependencia'] . '"
+                                  value="' . utf8_encode($data) . '">';
                 }
 
             } elseif ($campo['diccionario']=='2') {
-                $ou = '<select name="' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $this->q->sql = '
@@ -116,7 +124,7 @@ class ModeloVenta {
                 }
                 $ou.= '</select>';
             } elseif ($campo['diccionario']=='3') {
-                $ou = '<select name="' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $this->q->sql = '
                 SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
@@ -133,7 +141,12 @@ class ModeloVenta {
                 }
                 $ou.= '</select>';
             } else {
-                $ou = '<input name="' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin" style="color:red">';
+                $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="text" 
+                              value="' . $ou . '" 
+                              class="no-margin" 
+                              style="color:red">';
             }
         } elseif ($permiso == 'r') {
             if ($campo['diccionario']!='0') {
@@ -158,18 +171,77 @@ class ModeloVenta {
         $ou = '';
         $perfiles = explode(', ', trim($campo['perfiles']));
         $permisos = explode(', ', trim($campo['permisos']));
-        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];        
         
         if ($permiso == 'w') {
+            if ($campo['diccionario'] == '1') {
+                if ($dato['id'] == '0' && '' != trim($dato['value'])) {
+                    $this->q->fields = array('id' => '');
+                    $this->q->sql = '
+                    SELECT id FROM venta_' . $campo['nombre'] . ' WHERE nombre="' . $dato['value'] . '"';
+                    // echo $this->q->sql;        
+                    $this->q->data = NULL;
+                    $data = $this->q->exe();
+                    if (is_array($data)) {
+                        $dato = $data[0]['id'];
+                    } else {
+                        $dep_campo = '';
+                        $dep_value = '';
+                        if ($dato['dependencia'] !='') {
+                            $dep_campo = ', '. $dato['dependencia'];
+                            $dep_value = ', '. $dato['dependencia_value'];
+                        } 
+                        $this->q->fields = array();
+                        $this->q->sql = '
+                        INSERT INTO venta_' . $campo['nombre'] . ' (nombre' . $dep_campo . ') VALUES ("' . utf8_encode($dato['value']) . '"' . $dep_value . ')';
+                        $this->q->data = NULL;
+                        $this->q->exe();
+                        // capturando
+                        $this->q->fields = array('id' => '');
+                        $this->q->sql = '
+                        SELECT id FROM venta_' . $campo['nombre'] . ' WHERE nombre="' . $dato['value'] . '"';
+                        $this->q->data = NULL;
+                        $data = $this->q->exe();
+                        $dato = $data[0]['id'];
+                    }
+                } elseif ($dato['id'] == '0' && '' == trim($dato['value'])) {
+                    $dato = '0';
+                } else {
+                    $dato = $dato['id'];
+                }
+            }
             if ($tipo == 'insert') {
                 $ou['campos'] = $campo['nombre'];
                 $ou['valores'] = '"' . $dato . '"';
             } elseif($tipo == 'update') {
                 $ou = $campo['nombre'] . '="' . $dato . '"';
-            }            
+            }
         }
 
         return $ou;            
+    }
+    function setVenta($in) {
+        $this->q->fields = array(
+            'id' => ''
+        );
+        $this->q->sql = '
+        CALL ventas_save(
+          "' . $in['venta_id'] . '"
+        , "' . $in['campania'] . '"
+        , "' . $in['fecha'] . '"
+        , "' . $in['usuario'] . '"
+        )
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['id'];
+    }
+    function setVentaCampania($sql) {
+        $this->q->fields = array();
+        $this->q->sql = $sql;
+        $this->q->data = NULL;
+        $this->q->exe();
     }
     //
     function getCampaniaActivas() {
@@ -190,11 +262,16 @@ class ModeloVenta {
     //
     function getAutoComplete($in) {
         $this->q->fields = array(
-            'termino' => '',
+            'termino' => '', 'id' => ''
         );
+        $dependencia = '';
+        if ($in['dependencia'] !='') {
+            
+            $dependencia = ' AND ' . $in['dependencia'] .'="' . $in['dependencia_value'] . '"';
+        }
         $this->q->sql = '
-        SELECT nombre FROM venta_' . $in['campo'] . '
-        WHERE info_status = 1 AND nombre LIKE "%' . $in['termino'] . '%"
+        SELECT nombre, id FROM venta_' . $in['campo'] . '
+        WHERE info_status = 1 AND nombre LIKE "%' . $in['termino'] . '%"' . $dependencia . '
         ORDER BY 1
         LIMIT 15
         ';

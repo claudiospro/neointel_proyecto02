@@ -99,9 +99,18 @@ $(document).ready(function() {
     }
     function venta_listado_modal_save() {
         var enviar = $("form.myform").serialize();
-        none_simple('./procesos/ajax/save/ventas_listado_venta_click_save.php',
-                    enviar
-                   );
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: './procesos/ajax/save/ventas_listado_venta_click_save.php',
+	    success: function(data) {
+                dataTable_listado
+                    .search(data)
+                    .draw();
+                dataTable_listado
+                    .search('');
+            }
+        }); 
     }
     function venta_listado_campanias() {
         var enviar = {}

@@ -40,8 +40,8 @@ SELECT
 --
 , v.id venta_id
 , v.campania
-FROM venta v
-JOIN  venta_".$row['indice']." d
+FROM venta v 
+JOIN  venta_".$row['indice']." d ON d.id=v.id
 -- definiciones
 LEFT JOIN campania d1 ON d1.indice=v.campania
 LEFT JOIN venta_producto d2 ON d2.id=d.producto
@@ -118,26 +118,26 @@ if( !empty($requestData['columns'][9]['search']['value']) ) {
 
 $sql.= $sql_filter;
 
-/* $sql_donde = ''; */
-/* $pagina =''; */
-/* if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  { */
-/*     // esto es para recuperar la pagina (es muy importante) */
-/*     $sql_donde.= 'SELECT * FROM (' . $sql; */
-/*     $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir']; */
-/*     $sql_donde.= ') unido2 WHERE direccion_id=' . intval($requestData['search']['value']) ; */
-/*     $query=mysqli_query($conn, $sql_donde) or die("01.5"); */
-/*     while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num']; */
-/*     $pagina -= 1; */
-/*     if ($pagina > 0) { */
-/*         $pagina-= ($pagina % $requestData['length']); */
-/*         if ($pagina > 0) { */
-/*             $pagina /= $requestData['length']; */
-/*         } */
-/*     } */
-/*     $pagina *= $requestData['length']; */
-/* } */
-/* if ($pagina != '') */
-/*     $requestData['start'] = $pagina; */
+$sql_donde = '';
+$pagina ='';
+if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  {
+    // esto es para recuperar la pagina (es muy importante)
+    $sql_donde.= 'SELECT * FROM (' . $sql;
+    $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
+    $sql_donde.= ') unido2 WHERE venta_id=' . intval($requestData['search']['value']) ;
+    $query=mysqli_query($conn, $sql_donde) or die("01.5");
+    while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
+    $pagina -= 1;
+    if ($pagina > 0) {
+        $pagina-= ($pagina % $requestData['length']);
+        if ($pagina > 0) {
+            $pagina /= $requestData['length'];
+        }
+    }
+    $pagina *= $requestData['length'];
+}
+if ($pagina != '')
+    $requestData['start'] = $pagina;
 
 $query=mysqli_query($conn, $sql) or die("02");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result.
