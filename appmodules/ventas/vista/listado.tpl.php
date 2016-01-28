@@ -40,7 +40,7 @@ $prefix = 'venta_listado_';
 
 </div>
 
-<div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal>
+<div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
   <div class="ajax">
   </div>
   <button class="close-button" data-close aria-label="Close modal" type="button">

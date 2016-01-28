@@ -32,18 +32,20 @@ foreach ($campos as $row) {
             $dato[$row['nombre']]['dependencia_value'] = $dato[$row['dependencia']];
         }
     }
-    
-    if ($in['venta_id'] == '0') {
-        $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'insert');
-        if ($tmp['campos']!='') $sql_campos .= ', ';
-        $sql_campos .= $tmp['campos'];
-        if ($tmp['valores'] !='') $sql_valores .= ', ';
-        $sql_valores .= $tmp['valores'];
-    } else {
-        $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'update');
-        if ($sql_set != '' & $tmp != '') $sql_set .= ', ';
-        $sql_set .= $tmp;
+    if (isset($dato[$row['nombre']])) {
+        if ($in['venta_id'] == '0') {
+            $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'insert');
+            if ($tmp['campos']!='') $sql_campos .= ', ';
+            $sql_campos .= $tmp['campos'];
+            if ($tmp['valores'] !='') $sql_valores .= ', ';
+            $sql_valores .= $tmp['valores'];
+        } else {
+            $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'update');
+            if ($sql_set != '' & $tmp != '') $sql_set .= ', ';
+            $sql_set .= $tmp;
+        }        
     }
+
 }
 if ($in['venta_id'] == '0') {
     $sql = 'INSERT INTO venta_' . $in['campania'] . '(' . $sql_campos . ') VALUES(' . $sql_valores . ')';

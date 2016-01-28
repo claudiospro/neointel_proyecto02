@@ -12,6 +12,7 @@ $in['termino'] = Utilidades::clear_input(Utilidades::sanear_string($_REQUEST['te
 $in['campo'] = Utilidades::clear_input_id($_REQUEST['campo']);
 $in['dependencia'] = Utilidades::clear_input($_REQUEST['dependencia']);
 $in['dependencia_value'] = Utilidades::clear_input($_REQUEST['dependencia_value']);
+$in['diccionario'] = Utilidades::clear_input($_REQUEST['diccionario']);
 
 // print_r($in);
 // --------------------------------------------------------- DATA

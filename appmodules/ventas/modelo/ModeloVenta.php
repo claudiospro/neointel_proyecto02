@@ -13,6 +13,7 @@ class ModeloVenta {
             'tabla' => '',
             'diccionario' => '',
             'dependencia' => '',
+            'diccionario_nombre' => '',
             'tipo' => '',
             'perfiles' => '',
             'permisos' => ''
@@ -26,6 +27,7 @@ class ModeloVenta {
         , tabla
         , diccionario
         , diccionario_dependencia
+        , diccionario_nombre
         , tipo
         , perfiles
         , permisos
@@ -86,8 +88,10 @@ class ModeloVenta {
                                   value="">';
                 } else {
                     $this->q->fields = array('nombre' => '');
-                    $this->q->sql = '
-                    SELECT nombre FROM venta_' . $campo['nombre'] . ' WHERE id="' . $dato . '"';
+                    if ($campo['diccionario_nombre'] == '')
+                        $this->q->sql = 'SELECT nombre FROM venta_' . $campo['nombre'] . ' WHERE id="' . $dato . '"';
+                    else
+                        $this->q->sql = 'SELECT nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE id="' . $dato . '"';
                     // echo $this->q->sql;        
                     $this->q->data = NULL;
                     $data = $this->q->exe();
@@ -102,6 +106,7 @@ class ModeloVenta {
                                   class="autocomplete no-margin active"
                                   campo="' . $campo['nombre'] . '"
                                   dependencia="' . $campo['dependencia'] . '"
+                                  diccionario="' . $campo['diccionario_nombre'] . '"
                                   value="' . utf8_encode($data) . '">';
                 }
 
@@ -109,9 +114,11 @@ class ModeloVenta {
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
-                $this->q->sql = '
-                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ORDER BY 2';
-                // echo $this->q->sql;        
+                if ($campo['diccionario_nombre'] == '')
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ORDER BY 2';
+                else
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 ORDER BY 2';
+                //echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
                 foreach ($data as $row) {
@@ -126,8 +133,10 @@ class ModeloVenta {
             } elseif ($campo['diccionario']=='3') {
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $this->q->fields = array('id' => '', 'nombre' => '');
-                $this->q->sql = '
-                SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
+                if ($campo['diccionario_nombre'] == '')
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
+                else
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
                 // echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
@@ -176,9 +185,12 @@ class ModeloVenta {
         if ($permiso == 'w') {
             if ($campo['diccionario'] == '1') {
                 if ($dato['id'] == '0' && '' != trim($dato['value'])) {
+                    $table = $campo['nombre'];
+                    if ($campo['diccionario_nombre'] != '') {
+                        $table = $campo['diccionario_nombre'];
+                    }
                     $this->q->fields = array('id' => '');
-                    $this->q->sql = '
-                    SELECT id FROM venta_' . $campo['nombre'] . ' WHERE nombre="' . $dato['value'] . '"';
+                    $this->q->sql = 'SELECT id FROM venta_' . $table . ' WHERE nombre="' . $dato['value'] . '"';
                     // echo $this->q->sql;        
                     $this->q->data = NULL;
                     $data = $this->q->exe();
@@ -192,14 +204,12 @@ class ModeloVenta {
                             $dep_value = ', '. $dato['dependencia_value'];
                         } 
                         $this->q->fields = array();
-                        $this->q->sql = '
-                        INSERT INTO venta_' . $campo['nombre'] . ' (nombre' . $dep_campo . ') VALUES ("' . utf8_encode($dato['value']) . '"' . $dep_value . ')';
+                        $this->q->sql = 'INSERT INTO venta_' . $table . ' (nombre' . $dep_campo . ') VALUES ("' . utf8_encode($dato['value']) . '"' . $dep_value . ')';
                         $this->q->data = NULL;
                         $this->q->exe();
                         // capturando
                         $this->q->fields = array('id' => '');
-                        $this->q->sql = '
-                        SELECT id FROM venta_' . $campo['nombre'] . ' WHERE nombre="' . $dato['value'] . '"';
+                        $this->q->sql = 'SELECT id FROM venta_' . $table . ' WHERE nombre="' . $dato['value'] . '"';
                         $this->q->data = NULL;
                         $data = $this->q->exe();
                         $dato = $data[0]['id'];
@@ -217,7 +227,6 @@ class ModeloVenta {
                 $ou = $campo['nombre'] . '="' . $dato . '"';
             }
         }
-
         return $ou;            
     }
     function setVenta($in) {
@@ -265,12 +274,15 @@ class ModeloVenta {
             'termino' => '', 'id' => ''
         );
         $dependencia = '';
-        if ($in['dependencia'] !='') {
-            
+        if ($in['dependencia'] !='') {            
             $dependencia = ' AND ' . $in['dependencia'] .'="' . $in['dependencia_value'] . '"';
         }
+        $tabla = $in['campo'];
+        if ($in['diccionario'] != '')
+            $tabla = $in['diccionario'];
+        
         $this->q->sql = '
-        SELECT nombre, id FROM venta_' . $in['campo'] . '
+        SELECT nombre, id FROM venta_' . $tabla . '
         WHERE info_status = 1 AND nombre LIKE "%' . $in['termino'] . '%"' . $dependencia . '
         ORDER BY 1
         LIMIT 15

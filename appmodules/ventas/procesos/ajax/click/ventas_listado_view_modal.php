@@ -88,7 +88,8 @@ $(".autocomplete").focus(function() {
    var my_url = "./procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?";
    my_url += "campo=" + $(this).attr("campo")+ "&";
    my_url += "dependencia=" + $(this).attr("dependencia")+"&";
-   my_url += "dependencia_value=" + $("#field_"+$(this).attr("dependencia")).val();
+   my_url += "dependencia_value=" + $("#field_"+$(this).attr("dependencia")).val()+"&";
+   my_url += "diccionario=" + $(this).attr("diccionario");
    $(this).autocomplete({
      source: my_url,
      minLength: 0,
