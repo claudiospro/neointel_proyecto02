@@ -77,34 +77,7 @@ echo '<div class="row fields">
      ';
 
 echo '
-
-<script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
-<script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
 <script src="../../static/ventas/ventas_datapicker.js"></script>
-
-<script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-<script>
-$(".autocomplete").focus(function() {
-   var my_url = "./procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?";
-   my_url += "campo=" + $(this).attr("campo")+ "&";
-   my_url += "dependencia=" + $(this).attr("dependencia")+"&";
-   my_url += "dependencia_value=" + $("#field_"+$(this).attr("dependencia")).val()+"&";
-   my_url += "diccionario=" + $(this).attr("diccionario");
-   $(this).autocomplete({
-     source: my_url,
-     minLength: 0,
-     search: function( event, ui ) {
-        $(this).removeClass("active");
-        $(this).prev().val("0");
-     },
-     select: function( event, ui ) {            
-        $(this).val(ui.item.label).addClass("active");
-        $(this).prev().val(ui.item.id);
-        return false;
-     }
-   });
-});
-
-</script>
+<script src="../../static/ventas/ventas_view.js"></script>
 ';
 

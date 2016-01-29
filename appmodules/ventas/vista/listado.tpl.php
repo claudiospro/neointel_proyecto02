@@ -16,6 +16,11 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/datatable-1.10.10/datatables.min.js"></script>
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
 
+<script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
+<script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
+
+<script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+
 <script src="../../static/ventas/ventas_listado.js"></script>
 <?php $js = ob_get_clean() ?>
 

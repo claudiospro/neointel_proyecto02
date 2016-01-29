@@ -73,6 +73,15 @@ class ModeloVenta {
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TEXT') {
                 $ou = '<textarea name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin" rows="2">' . $ou . '</textarea>
                         ';
+            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TELEFONO') {
+                $error = '';
+                if (strlen($ou)!=9) $error = 'error';
+                $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="text" 
+                              value="' . $ou . '" 
+                              maxlength="9"
+                              class="no-margin venta_item_telefono ' . $error . '">';
             } elseif ($campo['diccionario']=='1') {
                 if ($dato == '') {
                     $ou = '<input name="' . $campo['nombre'] . '"
@@ -82,7 +91,7 @@ class ModeloVenta {
                            <input name="' . $campo['nombre'] . '_value"
                                   id="field_' . $campo['nombre'] . '_value"
                                   type="text" 
-                                  class="autocomplete no-margin" 
+                                  class="venta_item_autocomplete autocomplete no-margin" 
                                   campo="' . $campo['nombre'] . '" 
                                   dependencia="' . $campo['dependencia'] . '"
                                   value="">';
@@ -103,7 +112,7 @@ class ModeloVenta {
                            <input name="' . $campo['nombre'] . '_value" 
                                   id="field_' . $campo['nombre'] . '_value"
                                   type="text"
-                                  class="autocomplete no-margin active"
+                                  class="venta_item_autocomplete autocomplete no-margin active"
                                   campo="' . $campo['nombre'] . '"
                                   dependencia="' . $campo['dependencia'] . '"
                                   diccionario="' . $campo['diccionario_nombre'] . '"
