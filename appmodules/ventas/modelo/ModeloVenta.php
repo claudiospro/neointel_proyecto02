@@ -14,6 +14,7 @@ class ModeloVenta {
             'diccionario' => '',
             'dependencia' => '',
             'diccionario_nombre' => '',
+            'diccionario_orden' => '',
             'tipo' => '',
             'perfiles' => '',
             'permisos' => ''
@@ -28,6 +29,7 @@ class ModeloVenta {
         , diccionario
         , diccionario_dependencia
         , diccionario_nombre
+        , diccionario_orden
         , tipo
         , perfiles
         , permisos
@@ -52,10 +54,7 @@ class ModeloVenta {
     }
     function imprimirCampo($dato, $campo, $campania) {
         $ou = $dato;
-        $perfiles = explode(', ', trim($campo['perfiles']));
-        $permisos = explode(', ', trim($campo['permisos']));
-        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
-        if ($permiso == 'w') {
+        if ($campo['permiso'] == 'w') {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
                 $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP') {
@@ -121,12 +120,15 @@ class ModeloVenta {
 
             } elseif ($campo['diccionario']=='2') {
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
-                $ou.= '<option value="0"></option>';
+                $ou.= '<option value="0"></option>';                
                 $this->q->fields = array('id' => '', 'nombre' => '');
+                $orderby = 'ORDER BY 2';
+                if ($campo['diccionario_orden'] == '0') $orderby = '';
+                
                 if ($campo['diccionario_nombre'] == '')
-                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ORDER BY 2';
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ' . $orderby;
                 else
-                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 ORDER BY 2';
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 ' . $orderby;
                 //echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
@@ -140,12 +142,15 @@ class ModeloVenta {
                 }
                 $ou.= '</select>';
             } elseif ($campo['diccionario']=='3') {
+                $orderby = 'ORDER BY 2';
+                if ($campo['diccionario_orden'] == '0') $orderby = '';
+                
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 if ($campo['diccionario_nombre'] == '')
-                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ' . $orderby;
                 else
-                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ORDER BY 2';
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ' . $orderby;
                 // echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
@@ -166,7 +171,7 @@ class ModeloVenta {
                               class="no-margin" 
                               style="color:red">';
             }
-        } elseif ($permiso == 'r') {
+        } elseif ($campo['permiso'] == 'r') {
             if ($campo['diccionario']!='0') {
                 $this->q->fields = array('nombre' => '');
                 $this->q->sql = '

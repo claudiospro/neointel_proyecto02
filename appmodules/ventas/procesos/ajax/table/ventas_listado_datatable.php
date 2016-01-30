@@ -31,6 +31,7 @@ SELECT
 , d2.nombre producto
 , d.cliente_nombre
 , d3.nombre estado
+, d8.nombre estado_real
 , v.info_update_fecha fecha_actualizacion
 , d.fecha_instalada
 , d4.nombre asesor_venta
@@ -50,6 +51,7 @@ LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
 LEFT JOIN usu_usuario d5 ON d5.id=v.tramitacion_id
 LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
 LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
+LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
 WHERE v.campania = '".$row['indice']."'
   " . $sql_usuario . "
 "
@@ -95,26 +97,29 @@ if( !empty($requestData['columns'][3]['search']['value']) ) {
     $sql_filter.=' AND estado LIKE "%' . $requestData['columns'][3]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . $requestData['columns'][4]['search']['value'] . '%"';
+    $sql_filter.=' AND estado_real LIKE "%' . $requestData['columns'][4]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . $requestData['columns'][5]['search']['value'] . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . $requestData['columns'][5]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . $requestData['columns'][6]['search']['value'] . '%"';
+    $sql_filter.=' AND fecha_instalada LIKE "%' . $requestData['columns'][6]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND tramitacion LIKE "%' . $requestData['columns'][7]['search']['value'] . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . $requestData['columns'][7]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . $requestData['columns'][8]['search']['value'] . '%"';
+    $sql_filter.=' AND tramitacion LIKE "%' . $requestData['columns'][8]['search']['value'] . '%"';
 }
 if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . $requestData['columns'][9]['search']['value'] . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . $requestData['columns'][9]['search']['value'] . '%"';
+}
+if( !empty($requestData['columns'][10]['search']['value']) ) {
+    $sql_filter.=' AND coordinador LIKE "%' . $requestData['columns'][10]['search']['value'] . '%"';
 }
 
 
-// 10 (acciones)
+// 11 (acciones)
 
 $sql.= $sql_filter;
 
@@ -156,6 +161,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['estado']);
+    $nestedData[] = utf8_encode($row['estado_real']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
     $nestedData[] = utf8_encode($row['asesor_venta']);

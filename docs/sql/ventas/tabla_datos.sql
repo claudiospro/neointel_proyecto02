@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 29, 2016 at 02:46 PM
+-- Generation Time: Jan 30, 2016 at 11:08 AM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -434,7 +434,7 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id`, `info_create_fecha`, `info_create_user`, `info_update_fecha`, `info_update_user`, `info_status`, `asesor_venta_id`, `tramitacion_id`, `supervisor_id`, `coordinador_id`, `campania`, `lineal_id`) VALUES
-(7, '2016-01-28 12:49:14', 5, '2016-01-29 19:34:26', 6, 1, 5, 3, 4, 6, 'campania_001', 1);
+(7, '2016-01-28 12:49:14', 5, '2016-01-30 14:06:27', 6, 1, 5, 3, 4, 6, 'campania_001', 1);
 
 -- --------------------------------------------------------
 
@@ -497,6 +497,7 @@ CREATE TABLE `venta_campania_001` (
   `movil_adicional_2_estado` bigint(20) NOT NULL,
   `movil_adicional_2_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `estado` bigint(20) NOT NULL DEFAULT '1',
+  `estado_real` bigint(20) NOT NULL DEFAULT '1',
   `estado_observacion` text COLLATE utf8_unicode_ci NOT NULL,
   `fecha_instalada` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -505,8 +506,8 @@ CREATE TABLE `venta_campania_001` (
 -- Dumping data for table `venta_campania_001`
 --
 
-INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `cliente_documento_tipo`, `cliente_documento`, `cliente_documento_reverso`, `cliente_nacimiento`, `cliente_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `producto`, `fijo_numero`, `fijo_modalidad`, `fijo_operador`, `fijo_titular`, `fijo_titular_documento`, `fijo_titular_nombre`, `movil_numero`, `movil_modalidad`, `movil_operador`, `movil_tarifa`, `movil_titular`, `movil_titular_documento`, `movil_titular_nombre`, `movil_estado`, `movil_icc`, `movil_adicional_1_numero`, `movil_adicional_1_modalidad`, `movil_adicional_1_operador`, `movil_adicional_1_tarifa`, `movil_adicional_1_titular`, `movil_adicional_1_titular_documento`, `movil_adicional_1_titular_nombre`, `movil_adicional_1_estado`, `movil_adicional_1_icc`, `movil_adicional_2_numero`, `movil_adicional_2_modalidad`, `movil_adicional_2_operador`, `movil_adicional_2_tarifa`, `movil_adicional_2_titular`, `movil_adicional_2_titular_documento`, `movil_adicional_2_titular_nombre`, `movil_adicional_2_estado`, `movil_adicional_2_icc`, `estado`, `estado_observacion`, `fecha_instalada`) VALUES
-(7, 'Carlos Garcia Lopez', 1, 1, '45460258-D', '457656786', '01-09-88', 'nodispone@outlook.es', '2100-3651-42-3564125685', '987564125', '639258741', 1, 1, '45630', 1, 3, '27', '4', 'B', 1, '999999999', 1, 3, 0, '', '', '', 2, 1, 3, 1, '', '', 2, '677777', '123456789', 0, 0, 3, 0, '', '', 0, '', '', 1, 1, 0, 0, '', '', 0, '', 10, '', '2016-01-28 05:00:00');
+INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `cliente_documento_tipo`, `cliente_documento`, `cliente_documento_reverso`, `cliente_nacimiento`, `cliente_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `producto`, `fijo_numero`, `fijo_modalidad`, `fijo_operador`, `fijo_titular`, `fijo_titular_documento`, `fijo_titular_nombre`, `movil_numero`, `movil_modalidad`, `movil_operador`, `movil_tarifa`, `movil_titular`, `movil_titular_documento`, `movil_titular_nombre`, `movil_estado`, `movil_icc`, `movil_adicional_1_numero`, `movil_adicional_1_modalidad`, `movil_adicional_1_operador`, `movil_adicional_1_tarifa`, `movil_adicional_1_titular`, `movil_adicional_1_titular_documento`, `movil_adicional_1_titular_nombre`, `movil_adicional_1_estado`, `movil_adicional_1_icc`, `movil_adicional_2_numero`, `movil_adicional_2_modalidad`, `movil_adicional_2_operador`, `movil_adicional_2_tarifa`, `movil_adicional_2_titular`, `movil_adicional_2_titular_documento`, `movil_adicional_2_titular_nombre`, `movil_adicional_2_estado`, `movil_adicional_2_icc`, `estado`, `estado_real`, `estado_observacion`, `fecha_instalada`) VALUES
+(7, 'Carlos Garcia Lopez', 1, 1, '45460258-D', '457656786', '01-09-88', 'nodispone@outlook.es', '2100-3651-42-3564125685', '987564125', '639258741', 1, 1, '45630', 1, 3, '27', '4', 'B', 1, '999999999', 1, 3, 0, '', '', '', 2, 1, 3, 1, '', '', 2, '677777', '123456789', 0, 0, 3, 0, '', '', 0, '', '', 1, 1, 3, 0, '', '', 0, '', 1, 1, 'zz', '2016-01-30 14:57:31');
 
 -- --------------------------------------------------------
 
@@ -525,6 +526,7 @@ CREATE TABLE `venta_campania_001_campos` (
   `diccionario` tinyint(2) NOT NULL,
   `diccionario_dependencia` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `diccionario_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `diccionario_orden` tinyint(1) NOT NULL DEFAULT '1',
   `tipo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `perfiles` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '1, 2, 3, 4, 5, 6',
   `permisos` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'w, w, w, w, w, w'
@@ -534,62 +536,63 @@ CREATE TABLE `venta_campania_001_campos` (
 -- Dumping data for table `venta_campania_001_campos`
 --
 
-INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombre`, `etiqueta`, `orden`, `tabla`, `diccionario`, `diccionario_dependencia`, `diccionario_nombre`, `tipo`, `perfiles`, `permisos`) VALUES
-(1, '', '', 'cliente_nombre', 'Cliente', 1, 'cliente', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(2, '', '', 'cliente_tipo', 'Tipo Cliente', 2, 'cliente', 2, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(3, 'cliente_documento', 'Documento', 'cliente_documento_tipo', 'Tipo', 3, 'cliente', 2, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(4, 'cliente_documento', 'Documento', 'cliente_documento', 'Número', 4, 'cliente', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(5, '', '', 'cliente_nacimiento', 'Fecha de Nacimiento', 6, 'cliente', 0, '', '', 'TIMESTAMP-VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(7, '', '', 'cliente_correo', 'Correo', 7, 'cliente', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 9, 'cliente', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 10, 'cliente', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(10, 'ubigeo', 'Ubigeo', 'provincia', 'Provincia', 11, 'venta', 2, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(11, 'ubigeo', 'Ubigeo', 'localidad', 'Localidad', 12, 'venta', 1, 'provincia', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 14, 'venta', 1, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 15, 'venta', 1, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 16, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(15, 'direccion', 'Dirección', 'direccion_piso', 'Planta(Piso, Bloque)', 17, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 18, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(17, 'producto', 'Producto', 'producto', 'Nombre', 19, 'venta', 3, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(18, 'estado_venta', 'Estado', 'estado', 'Estado', 53, 'venta', 2, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, r, r, w'),
-(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 55, 'venta', 0, '', '', 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w, r, w'),
-(20, 'ubigeo', 'Ubigeo', 'codigo_postal', 'Código Postal', 13, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(21, '', '', 'cuenta_bancaria', 'Cuenta Bancaria', 8, 'cliente', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(22, 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 54, 'venta', 0, '', '', 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, r, r, w'),
-(24, 'fijo', 'Fijo', 'fijo_numero', 'Número', 20, 'venta', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(25, 'fijo', 'Fijo', 'fijo_modalidad', 'Modalidad', 21, 'venta', 2, '', 'modalidad', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(26, 'fijo', 'Fijo', 'fijo_operador', 'Operador', 22, 'venta', 2, '', 'operador', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(27, 'movil', 'Movil', 'movil_numero', 'Número', 26, 'venta', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(28, 'movil', 'Movil', 'movil_modalidad', 'Modalidad', 27, 'venta', 2, '', 'modalidad', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(29, 'movil', 'Movil', 'movil_operador', 'Operador', 28, 'venta', 2, '', 'operador', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(30, 'movil', 'Movil', 'movil_tarifa', 'Tarifa', 29, 'venta', 3, '', 'tarifa_movil', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(31, 'movil', 'Movil', 'movil_titular', 'Mismo Titular', 30, 'venta', 2, '', 'titular', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(32, 'movil', 'Movil', 'movil_estado', 'Estado', 33, 'venta', 2, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(33, 'movil', 'Movil', 'movil_icc', 'ICC', 34, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(34, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_numero', 'Número', 35, 'venta', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(35, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_modalidad', 'Modalidad', 36, 'venta', 2, '', 'modalidad', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(36, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_operador', 'Operador', 37, 'venta', 2, '', 'operador', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(37, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_tarifa', 'Tarifa', 38, 'venta', 3, '', 'tarifa_movil', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(38, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular', 'Mismo Titular', 39, 'venta', 2, '', 'titular', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(39, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_estado', 'Estado', 42, 'venta', 2, '', 'movil_estado', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(40, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_icc', 'ICC', 43, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(41, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_numero', 'Número', 44, 'venta', 0, '', '', 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(42, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_modalidad', 'Modalidad', 45, 'venta', 2, '', 'modalidad', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(43, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_operador', 'Operador', 46, 'venta', 2, '', 'operador', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(44, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_tarifa', 'Tarifa', 47, 'venta', 2, '', 'tarifa_movil', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(45, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular', 'Mismo Titular', 48, 'venta', 2, '', 'titular', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(46, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_estado', 'Estado', 51, 'venta', 2, '', 'movil_estado', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(47, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_icc', 'ICC', 52, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(48, 'cliente_documento', 'Documento', 'cliente_documento_reverso', 'Reverso', 5, 'cliente', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(49, 'fijo', 'Fijo', 'fijo_titular', 'Mismo Titular', 23, 'venta', 2, '', 'titular', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(50, 'fijo', 'Fijo', 'fijo_titular_documento', 'Documento del Titular', 24, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(51, 'fijo', 'Fijo', 'fijo_titular_nombre', 'Nombre del Titular', 25, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(52, 'movil', 'Movil', 'movil_titular_documento', 'Documento del Titular', 31, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(53, 'movil', 'Movil', 'movil_titular_nombre', 'Nombre del Titular', 32, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(54, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular_documento', 'Documento del Titular', 40, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(55, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular_nombre', 'Nombre del Titular', 41, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(56, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular_documento', 'Documento del Titular', 49, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(57, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular_nombre', 'Nombre del Titular', 50, 'venta', 0, '', '', 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w');
+INSERT INTO `venta_campania_001_campos` (`id`, `grupo`, `grupo_etiqueta`, `nombre`, `etiqueta`, `orden`, `tabla`, `diccionario`, `diccionario_dependencia`, `diccionario_nombre`, `diccionario_orden`, `tipo`, `perfiles`, `permisos`) VALUES
+(1, '', '', 'cliente_nombre', 'Cliente', 1, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(2, '', '', 'cliente_tipo', 'Tipo Cliente', 2, 'cliente', 2, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(3, 'cliente_documento', 'Documento', 'cliente_documento_tipo', 'Tipo', 3, 'cliente', 2, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(4, 'cliente_documento', 'Documento', 'cliente_documento', 'Número', 4, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(5, '', '', 'cliente_nacimiento', 'Fecha de Nacimiento', 6, 'cliente', 0, '', '', 1, 'TIMESTAMP-VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(7, '', '', 'cliente_correo', 'Correo', 7, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(8, 'cliente_contacto', 'Contacto', 'cliente_contacto_fijo', 'Fijo', 9, 'cliente', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(9, 'cliente_contacto', 'Contacto', 'cliente_contacto_movil', 'Movil', 10, 'cliente', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(10, 'ubigeo', 'Ubigeo', 'provincia', 'Provincia', 11, 'venta', 2, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(11, 'ubigeo', 'Ubigeo', 'localidad', 'Localidad', 12, 'venta', 1, 'provincia', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(12, 'direccion', 'Dirección', 'direccion_tipo', 'Tipo', 14, 'venta', 1, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(13, 'direccion', 'Dirección', 'direccion_nombre', 'Nombre', 15, 'venta', 1, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(14, 'direccion', 'Dirección', 'direccion_numero', 'Número', 16, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(15, 'direccion', 'Dirección', 'direccion_piso', 'Planta(Piso, Bloque)', 17, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(16, 'direccion', 'Dirección', 'direccion_puerta', 'Puerta', 18, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(17, 'producto', 'Producto', 'producto', 'Nombre', 19, 'venta', 3, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(18, 'estado_venta', 'Estado', 'estado', 'Estado', 53, 'venta', 2, '', '', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, h, h, r, h'),
+(19, '', '', 'fecha_instalada', 'Fecha de Instalación', 56, 'venta', 0, '', '', 1, 'TIMESTAMP', '1, 2, 3, 4, 5, 6', 'w, w, w, w, r, w'),
+(20, 'ubigeo', 'Ubigeo', 'codigo_postal', 'Código Postal', 13, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(21, '', '', 'cuenta_bancaria', 'Cuenta Bancaria', 8, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(22, 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 55, 'venta', 0, '', '', 1, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, r, r, w'),
+(24, 'fijo', 'Fijo', 'fijo_numero', 'Número', 20, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(25, 'fijo', 'Fijo', 'fijo_modalidad', 'Modalidad', 21, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(26, 'fijo', 'Fijo', 'fijo_operador', 'Operador', 22, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(27, 'movil', 'Movil', 'movil_numero', 'Número', 26, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(28, 'movil', 'Movil', 'movil_modalidad', 'Modalidad', 27, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(29, 'movil', 'Movil', 'movil_operador', 'Operador', 28, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(30, 'movil', 'Movil', 'movil_tarifa', 'Tarifa', 29, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(31, 'movil', 'Movil', 'movil_titular', 'Mismo Titular', 30, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(32, 'movil', 'Movil', 'movil_estado', 'Estado', 33, 'venta', 2, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(33, 'movil', 'Movil', 'movil_icc', 'ICC', 34, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(34, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_numero', 'Número', 35, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(35, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_modalidad', 'Modalidad', 36, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(36, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_operador', 'Operador', 37, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(37, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_tarifa', 'Tarifa', 38, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(38, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular', 'Mismo Titular', 39, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(39, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_estado', 'Estado', 42, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(40, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_icc', 'ICC', 43, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(41, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_numero', 'Número', 44, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(42, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_modalidad', 'Modalidad', 45, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(43, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_operador', 'Operador', 46, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(44, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_tarifa', 'Tarifa', 47, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(45, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular', 'Mismo Titular', 48, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(46, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_estado', 'Estado', 51, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(47, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_icc', 'ICC', 52, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(48, 'cliente_documento', 'Documento', 'cliente_documento_reverso', 'Reverso', 5, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(49, 'fijo', 'Fijo', 'fijo_titular', 'Mismo Titular', 23, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(50, 'fijo', 'Fijo', 'fijo_titular_documento', 'Documento del Titular', 24, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(51, 'fijo', 'Fijo', 'fijo_titular_nombre', 'Nombre del Titular', 25, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(52, 'movil', 'Movil', 'movil_titular_documento', 'Documento del Titular', 31, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(53, 'movil', 'Movil', 'movil_titular_nombre', 'Nombre del Titular', 32, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(54, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular_documento', 'Documento del Titular', 40, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(55, 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular_nombre', 'Nombre del Titular', 41, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(56, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular_documento', 'Documento del Titular', 49, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(57, 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular_nombre', 'Nombre del Titular', 50, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(58, 'estado_venta', 'Estado', 'estado_real', 'Estado Real', 54, 'venta', 2, '', '', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, h, w');
 
 -- --------------------------------------------------------
 
@@ -690,16 +693,36 @@ CREATE TABLE `venta_estado` (
 --
 
 INSERT INTO `venta_estado` (`id`, `nombre`, `info_status`) VALUES
+(1, 'En tramitacion', 1),
+(2, 'Ok tramitado', 1),
+(3, 'Ko cliente', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `venta_estado_real`
+--
+
+CREATE TABLE `venta_estado_real` (
+  `id` bigint(20) NOT NULL,
+  `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `info_status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `venta_estado_real`
+--
+
+INSERT INTO `venta_estado_real` (`id`, `nombre`, `info_status`) VALUES
 (1, 'Pendiente', 1),
-(2, 'Pendiente por Documentación', 1),
-(3, 'Pendiente por instalación', 1),
-(4, 'En Tramitación', 1),
-(5, 'Cancelada Por Operador', 1),
-(6, 'Cancelada Por Cliente', 1),
-(7, 'Cancelada Por Incidencia del Cliente', 1),
-(8, 'Cancelada por Asesor Comercial', 1),
-(9, 'AutoInstalable', 1),
-(10, 'Instalado', 1);
+(2, 'En tramitacion', 1),
+(3, 'Ok tramitado', 1),
+(4, 'Autoinstalable', 1),
+(5, 'Incidencia cliente', 1),
+(6, 'Pendiente de instalacion', 1),
+(7, 'Ko cliente', 1),
+(8, 'Desconectada', 1),
+(9, 'Incidencia Cliente', 1);
 
 -- --------------------------------------------------------
 
@@ -1086,6 +1109,12 @@ ALTER TABLE `venta_estado`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `venta_estado_real`
+--
+ALTER TABLE `venta_estado_real`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `venta_localidad`
 --
 ALTER TABLE `venta_localidad`
@@ -1221,7 +1250,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT for table `venta_campania_001_campos`
 --
 ALTER TABLE `venta_campania_001_campos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `venta_cliente_documento_tipo`
 --
@@ -1247,6 +1276,11 @@ ALTER TABLE `venta_direccion_tipo`
 --
 ALTER TABLE `venta_estado`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `venta_estado_real`
+--
+ALTER TABLE `venta_estado_real`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `venta_localidad`
 --

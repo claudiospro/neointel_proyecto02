@@ -31,41 +31,51 @@ echo '<form class="myform" method="post">';
 echo '<input type="hidden" name="venta_id" value="' . $in['venta_id'] . '">';
 echo '<input type="hidden" name="campania" value="' . $in['campania'] . '">';
 for ($i=0; $i < $total; $i++) {
-    echo '<div class="row fields">';
-    if ($campos[$i]['grupo'] == '' && $campos[$i]['grupo_etiqueta'] == '') {
-        echo '<div class="small-2 columns"><label class="">';
-        echo utf8_encode($campos[$i]['etiqueta']) . ':';
-        echo '</label></div>';
-        echo '<div class="small-10 columns">';
-        if ($in['venta_id'] != '0') {
-            echo $venta->imprimirCampo($dato[$campos[$i]['nombre']], $campos[$i], $in['campania']);
-        } else {
-            echo $venta->imprimirCampo('', $campos[$i], $in['campania']);
-        }        
-        echo '</div>'; 
-    } else {
-        echo '<div class="small-2 columns"><label class="">';
-        echo utf8_encode($campos[$i]['grupo_etiqueta']) . ':';
-        echo '</label></div>';
-        echo '<div class="small-10 columns"><div class="callout primary">';
-        for ($j=$i; $campos[$i]['grupo'] == $campos[$j]['grupo']; $j++) {
-            echo '<div class="row">';
+    $perfiles = explode(', ', trim($campos[$i]['perfiles']));
+    $permisos = explode(', ', trim($campos[$i]['permisos']));
+    $campos[$i]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+    if ($campos[$i]['permiso'] != 'h') {
+        echo '<div class="row fields">';
+        if ($campos[$i]['grupo'] == '' && $campos[$i]['grupo_etiqueta'] == '') {
             echo '<div class="small-2 columns"><label class="">';
-            echo utf8_encode($campos[$j]['etiqueta']) . ':';
+            echo utf8_encode($campos[$i]['etiqueta']) . ':';
             echo '</label></div>';
             echo '<div class="small-10 columns">';
             if ($in['venta_id'] != '0') {
-                echo $venta->imprimirCampo($dato[$campos[$j]['nombre']], $campos[$j], $in['campania']);
+                echo $venta->imprimirCampo($dato[$campos[$i]['nombre']], $campos[$i], $in['campania']);
             } else {
-                echo $venta->imprimirCampo('', $campos[$j], $in['campania']);
-            }
+                echo $venta->imprimirCampo('', $campos[$i], $in['campania']);
+            }        
             echo '</div>'; 
-            echo '</div>';
+        } else {
+            echo '<div class="small-2 columns"><label class="">';
+            echo utf8_encode($campos[$i]['grupo_etiqueta']) . ':';
+            echo '</label></div>';
+            echo '<div class="small-10 columns"><div class="callout primary">';
+            for ($j=$i; $campos[$i]['grupo'] == $campos[$j]['grupo']; $j++) {
+                $perfiles = explode(', ', trim($campos[$j]['perfiles']));
+                $permisos = explode(', ', trim($campos[$j]['permisos']));
+                $campos[$j]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+                if ($campos[$j]['permiso'] != 'h') {
+                    echo '<div class="row">';
+                    echo '<div class="small-3 columns"><label class="">';
+                    echo utf8_encode($campos[$j]['etiqueta']) . ':';
+                    echo '</label></div>';
+                    echo '<div class="small-9 columns">';
+                    if ($in['venta_id'] != '0') {
+                        echo $venta->imprimirCampo($dato[$campos[$j]['nombre']], $campos[$j], $in['campania']);
+                    } else {
+                        echo $venta->imprimirCampo('', $campos[$j], $in['campania']);
+                    }
+                    echo '</div>'; 
+                    echo '</div>';
+                }
+            }
+            $i = $j - 1;
+            echo '</div></div>';
         }
-        $i = $j - 1;
-        echo '</div></div>';
+        echo '</div>';
     }
-    echo '</div>';
 }
 echo '<div class="row fields">
          <div class="small-2 columns">

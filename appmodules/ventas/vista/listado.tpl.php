@@ -68,18 +68,20 @@ $prefix = 'venta_listado_';
     <!--   <td>8</td> -->
     <!--   <td>9</td> -->
     <!--   <td>10</td> -->
+    <!--   <td>11</td> -->
     <!-- </tr> -->
     <tr>
-      <td><input class="no-margin search-input-text" data-column="0" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="1" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="2" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="3" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="4" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="5" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="6" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="7" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="8" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="9" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
       <td></td>      
     </tr>
     <tr>
@@ -87,6 +89,7 @@ $prefix = 'venta_listado_';
       <th>Producto</th>
       <th>Cliente</th>
       <th>Estado</th>
+      <th>Estado Real</th>
       <th>Ultima Fecha</th>
       <th>Fecha Instalada</th>
       <th>Asesor de Venta</th>
