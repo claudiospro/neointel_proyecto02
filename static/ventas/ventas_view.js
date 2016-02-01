@@ -5,21 +5,6 @@ $(document).ready(function() {
     // --------------------------------------------------------------- LOAD
 
     // ------------------------------------------------------------ EVENTOS
-    // $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
-    //     var i = $(this).attr('data-column');
-    //     var v = $(this).val();
-    //     if (event.which == 13) {
-    //         dataTable_listado.columns(i).search(v).draw();
-    //         if (v=='') {
-    //             $(this).removeClass('active');               
-    //         } else {
-    //             $(this).addClass('active');
-    //         }
-    //     }
-    // });
-    // $(prefixId+'tabla').on('click', '.view', function (event) {
-    //     venta_listado_modal_edit($(this));
-    // });
     $('.venta_item_autocomplete').focus(function() {
         venta_item_autocomplete($(this));
     });
@@ -34,11 +19,15 @@ $(document).ready(function() {
         }        
     });
     $('.venta_item_telefono').keyup(function (e) {
-        if ($(this).val().length == 9) {
+        if ($(this).val().length == 9 || $(this).val().length == 0) {
             $(this).removeClass('error');
         } else {
             $(this).addClass('error');
         }
+    });
+
+    $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (event) {
+        venta_item_div($(this));
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {
@@ -60,5 +49,9 @@ $(document).ready(function() {
                 return false;
             }
         });
+    }
+    function venta_item_div(item) {
+        $('.venta-listado-view').hide();
+        $('#venta-listado-view-' + item.attr('pestania')).show();
     }
 });

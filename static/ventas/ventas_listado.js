@@ -25,11 +25,12 @@ $(document).ready(function() {
     $(prefixId+'add').on('click', function (event) {
         venta_listado_modal_add();
     });
-    $('body').on('click', 'form.myform a', function (event) {
-        venta_listado_modal_save();
+    $('body').on('click', 'form.myform a.save-exit', function (event) {
+        venta_listado_modal_save_exit();
     });
-
-
+    $('body').on('click', 'form.myform a.save-continue', function (event) {
+        venta_listado_modal_save_continue();
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -97,7 +98,19 @@ $(document).ready(function() {
             enviar
         );
     }
-    function venta_listado_modal_save() {
+    function venta_listado_modal_save_continue() {
+        var enviar = $("form.myform").serialize();
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: './procesos/ajax/save/ventas_listado_venta_click_save.php',
+	    success: function(data) {
+                c('save');
+                $('#field_venta_id').val(data);
+            }
+        }); 
+    }
+    function venta_listado_modal_save_exit() {
         var enviar = $("form.myform").serialize();
         $.ajax({
 	    type: "POST",

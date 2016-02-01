@@ -28,10 +28,6 @@ BEGIN
      LEFT JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id
      WHERE ul.lineal_id= pr_lineal_id and up.perfil_id=4
      ;
-     SELECT ul.usuario_id INTO pr_asesor_venta_id FROM usu_usuario_lineal ul
-     LEFT JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id
-     WHERE ul.lineal_id= pr_lineal_id and up.perfil_id=5
-     ;
      SELECT ul.usuario_id INTO pr_coordinador_id FROM usu_usuario_lineal ul
      LEFT JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id
      WHERE ul.lineal_id= pr_lineal_id and up.perfil_id=6
@@ -43,7 +39,7 @@ BEGIN
       campania, lineal_id)
      VALUES
      (in_fecha, in_usuario, in_fecha,
-      pr_asesor_venta_id, pr_tramitacion_id, pr_supervisor_id, pr_coordinador_id,
+      in_usuario, pr_tramitacion_id, pr_supervisor_id, pr_coordinador_id,
       in_campania, pr_lineal_id)
      ; 
      SELECT last_insert_id() INTO ou_id

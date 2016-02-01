@@ -40,6 +40,11 @@ input.error {
 .fields .callout {
   margin: 0;
   padding: 0.5em; }
+.fields .callout.primary {
+  background-color: #71b4e4; }
+.fields input, .fields select {
+  height: 1.7rem;
+  padding: 0 0.5rem; }
 
 .autocomplete.active {
   background-color: #cef4ce; }
