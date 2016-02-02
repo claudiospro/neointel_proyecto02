@@ -22,20 +22,23 @@ while( $row=mysqli_fetch_array($query) ) {
     }
     $sql_ini.= "
 SELECT
-  d2.nombre producto
-, d.cliente_nombre
-, d4.nombre asesor_venta
+  'dda'
+, d4.nombre estado_real
+, d2.nombre producto
+, d1.cliente_nombre
+, d3.nombre asesor_venta
 , v.info_create_fecha fecha_creacion
 , v.info_update_fecha fecha_actualizacion
-, d.fecha_instalada
+, d1.fecha_instalada
 --
 , v.id venta_id
 , v.campania
 FROM venta v 
-JOIN  venta_".$row['indice']." d ON d.id=v.id
+JOIN  venta_".$row['indice']." d1 ON d1.id=v.id
 -- definiciones
-LEFT JOIN venta_producto d2 ON d2.id=d.producto
-LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
+LEFT JOIN venta_producto d2 ON d2.id=d1.producto
+LEFT JOIN usu_usuario d3 ON d3.id=v.asesor_venta_id
+LEFT JOIN venta_estado_real d4 ON d4.id=d1.estado_real
 WHERE v.campania = '".$row['indice']."'
   " . $sql_usuario . "
 "
@@ -68,49 +71,53 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 $sql = $sql_ini;
 
 $sql_filter = '';
-if( !empty($requestData['columns'][0]['search']['value']) ) {
-    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '%"';
-}
+// 0 (acciones)
 if( !empty($requestData['columns'][1]['search']['value']) ) {
-    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
+    $sql_filter.=' AND estado_real LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
+    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][6]['search']['value']) ) {
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][7]['search']['value']) ) {
+    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
 }
 
-// 5 (acciones)
+
 
 $sql.= $sql_filter;
 
-/* $sql_donde = ''; */
-/* $pagina =''; */
-/* if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  { */
-/*     // esto es para recuperar la pagina (es muy importante) */
-/*     $sql_donde.= 'SELECT * FROM (' . $sql; */
-/*     $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir']; */
-/*     $sql_donde.= ') unido2 WHERE venta_id=' . intval($requestData['search']['value']) ; */
-/*     $query=mysqli_query($conn, $sql_donde) or die("01.5"); */
-/*     while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num']; */
-/*     $pagina -= 1; */
-/*     if ($pagina > 0) { */
-/*         $pagina-= ($pagina % $requestData['length']); */
-/*         if ($pagina > 0) { */
-/*             $pagina /= $requestData['length']; */
-/*         } */
-/*     } */
-/*     $pagina *= $requestData['length']; */
-/* } */
-/* if ($pagina != '') */
-/*     $requestData['start'] = $pagina; */
+$sql_donde = '';
+$pagina ='';
+if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  {
+    // esto es para recuperar la pagina (es muy importante)
+    $sql_donde.= 'SELECT * FROM (' . $sql;
+    $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
+    $sql_donde.= ') unido2 WHERE venta_id=' . intval($requestData['search']['value']) ;
+    $query=mysqli_query($conn, $sql_donde) or die("01.5");
+    while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
+    $pagina -= 1;
+    if ($pagina > 0) {
+        $pagina-= ($pagina % $requestData['length']);
+        if ($pagina > 0) {
+            $pagina /= $requestData['length'];
+        }
+    }
+    $pagina *= $requestData['length'];
+}
+if ($pagina != '')
+    $requestData['start'] = $pagina;
 
 $query=mysqli_query($conn, $sql) or die("02");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result.
@@ -124,16 +131,14 @@ $query=mysqli_query($conn, $sql) or die("03");
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
-
+    $nestedData[] = '<center><input type="checkbox" class="accion" value="' . $row['venta_id'] . '::' . $row['campania'] . '"></center>';
+    $nestedData[] = utf8_encode($row['estado_real']);
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['asesor_venta']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_creacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
-
-    $acciones = '<a class="button view no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar / Ver" ><i class="fi-pencil medium"></i></a>';
-    $nestedData[] = $acciones;
 
     $data[] = $nestedData;
 }

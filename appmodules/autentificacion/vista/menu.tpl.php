@@ -16,7 +16,11 @@ elseif ( $lugar == 3 ) $base_url = 'http://localhost/neointelperu_apps/appmodule
       <li class="has-submenu" data-dropdown-menu>
         <a href="#">Menu</a>
         <ul class="submenu menu vertical" data-submenu>
-          <li><a href="<?php echo $base_url . 'ventas/index.php' ?>">Ventas</a></li>
+          <li><a href="<?php echo $base_url . 'autentificacion' ?>">Cuenta</a></li>
+          <li><a href="<?php echo $base_url . 'ventas' ?>">Ventas</a></li>
+          <?php if (array_search('Barrido', explode(' ',trim($_SESSION['resources']))) !== false): ?>
+            <li><a href="<?php echo $base_url . 'barrido' ?>">Barrido</a></li>
+          <?php endif ?>
         </ul>
       </li>
     </ul>

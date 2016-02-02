@@ -99,6 +99,26 @@ class ModeloAuten {
         }
     }
 
+    static function changePWD($in) {
+        $q = new Query();
+        $q->fields = array('id' => '');
+        $q->sql = '
+        SELECT id FROM usu_usuario WHERE 
+        login="' . $in['login'] . '" AND
+        pwd = "' . crypt($in['pwd-old'], '$4a$85$estoesparati$') . '"
+        ';
+        $q->data = NULL;
+        $data = $q->exe();
+        if ($data && $in['pwd-new-1'] == $in['pwd-new-2']) {
+            $q->fields = array('id' => '');
+            $q->sql = '
+            UPDATE usu_usuario SET pwd="' . crypt($in['pwd-new-1'], '$4a$85$estoesparati$') . '" WHERE id="' . $in['user_id'] . '"
+            ';
+            // print $q->sql;
+            $q->data = NULL;
+            $q->exe();
+        }
+    }
 }
 
 

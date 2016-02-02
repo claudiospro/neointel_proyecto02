@@ -3,9 +3,10 @@
 <?php ob_start() ?>
 
 <div class="row"> 
-  <div class="large-12 column">
+  <div class="large-6 column">
     <fieldset class="fieldset">
-      <legend>Autentificación</legend>
+      <legend
+      >Autentificación</legend>
       <form action="./procesos/login.php" method="POST">
         <div class="row"> 
           <div class="large-2 columns text-right">

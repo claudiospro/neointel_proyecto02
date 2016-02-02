@@ -5,6 +5,7 @@ $(document).ready(function() {
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
     venta_listado_tabla();
+    venta_listado_estados_reales();
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
@@ -18,7 +19,9 @@ $(document).ready(function() {
             }
         }
     });
-
+    $(prefixId+'cambiar').on('click', function (event) {
+        venta_listado_cambiar();
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -35,10 +38,10 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 10,
+            "pageLength" : 20,
             "order"      : [ 4, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 5 ], 'bSortable': false },
+                { 'aTargets': [ 0 ], 'bSortable': false },
             ],
 
             "ajax": {
@@ -48,4 +51,41 @@ $(document).ready(function() {
         });
         $(prefixId+'tabla_filter').hide();
     }
+    function venta_listado_estados_reales() {
+        element_simple(
+            './procesos/ajax/select/ventas_listado_estados_reales_select.php',
+            prefixId+'estados_reales',
+            {}
+        );
+    }
+    function venta_listado_cambiar() {
+        if( $('.accion:checked').length > 0 ) {
+            var ids = [];
+            $('.accion').each(function(){
+                if($(this).is(':checked')) {
+                    ids.push($(this).val());
+                }
+            });
+            var enviar = {
+                'estado_real': $(prefixId+'estados_reales').val(),
+                'ids': ids.toString()
+            }
+            // c(enviar);
+            $.ajax({
+	        type: "POST",
+	        data: enviar,
+	        url: './procesos/ajax/save/ventas_listado_cambiar_estado_real_click_save.php',
+	        success: function(data) {
+                    dataTable_listado
+                        .search(data)
+                        .draw();
+                    dataTable_listado
+                        .search('');
+                }
+            }); 
+            
+            
+        }
+    }
+    
 });

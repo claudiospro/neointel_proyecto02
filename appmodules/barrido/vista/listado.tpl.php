@@ -32,27 +32,39 @@ $prefix = 'venta_listado_';
     <!--   <td>4</td> -->
     <!--   <td>5</td> -->
     <!--   <td>6</td> -->
+    <!--   <td>7</td> -->
     <!-- </tr> -->
     <tr>
-      <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
+      <td></td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
-      <td></td>      
+      <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
     </tr>
     <tr>
+      <th>Acciones</th>
+      <th>Estado Real</th>
       <th>Producto</th>
       <th>Cliente</th>
       <th>Asesor de Venta</th>
       <th>Fecha Creación</th>
-      <th>Fecha Actualización</th>
+      <th>Ultima Fecha</th>
       <th>Fecha Instalación</th>      
-      <th>Acciones</th>
     </tr>
   </thead>
 </table>
+<div class="row">
+  <div class="large-6 columns">
+    <select id="<?php echo $prefix ?>estados_reales">
+    </select>
+  </div>
+  <div class="large-6 columns">
+    <a id="<?php echo $prefix ?>cambiar" class="button">Cambiar</a>
+  </div>
+</div>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>
