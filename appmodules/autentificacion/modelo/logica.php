@@ -33,9 +33,9 @@ class ModeloAuten {
 
     static function logIn($in) {
         $q = new Query();
-        $q->fields = array('modulo' => '', 'user_id' => '');
+        $q->fields = array('modulo' => '', 'user_id' => '', 'user_full_name' => '');
         $q->sql = '
-        SELECT DISTINCT r.nombre, u.id
+        SELECT DISTINCT r.nombre, u.id, u.nombre
         FROM usu_usuario u
         LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
         LEFT JOIN usu_perfil_recurso pr ON pr.perfil_id=up.perfil_id
@@ -47,6 +47,7 @@ class ModeloAuten {
         $data = $q->exe();        
         if ($data) {
             $_SESSION["user_name"] = $in['nombre'];
+            $_SESSION["user_full_name"] = $data[0]['user_full_name'];
             $_SESSION["user_id"] = $data[0]['user_id'];
             $resources = ' ';
             foreach ($data as $row) {

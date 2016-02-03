@@ -1,10 +1,22 @@
 <?php $title = 'Autentificación' ?>
 
 <?php ob_start() ?>
-
-<div class="row"> 
+<style>
+ body {
+      background-color: #959493;
+ } 
+</style>
+<div class="row">
+  <div class="large-3 column">&nbsp;</div>
   <div class="large-6 column">
-    <fieldset class="fieldset">
+    <img src="../../static/logo.png" style="margin: 3rem 0 2rem 0" />
+  </div>
+  <div class="large-3 column">&nbsp;</div>
+</div>
+<div class="row">
+  <div class="large-3 column">&nbsp;</div>
+  <div class="large-6 column">
+    <fieldset class="fieldset callout primary">
       <legend
       >Autentificación</legend>
       <form action="./procesos/login.php" method="POST">
@@ -26,12 +38,13 @@
         </div>
         <div class="row"> 
           <div class="large-12 columns text-right">
-            <input class="button" type="submit" name="enviar" value="Acceder">
+            <input class="button no-margin" type="submit" name="enviar" value="Acceder">
           </div>
         </div>            
       </form>
     </fieldset>
   </div>
+  <div class="large-3 column">&nbsp;</div>
 </div>
 
 <?php $content = ob_get_clean() ?>

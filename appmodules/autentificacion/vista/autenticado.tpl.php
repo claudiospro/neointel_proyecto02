@@ -2,8 +2,19 @@
 
 <?php ob_start() ?>
 <?php include 'menu.tpl.php' ?>
-<div class="row"> 
-  <fieldset class="fieldset large-6 columns">
+<div class="row">
+  <div class="large-3 column">&nbsp;</div>
+  <div class="large-6 column">
+    <div class="row">
+      <div class="large-3 columns">Usuario</div>
+      <div class="large-9 columns"><?php echo $_SESSION['user_full_name'] ?></div>
+    </div>
+  </div>
+  <div class="large-3 column">&nbsp;</div>
+</div>
+<div class="row">
+  <div class="large-3 column">&nbsp;</div>
+  <fieldset class="fieldset large-6 columns callout warning">
     <legend>Cambiar Contraseña</legend>
     <form action="./procesos/pwd.php" method="POST">
       <div class="row">
@@ -23,6 +34,7 @@
       </div>
     </form>
   </fieldset>
+  <div class="large-3 column">&nbsp;</div>
 </div>
 
 <?php $content = ob_get_clean() ?>
