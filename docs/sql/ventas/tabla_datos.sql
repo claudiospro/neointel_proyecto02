@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 03, 2016 at 09:55 AM
+-- Generation Time: Feb 08, 2016 at 08:39 AM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -24,6 +24,7 @@ DELIMITER $$
 --
 -- Procedures
 --
+DROP PROCEDURE IF EXISTS `ventas_save`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ventas_save` (`in_id` BIGINT, `in_campania` VARCHAR(600), `in_fecha` VARCHAR(100), `in_usuario` INT)  BEGIN
   DECLARE ou_id BIGINT;
   DECLARE pr_lineal_id BIGINT;
@@ -80,6 +81,7 @@ DELIMITER ;
 -- Table structure for table `campania`
 --
 
+DROP TABLE IF EXISTS `campania`;
 CREATE TABLE `campania` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -106,6 +108,7 @@ INSERT INTO `campania` (`info_create`, `info_create_user`, `info_update`, `info_
 -- Table structure for table `campania_history`
 --
 
+DROP TABLE IF EXISTS `campania_history`;
 CREATE TABLE `campania_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -122,6 +125,7 @@ CREATE TABLE `campania_history` (
 -- Table structure for table `campania_lineal`
 --
 
+DROP TABLE IF EXISTS `campania_lineal`;
 CREATE TABLE `campania_lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -148,6 +152,7 @@ INSERT INTO `campania_lineal` (`info_create`, `info_create_user`, `info_update`,
 -- Table structure for table `campania_lineal_history`
 --
 
+DROP TABLE IF EXISTS `campania_lineal_history`;
 CREATE TABLE `campania_lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -164,6 +169,7 @@ CREATE TABLE `campania_lineal_history` (
 -- Table structure for table `lineal`
 --
 
+DROP TABLE IF EXISTS `lineal`;
 CREATE TABLE `lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -189,6 +195,7 @@ INSERT INTO `lineal` (`info_create`, `info_create_user`, `info_update`, `info_up
 -- Table structure for table `lineal_history`
 --
 
+DROP TABLE IF EXISTS `lineal_history`;
 CREATE TABLE `lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -204,6 +211,7 @@ CREATE TABLE `lineal_history` (
 -- Table structure for table `usu_perfil`
 --
 
+DROP TABLE IF EXISTS `usu_perfil`;
 CREATE TABLE `usu_perfil` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL
@@ -227,6 +235,7 @@ INSERT INTO `usu_perfil` (`id`, `nombre`) VALUES
 -- Table structure for table `usu_perfil_recurso`
 --
 
+DROP TABLE IF EXISTS `usu_perfil_recurso`;
 CREATE TABLE `usu_perfil_recurso` (
   `id` bigint(20) NOT NULL,
   `perfil_id` int(11) NOT NULL,
@@ -256,6 +265,7 @@ INSERT INTO `usu_perfil_recurso` (`id`, `perfil_id`, `recurso_id`) VALUES
 -- Table structure for table `usu_recurso`
 --
 
+DROP TABLE IF EXISTS `usu_recurso`;
 CREATE TABLE `usu_recurso` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -276,6 +286,7 @@ INSERT INTO `usu_recurso` (`id`, `nombre`) VALUES
 -- Table structure for table `usu_usuario`
 --
 
+DROP TABLE IF EXISTS `usu_usuario`;
 CREATE TABLE `usu_usuario` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -308,6 +319,7 @@ INSERT INTO `usu_usuario` (`info_create`, `info_create_user`, `info_update`, `in
 -- Table structure for table `usu_usuario_history`
 --
 
+DROP TABLE IF EXISTS `usu_usuario_history`;
 CREATE TABLE `usu_usuario_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -326,6 +338,7 @@ CREATE TABLE `usu_usuario_history` (
 -- Table structure for table `usu_usuario_lineal`
 --
 
+DROP TABLE IF EXISTS `usu_usuario_lineal`;
 CREATE TABLE `usu_usuario_lineal` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -355,6 +368,7 @@ INSERT INTO `usu_usuario_lineal` (`info_create`, `info_create_user`, `info_updat
 -- Table structure for table `usu_usuario_lineal_history`
 --
 
+DROP TABLE IF EXISTS `usu_usuario_lineal_history`;
 CREATE TABLE `usu_usuario_lineal_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -371,6 +385,7 @@ CREATE TABLE `usu_usuario_lineal_history` (
 -- Table structure for table `usu_usuario_perfil`
 --
 
+DROP TABLE IF EXISTS `usu_usuario_perfil`;
 CREATE TABLE `usu_usuario_perfil` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -400,6 +415,7 @@ INSERT INTO `usu_usuario_perfil` (`info_create`, `info_create_user`, `info_updat
 -- Table structure for table `usu_usuario_perfil_history`
 --
 
+DROP TABLE IF EXISTS `usu_usuario_perfil_history`;
 CREATE TABLE `usu_usuario_perfil_history` (
   `info_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `info_create_user` int(11) DEFAULT '1',
@@ -416,6 +432,7 @@ CREATE TABLE `usu_usuario_perfil_history` (
 -- Table structure for table `venta`
 --
 
+DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `id` bigint(20) NOT NULL,
   `info_create_fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -437,7 +454,7 @@ CREATE TABLE `venta` (
 
 INSERT INTO `venta` (`id`, `info_create_fecha`, `info_create_user`, `info_update_fecha`, `info_update_user`, `info_status`, `asesor_venta_id`, `tramitacion_id`, `supervisor_id`, `coordinador_id`, `campania`, `lineal_id`) VALUES
 (7, '2016-01-28 12:49:14', 5, '2016-02-01 18:55:13', 5, 1, 5, 3, 4, 6, 'campania_001', 1),
-(10, '2016-02-01 15:00:56', 5, '2016-02-02 18:33:25', 5, 1, 5, 3, 4, 6, 'campania_001', 1),
+(10, '2016-02-01 15:00:56', 5, '2016-02-04 16:17:32', 5, 1, 5, 3, 4, 6, 'campania_001', 1),
 (11, '2016-02-01 16:48:21', 5, '2016-02-01 16:49:09', 5, 1, 5, 3, 4, 6, 'campania_001', 1),
 (16, '2016-02-01 18:16:44', 6, '2016-02-01 18:16:49', 6, 1, 6, 3, 4, 6, 'campania_001', 1);
 
@@ -447,6 +464,7 @@ INSERT INTO `venta` (`id`, `info_create_fecha`, `info_create_user`, `info_update
 -- Table structure for table `venta_campania_001`
 --
 
+DROP TABLE IF EXISTS `venta_campania_001`;
 CREATE TABLE `venta_campania_001` (
   `id` bigint(20) NOT NULL,
   `cliente_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -512,9 +530,9 @@ CREATE TABLE `venta_campania_001` (
 --
 
 INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `cliente_documento_tipo`, `cliente_documento`, `cliente_documento_reverso`, `cliente_nacimiento`, `cliente_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `producto`, `fijo_numero`, `fijo_modalidad`, `fijo_operador`, `fijo_titular`, `fijo_titular_documento`, `fijo_titular_nombre`, `movil_numero`, `movil_modalidad`, `movil_operador`, `movil_tarifa`, `movil_titular`, `movil_titular_documento`, `movil_titular_nombre`, `movil_estado`, `movil_icc`, `movil_adicional_1_numero`, `movil_adicional_1_modalidad`, `movil_adicional_1_operador`, `movil_adicional_1_tarifa`, `movil_adicional_1_titular`, `movil_adicional_1_titular_documento`, `movil_adicional_1_titular_nombre`, `movil_adicional_1_estado`, `movil_adicional_1_icc`, `movil_adicional_2_numero`, `movil_adicional_2_modalidad`, `movil_adicional_2_operador`, `movil_adicional_2_tarifa`, `movil_adicional_2_titular`, `movil_adicional_2_titular_documento`, `movil_adicional_2_titular_nombre`, `movil_adicional_2_estado`, `movil_adicional_2_icc`, `estado`, `estado_real`, `estado_observacion`, `fecha_instalada`) VALUES
-(7, 'Carlos Garcia Lopez', 1, 1, '45460258-D', '457656786', '01-09-88', 'nodispone@outlook.es', '2100-3651-42-3564125685', '123456789', '639258741', 1, 0, '45630', 3, 3, '27', '4', 'B', 1, '999999999', 1, 3, 0, '', '', '', 2, 1, 3, 1, '', '', 2, '677777', '123456789', 0, 0, 3, 0, '', '', 0, '', '', 0, 0, 3, 0, '', '', 0, '', 1, 3, 'zz', '2016-02-02 16:20:13'),
-(10, 'Silvia Gimenez Camuñas', 0, 1, '35123532 - D', '', '12 - 05 - 99', 'silviag@outlook.es', '2100 - 5684 - 01 - 1235800479', '931411391', '627653712', 1, 1, '08100 ', 1, 4, '13', '3', 'F', 1, '931411391', 2, 9, 1, '35123562-D', 'Silvia Gimenez Camuñas', '627653712', 2, 3, 3, 1, '35123562 - D', 'Silvia Gimenez Camuñas', 2, '', '659684571', 2, 7, 3, 2, 'C', 'Carlos sanchez garcia', 2, '', '', 0, 1, 3, 0, '', '', 0, '', 1, 3, '', '2016-02-02 16:20:13'),
-(11, 'Cristina maria monzon ramirez', 1, 1, '35654512-R', '', '25-04-19', 'nodispone@gmail.com', '', '963258147', '654321987', 48, 0, 'Navarra', 1, 5, '2', '3', 'J', 8, '654235684', 1, 7, 2, '54612387-W', '', '654235651', 2, 2, 3, 1, '54612387-W', 'Jose diaz fernandez', 2, '', '', 0, 0, 3, 0, '', '', 0, '', '', 0, 0, 3, 0, '', '', 0, '', 1, 3, '', '2016-02-02 16:20:13');
+(7, 'Carlos Garcia Lopez', 1, 1, '45460258-D', '457656786', '01-09-88', 'nodispone@outlook.es', '2100-3651-42-3564125685', '123456789', '639258741', 1, 0, '45630', 3, 3, '27', '4', 'B', 1, '999999999', 1, 3, 0, '', '', '', 2, 1, 3, 1, '', '', 2, '677777', '123456789', 0, 0, 3, 0, '', '', 0, '', '', 0, 0, 3, 0, '', '', 0, '', 1, 3, 'zz', '2016-02-08 13:27:06'),
+(10, 'Silvia Gimenez Camuñas', 0, 1, '35123532 - D', '', '12 - 05 - 99', 'silviag@outlook.es', '2100 - 5684 - 01 - 1235800479', '931411391', '627653712', 1, 1, '08100 ', 1, 4, '13', '3', 'F', 1, '123456789', 2, 9, 1, '35123562-D', 'Silvia Gimenez Camuñas', '627653712', 2, 3, 3, 1, '35123562 - D', 'Silvia Gimenez Camuñas', 2, '', '659684571', 2, 7, 3, 2, 'C', 'Carlos sanchez garcia', 2, '', '', 0, 1, 3, 0, '', '', 0, '', 1, 3, '', '2016-02-08 13:27:06'),
+(11, 'Cristina maria monzon ramirez', 1, 1, '35654512-R', '', '25-04-19', 'nodispone@gmail.com', '', '963258147', '654321987', 48, 0, 'Navarra', 1, 5, '2', '3', 'J', 8, '654235684', 1, 7, 2, '54612387-W', '', '654235651', 2, 2, 3, 1, '54612387-W', 'Jose diaz fernandez', 2, '', '', 0, 0, 3, 0, '', '', 0, '', '', 0, 0, 3, 0, '', '', 0, '', 1, 2, '', '2016-02-08 13:27:17');
 
 -- --------------------------------------------------------
 
@@ -522,6 +540,7 @@ INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `clien
 -- Table structure for table `venta_campania_001_campos`
 --
 
+DROP TABLE IF EXISTS `venta_campania_001_campos`;
 CREATE TABLE `venta_campania_001_campos` (
   `id` bigint(20) NOT NULL,
   `pestana` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -568,24 +587,24 @@ INSERT INTO `venta_campania_001_campos` (`id`, `pestana`, `grupo`, `grupo_etique
 (22, 'Estados', 'estado_venta', 'Estado', 'estado_observacion', 'Observación', 55, 'venta', 0, '', '', 1, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, r, r, w'),
 (24, 'Producto', 'fijo', 'Fijo', 'fijo_numero', 'Número', 20, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (25, 'Producto', 'fijo', 'Fijo', 'fijo_modalidad', 'Modalidad', 21, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(26, 'Producto', 'fijo', 'Fijo', 'fijo_operador', 'Operador', 22, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(26, 'Producto', 'fijo', 'Fijo', 'fijo_operador', 'Operador', 22, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (27, 'Producto', 'movil', 'Movil', 'movil_numero', 'Número', 26, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (28, 'Producto', 'movil', 'Movil', 'movil_modalidad', 'Modalidad', 27, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(29, 'Producto', 'movil', 'Movil', 'movil_operador', 'Operador', 28, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(29, 'Producto', 'movil', 'Movil', 'movil_operador', 'Operador', 28, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (30, 'Producto', 'movil', 'Movil', 'movil_tarifa', 'Tarifa', 29, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (31, 'Producto', 'movil', 'Movil', 'movil_titular', 'Mismo Titular', 30, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (32, 'Producto', 'movil', 'Movil', 'movil_estado', 'Estado', 33, 'venta', 2, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (33, 'Producto', 'movil', 'Movil', 'movil_icc', 'ICC', 34, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (34, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_numero', 'Número', 35, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (35, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_modalidad', 'Modalidad', 36, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(36, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_operador', 'Operador', 37, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(36, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_operador', 'Operador', 37, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (37, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_tarifa', 'Tarifa', 38, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (38, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_titular', 'Mismo Titular', 39, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (39, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_estado', 'Estado', 42, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (40, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_icc', 'ICC', 43, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (41, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_numero', 'Número', 44, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (42, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_modalidad', 'Modalidad', 45, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(43, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_operador', 'Operador', 46, 'venta', 2, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(43, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_operador', 'Operador', 46, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (44, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_tarifa', 'Tarifa', 47, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (45, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_titular', 'Mismo Titular', 48, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (46, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_estado', 'Estado', 51, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
@@ -608,6 +627,7 @@ INSERT INTO `venta_campania_001_campos` (`id`, `pestana`, `grupo`, `grupo_etique
 -- Table structure for table `venta_cliente_documento_tipo`
 --
 
+DROP TABLE IF EXISTS `venta_cliente_documento_tipo`;
 CREATE TABLE `venta_cliente_documento_tipo` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -629,6 +649,7 @@ INSERT INTO `venta_cliente_documento_tipo` (`id`, `nombre`, `info_status`) VALUE
 -- Table structure for table `venta_cliente_tipo`
 --
 
+DROP TABLE IF EXISTS `venta_cliente_tipo`;
 CREATE TABLE `venta_cliente_tipo` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -649,6 +670,7 @@ INSERT INTO `venta_cliente_tipo` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_direccion_nombre`
 --
 
+DROP TABLE IF EXISTS `venta_direccion_nombre`;
 CREATE TABLE `venta_direccion_nombre` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL,
@@ -673,6 +695,7 @@ INSERT INTO `venta_direccion_nombre` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_direccion_tipo`
 --
 
+DROP TABLE IF EXISTS `venta_direccion_tipo`;
 CREATE TABLE `venta_direccion_tipo` (
   `id` int(11) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -694,6 +717,7 @@ INSERT INTO `venta_direccion_tipo` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_estado`
 --
 
+DROP TABLE IF EXISTS `venta_estado`;
 CREATE TABLE `venta_estado` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -715,9 +739,11 @@ INSERT INTO `venta_estado` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_estado_real`
 --
 
+DROP TABLE IF EXISTS `venta_estado_real`;
 CREATE TABLE `venta_estado_real` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `estado_id` bigint(20) NOT NULL,
   `info_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -725,18 +751,17 @@ CREATE TABLE `venta_estado_real` (
 -- Dumping data for table `venta_estado_real`
 --
 
-INSERT INTO `venta_estado_real` (`id`, `nombre`, `info_status`) VALUES
-(1, 'Pendiente', 1),
-(2, 'En tramitacion', 1),
-(3, 'Ok tramitado', 1),
-(4, 'Autoinstalable', 1),
-(5, 'Incidencia cliente', 1),
-(6, 'Pendiente de instalación', 1),
-(7, 'Pendiente de documentación', 1),
-(8, 'Ko cliente', 1),
-(9, 'Desconectada', 1),
-(10, 'Incidencia Cliente', 1),
-(11, 'Pendiente por documentacion', 1);
+INSERT INTO `venta_estado_real` (`id`, `nombre`, `estado_id`, `info_status`) VALUES
+(1, 'Pendiente', 1, 1),
+(2, 'En tramitacion', 1, 1),
+(3, 'Ok tramitado', 2, 1),
+(4, 'Autoinstalable', 1, 1),
+(5, 'Incidencia cliente', 1, 1),
+(6, 'Pendiente de instalación', 1, 1),
+(7, 'Pendiente de documentación', 1, 1),
+(8, 'Ko cliente', 3, 1),
+(9, 'Desconectada', 1, 1),
+(11, 'Pendiente por documentacion', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -744,6 +769,7 @@ INSERT INTO `venta_estado_real` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_localidad`
 --
 
+DROP TABLE IF EXISTS `venta_localidad`;
 CREATE TABLE `venta_localidad` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL,
@@ -770,6 +796,7 @@ INSERT INTO `venta_localidad` (`id`, `nombre`, `provincia`, `info_status`) VALUE
 -- Table structure for table `venta_modalidad`
 --
 
+DROP TABLE IF EXISTS `venta_modalidad`;
 CREATE TABLE `venta_modalidad` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -790,6 +817,7 @@ INSERT INTO `venta_modalidad` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_movil_estado`
 --
 
+DROP TABLE IF EXISTS `venta_movil_estado`;
 CREATE TABLE `venta_movil_estado` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -801,7 +829,7 @@ CREATE TABLE `venta_movil_estado` (
 --
 
 INSERT INTO `venta_movil_estado` (`id`, `nombre`, `info_status`) VALUES
-(1, 'Targeta', 1),
+(1, 'Tarjeta', 1),
 (2, 'Contrato', 1);
 
 -- --------------------------------------------------------
@@ -810,6 +838,7 @@ INSERT INTO `venta_movil_estado` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_operador`
 --
 
+DROP TABLE IF EXISTS `venta_operador`;
 CREATE TABLE `venta_operador` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -845,6 +874,7 @@ INSERT INTO `venta_operador` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_producto`
 --
 
+DROP TABLE IF EXISTS `venta_producto`;
 CREATE TABLE `venta_producto` (
   `id` bigint(20) NOT NULL,
   `nombre` text COLLATE utf8_unicode_ci NOT NULL,
@@ -877,6 +907,7 @@ INSERT INTO `venta_producto` (`id`, `nombre`, `campania`, `info_status`) VALUES
 -- Table structure for table `venta_provincia`
 --
 
+DROP TABLE IF EXISTS `venta_provincia`;
 CREATE TABLE `venta_provincia` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -947,6 +978,7 @@ INSERT INTO `venta_provincia` (`id`, `nombre`, `info_status`) VALUES
 -- Table structure for table `venta_tarifa_movil`
 --
 
+DROP TABLE IF EXISTS `venta_tarifa_movil`;
 CREATE TABLE `venta_tarifa_movil` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -970,6 +1002,7 @@ INSERT INTO `venta_tarifa_movil` (`id`, `nombre`, `campania`, `info_status`) VAL
 -- Table structure for table `venta_titular`
 --
 
+DROP TABLE IF EXISTS `venta_titular`;
 CREATE TABLE `venta_titular` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,

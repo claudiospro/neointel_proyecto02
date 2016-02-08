@@ -102,7 +102,14 @@ class Utilidades {
             $out = $l[0];
         }
         return $out;	
-    }    
+    }
+    static function fechas_de_MysqlTimeStamp_a_string_hm($f) {
+        $out = '';
+        if ( strlen($f) == 19 ) {
+            $out = substr($f, 0, -3);
+        }
+        return $out;	
+    }
     static function fechas_de_array_a_MysqlTimeStamp($a) {
         $out = '';    
         if ( is_array($a) ) {

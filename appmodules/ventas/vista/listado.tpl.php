@@ -57,7 +57,7 @@ $prefix = 'venta_listado_';
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
     <!-- <tr> -->
-    <!--   <td>0</td> -->
+    <!--   <td>0</td>  -->
     <!--   <td>1</td> -->
     <!--   <td>2</td> -->
     <!--   <td>3</td> -->
@@ -69,6 +69,7 @@ $prefix = 'venta_listado_';
     <!--   <td>9</td> -->
     <!--   <td>10</td> -->
     <!--   <td>11</td> -->
+    <!--   <td>12</td> -->
     <!-- </tr> -->
     <tr>
       <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
@@ -82,6 +83,7 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
       <td></td>      
     </tr>
     <tr>
@@ -90,7 +92,8 @@ $prefix = 'venta_listado_';
       <th>Cliente</th>
       <th>Estado</th>
       <th>Estado Real</th>
-      <th>Ultima Fecha</th>
+      <th>Fecha Creación</th>
+      <th>Fecha Ultima</th>
       <th>Fecha Instalada</th>
       <th>Asesor de Venta</th>
       <th>Tramitación</th>

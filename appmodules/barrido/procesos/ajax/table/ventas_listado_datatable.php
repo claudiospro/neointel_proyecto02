@@ -136,7 +136,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['asesor_venta']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_creacion']);
+    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
 

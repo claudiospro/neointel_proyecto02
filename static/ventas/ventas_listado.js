@@ -39,13 +39,13 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [4, 7, 8, 9, 10];
+            ver = [4, 8, 9, 10, 11];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [3, 9, 10];
+            ver = [3, 10, 11];
         } else if(enviar.perfil == 'Tramitacion') {
-            ver = [3, 8, 10];
+            ver = [3, 9, 11];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [3, 10];
+            ver = [3, 11];
         } else {
              ver = [];
         }
@@ -63,7 +63,7 @@ $(document).ready(function() {
             "pageLength" : 50,
             "order"      : [ 5, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 11 ], 'bSortable': false },
+                { 'aTargets': [ 12 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 
