@@ -14,6 +14,7 @@ $prefix = 'venta_listado_';
 
 
 <?php ob_start() ?>
+<?php include '../autentificacion/vista/url.php' ?>
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
 
 <?php $content = ob_get_clean() ?>

@@ -1,7 +1,9 @@
 <?php $title = 'Autentificación' ?>
 
 <?php ob_start() ?>
+<?php include 'url.php' ?>
 <?php include 'menu.tpl.php' ?>
+
 <div class="row">
   <div class="large-3 column">&nbsp;</div>
   <div class="large-6 column">

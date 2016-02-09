@@ -1,10 +1,3 @@
-<?php
-$lugar = 1;
-if ( $lugar == 1 )     $base_url = 'http://192.168.1.162/neointelperu_apps/appmodules/';
-elseif ( $lugar == 2 ) $base_url = 'http://192.168.1.3/neointelperu_apps/appmodules/';
-elseif ( $lugar == 3 ) $base_url = 'http://localhost/neointelperu_apps/appmodules/';
-
-?>
 <div class="top-bar">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
