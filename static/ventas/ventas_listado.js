@@ -19,8 +19,11 @@ $(document).ready(function() {
             }
         }
     });
-    $(prefixId+'tabla').on('click', '.view', function (event) {
+    $(prefixId+'tabla').on('click', '.edit', function (event) {
         venta_listado_modal_edit($(this));
+    });
+    $(prefixId+'tabla').on('click', '.view', function (event) {
+        venta_listado_modal_view($(this));
     });
     $(prefixId+'add').on('click', function (event) {
         venta_listado_modal_add();
@@ -74,10 +77,24 @@ $(document).ready(function() {
         });
         $(prefixId+'tabla_filter').hide();
     }
+    function venta_listado_modal_view(item) {
+        var enviar = {
+            'campania': item.attr('campania'),
+            'venta_id': item.attr('venta_id'),
+            'view': 1,
+        }
+        // c(enviar);
+        element_simple(
+            './procesos/ajax/click/ventas_listado_view_modal.php',
+            prefixId+'modal_div .ajax',
+            enviar
+        );
+    }
     function venta_listado_modal_edit(item) {
         var enviar = {
             'campania': item.attr('campania'),
             'venta_id': item.attr('venta_id'),
+            'view': 0,
         }
         // c(enviar);
         element_simple(

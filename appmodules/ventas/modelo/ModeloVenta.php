@@ -175,12 +175,13 @@ class ModeloVenta {
                               style="color:red">';
             }
         } elseif ($campo['permiso'] == 'r') {
-            if ($campo['diccionario']!='0') {
+            if ($campo['diccionario']!='0') {                
                 $this->q->fields = array('nombre' => '');
-                $this->q->sql = '
-                SELECT nombre FROM venta_' . $campo['nombre'] . '
-                WHERE id="' . $dato . '"
-                ';
+                if ($campo['diccionario_nombre'] == '') 
+                    $this->q->sql = 'SELECT nombre FROM venta_' . $campo['nombre'] . ' WHERE id="' . $dato . '"';
+                else
+                    $this->q->sql = 'SELECT nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE id="' . $dato . '"';
+                // echo $this->q->sql.'<br>';                
                 $this->q->data = NULL;
                 $ou = $this->q->exe();
                 $ou = $ou[0]['nombre'];

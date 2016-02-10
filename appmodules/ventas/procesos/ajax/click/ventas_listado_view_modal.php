@@ -8,6 +8,7 @@ $venta = new ModeloVenta();
 // -------------------------------------------------------- INPUT
 $in['campania'] = Utilidades::clear_input(Utilidades::sanear_string($_POST['campania']));
 $in['venta_id'] = Utilidades::clear_input_id($_POST['venta_id']);
+$in['view'] = Utilidades::clear_input_id($_POST['view']);
 
 // -------------------------------------------------------- Data
 $campos = $venta->getcampos($in);
@@ -51,6 +52,7 @@ for ($i=0; $i < $total; $i++) {
     $perfiles = explode(', ', trim($campos[$i]['perfiles']));
     $permisos = explode(', ', trim($campos[$i]['permisos']));
     $campos[$i]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+    if ($in['view'] == '1') $campos[$i]['permiso'] = 'r';
     $row_str = '';
     if ($campos[$i]['permiso'] != 'h') {
         $row_str .= '<div class="row fields">';
@@ -74,6 +76,7 @@ for ($i=0; $i < $total; $i++) {
                 $perfiles = explode(', ', trim($campos[$j]['perfiles']));
                 $permisos = explode(', ', trim($campos[$j]['permisos']));
                 $campos[$j]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+                if ($in['view'] == '1') $campos[$j]['permiso'] = 'r';
                 if ($campos[$j]['permiso'] != 'h') {
                     $row_str .= '<div class="row">';
                     $row_str .= '<div class="small-3 columns"><label class="">';
@@ -103,7 +106,8 @@ while ($row = next($pestanias_str)) {
     echo '<div class="venta-listado-view" id="venta-listado-view-' . $i++ . '" style="display:none">' . $row . '</div>';
 }
 // guardar
-echo '<div class="row fields">
+if ($in['view'] == '0')
+    echo '<div class="row fields">
          <div class="small-12 columns text-right">
            <a class="button no-margin save-continue" >Guardar</a>
            <a class="button success no-margin save-exit" data-close>Guardar y Cerrar</a>
