@@ -187,10 +187,15 @@ class ModeloVenta {
                 $ou = $ou[0]['nombre'];
             }
             if ('TIMESTAMP' == strtoupper($campo['tipo'])) {
-                $ou = substr($ou, 0, 10);
+                $ou = trim(substr($ou, 0, 10));
             } else {
-                $ou = utf8_encode($ou);
-            }            
+                $ou = $ou;
+            }
+            $ou = '
+                  <a class="copy-link-wrap" style="text-decoration: none; display: block; padding: 0.5em; line-height: 1em;">    
+                     <label>'. strtoupper($ou).'</label>                
+                  </a>
+                  ';
         }
         return $ou;
     }

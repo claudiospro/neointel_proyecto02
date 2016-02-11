@@ -29,6 +29,9 @@ $(document).ready(function() {
     $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (event) {
         venta_item_div($(this));
     });
+    $(".copy-link-wrap").click(function() {
+        venta_item_zclip($(this));
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {
         var my_url = './procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?';
@@ -53,5 +56,17 @@ $(document).ready(function() {
     function venta_item_div(item) {
         $('.venta-listado-view').hide();
         $('#venta-listado-view-' + item.attr('pestania')).show();
+    }
+    function venta_item_zclip(item) {
+        var obj = item.find("label").eq(0).html();
+
+        item.zclip({
+            path: '../../lib/vendor/zclip/ZeroClipboard.swf',
+            copy: obj,
+            afterCopy: function() {
+                console.log(obj);
+                // alert('Dane w schowku. Możesz je teraz wklejać...');
+            }
+        });
     }
 });

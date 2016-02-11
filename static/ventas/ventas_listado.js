@@ -94,7 +94,7 @@ $(document).ready(function() {
         var enviar = {
             'campania': item.attr('campania'),
             'venta_id': item.attr('venta_id'),
-            'view': 0,
+            'view': '0',
         }
         // c(enviar);
         element_simple(
@@ -107,6 +107,7 @@ $(document).ready(function() {
         var enviar = {
             'campania': $(prefixId+'campanias').val(),
             'venta_id': '0',
+            'view': '0',
         }
         // c(enviar);
         element_simple(

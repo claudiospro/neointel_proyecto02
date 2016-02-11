@@ -9,6 +9,8 @@ $prefix = 'venta_listado_';
 <link rel="stylesheet" href="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css">
 
 <link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
+<link rel="stylesheet" href="../../lib/vendor/zclip/style.css">
+
 <?php $css = ob_get_clean() ?>
 
 
@@ -20,6 +22,8 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
 
 <script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script>
 
 <script src="../../static/ventas/ventas_listado.js"></script>
 <?php $js = ob_get_clean() ?>
