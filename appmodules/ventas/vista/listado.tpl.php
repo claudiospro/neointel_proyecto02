@@ -63,6 +63,7 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
+    <!--  
     <tr>
       <td>0</td>
       <td>1</td>
@@ -79,6 +80,7 @@ $prefix = 'venta_listado_';
       <td>12</td>
       <td>13</td>
     </tr>
+    -->
     <tr>
       <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
