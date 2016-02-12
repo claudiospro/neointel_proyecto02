@@ -54,6 +54,18 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data[0];
     }
+    function getUnDato_NombreCorto($in) {
+        $this->q->fields = array('nombre'=>'');
+        $this->q->sql = '
+        SELECT u.nombre_corto FROM venta v 
+        JOIN usu_usuario u ON u.id=v.asesor_venta_id
+        WHERE v.id = "' . $in['venta_id'] . '"
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['nombre'];
+    }
     function imprimirCampo($dato, $campo, $campania) {
         $dato = utf8_encode($dato);
         $ou = $dato;

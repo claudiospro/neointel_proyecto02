@@ -26,8 +26,9 @@ $(document).ready(function() {
         }
     });
 
-    $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (event) {
+    $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
         venta_item_div($(this));
+        e.preventDefault();
     });
     $(".copy-link-wrap").click(function() {
         venta_item_zclip($(this));

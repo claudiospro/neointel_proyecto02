@@ -23,6 +23,8 @@ $prefix = 'venta_listado_';
 
 <script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
+<script src="../../lib/main/sesion.js"></script>
+
 <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script>
 
 <script src="../../static/ventas/ventas_listado.js"></script>
@@ -61,21 +63,22 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
-    <!-- <tr> -->
-    <!--   <td>0</td>  -->
-    <!--   <td>1</td> -->
-    <!--   <td>2</td> -->
-    <!--   <td>3</td> -->
-    <!--   <td>4</td> -->
-    <!--   <td>5</td> -->
-    <!--   <td>6</td> -->
-    <!--   <td>7</td> -->
-    <!--   <td>8</td> -->
-    <!--   <td>9</td> -->
-    <!--   <td>10</td> -->
-    <!--   <td>11</td> -->
-    <!--   <td>12</td> -->
-    <!-- </tr> -->
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>13</td>
+    </tr>
     <tr>
       <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
@@ -89,12 +92,14 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
       <td></td>      
     </tr>
     <tr>
       <th>Campaña</th>
-      <th>Producto</th>
+      <th>Producto</th>      
       <th>Cliente</th>
+      <th>Documento</th>
       <th>Estado</th>
       <th>Estado Real</th>
       <th>Fecha Creación</th>

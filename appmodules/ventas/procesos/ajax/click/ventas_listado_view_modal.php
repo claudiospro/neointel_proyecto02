@@ -20,8 +20,10 @@ foreach ($campos as $r) {
     $in['fields'][$r['nombre']] = '';
 }
 
+$nombre_corto = '';
 if ($in['venta_id'] != '0') {
-    $dato = $venta->getUnDato($in);    
+    $dato = $venta->getUnDato($in);
+    $nombre_corto = 'Asesor: ' . $venta->getUnDato_NombreCorto($in);
 }
 
 // -------------------------------------------------------- TEST
@@ -41,6 +43,7 @@ for ($i=1; $i < $total; $i++) {
     echo '<li><a href="#" pestania="' . $i . '">' . $pestanias[$i]['pestania'] . '</a></li>';
     $pestanias_str[$pestanias[$i]['pestania']] = '';
 }
+echo '<li>' . $nombre_corto . '</li>';
 echo '</ul>';
 echo '<hr>';
 echo '</div></div>';
