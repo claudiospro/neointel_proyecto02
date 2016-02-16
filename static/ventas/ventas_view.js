@@ -31,7 +31,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
     $(".copy-link-wrap").click(function() {
-        venta_item_zclip($(this));
+        // venta_item_zclip($(this));
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {
