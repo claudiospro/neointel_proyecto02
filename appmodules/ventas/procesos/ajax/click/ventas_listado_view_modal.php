@@ -49,7 +49,7 @@ echo '<hr>';
 echo '</div></div>';
 
 echo '<input type="hidden" id="field_venta_id" name="venta_id" value="' . $in['venta_id'] . '">';
-echo '<input type="hidden" name="campania" value="' . $in['campania'] . '">';
+echo '<input type="hidden"id="field_campania" name="campania" value="' . $in['campania'] . '">';
 $total = count($campos);
 for ($i=0; $i < $total; $i++) {
     $perfiles = explode(', ', trim($campos[$i]['perfiles']));

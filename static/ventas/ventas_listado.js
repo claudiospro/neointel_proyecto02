@@ -28,11 +28,22 @@ $(document).ready(function() {
     $(prefixId+'add').on('click', function (event) {
         venta_listado_modal_add();
     });
-    $('body').on('click', 'form.myform a.save-exit', function (event) {
-        venta_listado_modal_save_exit();
+    $('body').on('click', 'form.myform a.save-exit', function (e) {
+        var ou = venta_listado_modal_save_validate();
+        if (ou == '0') {
+            e.stopPropagation();
+            alert('Si Ingresas Una Terminal, Pon El Reverso del Documento');
+        } else {
+            venta_listado_modal_save_exit();  
+        }
     });
-    $('body').on('click', 'form.myform a.save-continue', function (event) {
-        venta_listado_modal_save_continue();
+    $('body').on('click', 'form.myform a.save-continue', function (e) {
+        var ou = venta_listado_modal_save_validate();
+        if (ou == '0') {
+            alert('Si Ingresas Una Terminal, Pon El Reverso del Documento');  
+        } else {
+            venta_listado_modal_save_continue();
+        }
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
@@ -116,14 +127,57 @@ $(document).ready(function() {
             enviar
         );
     }
+    function venta_listado_modal_save_validate() {
+        var ou = 1;
+        if ($('#field_campania').val() == 'campania_001')
+        {            
+            var datos = {
+                'reverso': $('#field_cliente_documento_reverso').val(),
+                'movil_terminal': $('#field_movil_terminal').val(),
+                'movil_adicional_1_terminal': $('#field_movil_adicional_1_terminal').val(),
+                'movil_adicional_2_terminal': $('#field_movil_adicional_2_terminal').val()
+            }
+            // c(datos);
+            
+            if (datos.reverso.trim() == '' && datos.movil_terminal.trim() != '')
+            {
+                ou = 0;
+            }
+            if (datos.reverso.trim() == '' && datos.movil_adicional_1_terminal.trim() != '')
+            {
+                ou = 0;
+            }
+            if (datos.reverso.trim() == '' && datos.movil_adicional_2_terminal.trim() != '')
+            {
+                ou = 0;
+            }
+            if (ou == 0)
+            {
+                $('#field_cliente_documento_reverso').addClass('error');
+                $('.venta-listado-view').hide();
+                $('#venta-listado-view-0').show();
+            } else
+            {
+                $('#field_cliente_documento_reverso').removeClass('error');
+            }
+            
+        } else
+        {
+            ou = 1;
+        }
+        
+        
+        return ou;
+        
+    }
     function venta_listado_modal_save_continue() {
         var enviar = $("form.myform").serialize();
+        // c(enviar);
         $.ajax({
 	    type: "POST",
 	    data: enviar,
 	    url: './procesos/ajax/save/ventas_listado_venta_click_save.php',
 	    success: function(data) {
-                c('save');
                 $('#field_venta_id').val(data);
             }
         }); 
