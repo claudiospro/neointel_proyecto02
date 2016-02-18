@@ -18,7 +18,7 @@ BEGIN
 
   
   IF in_id=0 THEN
-     SELECT lineal_id INTO pr_lineal_id  FROM usu_usuario_lineal WHERE usuario_id= 5 LIMIT 1
+     SELECT lineal_id INTO pr_lineal_id  FROM usu_usuario_lineal WHERE usuario_id= in_usuario LIMIT 1
      ;
      SELECT ul.usuario_id INTO pr_tramitacion_id FROM usu_usuario_lineal ul
      LEFT JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id

@@ -55,11 +55,11 @@ $(document).ready(function() {
         if(enviar.perfil == 'Asesor Comercial') {
             ver = [5, 9, 10, 11, 12];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [4, 11, 12];
+            ver = [11, 12];
         } else if(enviar.perfil == 'Tramitacion') {
-            ver = [4, 10, 12];
+            ver = [10, 12];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [4, 12];
+            ver = [12];
         } else {
              ver = [];
         }

@@ -178,7 +178,10 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['tramitacion']);
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
-    $acciones = '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
+    $acciones = '';    
+    if ($perfiles!='Asesor Comercial') {
+        $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
+    }
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
     $nestedData[] = $acciones;
 
