@@ -108,6 +108,7 @@ class ModeloVenta {
                                   class="venta_item_autocomplete autocomplete no-margin"
                                   campo="' . $campo['nombre'] . '" 
                                   dependencia="' . $campo['dependencia'] . '"
+                                  diccionario="' . $campo['diccionario_nombre'] . '"
                                   value="">';
                 } else {
                     $this->q->fields = array('nombre' => '');

@@ -40,6 +40,7 @@ $(document).ready(function() {
         my_url += 'dependencia=' + item.attr('dependencia')+'&';
         my_url += 'dependencia_value=' + $('#field_'+item.attr('dependencia')).val()+'&';
         my_url += 'diccionario=' + item.attr('diccionario');
+        // c(my_url);
         item.autocomplete({
             source: my_url,
             minLength: 0,
