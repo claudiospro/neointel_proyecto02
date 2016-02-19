@@ -17,6 +17,12 @@ if ($perfiles=='Asesor Comercial') {
     $sql_usuario.= ' AND v.asesor_venta_id="' . $_SESSION['user_id'] . '"';
 }
 
+$sql_activo = '';
+if ($perfiles=='Asesor Comercial' || $perfiles=='Supervisor' || $perfiles=='Tramitacion') {
+    $sql_activo.= ' AND v.info_status=1';
+}
+
+
 
 $sql = 'SELECT indice FROM campania WHERE info_status=1';
 $query=mysqli_query($conn, $sql) or die("00");
@@ -40,6 +46,7 @@ SELECT
 , d5.nombre tramitacion
 , d6.nombre supervisor
 , d7.nombre coordinador
+, v.info_status
 --
 , v.id venta_id
 , v.campania
@@ -54,10 +61,9 @@ LEFT JOIN usu_usuario d5 ON d5.id=v.tramitacion_id
 LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
 LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
 LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
-WHERE v.campania = '".$row['indice']."'
-  " . $sql_usuario . "
+WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "
 "
-        ;
+            ;
     
 }
 
@@ -125,9 +131,19 @@ if( !empty($requestData['columns'][11]['search']['value']) ) {
 if( !empty($requestData['columns'][12]['search']['value']) ) {
     $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
 }
-
-
-// 13 (acciones)
+$bool_str = array('0'=>'Si', '1'=>'No');
+if( !empty($requestData['columns'][13]['search']['value']) ) {
+    $bool = $requestData['columns'][13]['search']['value'];
+    $bool = strtolower($bool);
+    $bool = trim($bool);
+    $bool = Utilidades::sanear_complete_string($bool);
+    if ($bool=='si' || $bool=='s') {
+        $sql_filter.=' AND info_status  = "0"';
+    } elseif($bool=='no' || $bool=='n') {
+        $sql_filter.=' AND info_status  = "1"';
+    }    
+}
+// 14 (acciones)
 
 $sql.= $sql_filter;
 
@@ -178,12 +194,16 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['tramitacion']);
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
+    $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
     $acciones = '';    
     if ($perfiles!='Asesor Comercial') {
         $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     }
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
-    $nestedData[] = $acciones;
+    if ($perfiles!='Asesor Comercial') {
+        $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
+    }    
+    $nestedData[] = '<center>' . $acciones . '</center>';
 
     $data[] = $nestedData;
 }

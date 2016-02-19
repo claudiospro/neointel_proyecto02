@@ -39,10 +39,7 @@ JOIN  venta_".$row['indice']." d1 ON d1.id=v.id
 LEFT JOIN venta_producto d2 ON d2.id=d1.producto
 LEFT JOIN usu_usuario d3 ON d3.id=v.asesor_venta_id
 LEFT JOIN venta_estado_real d4 ON d4.id=d1.estado_real
-WHERE v.campania = '".$row['indice']."'
-  " . $sql_usuario . "
-"
-        ;
+WHERE v.campania = '".$row['indice']."' AND v.info_status=1 " . $sql_usuario ;
     
 }
 

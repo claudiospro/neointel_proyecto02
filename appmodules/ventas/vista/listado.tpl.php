@@ -62,7 +62,7 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
-    <!--  
+    <!--
     <tr>
       <td>0</td>
       <td>1</td>
@@ -78,6 +78,7 @@ $prefix = 'venta_listado_';
       <td>11</td>
       <td>12</td>
       <td>13</td>
+      <td>14</td>
     </tr>
     -->
     <tr>
@@ -93,8 +94,9 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
-      <td></td>      
+      <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
+      <td><span style="width: 90px; display: block;"></span></td>      
     </tr>
     <tr>
       <th>Campaña</th>
@@ -109,7 +111,8 @@ $prefix = 'venta_listado_';
       <th>Asesor de Venta</th>
       <th>Tramitación</th>
       <th>Supervisor</th>
-      <th>Coordinador</th>      
+      <th>Coordinador</th>
+      <th>Eliminado</th>
       <th>Acciones</th>
     </tr>
   </thead>

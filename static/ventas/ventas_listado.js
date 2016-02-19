@@ -25,6 +25,9 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('click', '.view', function (event) {
         venta_listado_modal_view($(this));
     });
+    $(prefixId+'tabla').on('click', '.delete', function (event) {
+        venta_listado_modal_delete($(this));
+    });
     $(prefixId+'add').on('click', function (event) {
         venta_listado_modal_add();
     });
@@ -53,11 +56,11 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 9, 10, 11, 12];
+            ver = [5, 9, 10, 11, 12, 13];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [11, 12];
+            ver = [11, 12, 13];
         } else if(enviar.perfil == 'Tramitacion') {
-            ver = [10, 12];
+            ver = [10, 12, 13];
         } else if(enviar.perfil == 'Coordinador') {
             ver = [12];
         } else {
@@ -77,7 +80,7 @@ $(document).ready(function() {
             "pageLength" : 30,
             "order"      : [ 6, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 13 ], 'bSortable': false },
+                { 'aTargets': [ 14 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 
@@ -101,6 +104,19 @@ $(document).ready(function() {
             enviar
         );
     }
+    function venta_listado_modal_add() {
+        var enviar = {
+            'campania': $(prefixId+'campanias').val(),
+            'venta_id': '0',
+            'view': '0',
+        }
+        // c(enviar);
+        element_simple(
+            './procesos/ajax/click/ventas_listado_view_modal.php',
+            prefixId+'modal_div .ajax',
+            enviar
+        );
+    }
     function venta_listado_modal_edit(item) {
         var enviar = {
             'campania': item.attr('campania'),
@@ -114,18 +130,33 @@ $(document).ready(function() {
             enviar
         );
     }
-    function venta_listado_modal_add() {
+    function venta_listado_modal_delete(item) {
+        var perfil = $(prefixId+'perfiles').val();
         var enviar = {
-            'campania': $(prefixId+'campanias').val(),
-            'venta_id': '0',
-            'view': '0',
+            'venta_id': item.attr('venta_id')
         }
-        // c(enviar);
-        element_simple(
-            './procesos/ajax/click/ventas_listado_view_modal.php',
-            prefixId+'modal_div .ajax',
-            enviar
-        );
+        var eliminar = confirm('¿Desea realmente eliminar Eliminar?');        
+        if (eliminar) {
+            none_simple(
+                './procesos/ajax/delete/ventas_listado_venta_delete.php',
+                enviar
+            );
+            // ajax cambiar (segun estado si es 1 a 0 si es 0 a 1)
+            if (perfil == 'Asesor Comercial' || perfil == 'Supervisor' || perfil == 'Tramitacion' ) {
+                item.parent().parent().parent().css( 'background-color', '#FEC7C7' );
+                var myVar = setInterval( function(){
+		    item.parent().parent().parent().remove();
+                    clearInterval(myVar);
+		}, 2100);
+            } else {
+                dataTable_listado
+                    .search(enviar.venta_id)
+                    .draw();
+                dataTable_listado
+                    .search('');
+            }
+        }
+
     }
     function venta_listado_modal_save_validate() {
         var ou = 1;

@@ -288,6 +288,25 @@ class ModeloVenta {
         $this->q->data = NULL;
         $this->q->exe();
     }
+    function deleteVenta($in) {
+        $this->q->fields = array(
+            'info_status' => ''
+        );
+        $this->q->sql = ' 
+        SELECT info_status FROM venta WHERE id="' . $in['id'] . '"
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        
+        $this->q->fields = array();
+        if ($data[0]['info_status'] == '0') {
+            $this->q->sql = 'UPDATE venta SET info_status="1", info_update_user="' . $in['user'] . '", info_update_fecha="' . $in['fecha'] . '" WHERE id="' . $in['id'] . '"';  
+        } elseif ($data[0]['info_status'] == '1') {
+            $this->q->sql = 'UPDATE venta SET info_status="0", info_update_user="' . $in['user'] . '", info_update_fecha="' . $in['fecha'] . '" WHERE id="' . $in['id'] . '"';  
+        }
+        $this->q->exe();
+    }
     //
     function getCampaniaActivas() {
         $this->q->fields = array(
