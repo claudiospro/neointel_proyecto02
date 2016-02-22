@@ -81,6 +81,7 @@ $prefix = 'venta_listado_';
       <td>12</td>
       <td>13</td>
       <td>14</td>
+      <td>15</td>
     </tr>
     -->
     <tr>
@@ -98,15 +99,17 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
-      <td><center>
-        <span style="width: 90px; display: block;">
-          <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
-          <?php if(trim($_SESSION['perfiles']) !='Asesor Comercial'): ?>
-            &nbsp;&nbsp;
-            <a title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a>            
-          <?php endif ?>
-        </span>
-      </center></td>
+      <td>
+        <center>
+          <span style="width: 90px; display: block;">
+            <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
+            <?php if(trim($_SESSION['perfiles']) !='Asesor Comercial'): ?>
+              &nbsp;&nbsp;
+              <a class="report" title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a>
+            <?php endif ?>
+          </span>
+        </center>
+      </td>
     </tr>
     <tr>
       <th>Campaña</th>

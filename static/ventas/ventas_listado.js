@@ -10,8 +10,8 @@ $(document).ready(function() {
     $(prefixId+'tabla .reload').on('click', function (event) {
         venta_listado_reload();
     });
-    $(prefixId+'tabla .reload').on('click', function (event) {
-        venta_listado_reload();
+    $('#declarativo_field_export').on('click', function (event) {
+        venta_listado_report($(this));
     });
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
@@ -99,6 +99,43 @@ $(document).ready(function() {
     }
     function venta_listado_reload() {
         dataTable_listado.draw();
+    }
+    function venta_listado_report(item) {
+        var enviar = {
+            'ini1': $('#declarativo_field_ini').val(),
+            'ini2': '',
+            'end1': $('#declarativo_field_end').val(),
+            'end2': '',
+            'campania': $('#declarativo_field_campanias').val(),
+        }
+        //c(enviar);
+        var comparar = true;
+        var enlace = '';
+        
+        if (enviar.ini1.trim() != '') {
+            l = enviar.ini1.split("-");
+            enviar.ini2 = new Date(l[0], l[1]-1, l[2]);            
+        }
+        if (enviar.end1.trim() != '') {
+            l = enviar.end1.split("-");
+            enviar.end2 = new Date(l[0], l[1]-1, l[2]);            
+        }
+        if (enviar.ini1.trim() == '' || enviar.end1.trim() == '') {
+            
+        } else {
+            if (enviar.ini2 > enviar.end2) {
+                comparar = false;
+            }
+        }
+        if (comparar) {            
+            enlace = 'procesos/ajax/click/ventas_listado_declarativo_excel.php?';
+            enlace+= 'ini=' + enviar.ini1 + '&';
+            enlace+= 'end=' + enviar.end1 + '&';
+            enlace+= 'campania=' + enviar.campania ;
+            item.attr('href', enlace);
+        } else {
+            a('La Fecha INICIO no puede ser MAYOR a la de FIN');
+        }
     }
     function venta_listado_modal_view(item) {
         var enviar = {

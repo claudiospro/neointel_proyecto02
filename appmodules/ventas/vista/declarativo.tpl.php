@@ -26,7 +26,12 @@
     </tr>
     <tr>
       <td colspan="2">
-        <a id="declarativo_field_export" class="expanded success button no-margin" >Declarativo</a>
+        <a id="declarativo_field_export"
+           class="expanded success button no-margin"
+           target="_blank"
+        >
+          Declarativo
+        </a>
       </td>
     </tr>
   </table>
