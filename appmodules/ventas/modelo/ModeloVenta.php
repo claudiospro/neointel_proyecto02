@@ -374,14 +374,16 @@ class ModeloVenta {
         $data = $this->q->exe();
         $tot = count($data);
        
-        $fields = array('asesor_venta_id'=> '', 'supervisor_id'=>'', 'coordinador_id'=>'', 'id'=>'');
+        $fields = array('asesor_venta_id'=> '', 'supervisor_id'=>'', 'coordinador_id'=>'', 'info_create_fecha'=>'', 'id'=>'');
         $info = array(
             'asesor_venta_id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
             'supervisor_id' => array('diccionario'=>'0'  , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
             'coordinador_id' => array('diccionario'=>'0' , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
+            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
             'id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '')
         );
-        $head = array(array('name'=>'Responsables', 'items'=>'4', 'list' => array('Asesor Venta', 'Supervisor', 'Coordinador','Id')));
+        $head = array(array('name'=>'Responsables', 'items'=>'5',
+                            'list' => array('Asesor Venta', 'Supervisor', 'Coordinador','Fecha Creacion','Id')));
         
         for ($i=0; $i<$tot; $i++) {
             $fields[$data[$i]['nombre']] = '';
@@ -411,19 +413,21 @@ class ModeloVenta {
         // datos --------------------------------------------------------
         $this->q->fields = $fields;
         $this->q->sql = '
-        SELECT  av.nombre, su.nombre, co.nombre,  d.* 
+        SELECT  av.nombre, su.nombre, co.nombre, v.info_create_fecha, d.* 
         FROM venta v
         JOIN usu_usuario av ON av.id = v.asesor_venta_id 
         JOIN usu_usuario su ON su.id = v.supervisor_id
         JOIN usu_usuario co ON co.id = v.coordinador_id
         JOIN venta_' . $in['campania'] . ' d ON d.id=v.id
-        WHERE v.info_status=1 and v.lineal_id IN (' . $_SESSION['lineas'] . ')
-        ';
+        WHERE v.info_status=1 ';
+        if(trim($_SESSION['lineas']) != '') {
+            $this->q->sql.= ' AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
+        }
         if (trim($in['ini'])!='') {
-            $this->q->sql.= ' AND v.info_create_fecha >= "' . $in['ini'] . '"';
+            $this->q->sql.= ' AND v.info_create_fecha >= "' . $in['ini'] . ' 00:00:00"';
         }
         if (trim($in['end'])!='') {
-            $this->q->sql.= ' AND v.info_create_fecha <= "' . $in['end'] . '"';
+            $this->q->sql.= ' AND v.info_create_fecha <= "' . $in['end'] . ' 23:59:59"';
         }
             
         $data = $this->q->exe();
