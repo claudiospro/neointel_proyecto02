@@ -10,7 +10,7 @@ $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->d
 session_start();
 $perfiles = trim($_SESSION['perfiles']);
 $sql_usuario = '';
-if ($_SESSION['lineas'] != '') {
+if ($_SESSION['lineas'] != '' && $perfiles!='Asesor Comercial') {
     $sql_usuario.= 'AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
 } 
 if ($perfiles=='Asesor Comercial') {
@@ -61,9 +61,7 @@ LEFT JOIN usu_usuario d5 ON d5.id=v.tramitacion_id
 LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
 LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
 LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
-WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "
-"
-            ;
+WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";
     
 }
 
