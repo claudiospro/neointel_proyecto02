@@ -5,12 +5,13 @@ include "../../../../../lib/mysql/utilidades.php";
 include "../../../../../lib/html/tabla.php";
 include "../../../modelo/ModeloVenta.php";
 
+session_start();
 $venta = new ModeloVenta();
 // -------------------------------------------------------- INPUT
-$in[] = array();
+$in['lineas'] = $_SESSION['lineas'];
 
 // -------------------------------------------------------- Data
-$ou = $venta->getCampaniaActivas();
+$ou = $venta->getCampaniaActivas($in);
 $combo = new OptionComboSimple0();
 // $combo->set_option(0);
 $combo->set_format(array('id', 'nombre'));

@@ -24,7 +24,12 @@ if ($perfiles=='Asesor Comercial' || $perfiles=='Supervisor' || $perfiles=='Tram
 
 
 
-$sql = 'SELECT indice FROM campania WHERE info_status=1';
+$sql = 'SELECT DISTINCT c.indice FROM campania c
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status=1';
+if ('' != trim($_SESSION['lineas'])) {
+    $sql.= ' AND cl.lineal_id IN (' . $_SESSION['lineas'] . ')';
+}
 $query=mysqli_query($conn, $sql) or die("00");
 $sql_ini='';
 while( $row=mysqli_fetch_array($query) ) {

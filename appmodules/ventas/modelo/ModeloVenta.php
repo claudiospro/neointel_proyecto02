@@ -170,14 +170,16 @@ class ModeloVenta {
                 // echo $this->q->sql;        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
-                foreach ($data as $row) {
-                    if ($row['id'] != $dato) {
-                        $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
-                    } else {
-                        $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                if ($data) {
+                    foreach ($data as $row) {
+                        if ($row['id'] != $dato) {
+                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                        } else {
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                        }
                     }
-                    
                 }
+                
                 $ou.= '</select>';
             } else {
                 $ou = '<input name="' . $campo['nombre'] . '" 
@@ -308,16 +310,19 @@ class ModeloVenta {
         $this->q->exe();
     }
     //
-    function getCampaniaActivas() {
+    function getCampaniaActivas($in) {
         $this->q->fields = array(
             'id' => '',
             'nombre' => '',
-        );
+        );        
         $this->q->sql = '
-        SELECT indice, nombre FROM campania
-        WHERE info_status = 1
-        ORDER BY 2
-        ';
+        SELECT DISTINCT c.indice, c.nombre FROM campania c
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status = 1';
+        if ('' != trim($in['lineas'])) {
+            $this->q->sql.= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql.= ' ORDER BY 2';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();

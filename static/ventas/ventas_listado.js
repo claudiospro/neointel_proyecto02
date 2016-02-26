@@ -62,7 +62,7 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 9, 10, 11, 12, 13];
+            ver = [5, 9, 10, 12, 13];
         } else if(enviar.perfil == 'Supervisor') {
             ver = [10, 11, 12, 13];
         } else if(enviar.perfil == 'Tramitacion') {
@@ -274,17 +274,17 @@ $(document).ready(function() {
             }
         }); 
     }
+    //
     function venta_listado_campanias() {
         var enviar = {}
-        element_simple(
-            './procesos/ajax/select/ventas_listado_campanias_onload.php',
-            prefixId+'campanias',
-            enviar
-        );
-        element_simple(
-            './procesos/ajax/select/ventas_listado_campanias_onload.php',
-            '#declarativo_field_campanias',
-            enviar
-        );
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: './procesos/ajax/select/ventas_listado_campanias_onload.php',
+	    success: function(data) {
+	        $(prefixId+'campanias').html(data);
+                $('#declarativo_field_campanias').html(data);
+	    }
+        });
     }
 });
