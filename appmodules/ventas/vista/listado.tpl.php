@@ -47,7 +47,7 @@ $prefix = 'venta_listado_';
     </a>
   </div>
   <div class="large-11 columns">
-    <select id="<?php echo $prefix ?>campanias"></select>
+    <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
   </div>  
 
 </div>
@@ -85,7 +85,10 @@ $prefix = 'venta_listado_';
     </tr>
     -->
     <tr>
-      <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
+      <td><select id="<?php echo $prefix ?>campanias-tbl"
+                  class="no-margin search-input-select"
+                  style="padding: 0px; width: 250px;"
+                  data-column="0"></select></td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>

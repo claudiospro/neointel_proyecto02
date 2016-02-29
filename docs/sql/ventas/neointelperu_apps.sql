@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 26, 2016 at 05:14 PM
+-- Generation Time: Feb 29, 2016 at 11:52 AM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.17
 
@@ -458,7 +458,8 @@ INSERT INTO `venta` (`id`, `info_create_fecha`, `info_create_user`, `info_update
 (19, '2016-02-22 12:47:43', 5, '2016-02-22 12:47:43', 0, 1, 5, 0, 4, 6, 'campania_001', 1),
 (20, '2016-02-23 13:33:51', 4, '2016-02-23 13:33:53', 4, 1, 4, 0, 4, 6, 'campania_001', 1),
 (21, '2016-02-23 14:30:22', 3, '2016-02-23 14:30:22', 0, 1, 3, 0, 4, 6, 'campania_001', 1),
-(22, '2016-02-26 20:23:56', 26, '2016-02-26 21:06:39', 1, 1, 26, 0, 26, 6, 'campania_002', 5);
+(23, '2016-02-29 14:58:35', 27, '2016-02-29 14:58:54', 26, 1, 27, 0, 26, 6, 'campania_002', 5),
+(24, '2016-02-29 16:11:07', 6, '2016-02-29 16:11:07', 0, 1, 6, 0, 4, 6, 'campania_001', 1);
 
 -- --------------------------------------------------------
 
@@ -491,64 +492,64 @@ CREATE TABLE `venta_campania_001` (
   `cliente_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_tipo` bigint(20) NOT NULL,
   `cliente_documento_tipo` bigint(20) NOT NULL,
-  `cliente_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_documento_reverso` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_nacimiento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_documento_reverso` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_nacimiento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `cliente_correo` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
-  `cuenta_bancaria` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_contacto_fijo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_contacto_movil` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `cuenta_bancaria` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_contacto_fijo` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_contacto_movil` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `provincia` bigint(20) NOT NULL,
   `localidad` bigint(20) NOT NULL,
-  `codigo_postal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `codigo_postal` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `direccion_tipo` bigint(20) NOT NULL,
   `direccion_nombre` bigint(20) NOT NULL,
-  `direccion_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_piso` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_puerta` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_id` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_piso` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_puerta` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_id` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `producto` bigint(20) NOT NULL,
-  `fijo_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `fijo_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `fijo_modalidad` bigint(20) NOT NULL,
   `fijo_operador` bigint(20) NOT NULL,
   `fijo_titular` bigint(20) NOT NULL,
-  `fijo_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `fijo_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `fijo_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `movil_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_modalidad` bigint(20) NOT NULL,
   `movil_operador` bigint(20) NOT NULL,
   `movil_tarifa` bigint(20) NOT NULL,
-  `movil_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_terminal` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
   `movil_titular` bigint(20) NOT NULL,
-  `movil_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_estado` bigint(20) NOT NULL,
-  `movil_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `producto_observacion` text COLLATE utf8_unicode_ci NOT NULL,
-  `movil_adicional_1_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `producto_observacion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_modalidad` bigint(20) NOT NULL,
   `movil_adicional_1_operador` bigint(20) NOT NULL,
   `movil_adicional_1_tarifa` bigint(20) NOT NULL,
-  `movil_adicional_1_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_terminal` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_titular` bigint(20) NOT NULL,
-  `movil_adicional_1_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_estado` bigint(20) NOT NULL,
-  `movil_adicional_1_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `movil_adicional_2_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_modalidad` bigint(20) NOT NULL,
   `movil_adicional_2_operador` bigint(20) NOT NULL,
   `movil_adicional_2_tarifa` bigint(20) NOT NULL,
-  `movil_adicional_2_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_terminal` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_titular` bigint(20) NOT NULL,
-  `movil_adicional_2_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_estado` bigint(20) NOT NULL,
-  `movil_adicional_2_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `estado` bigint(20) NOT NULL DEFAULT '1',
   `estado_real` bigint(20) NOT NULL DEFAULT '1',
-  `estado_observacion` text COLLATE utf8_unicode_ci NOT NULL,
-  `aprobado_supervisor` bigint(20) NOT NULL DEFAULT '2',
+  `estado_observacion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `aprobado_supervisor` bigint(20) NOT NULL,
   `fecha_instalada` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -564,7 +565,8 @@ INSERT INTO `venta_campania_001` (`id`, `cliente_nombre`, `cliente_tipo`, `clien
 (18, '', 0, 0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, '', '', '', '', 13, '', 0, 0, 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', 'aa', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 1, 1, '', 2, '2016-02-12 18:42:19'),
 (19, '', 0, 0, '', '4564576457456', '', '', '', '', '', 0, 0, '', 1, 7, '', '', '', '', 13, '', 1, 9, 2, '', '', '', 1, 9, 4, 'zxcvxdcv xcfg', 0, '', '', 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 1, 1, '', 2, '2016-02-22 12:47:43'),
 (20, 'aaa', 2, 2, 'sdfdfgdfg', 'aaaaa', 'aaaa', 'aaaa', 'aaa', '123456789', '123456788', 43, 10, '56456', 3, 4, '435345', '1', '2', '3', 1, '534534534', 1, 18, 1, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 0, 0, '', 0, '0000-00-00 00:00:00'),
-(21, '', 0, 0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, '', '', '', '', 13, '', 0, 0, 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 0, 0, '', 2, '0000-00-00 00:00:00');
+(21, '', 0, 0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, '', '', '', '', 13, '', 0, 0, 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 0, 0, '', 2, '0000-00-00 00:00:00'),
+(24, '', 0, 0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, '', '', '', '', 13, '', 0, 0, 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', '', 0, 0, 3, '', 0, '', '', 0, '', '', 0, 0, 3, '', 0, '', '', 0, '', 0, 0, '', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -667,65 +669,96 @@ INSERT INTO `venta_campania_001_campos` (`id`, `pestana`, `grupo`, `grupo_etique
 CREATE TABLE `venta_campania_002` (
   `id` bigint(20) NOT NULL,
   `cliente_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `representante_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `representante_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `representante_documento_reverso` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `representante_nacimiento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `representante_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `representante_documento_reverso` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `representante_nacimiento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `representante_correo` varchar(600) COLLATE utf8_unicode_ci NOT NULL,
-  `cuenta_bancaria` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_contacto_fijo` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente_contacto_movil` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `cuenta_bancaria` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_contacto_fijo` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente_contacto_movil` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `provincia` bigint(20) NOT NULL,
   `localidad` bigint(20) NOT NULL,
-  `codigo_postal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `codigo_postal` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `direccion_tipo` bigint(20) NOT NULL,
   `direccion_nombre` bigint(20) NOT NULL,
-  `direccion_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_piso` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_puerta` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `direccion_id` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_piso` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_puerta` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion_id` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `producto` bigint(20) NOT NULL,
-  `fijo_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `fijo_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `fijo_modalidad` bigint(20) NOT NULL,
   `fijo_operador` bigint(20) NOT NULL,
   `fijo_titular` bigint(20) NOT NULL,
-  `fijo_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `fijo_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `fijo_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `movil_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_modalidad` bigint(20) NOT NULL,
   `movil_operador` bigint(20) NOT NULL,
   `movil_tarifa` bigint(20) NOT NULL,
-  `movil_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_titular` bigint(20) NOT NULL,
-  `movil_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_estado` bigint(20) NOT NULL,
-  `movil_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `producto_observacion` text COLLATE utf8_unicode_ci NOT NULL,
-  `movil_adicional_1_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `producto_observacion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_modalidad` bigint(20) NOT NULL,
   `movil_adicional_1_operador` bigint(20) NOT NULL,
   `movil_adicional_1_tarifa` bigint(20) NOT NULL,
-  `movil_adicional_1_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_titular` bigint(20) NOT NULL,
-  `movil_adicional_1_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_1_estado` bigint(20) NOT NULL,
-  `movil_adicional_1_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `movil_adicional_2_numero` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_1_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_modalidad` bigint(20) NOT NULL,
   `movil_adicional_2_operador` bigint(20) NOT NULL,
   `movil_adicional_2_tarifa` bigint(20) NOT NULL,
-  `movil_adicional_2_terminal` varchar(800) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_titular` bigint(20) NOT NULL,
-  `movil_adicional_2_titular_documento` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `movil_adicional_2_estado` bigint(20) NOT NULL,
-  `movil_adicional_2_icc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_2_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_3_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_3_modalidad` bigint(20) NOT NULL,
+  `movil_adicional_3_operador` bigint(20) NOT NULL,
+  `movil_adicional_3_tarifa` bigint(20) NOT NULL,
+  `movil_adicional_3_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_3_titular` bigint(20) NOT NULL,
+  `movil_adicional_3_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_3_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_3_estado` bigint(20) NOT NULL,
+  `movil_adicional_3_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_4_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_4_modalidad` bigint(20) NOT NULL,
+  `movil_adicional_4_operador` bigint(20) NOT NULL,
+  `movil_adicional_4_tarifa` bigint(20) NOT NULL,
+  `movil_adicional_4_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_4_titular` bigint(20) NOT NULL,
+  `movil_adicional_4_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_4_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_4_estado` bigint(20) NOT NULL,
+  `movil_adicional_4_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_5_numero` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_5_modalidad` bigint(20) NOT NULL,
+  `movil_adicional_5_operador` bigint(20) NOT NULL,
+  `movil_adicional_5_tarifa` bigint(20) NOT NULL,
+  `movil_adicional_5_terminal` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_5_titular` bigint(20) NOT NULL,
+  `movil_adicional_5_titular_documento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_5_titular_nombre` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_5_estado` bigint(20) NOT NULL,
+  `movil_adicional_5_icc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `movil_adicional_observacion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `estado` bigint(20) NOT NULL DEFAULT '1',
   `estado_real` bigint(20) NOT NULL DEFAULT '1',
-  `estado_observacion` text COLLATE utf8_unicode_ci NOT NULL,
+  `estado_observacion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `aprobado_supervisor` bigint(20) NOT NULL DEFAULT '2',
   `fecha_instalada` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -734,8 +767,8 @@ CREATE TABLE `venta_campania_002` (
 -- Dumping data for table `venta_campania_002`
 --
 
-INSERT INTO `venta_campania_002` (`id`, `cliente_nombre`, `cliente_documento`, `representante_nombre`, `representante_documento`, `representante_documento_reverso`, `representante_nacimiento`, `representante_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `direccion_id`, `producto`, `fijo_numero`, `fijo_modalidad`, `fijo_operador`, `fijo_titular`, `fijo_titular_documento`, `fijo_titular_nombre`, `movil_numero`, `movil_modalidad`, `movil_operador`, `movil_tarifa`, `movil_terminal`, `movil_titular`, `movil_titular_documento`, `movil_titular_nombre`, `movil_estado`, `movil_icc`, `producto_observacion`, `movil_adicional_1_numero`, `movil_adicional_1_modalidad`, `movil_adicional_1_operador`, `movil_adicional_1_tarifa`, `movil_adicional_1_terminal`, `movil_adicional_1_titular`, `movil_adicional_1_titular_documento`, `movil_adicional_1_titular_nombre`, `movil_adicional_1_estado`, `movil_adicional_1_icc`, `movil_adicional_2_numero`, `movil_adicional_2_modalidad`, `movil_adicional_2_operador`, `movil_adicional_2_tarifa`, `movil_adicional_2_terminal`, `movil_adicional_2_titular`, `movil_adicional_2_titular_documento`, `movil_adicional_2_titular_nombre`, `movil_adicional_2_estado`, `movil_adicional_2_icc`, `estado`, `estado_real`, `estado_observacion`, `aprobado_supervisor`, `fecha_instalada`) VALUES
-(22, 'xfvcv', '3456456', 'dfgdfg', '456456456456', '345345345', '25-12-1983', 'aa@sdfsdf.com', '45645645645', '234424234', '234234234', 43, 10, '3234', 2, 8, '23', '2', '1', '1', 14, '', 0, 0, 0, '', '', '', 0, 0, 7, '', 0, '', '', 0, '', '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 0, 0, 7, '', 0, '', '', 0, '', 0, 0, '', 0, '0000-00-00 00:00:00');
+INSERT INTO `venta_campania_002` (`id`, `cliente_nombre`, `cliente_documento`, `representante_nombre`, `representante_documento`, `representante_documento_reverso`, `representante_nacimiento`, `representante_correo`, `cuenta_bancaria`, `cliente_contacto_fijo`, `cliente_contacto_movil`, `provincia`, `localidad`, `codigo_postal`, `direccion_tipo`, `direccion_nombre`, `direccion_numero`, `direccion_piso`, `direccion_puerta`, `direccion_id`, `producto`, `fijo_numero`, `fijo_modalidad`, `fijo_operador`, `fijo_titular`, `fijo_titular_documento`, `fijo_titular_nombre`, `movil_numero`, `movil_modalidad`, `movil_operador`, `movil_tarifa`, `movil_terminal`, `movil_titular`, `movil_titular_documento`, `movil_titular_nombre`, `movil_estado`, `movil_icc`, `producto_observacion`, `movil_adicional_1_numero`, `movil_adicional_1_modalidad`, `movil_adicional_1_operador`, `movil_adicional_1_tarifa`, `movil_adicional_1_terminal`, `movil_adicional_1_titular`, `movil_adicional_1_titular_documento`, `movil_adicional_1_titular_nombre`, `movil_adicional_1_estado`, `movil_adicional_1_icc`, `movil_adicional_2_numero`, `movil_adicional_2_modalidad`, `movil_adicional_2_operador`, `movil_adicional_2_tarifa`, `movil_adicional_2_terminal`, `movil_adicional_2_titular`, `movil_adicional_2_titular_documento`, `movil_adicional_2_titular_nombre`, `movil_adicional_2_estado`, `movil_adicional_2_icc`, `movil_adicional_3_numero`, `movil_adicional_3_modalidad`, `movil_adicional_3_operador`, `movil_adicional_3_tarifa`, `movil_adicional_3_terminal`, `movil_adicional_3_titular`, `movil_adicional_3_titular_documento`, `movil_adicional_3_titular_nombre`, `movil_adicional_3_estado`, `movil_adicional_3_icc`, `movil_adicional_4_numero`, `movil_adicional_4_modalidad`, `movil_adicional_4_operador`, `movil_adicional_4_tarifa`, `movil_adicional_4_terminal`, `movil_adicional_4_titular`, `movil_adicional_4_titular_documento`, `movil_adicional_4_titular_nombre`, `movil_adicional_4_estado`, `movil_adicional_4_icc`, `movil_adicional_5_numero`, `movil_adicional_5_modalidad`, `movil_adicional_5_operador`, `movil_adicional_5_tarifa`, `movil_adicional_5_terminal`, `movil_adicional_5_titular`, `movil_adicional_5_titular_documento`, `movil_adicional_5_titular_nombre`, `movil_adicional_5_estado`, `movil_adicional_5_icc`, `movil_adicional_observacion`, `estado`, `estado_real`, `estado_observacion`, `aprobado_supervisor`, `fecha_instalada`) VALUES
+(23, 'A', 'A', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, '', '', '', '', 14, '', 0, 0, 0, '', '', '', 0, 0, 7, '', 0, '', '', 0, '', '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 0, 0, 7, '', 0, '', '', 0, '', '', 1, 1, '', 2, '2016-02-29 05:00:00');
 
 -- --------------------------------------------------------
 
@@ -822,12 +855,43 @@ INSERT INTO `venta_campania_002_campos` (`id`, `pestana`, `grupo`, `grupo_etique
 (58, 'Estados', 'estado_venta', 'Estado', 'estado_real', 'Estado Real', 90, 'venta', 2, '', '', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, h, w'),
 (59, 'Cliente', 'direccion', 'Dirección', 'direccion_id', 'Dirección ID', 19, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (61, 'Estados', '', '', 'aprobado_supervisor', 'Aprobado por Supervisor', 92, 'venta', 2, '', 'booleano', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'r, r, r, w, r, r'),
-(62, 'Producto', '', '', 'producto_observacion', 'Obserción', 37, 'venta', 0, '', '', 1, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(62, 'Producto', '', '', 'producto_observacion', 'Observación', 37, 'venta', 0, '', '', 1, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (63, 'Producto', 'movil', 'Movil', 'movil_terminal', 'Terminal', 31, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (64, 'Moviles Adicionales', 'movil_adicional_1', 'Movil Adicional 1', 'movil_adicional_1_terminal', 'Terminal', 42, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (65, 'Moviles Adicionales', 'movil_adicional_2', 'Movil Adicional 2', 'movil_adicional_2_terminal', 'Terminal', 52, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
 (66, 'Cliente', 'representante', 'Representante', 'representante_nombre', 'Nombre', 3, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
-(67, 'Cliente', 'representante', 'Representante', 'representante_documento', 'Documento', 4, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w');
+(67, 'Cliente', 'representante', 'Representante', 'representante_documento', 'Documento', 4, 'cliente', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(68, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_numero', 'Número', 58, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(69, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_modalidad', 'Modalidad', 59, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(70, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_operador', 'Operador', 60, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(71, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_tarifa', 'Tarifa', 61, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(72, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_terminal', 'Terminal', 62, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(73, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_titular', 'Mismo Titular', 63, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(74, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_titular_documento', 'Documento del Titular', 64, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(75, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_titular_nombre', 'Nombre del Titular', 65, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(76, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_estado', 'Estado', 66, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(77, 'Moviles Adicionales', 'movil_adicional_3', 'Movil Adicional 3', 'movil_adicional_3_icc', 'ICC', 67, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(78, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_numero', 'Número', 68, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(79, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_modalidad', 'Modalidad', 69, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(80, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_operador', 'Operador', 70, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(81, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_tarifa', 'Tarifa', 71, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(82, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_terminal', 'Terminal', 72, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(83, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_titular', 'Mismo Titular', 73, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(84, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_titular_documento', 'Documento del Titular', 74, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(85, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_titular_nombre', 'Nombre del Titular', 75, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(86, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_estado', 'Estado', 76, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(87, 'Moviles Adicionales', 'movil_adicional_4', 'Movil Adicional 4', 'movil_adicional_4_icc', 'ICC', 77, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(88, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_numero', 'Número', 78, 'venta', 0, '', '', 1, 'TELEFONO', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(89, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_modalidad', 'Modalidad', 79, 'venta', 2, '', 'modalidad', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(90, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_operador', 'Operador', 80, 'venta', 1, '', 'operador', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(91, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_tarifa', 'Tarifa', 81, 'venta', 3, '', 'tarifa_movil', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(92, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_terminal', 'Terminal', 82, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(93, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_titular', 'Mismo Titular', 83, 'venta', 2, '', 'titular', 0, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(94, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_titular_documento', 'Documento del Titular', 84, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(95, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_titular_nombre', 'Nombre del Titular', 85, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(96, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_estado', 'Estado', 86, 'venta', 2, '', 'movil_estado', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(97, 'Moviles Adicionales', 'movil_adicional_5', 'Movil Adicional 5', 'movil_adicional_5_icc', 'ICC', 87, 'venta', 0, '', '', 1, 'VARCHAR', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w'),
+(98, 'Moviles Adicionales', '', '', 'movil_adicional_observacion', 'Observación', 88, 'venta', 0, '', '', 1, 'TEXT', '1, 2, 3, 4, 5, 6', 'w, w, w, w, w, w');
 
 -- --------------------------------------------------------
 
@@ -1542,7 +1606,7 @@ ALTER TABLE `usu_usuario_perfil_history`
 -- AUTO_INCREMENT for table `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `venta_booleano`
 --
@@ -1557,7 +1621,7 @@ ALTER TABLE `venta_campania_001_campos`
 -- AUTO_INCREMENT for table `venta_campania_002_campos`
 --
 ALTER TABLE `venta_campania_002_campos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT for table `venta_cliente_documento_tipo`
 --
@@ -1622,7 +1686,7 @@ ALTER TABLE `venta_provincia`
 -- AUTO_INCREMENT for table `venta_tarifa_movil`
 --
 ALTER TABLE `venta_tarifa_movil`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `venta_titular`
 --

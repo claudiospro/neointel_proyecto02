@@ -32,7 +32,9 @@ if ('' != trim($_SESSION['lineas'])) {
 }
 $query=mysqli_query($conn, $sql) or die("00");
 $sql_ini='';
+$campanias = array();
 while( $row=mysqli_fetch_array($query) ) {
+    $campanias[] = $row['indice'];
     if ($sql_ini!='') {
         $sql_ini.= ' UNION ';
     }
@@ -96,8 +98,11 @@ $sql = $sql_ini;
 
 $sql_filter = '';
 if( !empty($requestData['columns'][0]['search']['value']) ) {
-    $sql_filter.=' AND campania_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '%"';
+    $sql_filter.=' AND campania = "' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '"';
+}else {
+$sql_filter.=' AND campania = "' . $campanias[0] . '"';
 }
+
 if( !empty($requestData['columns'][1]['search']['value']) ) {
     $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
 }
