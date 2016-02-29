@@ -1,15 +1,10 @@
 <?php
-$title = 'Ventas Listado';
-$prefix = 'venta_listado_';
+$title = 'Listado de Usuarios';
+$prefix = 'usuarios_listado_';
 ?>
 
 <?php ob_start() ?>
 <link rel="stylesheet" href="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/css/dataTables.foundation.min.css">
-
-<link rel="stylesheet" href="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css">
-
-<link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
-<!-- <link rel="stylesheet" href="../../lib/vendor/zclip/style.css"> -->
 
 <?php $css = ob_get_clean() ?>
 
@@ -18,17 +13,9 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/datatable-1.10.10/datatables.min.js"></script>
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
 
-<script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
-<script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
-<script src="../../static/ventas/ventas_datapicker.js"></script>
-
-<script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-
 <script src="../../lib/main/sesion.js"></script>
 
-<!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
-
-<script src="../../static/ventas/ventas_listado.js?v=1.1.2"></script>
+<script src="../../static/usuario/usuario_listado.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -38,18 +25,14 @@ $prefix = 'venta_listado_';
 <?php // print_r($_SESSION) ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
 <div class="row">
-  <div class="large-1 columns">
+  <div class="large-12 columns">
     <a id="<?php echo $prefix ?>add"
        class="button success no-margin"     
-       data-open="venta_listado_modal_div"
+       data-open="<?php echo $prefix ?>_modal_div"
        title="Añadir">
       <i class="fi-plus"></i>
     </a>
   </div>
-  <div class="large-11 columns">
-    <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
-  </div>  
-
 </div>
 
 <div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
@@ -66,29 +49,25 @@ $prefix = 'venta_listado_';
   <thead>
     <!--
     <tr>
-      <td>0</td>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>
-      <td>11</td>
-      <td>12</td>
-      <td>13</td>
-      <td>14</td>
-      <td>15</td>
+    <td>0</td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+    <td>10</td>
+    <td>11</td>
+    <td>12</td>
+    <td>13</td>
+    <td>14</td>
+    <td>15</td>
     </tr>
     -->
     <tr>
-      <td><select id="<?php echo $prefix ?>campanias-tbl"
-                  class="no-margin search-input-select"
-                  style="padding: 0px; width: 250px;"
-                  data-column="0"></select></td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
