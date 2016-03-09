@@ -328,6 +328,30 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;
     }
+    function getEstadoActivas($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );        
+        $this->q->sql = '
+        SELECT id, nombre FROM venta_estado WHERE info_status=1';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    function getEstadoRealActivas($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );        
+        $this->q->sql = '
+        SELECT id, nombre FROM venta_estado_real WHERE info_status=1';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
     //
     function getAutoComplete($in) {
         $this->q->fields = array(

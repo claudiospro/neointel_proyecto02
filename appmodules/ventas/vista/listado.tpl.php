@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.1.2"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.1.3"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -85,15 +85,31 @@ $prefix = 'venta_listado_';
     </tr>
     -->
     <tr>
-      <td><select id="<?php echo $prefix ?>campanias-tbl"
-                  class="no-margin search-input-select"
-                  style="padding: 0px; width: 250px;"
-                  data-column="0"></select></td>
+      <td>
+        <select id="<?php echo $prefix ?>campanias-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 250px;"
+                data-column="0">          
+        </select>
+      </td>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
+      <td>
+        <select id="<?php echo $prefix ?>estado-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 250px;"
+                data-column="4">          
+        </select>
+
+      </td>
+      <td>
+        <select id="<?php echo $prefix ?>estado-real-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 250px;"
+                data-column="5">          
+        </select>
+      </td>
       <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>

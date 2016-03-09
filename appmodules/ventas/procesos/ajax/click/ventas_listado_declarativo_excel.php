@@ -54,6 +54,9 @@ if ($ou['body'] != null) {
     foreach($ou['body'] as $row ) {
         $j=1;
         foreach($row  as $name => $value) {
+            if (strpos($name, '_correo') !== false && $value == '') {
+                $value = 'nodispone@hotmail.com';
+            }
             $objPHPExcel
                 ->setActiveSheetIndex(0)
                 ->setCellValue(getNameFromNumber($j).''.$i,

@@ -5,7 +5,7 @@ $(document).ready(function() {
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
     venta_listado_tabla();
-    venta_listado_campanias();
+    venta_listado_combos();
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .reload').on('click', function (event) {
         venta_listado_reload();
@@ -331,7 +331,7 @@ $(document).ready(function() {
         }); 
     }
     //
-    function venta_listado_campanias() {
+    function venta_listado_combos() {
         var enviar = {}
         $.ajax({
 	    type: "POST",
@@ -343,5 +343,15 @@ $(document).ready(function() {
                 $('#declarativo_field_campanias').html(data);
 	    }
         });
+        element_simple(
+            './procesos/ajax/select/ventas_listado_estado.php',
+            prefixId+'estado-tbl',
+            enviar
+        );
+        element_simple(
+            './procesos/ajax/select/ventas_listado_estado_real.php',
+            prefixId+'estado-real-tbl',
+            enviar
+        );
     }
 });
