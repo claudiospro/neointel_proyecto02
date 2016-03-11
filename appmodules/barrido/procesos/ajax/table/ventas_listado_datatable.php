@@ -13,10 +13,19 @@ $sql_usuario = '';
 if ($_SESSION['lineas'] != '') {
     $sql_usuario.= 'AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
 } 
-$sql = 'SELECT indice FROM campania WHERE info_status=1';
+
+$sql = 'SELECT DISTINCT c.indice FROM campania c
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status=1';
+if ('' != trim($_SESSION['lineas'])) {
+    $sql.= ' AND cl.lineal_id IN (' . $_SESSION['lineas'] . ')';
+}
 $query=mysqli_query($conn, $sql) or die("00");
+
 $sql_ini='';
+$campanias = array();
 while( $row=mysqli_fetch_array($query) ) {
+    $campanias[] = $row['indice'];
     if ($sql_ini!='') {
         $sql_ini.= ' UNION ';
     }
@@ -67,7 +76,11 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 $sql = $sql_ini;
 
 $sql_filter = '';
-// 0 (acciones)
+if( !empty($requestData['columns'][0]['search']['value']) ) {
+    $sql_filter.=' AND campania = "' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '"';
+}else {
+$sql_filter.=' AND campania = "' . $campanias[0] . '"';
+}
 if( !empty($requestData['columns'][1]['search']['value']) ) {
     $sql_filter.=' AND estado_id =  "' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '"';
 }

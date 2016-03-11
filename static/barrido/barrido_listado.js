@@ -48,7 +48,7 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 8,
+            "pageLength" : 15,
             "order"      : [ 3, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 0 ], 'bSortable': false },
@@ -73,6 +73,14 @@ $(document).ready(function() {
             prefixId+'estado-tbl',
             enviar
         );
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: '../ventas/procesos/ajax/select/ventas_listado_campanias_onload.php',
+	    success: function(data) {
+                $(prefixId+'campanias-tbl').html(data);
+	    }
+        });
     }
     function venta_listado_cambiar() {
         if( $('.accion:checked').length > 0 ) {
@@ -98,9 +106,7 @@ $(document).ready(function() {
                     dataTable_listado
                         .search('');
                 }
-            }); 
-            
-            
+            });            
         }
     }
     

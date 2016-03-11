@@ -36,7 +36,13 @@ $prefix = 'venta_listado_';
     <!--   <td>7</td> -->
     <!-- </tr> -->
     <tr>
-      <td></td>
+      <td>
+        <select id="<?php echo $prefix ?>campanias-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 250px;"
+                data-column="0">          
+        </select>
+      </td>
       <td>
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
