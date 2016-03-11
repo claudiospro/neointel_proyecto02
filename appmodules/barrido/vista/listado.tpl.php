@@ -13,7 +13,7 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
 
 
-<script src="../../static/barrido/barrido_listado.js"></script>
+<script src="../../static/barrido/barrido_listado.js?v=1.0.5"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -37,29 +37,31 @@ $prefix = 'venta_listado_';
     <!-- </tr> -->
     <tr>
       <td></td>
-      <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
+      <td>
+        <select id="<?php echo $prefix ?>estado-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 250px;"
+                data-column="1">          
+        </select>
+      </td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
     </tr>
     <tr>
       <th>Acciones</th>
-      <th>Estado Real</th>
-      <th>Producto</th>
-      <th>Cliente</th>
+      <th>Estado</th>
       <th>Asesor de Venta</th>
       <th>Fecha Creación</th>
-      <th>Ultima Fecha</th>
-      <th>Fecha Instalación</th>      
+      <th>Producto</th>
+      <th>Cliente</th>
     </tr>
   </thead>
 </table>
 <div class="row">
   <div class="large-6 columns">
-    <select id="<?php echo $prefix ?>estados_reales">
+    <select id="<?php echo $prefix ?>estados">
     </select>
   </div>
   <div class="large-6 columns">

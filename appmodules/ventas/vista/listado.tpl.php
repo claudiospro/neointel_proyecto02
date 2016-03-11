@@ -101,7 +101,6 @@ $prefix = 'venta_listado_';
                 style="padding: 0px; width: 250px;"
                 data-column="4">          
         </select>
-
       </td>
       <td>
         <select id="<?php echo $prefix ?>estado-real-tbl"

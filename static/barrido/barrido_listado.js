@@ -5,7 +5,7 @@ $(document).ready(function() {
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
     venta_listado_tabla();
-    venta_listado_estados_reales();
+    venta_listado_estados();    
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
@@ -17,6 +17,16 @@ $(document).ready(function() {
             } else {
                 $(this).addClass('active');
             }
+        }
+    });
+    $(prefixId+'tabla .search-input-select').on( 'change', function () {
+        var i =$(this).attr('data-column');
+	var v =$(this).val();
+        dataTable_listado.columns(i).search(v).draw();
+        if (v=='') {
+            $(this).removeClass('active');               
+        } else {
+            $(this).addClass('active');
         }
     });
     $(prefixId+'cambiar').on('click', function (event) {
@@ -38,8 +48,8 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 20,
-            "order"      : [ 4, 'desc' ],
+            "pageLength" : 8,
+            "order"      : [ 3, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 0 ], 'bSortable': false },
             ],
@@ -51,11 +61,17 @@ $(document).ready(function() {
         });
         $(prefixId+'tabla_filter').hide();
     }
-    function venta_listado_estados_reales() {
+    function venta_listado_estados() {
+        var enviar = {}
         element_simple(
-            './procesos/ajax/select/ventas_listado_estados_reales_select.php',
-            prefixId+'estados_reales',
-            {}
+            './procesos/ajax/select/ventas_listado_estados_select.php',
+            prefixId+'estados',
+            enviar
+        );
+        element_simple(
+            '../ventas/procesos/ajax/select/ventas_listado_estado.php',
+            prefixId+'estado-tbl',
+            enviar
         );
     }
     function venta_listado_cambiar() {
@@ -67,14 +83,14 @@ $(document).ready(function() {
                 }
             });
             var enviar = {
-                'estado_real': $(prefixId+'estados_reales').val(),
+                'estado': $(prefixId+'estados').val(),
                 'ids': ids.toString()
             }
             // c(enviar);
             $.ajax({
 	        type: "POST",
 	        data: enviar,
-	        url: './procesos/ajax/save/ventas_listado_cambiar_estado_real_click_save.php',
+	        url: './procesos/ajax/save/ventas_listado_cambiar_estado_click_save.php',
 	        success: function(data) {
                     dataTable_listado
                         .search(data)

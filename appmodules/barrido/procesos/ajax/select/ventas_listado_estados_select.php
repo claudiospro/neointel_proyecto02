@@ -9,7 +9,7 @@ $modelo = new ModeloBarrido();
 // -------------------------------------------------------- INPUT
 
 // -------------------------------------------------------- Data
-$ou = $modelo->getEstadosReales();
+$ou = $modelo->getEstados();
 $combo = new OptionComboSimple0();
 $combo->set_format(array('id', 'nombre'));
 $combo->imprimir($ou);

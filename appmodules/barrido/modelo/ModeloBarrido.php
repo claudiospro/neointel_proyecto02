@@ -4,13 +4,13 @@ class ModeloBarrido {
     function __construct() {
         $this->q = new Query();        
     }
-    function getEstadosReales() {
+    function getEstados() {
         $this->q->fields = array(
             'id' => '',
             'nombre' => '',
         );
         $this->q->sql = '
-        SELECT id, nombre FROM venta_estado_real WHERE info_status= 1 
+        SELECT id, nombre FROM venta_estado WHERE info_status= 1 
         ';
         // echo $this->q->sql;        
         $this->q->data = NULL;
@@ -19,11 +19,17 @@ class ModeloBarrido {
     }
     function updateVenta($in) {
         $this->q->fields = array();
+        $this->q->data = NULL;
+        // estado
         $this->q->sql = '
-        UPDATE venta_' . $in['campania'] . ' SET estado_real="' . $in['estado_real'] . '" WHERE id="' . $in['id'] . '"
+        UPDATE venta_' . $in['campania'] . ' SET estado="' . $in['estado'] . '" WHERE id="' . $in['id'] . '"
         ';
         // echo $this->q->sql . '\n';
-        $this->q->data = NULL;
+        $this->q->exe();
+        // usuario
+        $this->q->sql = '
+        UPDATE venta SET info_update_user="' . $in['usuario'] . '" WHERE id="' . $in['id'] . '"
+        ';
         $this->q->exe();
     }    
 }

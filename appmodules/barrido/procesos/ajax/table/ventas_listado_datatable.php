@@ -23,22 +23,21 @@ while( $row=mysqli_fetch_array($query) ) {
     $sql_ini.= "
 SELECT
   'dda'
-, d4.nombre estado_real
-, d2.nombre producto
-, d1.cliente_nombre
+, d4.nombre estado
 , d3.nombre asesor_venta
 , v.info_create_fecha fecha_creacion
-, v.info_update_fecha fecha_actualizacion
-, d1.fecha_instalada
+, d2.nombre producto
+, d1.cliente_nombre
 --
 , v.id venta_id
 , v.campania
+, d1.estado estado_id
 FROM venta v 
 JOIN  venta_".$row['indice']." d1 ON d1.id=v.id
 -- definiciones
 LEFT JOIN venta_producto d2 ON d2.id=d1.producto
 LEFT JOIN usu_usuario d3 ON d3.id=v.asesor_venta_id
-LEFT JOIN venta_estado_real d4 ON d4.id=d1.estado_real
+LEFT JOIN venta_estado d4 ON d4.id=d1.estado
 WHERE v.campania = '".$row['indice']."' AND v.info_status=1 " . $sql_usuario ;
     
 }
@@ -70,28 +69,20 @@ $sql = $sql_ini;
 $sql_filter = '';
 // 0 (acciones)
 if( !empty($requestData['columns'][1]['search']['value']) ) {
-    $sql_filter.=' AND estado_real LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
+    $sql_filter.=' AND estado_id =  "' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
-    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
+    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
 }
-if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
-}
-
-
 
 $sql.= $sql_filter;
 
@@ -102,16 +93,20 @@ if ( !empty($requestData['search']['value']) && trim($requestData['search']['val
     $sql_donde.= 'SELECT * FROM (' . $sql;
     $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
     $sql_donde.= ') unido2 WHERE venta_id=' . intval($requestData['search']['value']) ;
+    
     $query=mysqli_query($conn, $sql_donde) or die("01.5");
-    while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
-    $pagina -= 1;
-    if ($pagina > 0) {
-        $pagina-= ($pagina % $requestData['length']);
+    $cnt = mysqli_num_rows($query);
+    if ($cnt > 0) {
+        while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
+        $pagina -= 1;
         if ($pagina > 0) {
-            $pagina /= $requestData['length'];
+            $pagina-= ($pagina % $requestData['length']);
+            if ($pagina > 0) {
+                $pagina /= $requestData['length'];
+            }
         }
+        $pagina *= $requestData['length'];
     }
-    $pagina *= $requestData['length'];
 }
 if ($pagina != '')
     $requestData['start'] = $pagina;
@@ -129,13 +124,11 @@ $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
     $nestedData[] = '<center><input type="checkbox" class="accion" value="' . $row['venta_id'] . '::' . $row['campania'] . '"></center>';
-    $nestedData[] = utf8_encode($row['estado_real']);
-    $nestedData[] = utf8_encode($row['producto']);
-    $nestedData[] = utf8_encode($row['cliente_nombre']);
+    $nestedData[] = utf8_encode($row['estado']);
     $nestedData[] = utf8_encode($row['asesor_venta']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
+    $nestedData[] = utf8_encode($row['producto']);
+    $nestedData[] = utf8_encode($row['cliente_nombre']);
 
     $data[] = $nestedData;
 }
