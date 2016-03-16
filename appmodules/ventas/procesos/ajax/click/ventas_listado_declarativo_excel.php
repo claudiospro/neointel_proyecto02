@@ -41,15 +41,16 @@ if ($ou['info'] != null) {
 $i = 2;
 if ($ou['body'] != null) {
     foreach($ou['body'] as $row ) {
-        $j=1;        
-        foreach($ou['orden'] as $name ) {
+        $j=1;
+        $value = $row[$name];
+        foreach($ou['orden'] as $name) {
             if (strpos($name, '_correo') !== false && $value == '') {
                 $value = 'nodispone@hotmail.com';
             }
             $objPHPExcel
                 ->setActiveSheetIndex(0)
                 ->setCellValue(getNameFromNumber($j).''.$i,
-                               $venta->getDeclarativo_value($row[$name], $ou['info'][$name])
+                               $venta->getDeclarativo_value($value, $ou['info'][$name])
                 );
             $j++;
         }           
