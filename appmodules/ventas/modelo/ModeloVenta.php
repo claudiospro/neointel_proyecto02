@@ -394,51 +394,47 @@ class ModeloVenta {
             'grupo' => '',
             'diccionario' => '',
             'tipo' => '',
-            'diccionario_nombre' => ''
+            'diccionario_nombre' => '',
+            'declarativo_orden' => '',
+            'declarativo_etiqueta' => '',
         );
-        $this->q->sql = 'SELECT nombre, etiqueta, grupo_etiqueta, diccionario, tipo, diccionario_nombre
-                         FROM venta_' . $in['campania'] . '_campos 
+        $this->q->sql = 'SELECT nombre, etiqueta, grupo_etiqueta, diccionario, tipo, diccionario_nombre, declarativo_orden, declarativo_etiqueta
+                         FROM venta_' . $in['campania'] . '_campos
                          ORDER by orden';
         $this->q->data = NULL;
+        // echo $this->q->sql .'<br>';
         $data = $this->q->exe();
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
         $tot = count($data);
        
         $fields = array('asesor_venta_id'=> '', 'supervisor_id'=>'', 'coordinador_id'=>'', 'info_create_fecha'=>'', 'id'=>'');
         $info = array(
-            'asesor_venta_id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
-            'supervisor_id' => array('diccionario'=>'0'  , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
-            'coordinador_id' => array('diccionario'=>'0' , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
-            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
-            'id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '')
+            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-3', 'declarativo_etiqueta' => '0FECHA'),
+            'supervisor_id'     => array('diccionario'=>'0'  , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-2', 'declarativo_etiqueta' => 'SUPERVISOR'),
+            'asesor_venta_id'   => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-1', 'declarativo_etiqueta' => 'COMERCIAL'),
+            'coordinador_id'    => array('diccionario'=>'0' , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'', 'declarativo_etiqueta' => ''),
+            'id'                => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'', 'declarativo_etiqueta' => '')
         );
-        $head = array(array('name'=>'Responsables', 'items'=>'5',
-                            'list' => array('Asesor Venta', 'Supervisor', 'Coordinador','Fecha Creacion','Id')));
-        
+        $orden = array('-3' => 'info_create_fecha', '-2' => 'supervisor_id', '-1' => 'asesor_venta_id');
         for ($i=0; $i<$tot; $i++) {
             $fields[$data[$i]['nombre']] = '';
             $info[$data[$i]['nombre']] = array(
                 'diccionario'=> $data[$i]['diccionario'],
                 'tipo'=>$data[$i]['tipo'],
                 'diccionario_nombre' => $data[$i]['diccionario_nombre'],
-                'nombre'=> $data[$i]['nombre'],
+                'nombre' => $data[$i]['nombre'],
+                'declarativo_orden' => $data[$i]['declarativo_orden'],
+                'declarativo_etiqueta' => $data[$i]['declarativo_etiqueta'],
             );
-            if (utf8_encode($data[$i]['grupo'])=='') {
-                $head[] = array('name'=>utf8_encode($data[$i]['etiqueta']), 'items'=>1, 'list'=>array(utf8_encode($data[$i]['etiqueta'])));
-            } else {
-                if ($i>0 && utf8_encode($data[$i]['grupo']) != utf8_encode($data[$i-1]['grupo'])) {
-                    $k = 0;
-                    $l = array();
-                    for ($j=$i; $j < $tot; $j++) {                        
-                        if (utf8_encode($data[$i]['grupo']) != utf8_encode($data[$j]['grupo'])) {
-                            break;
-                        }
-                        $l[] = utf8_encode($data[$j]['etiqueta']);
-                        $k++;               
-                    }
-                    $head[] = array('name'=>utf8_encode($data[$i]['grupo']), 'items'=>$k, 'list' => $l);
-                }
+            if ('' != trim($data[$i]['declarativo_etiqueta'])) {
+                $orden[$data[$i]['declarativo_orden']] = $data[$i]['nombre'];
             }
         }
+
+
+        
         // datos --------------------------------------------------------
         $this->q->fields = $fields;
         $this->q->sql = '
@@ -449,6 +445,10 @@ class ModeloVenta {
         JOIN usu_usuario co ON co.id = v.coordinador_id
         JOIN venta_' . $in['campania'] . ' d ON d.id=v.id
         WHERE v.info_status=1 ';
+        // print $this->q->sql .'<br>';
+        // echo '<pre>';
+        // print_r($this->q->fields);
+        // echo '</pre>';
         if(trim($_SESSION['lineas']) != '') {
             $this->q->sql.= ' AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
         }
@@ -458,7 +458,7 @@ class ModeloVenta {
         if (trim($in['end'])!='') {
             $this->q->sql.= ' AND v.info_create_fecha <= "' . $in['end'] . ' 23:59:59"';
         }
-            
+        // echo $this->q->sql .'<br>';
         $data = $this->q->exe();
         // echo '<pre>';
         // print_r($in);
@@ -474,7 +474,11 @@ class ModeloVenta {
         // print_r($data);
         // echo '</pre>';
         
-        return array('head'=>$head, 'info' => $info, 'body'=>$data);
+        return array(
+            'orden' => $orden,
+            'info' => $info,
+            'body'=>$data,
+        );
     }
     function getDeclarativo_value($valor, $info) {
         $ou = '';
@@ -495,8 +499,6 @@ class ModeloVenta {
                 $ou = $valor;
             }
         }
-
-        
         return utf8_encode($ou);
     }
 }

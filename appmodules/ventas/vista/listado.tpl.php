@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.1.3"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.1.4"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -64,7 +64,7 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
-    <!--
+     <!-- 
     <tr>
       <td>0</td>
       <td>1</td>
@@ -81,9 +81,8 @@ $prefix = 'venta_listado_';
       <td>12</td>
       <td>13</td>
       <td>14</td>
-      <td>15</td>
     </tr>
-    -->
+     -->
     <tr>
       <td>
         <select id="<?php echo $prefix ?>campanias-tbl"

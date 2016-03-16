@@ -30,40 +30,29 @@ $in['campania'] = Utilidades::clear_input($_GET['campania']);
 // -------------------------------------------------------- Data
 $ou = $venta->getDeclarativo($in);
 
-if ($ou['head'] != null) {
-    $j = 1;
-    foreach($ou['head'] as $row ) {
+if ($ou['info'] != null) {
+    $i = 1;
+    foreach($ou['orden'] as $name ) {
         // $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A1:C1');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue(getNameFromNumber($j).'1', $row['name']);
-        if ( 1 == intval($row['items'])) {
-            $objPHPExcel->setActiveSheetIndex(0)->mergeCells(getNameFromNumber($j).'1:'.getNameFromNumber($j) .'2');
-        } else {
-            $objPHPExcel->setActiveSheetIndex(0)->mergeCells(getNameFromNumber($j).'1:'.getNameFromNumber($j+$row['items']-1) .'1');
-            $k = $j;
-            foreach($row['list'] as $col ) {
-                $objPHPExcel->setActiveSheetIndex(0)->setCellValue(getNameFromNumber($k).'2', $col);
-                $k++;
-            }
-        }
-        $j+= $row['items'];
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue(getNameFromNumber($i++).'1', $ou['info'][$name]['declarativo_etiqueta']);
     }
 }
 
-$i = 3;
+$i = 2;
 if ($ou['body'] != null) {
     foreach($ou['body'] as $row ) {
-        $j=1;
-        foreach($row  as $name => $value) {
+        $j=1;        
+        foreach($ou['orden'] as $name ) {
             if (strpos($name, '_correo') !== false && $value == '') {
                 $value = 'nodispone@hotmail.com';
             }
             $objPHPExcel
                 ->setActiveSheetIndex(0)
                 ->setCellValue(getNameFromNumber($j).''.$i,
-                               $venta->getDeclarativo_value($value, $ou['info'][$name])
+                               $venta->getDeclarativo_value($row[$name], $ou['info'][$name])
                 );
             $j++;
-        }
+        }           
         $i++;
     }
 }

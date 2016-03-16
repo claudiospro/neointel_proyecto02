@@ -1,3 +1,9 @@
+.no-margin {
+  margin: 0; }
+
+.no-padding {
+  padding: 0; }
+
 .size-12 {
   font-size: 12px; }
 
@@ -28,9 +34,6 @@
 .size-72 {
   font-size: 72px; }
 
-.no-margin {
-  margin: 0; }
-
 .search-input-text.active {
   background-color: #D3FFE4; }
 
@@ -47,9 +50,16 @@ input.error {
   padding: 0 0.5rem; }
 
 .autocomplete.active {
-  background-color: #cef4ce; }
+  background-color: #D3FFE4; }
 
 .ui-autocomplete {
   z-index: 9999; }
+
+select.active {
+  background-color: #D3FFE4; }
+
+tr.active * {
+  background-color: rgba(0, 255, 39, 0.16);
+  color: #0d7108; }
 
 /*# sourceMappingURL=estilo.css.map */

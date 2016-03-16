@@ -31,8 +31,7 @@ while( $row=mysqli_fetch_array($query) ) {
     }
     $sql_ini.= "
 SELECT
-  'dda'
-, d4.nombre estado
+  d4.nombre estado
 , d3.nombre asesor_venta
 , v.info_create_fecha fecha_creacion
 , d2.nombre producto
@@ -130,14 +129,23 @@ $totalFiltered = mysqli_num_rows($query); // when there is a search parameter th
 $sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." " . $requestData['order'][0]['dir'] . " LIMIT " . $requestData['start'] . " ,".$requestData['length']." ";// print $sql;
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 
+$q = mysqli_query($conn, 'SELECT id, nombre FROM venta_estado WHERE info_status = 1 ') or die("02.5");
+$str_combo = '<select class="lista-estado-row no-margin no-padding" campania="" venta="" style="background-color: transparent">';
+while( $row=mysqli_fetch_array($q) ) {
+    $str_combo.= '<option value="' . $row['id'] . '">';
+    $str_combo.= utf8_encode($row['nombre']);
+    $str_combo.= '</option>';
+}
+$str_combo.= '</select>';
 
 $query=mysqli_query($conn, $sql) or die("03");
-
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
-    $nestedData[] = '<center><input type="checkbox" class="accion" value="' . $row['venta_id'] . '::' . $row['campania'] . '"></center>';
-    $nestedData[] = utf8_encode($row['estado']);
+    $combo_estado = str_replace('option value="' . $row['estado_id'] . '"', 'option value="' . $row['estado_id'] . '" selected', $str_combo);
+    $combo_estado = str_replace('campania=""', 'campania="' . $row['campania'] . '"', $combo_estado);
+    $combo_estado = str_replace('venta=""', 'venta="' . $row['venta_id'] . '"', $combo_estado);
+    $nestedData[] = $combo_estado;
     $nestedData[] = utf8_encode($row['asesor_venta']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
     $nestedData[] = utf8_encode($row['producto']);

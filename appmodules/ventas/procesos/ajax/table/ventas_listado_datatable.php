@@ -165,15 +165,18 @@ if ( !empty($requestData['search']['value']) && trim($requestData['search']['val
     $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
     $sql_donde.= ') unido2 WHERE venta_id=' . intval($requestData['search']['value']) ;
     $query=mysqli_query($conn, $sql_donde) or die("01.5");
-    while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
-    $pagina -= 1;
-    if ($pagina > 0) {
-        $pagina-= ($pagina % $requestData['length']);
+    $cnt = mysqli_num_rows($query);
+    if ($cnt > 0) {
+        while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
+        $pagina -= 1;
         if ($pagina > 0) {
-            $pagina /= $requestData['length'];
+            $pagina-= ($pagina % $requestData['length']);
+            if ($pagina > 0) {
+                $pagina /= $requestData['length'];
+            }
         }
+        $pagina *= $requestData['length'];
     }
-    $pagina *= $requestData['length'];
 }
 if ($pagina != '')
     $requestData['start'] = $pagina;

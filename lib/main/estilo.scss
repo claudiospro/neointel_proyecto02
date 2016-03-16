@@ -1,3 +1,8 @@
+// ---------------------------- general
+.no-margin{ margin:0; }
+.no-padding{ padding:0; }
+
+// ---------------------------- icons
 .size-12 { font-size: 12px; }
 .size-14 { font-size: 14px; }
 .size-16 { font-size: 16px; }
@@ -9,16 +14,16 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
-.no-margin{ margin:0; }
-
-.search-input-text.active{
+// --------------------------- forms
+@mixin activado() {
     background-color: #D3FFE4;
 }
-
+.search-input-text.active{
+    @include activado();
+}
 input.error{
     background-color: #FF8787!important;
 }
-
 .fields {
     .callout {
         margin: 0;
@@ -32,13 +37,17 @@ input.error{
         padding: 0 0.5rem;
     }
 }
-
-
 .autocomplete.active {
-    background-color: #cef4ce;
+    @include activado();
 }
 .ui-autocomplete {
     z-index: 9999;
 }
-
+select.active {
+    @include activado();
+}
+tr.active * {
+    background-color: rgba(0, 255, 39, 0.16);
+    color: #0d7108;
+}
 

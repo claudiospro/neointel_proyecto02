@@ -6,7 +6,7 @@ $(document).ready(function() {
     // --------------------------------------------------------------- LOAD
     venta_listado_tabla();
     venta_listado_estados();    
-    // ------------------------------------------------------------ EVENTOS
+    // ------------------------------------------------------------ EVENTOS    
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
         var v = $(this).val();
@@ -30,7 +30,10 @@ $(document).ready(function() {
         }
     });
     $(prefixId+'cambiar').on('click', function (event) {
-        venta_listado_cambiar();
+        // venta_listado_cambiar();
+    });
+    $('table').on( 'change', '.lista-estado-row', function () {
+        venta_listado_estado_row($(this));
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
@@ -49,9 +52,9 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 15,
-            "order"      : [ 3, 'desc' ],
+            "order"      : [ 2, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 0 ], 'bSortable': false },
+                // { 'aTargets': [ 0 ], 'bSortable': false },
             ],
 
             "ajax": {
@@ -109,5 +112,18 @@ $(document).ready(function() {
             });            
         }
     }
-    
+    //
+    function venta_listado_estado_row(item) {
+        var enviar = {
+            'campania': item.attr('campania'),
+            'estado': item.val(),
+            'venta': item.attr('venta'),
+        }
+        none_simple(
+            './procesos/ajax/select/ventas_listado_estado_row_change.php',
+            enviar
+        );
+        c(enviar);
+        item.parent().parent().addClass('active');
+    }
 });

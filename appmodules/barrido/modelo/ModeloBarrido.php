@@ -28,7 +28,7 @@ class ModeloBarrido {
         $this->q->exe();
         // usuario
         $this->q->sql = '
-        UPDATE venta SET info_update_user="' . $in['usuario'] . '" WHERE id="' . $in['id'] . '"
+        UPDATE venta SET info_update_user="' . $in['usuario'] . '", info_update_fecha="' . $in['fecha'] . '" WHERE id="' . $in['id'] . '"
         ';
         $this->q->exe();
     }    

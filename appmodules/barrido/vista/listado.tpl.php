@@ -33,16 +33,17 @@ $prefix = 'venta_listado_';
     <!--   <td>4</td> -->
     <!--   <td>5</td> -->
     <!--   <td>6</td> -->
-    <!--   <td>7</td> -->
     <!-- </tr> -->
     <tr>
-      <td>
+      <td colspan="30" style="text-align: center">
         <select id="<?php echo $prefix ?>campanias-tbl"
-                class="no-margin search-input-select"
+                class="no-margin search-input-select active"
                 style="padding: 0px; width: 250px;"
                 data-column="0">          
         </select>
       </td>
+    </tr>
+    <tr>
       <td>
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
@@ -56,7 +57,6 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
     </tr>
     <tr>
-      <th>Acciones</th>
       <th>Estado</th>
       <th>Asesor de Venta</th>
       <th>Fecha Creación</th>
@@ -65,15 +65,6 @@ $prefix = 'venta_listado_';
     </tr>
   </thead>
 </table>
-<div class="row">
-  <div class="large-6 columns">
-    <select id="<?php echo $prefix ?>estados">
-    </select>
-  </div>
-  <div class="large-6 columns">
-    <a id="<?php echo $prefix ?>cambiar" class="button">Cambiar</a>
-  </div>
-</div>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>
