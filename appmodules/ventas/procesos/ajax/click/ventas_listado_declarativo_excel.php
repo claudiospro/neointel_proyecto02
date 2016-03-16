@@ -62,7 +62,7 @@ if ($ou['body'] != null) {
 // Utilidades::printr($in);
 // Utilidades::printr($_SESSION);
 // Utilidades::printr($campos);
-// Utilidades::printr($ou);
+// Utilidades::printr($ou['orden']);
 
 // -------------------------------------------------------- OUT
 $objPHPExcel->getActiveSheet()->setTitle('Data');

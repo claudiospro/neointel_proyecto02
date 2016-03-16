@@ -432,8 +432,7 @@ class ModeloVenta {
                 $orden[$data[$i]['declarativo_orden']] = $data[$i]['nombre'];
             }
         }
-
-
+        ksort($orden);
         
         // datos --------------------------------------------------------
         $this->q->fields = $fields;
