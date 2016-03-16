@@ -411,7 +411,7 @@ class ModeloVenta {
        
         $fields = array('asesor_venta_id'=> '', 'supervisor_id'=>'', 'coordinador_id'=>'', 'info_create_fecha'=>'', 'id'=>'');
         $info = array(
-            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-3', 'declarativo_etiqueta' => '0FECHA'),
+            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-3', 'declarativo_etiqueta' => 'FECHA'),
             'supervisor_id'     => array('diccionario'=>'0'  , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-2', 'declarativo_etiqueta' => 'SUPERVISOR'),
             'asesor_venta_id'   => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'-1', 'declarativo_etiqueta' => 'COMERCIAL'),
             'coordinador_id'    => array('diccionario'=>'0' , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>'', 'declarativo_orden'=>'', 'declarativo_etiqueta' => ''),
