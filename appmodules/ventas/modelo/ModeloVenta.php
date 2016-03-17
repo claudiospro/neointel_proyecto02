@@ -481,6 +481,6 @@ class ModeloVenta {
                 $ou = $valor;
             }
         }
-        return utf8_encode($ou);
+        return utf8_encode(trim($ou));
     }
 }
