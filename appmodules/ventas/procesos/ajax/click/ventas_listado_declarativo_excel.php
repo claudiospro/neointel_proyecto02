@@ -30,20 +30,19 @@ $in['campania'] = Utilidades::clear_input($_GET['campania']);
 // -------------------------------------------------------- Data
 $ou = $venta->getDeclarativo($in);
 
-if ($ou['info'] != null) {
+if ($ou['orden'] != null) {
     $i = 1;
     foreach($ou['orden'] as $name ) {
         // $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A1:C1');
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue(getNameFromNumber($i++).'1', $ou['info'][$name]['declarativo_etiqueta']);
     }
 }
-
 $i = 2;
 if ($ou['body'] != null) {
     foreach($ou['body'] as $row ) {
         $j=1;
-        $value = $row[$name];
         foreach($ou['orden'] as $name) {
+            $value = $row[$name];
             if (strpos($name, '_correo') !== false && $value == '') {
                 $value = 'nodispone@hotmail.com';
             }
@@ -63,11 +62,12 @@ if ($ou['body'] != null) {
 // Utilidades::printr($in);
 // Utilidades::printr($_SESSION);
 // Utilidades::printr($campos);
-// Utilidades::printr($ou['orden']);
+// Utilidades::printr($ou);
 
 // -------------------------------------------------------- OUT
 $objPHPExcel->getActiveSheet()->setTitle('Data');
 $objPHPExcel->setActiveSheetIndex(0);
+
 
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="data-' . date('Y-m-d His') . '.xls"');

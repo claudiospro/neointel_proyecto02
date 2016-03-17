@@ -444,10 +444,6 @@ class ModeloVenta {
         JOIN usu_usuario co ON co.id = v.coordinador_id
         JOIN venta_' . $in['campania'] . ' d ON d.id=v.id
         WHERE v.info_status=1 ';
-        // print $this->q->sql .'<br>';
-        // echo '<pre>';
-        // print_r($this->q->fields);
-        // echo '</pre>';
         if(trim($_SESSION['lineas']) != '') {
             $this->q->sql.= ' AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
         }
@@ -459,20 +455,7 @@ class ModeloVenta {
         }
         // echo $this->q->sql .'<br>';
         $data = $this->q->exe();
-        // echo '<pre>';
-        // print_r($in);
-        // echo '</pre>';
-        // echo '<pre>';
-        // echo $this->q->sql;
-        // echo '</pre>';
-        // echo '<pre>';
-        // print_r($head);
-        // echo '</pre>';
-        // echo '<hr>';
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-        
+        // var_dump($data);
         return array(
             'orden' => $orden,
             'info' => $info,
