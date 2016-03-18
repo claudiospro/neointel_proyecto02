@@ -18,12 +18,12 @@ if ($perfiles=='Asesor Comercial') {
 }
 
 $sql_activo = '';
-if ($perfiles=='Asesor Comercial' || $perfiles=='Supervisor' || $perfiles=='Tramitacion') {
+if ($perfiles=='Asesor Comercial' || $perfiles=='Supervisor' || $perfiles=='Tramitacion' || $perfiles=='Tramitacion-Validacion' || $perfiles=='Tramitacion-Carga') {
     $sql_activo.= ' AND v.info_status=1';
 }
 
-
-
+// --------------------------------------------------------- ini lineales
+// con esto se optimiza, en vez de mostrar todo, solo se muestra uno solo
 $sql = 'SELECT DISTINCT c.indice FROM campania c
         JOIN campania_lineal cl ON cl.campania_id = c.id
         WHERE c.info_status=1';
@@ -31,6 +31,8 @@ if ('' != trim($_SESSION['lineas'])) {
     $sql.= ' AND cl.lineal_id IN (' . $_SESSION['lineas'] . ')';
 }
 $query=mysqli_query($conn, $sql) or die("00");
+// --------------------------------------------------------- end lineales
+
 $sql_ini='';
 $campanias = array();
 while( $row=mysqli_fetch_array($query) ) {
@@ -209,13 +211,13 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
     $acciones = '';    
-    if ($perfiles!='Asesor Comercial') {
+    if ($perfiles!='Asesor Comercial') { // aca hay que cambiar por el estado de tramitacion
         $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     }
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
     if ($perfiles!='Asesor Comercial') {
         $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
-    }    
+    }
     $nestedData[] = '<center>' . $acciones . '</center>';
 
     $data[] = $nestedData;
