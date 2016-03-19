@@ -136,7 +136,7 @@ class ModeloVenta {
 
             } elseif ($campo['diccionario']=='2') {
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
-                $ou.= '<option value="0"></option>';                
+                $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
@@ -158,6 +158,31 @@ class ModeloVenta {
                 }
                 $ou.= '</select>';
             } elseif ($campo['diccionario']=='3') {
+                $orderby = 'ORDER BY 2';
+                if ($campo['diccionario_orden'] == '0') $orderby = '';
+                
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou.= '<option value="0"></option>';
+                $this->q->fields = array('id' => '', 'nombre' => '');
+                if ($campo['diccionario_nombre'] == '')
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ' . $orderby;
+                else
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ' . $orderby;
+                // echo $this->q->sql;        
+                $this->q->data = NULL;
+                $data = $this->q->exe();
+                if ($data) {
+                    foreach ($data as $row) {
+                        if ($row['id'] != $dato) {
+                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                        } else {
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                        }
+                    }
+                }
+                
+                $ou.= '</select>';
+            } elseif ($campo['diccionario']=='4') {
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
@@ -385,8 +410,9 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;                
     }
-    //
-    function getDeclarativo($in) {
+    // ---------------------------- Declarativo
+    // ----- version 1: eligiendo campos
+    function getDeclarativo_01($in) {
         $ou = '';
         $this->q->fields = array(
             'nombre' => '',
@@ -461,6 +487,97 @@ class ModeloVenta {
             'info' => $info,
             'body'=>$data,
         );
+    }
+    // ----- version 2: todo
+    function getDeclarativo_02($in) {
+        $ou = '';
+        $this->q->fields = array(
+            'nombre' => '',
+            'etiqueta' => '',
+            'grupo' => '',
+            'diccionario' => '',
+            'tipo' => '',
+            'diccionario_nombre' => ''
+        );
+        $this->q->sql = 'SELECT nombre, etiqueta, grupo_etiqueta, diccionario, tipo, diccionario_nombre
+                          FROM venta_' . $in['campania'] . '_campos 
+                          ORDER by orden';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        $tot = count($data);
+        
+        $fields = array('asesor_venta_id'=> '', 'supervisor_id'=>'', 'coordinador_id'=>'', 'info_create_fecha'=>'', 'id'=>'');
+        $info = array(
+            'asesor_venta_id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
+            'supervisor_id' => array('diccionario'=>'0'  , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
+            'coordinador_id' => array('diccionario'=>'0' , 'tipo'=>'VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
+            'info_create_fecha' => array('diccionario'=>'0' , 'tipo'=>'TIMESTAMP-VARCHAR', 'diccionario_nombre' => '', 'nombre'=>''),
+            'id' => array('diccionario'=>'0', 'tipo'=>'VARCHAR', 'diccionario_nombre' => '')
+        );
+        $head = array(array('name'=>'Responsables', 'items'=>'5',
+                            'list' => array('Asesor Venta', 'Supervisor', 'Coordinador','Fecha Creacion','Id')));
+         
+        for ($i=0; $i<$tot; $i++) {
+            $fields[$data[$i]['nombre']] = '';
+            $info[$data[$i]['nombre']] = array(
+                'diccionario'=> $data[$i]['diccionario'],
+                'tipo'=>$data[$i]['tipo'],
+                'diccionario_nombre' => $data[$i]['diccionario_nombre'],
+                'nombre'=> $data[$i]['nombre'],
+            );
+            if (utf8_encode($data[$i]['grupo'])=='') {
+                $head[] = array('name'=>utf8_encode($data[$i]['etiqueta']), 'items'=>1, 'list'=>array(utf8_encode($data[$i]['etiqueta'])));
+            } else {
+                if ($i>0 && utf8_encode($data[$i]['grupo']) != utf8_encode($data[$i-1]['grupo'])) {
+                    $k = 0;
+                    $l = array();
+                    for ($j=$i; $j < $tot; $j++) {                        
+                        if (utf8_encode($data[$i]['grupo']) != utf8_encode($data[$j]['grupo'])) {
+                            break;
+                        }
+                        $l[] = utf8_encode($data[$j]['etiqueta']);
+                        $k++;               
+                    }
+                    $head[] = array('name'=>utf8_encode($data[$i]['grupo']), 'items'=>$k, 'list' => $l);
+                }
+            }
+        }
+        // datos --------------------------------------------------------
+        $this->q->fields = $fields;
+        $this->q->sql = '
+         SELECT  av.nombre, su.nombre, co.nombre, v.info_create_fecha, d.* 
+         FROM venta v
+         JOIN usu_usuario av ON av.id = v.asesor_venta_id 
+         JOIN usu_usuario su ON su.id = v.supervisor_id
+         JOIN usu_usuario co ON co.id = v.coordinador_id
+         JOIN venta_' . $in['campania'] . ' d ON d.id=v.id
+         WHERE v.info_status=1 ';
+        if(trim($_SESSION['lineas']) != '') {
+            $this->q->sql.= ' AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
+        }
+        if (trim($in['ini'])!='') {
+            $this->q->sql.= ' AND v.info_create_fecha >= "' . $in['ini'] . ' 00:00:00"';
+        }
+        if (trim($in['end'])!='') {
+            $this->q->sql.= ' AND v.info_create_fecha <= "' . $in['end'] . ' 23:59:59"';
+        }
+             
+        $data = $this->q->exe();
+        // echo '<pre>';
+        // print_r($in);
+        // echo '</pre>';
+        // echo '<pre>';
+        // echo $this->q->sql;
+        // echo '</pre>';
+        // echo '<pre>';
+        // print_r($head);
+        // echo '</pre>';
+        // echo '<hr>';
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+         
+        return array('head'=>$head, 'info' => $info, 'body'=>$data);
     }
     function getDeclarativo_value($valor, $info) {
         $ou = '';

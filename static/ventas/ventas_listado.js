@@ -138,7 +138,7 @@ $(document).ready(function() {
             }
         }
         if (comparar) {            
-            enlace = 'procesos/ajax/click/ventas_listado_declarativo_excel.php?';
+            enlace = 'procesos/ajax/click/ventas_listado_declarativo_excel_02.php?';
             enlace+= 'ini=' + enviar.ini1 + '&';
             enlace+= 'end=' + enviar.end1 + '&';
             enlace+= 'campania=' + enviar.campania ;

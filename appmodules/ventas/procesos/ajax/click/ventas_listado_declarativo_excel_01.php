@@ -28,7 +28,7 @@ $in['end'] = Utilidades::clear_input($_GET['end']);
 $in['campania'] = Utilidades::clear_input($_GET['campania']);
 
 // -------------------------------------------------------- Data
-$ou = $venta->getDeclarativo($in);
+$ou = $venta->getDeclarativo_01($in);
 
 if ($ou['orden'] != null) {
     $i = 1;
