@@ -1,4 +1,4 @@
-// $(document).ready(function() {
+$(document).ready(function() {
     var option_empty='<option value=""></option>';
     var prefixId = '#venta_listado_';
     var prefixClass = '.venta_listado_';
@@ -248,55 +248,7 @@
                 $('#field_cliente_documento_reverso').removeClass('error');
             }
             
-        }
-        // else if($('#field_campania').val() == 'campania_002') {
-        //     var datos = {
-        //         'reverso': $('#field_representante_documento_reverso').val(),
-        //         'movil_terminal': $('#field_movil_terminal').val(),
-        //         'movil_adicional_1_terminal': $('#field_movil_adicional_1_terminal').val(),
-        //         'movil_adicional_2_terminal': $('#field_movil_adicional_2_terminal').val(),
-        //         'movil_adicional_3_terminal': $('#field_movil_adicional_2_terminal').val(),
-        //         'movil_adicional_4_terminal': $('#field_movil_adicional_2_terminal').val(),
-        //         'movil_adicional_5_terminal': $('#field_movil_adicional_2_terminal').val(),
-        //     }
-        //     // c(datos);
-            
-        //     if (datos.reverso.trim() == '' && datos.movil_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-        //     if (datos.reverso.trim() == '' && datos.movil_adicional_1_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-        //     if (datos.reverso.trim() == '' && datos.movil_adicional_2_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-        //     if (datos.reverso.trim() == '' && datos.movil_adicional_3_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-        //     if (datos.reverso.trim() == '' && datos.movil_adicional_4_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-        //     if (datos.reverso.trim() == '' && datos.movil_adicional_5_terminal.trim() != '')
-        //     {
-        //         ou = 0;
-        //     }
-            
-        //     if (ou == 0)
-        //     {
-        //         $('#field_representante_documento_reverso').addClass('error');
-        //         $('.venta-listado-view').hide();
-        //         $('#venta-listado-view-0').show();
-        //     } else
-        //     {
-        //         $('#field_cliente_documento_reverso').removeClass('error');
-        //     }            
-        // }
-        else {
+        } else {
             ou = 1;
         }
         
