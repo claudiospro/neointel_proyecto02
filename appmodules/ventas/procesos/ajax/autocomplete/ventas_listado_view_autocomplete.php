@@ -8,7 +8,7 @@ include "../../../modelo/ModeloVenta.php";
 $venta = new ModeloVenta();
 
 // -------------------------------------------------------- INPUT
-$in['termino'] = Utilidades::clear_input(Utilidades::sanear_string($_REQUEST['term']));
+$in['termino'] = Utilidades::clear_input(Utilidades::sanear_complete_string($_REQUEST['term']));
 $in['campo'] = Utilidades::clear_input_id($_REQUEST['campo']);
 $in['dependencia'] = Utilidades::clear_input($_REQUEST['dependencia']);
 $in['dependencia_value'] = Utilidades::clear_input($_REQUEST['dependencia_value']);

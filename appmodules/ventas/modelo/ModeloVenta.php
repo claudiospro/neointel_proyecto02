@@ -224,7 +224,7 @@ class ModeloVenta {
                 // echo $this->q->sql.'<br>';                
                 $this->q->data = NULL;
                 $ou = $this->q->exe();
-                $ou = $ou[0]['nombre'];
+                $ou = utf8_encode($ou[0]['nombre']);
             }
             if ('TIMESTAMP' == strtoupper($campo['tipo'])) {
                 $ou = trim(substr($ou, 0, 10));
@@ -253,7 +253,7 @@ class ModeloVenta {
                         $table = $campo['diccionario_nombre'];
                     }
                     $this->q->fields = array('id' => '');
-                    $this->q->sql = 'SELECT id FROM venta_' . $table . ' WHERE nombre="' . $dato['value'] . '"';
+                    $this->q->sql = 'SELECT id FROM venta_' . $table . ' WHERE nombre="' . Utilidades::sanear_complete_string($dato['value']) . '"';
                     // echo $this->q->sql;        
                     $this->q->data = NULL;
                     $data = $this->q->exe();

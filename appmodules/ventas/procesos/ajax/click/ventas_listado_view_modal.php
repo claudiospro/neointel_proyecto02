@@ -55,7 +55,7 @@ for ($i=0; $i < $total; $i++) {
     $perfiles = explode(', ', trim($campos[$i]['perfiles']));
     $permisos = explode(', ', trim($campos[$i]['permisos']));
     $campos[$i]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
-    if ($in['view'] == '1') $campos[$i]['permiso'] = 'r';
+    if ($in['view'] == '1' && $campos[$i]['permiso'] == 'w') $campos[$i]['permiso'] = 'r';
     $row_str = '';
     if ($campos[$i]['permiso'] != 'h') {
         $row_str .= '<div class="row fields">';
@@ -79,7 +79,7 @@ for ($i=0; $i < $total; $i++) {
                 $perfiles = explode(', ', trim($campos[$j]['perfiles']));
                 $permisos = explode(', ', trim($campos[$j]['permisos']));
                 $campos[$j]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
-                if ($in['view'] == '1') $campos[$j]['permiso'] = 'r';
+                if ($in['view'] == '1' && $campos[$j]['permiso'] == 'w') $campos[$j]['permiso'] = 'r';
                 if ($campos[$j]['permiso'] != 'h') {
                     $row_str .= '<div class="row">';
                     $row_str .= '<div class="small-3 columns"><label class="">';
