@@ -410,6 +410,7 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;                
     }
+    
     // ---------------------------- Declarativo
     // ----- version 1: eligiendo campos
     function getDeclarativo_01($in) {
@@ -599,5 +600,26 @@ class ModeloVenta {
             }
         }
         return utf8_encode(trim($ou));
+    }
+
+    // timer
+    function getTimerEstructura($in) {
+        $ou = '';
+        $this->q->fields = array(
+            'timestamp' => '',
+
+        );
+        $sql_lineas = '';
+        if ('' == trim($in['lineas'])) {
+            $sql_lineas = 'WHERE lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql = '
+                        SELECT info_update_fecha FROM venta 
+                        ' . $sql_lineas . '           
+                        ORDER BY info_update_fecha DESC LIMIT 1  
+                        ';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return strtotime($data[0]['timestamp']);
     }
 }

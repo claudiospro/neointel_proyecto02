@@ -24,18 +24,19 @@ $prefix = 'venta_listado_';
 
 <script src="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
-<script src="../../lib/main/sesion.js"></script>
+<script src="../../lib/main/sesion.js?v=1.1.0"></script>
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
 <script src="../../static/ventas/ventas_listado.js?v=1.1.6"></script>
+<!-- <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script> -->
 <?php $js = ob_get_clean() ?>
 
 
 <?php ob_start() ?>
 <?php include '../autentificacion/vista/url.php' ?>
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
-<?php // print_r($_SESSION) ?>
+<?php  print_r($_SESSION) ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
 <div class="row">
   <div class="large-1 columns">
