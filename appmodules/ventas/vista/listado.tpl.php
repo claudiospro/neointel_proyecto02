@@ -36,7 +36,7 @@ $prefix = 'venta_listado_';
 <?php ob_start() ?>
 <?php include '../autentificacion/vista/url.php' ?>
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
-<?php  print_r($_SESSION) ?>
+<?php  /* print_r($_SESSION) */ ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
 <div class="row">
   <div class="large-1 columns">
