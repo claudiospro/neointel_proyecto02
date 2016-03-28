@@ -34,6 +34,9 @@
 .size-72 {
   font-size: 72px; }
 
+#venta_listado_timer table td {
+  padding: 0; }
+
 .search-input-text.active {
   background-color: #D3FFE4; }
 

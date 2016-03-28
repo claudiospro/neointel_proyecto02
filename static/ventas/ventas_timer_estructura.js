@@ -11,8 +11,8 @@ function timer_estructura() {
             timestamp_tmp = data.trim();
             if(timestamp_estructura != timestamp_tmp) {
                 timestamp_estructura = timestamp_tmp;
-                // cargar_data();
-                console.log(timestamp_estructura);
+                timer_estructura_reporte();
+                // console.log(timestamp_estructura);
             }
             if (timestamp_tmp != '-1') {
                 setTimeout('timer_estructura()',15000);
@@ -20,6 +20,20 @@ function timer_estructura() {
         }
     });
 }
+function timer_estructura_reporte() {
+    $.ajax({
+        async:true,
+        type: "POST",
+        url: "./procesos/ajax/timer/ventas_listado_estructura_reporte.php",
+        dataType:"html",
+        success: function(data) {
+            $('#venta_listado_timer tbody')
+                .empty()
+                .html(data);
+        }
+    });
+}
+
 $(document).ready(function() {
     timer_estructura();
 });

@@ -29,7 +29,7 @@ $prefix = 'venta_listado_';
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
 <script src="../../static/ventas/ventas_listado.js?v=1.1.6"></script>
-<!-- <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script> -->
+<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -38,10 +38,37 @@ $prefix = 'venta_listado_';
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
 <?php  /* print_r($_SESSION) */ ?>
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
+
+<div class="row">
+  <div class="large-12 columns">
+    <div id="<?php echo $prefix . 'timer' ?>">
+      <?php if ('Asesor Comercial' != trim($_SESSION['perfiles'])): ?>
+        <div>
+          Usar Filtro:
+          <input class="no-margin" type="radio" id="filtro_tramitacion_0" name="filtro_tramitacion" checked> NO
+        </div>
+        <table width="100%" style="margin: 0">
+          <thead>
+            <tr>
+              <td>Campaña</td>
+              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_1" name="filtro_tramitacion">Sin Validar<br>Sin Cargar</td>
+              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_2" name="filtro_tramitacion">Validados<br>Sin Cargar</td>
+              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_3" name="filtro_tramitacion">
+                Validados y Cargados<br>En Tramitación</td>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      <?php endif ?>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="large-1 columns">
     <a id="<?php echo $prefix ?>add"
-       class="button success no-margin"     
+       class="button success no-margin"
        data-open="venta_listado_modal_div"
        title="Añadir">
       <i class="fi-plus"></i>
@@ -49,8 +76,7 @@ $prefix = 'venta_listado_';
   </div>
   <div class="large-11 columns">
     <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
-  </div>  
-
+  </div>
 </div>
 
 <div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
@@ -65,7 +91,7 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
-     <!-- 
+      
     <tr>
       <td>0</td>
       <td>1</td>
@@ -83,7 +109,7 @@ $prefix = 'venta_listado_';
       <td>13</td>
       <td>14</td>
     </tr>
-     -->
+    
     <tr>
       <td>
         <select id="<?php echo $prefix ?>campanias-tbl"
@@ -98,7 +124,7 @@ $prefix = 'venta_listado_';
       <td>
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 250px;"
+                style="padding: 0px; width: 150px;"
                 data-column="4">          
         </select>
       </td>
@@ -136,11 +162,11 @@ $prefix = 'venta_listado_';
       <th>Documento</th>
       <th>Estado</th>
       <th>Estado Real</th>
+      <th>Estado Tramitación</th>
       <th>Fecha Creación</th>
       <th>Fecha Ultima</th>
       <th>Fecha Instalada</th>
       <th>Asesor de Venta</th>
-      <th>Tramitación</th>
       <th>Supervisor</th>
       <th>Coordinador</th>
       <th>Eliminado</th>

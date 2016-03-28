@@ -7,7 +7,7 @@ session_start();
 $venta = new ModeloVenta();
 
 // -------------------------------------------------------- INPUT
-$in['lineas'] = Utilidades::clear_input_id($_SESSION['lineas']);
+$in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 
 // -------------------------------------------------------- DATA
 

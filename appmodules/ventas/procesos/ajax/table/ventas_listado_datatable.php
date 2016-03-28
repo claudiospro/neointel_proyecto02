@@ -48,11 +48,11 @@ SELECT
 , d.cliente_documento
 , d3.nombre estado
 , d8.nombre estado_real
+, d9.nombre estado_tramitacion
 , v.info_create_fecha fecha_creacion
 , v.info_update_fecha fecha_actualizacion
 , d.fecha_instalada
 , d4.nombre asesor_venta
-, d5.nombre tramitacion
 , d6.nombre supervisor
 , d7.nombre coordinador
 , v.info_status
@@ -61,6 +61,7 @@ SELECT
 , v.campania
 , d.estado estado_id
 , d.estado_real estado_real_id
+, d.estado_tramitacion estado_tramitacion_id
 FROM venta v 
 JOIN  venta_".$row['indice']." d ON d.id=v.id
 -- definiciones
@@ -68,10 +69,10 @@ LEFT JOIN campania d1 ON d1.indice=v.campania
 LEFT JOIN venta_producto d2 ON d2.id=d.producto
 LEFT JOIN venta_estado d3 ON d3.id=d.estado
 LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
-LEFT JOIN usu_usuario d5 ON d5.id=v.tramitacion_id
 LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
 LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
 LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
+LEFT JOIN venta_estado_tramitacion d9 ON d9.id=d.estado_tramitacion
 WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";
     
 }
@@ -123,19 +124,19 @@ if( !empty($requestData['columns'][5]['search']['value']) ) {
     $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
 }
 if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '%"';
+    $sql_filter.=' AND estado_tramitacion_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
 }
 if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND tramitacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][11]['search']['value']) ) {
     $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
@@ -202,11 +203,11 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['cliente_documento']);
     $nestedData[] = utf8_encode($row['estado']);
     $nestedData[] = utf8_encode($row['estado_real']);
+    $nestedData[] = utf8_encode($row['estado_tramitacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_actualizacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
     $nestedData[] = utf8_encode($row['asesor_venta']);
-    $nestedData[] = utf8_encode($row['tramitacion']);
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';

@@ -72,15 +72,15 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 9, 10, 12, 13];
+            ver = [5, 10, 13, 14];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [10, 11, 12, 13];
+            ver = [12, 13, 14];
         } else if(enviar.perfil == 'Tramitacion') {
-            ver = [10, 12, 13];
+            ver = [13, 14];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [10, 12];
+            ver = [13];
         } else if(enviar.perfil == 'Gerencia') {
-            ver = [10];
+            ver = [];
         }
         dataTable_listado = $(prefixId+'tabla').DataTable({
             "processing" : true,
@@ -94,7 +94,7 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 30,
-            "order"      : [ 6, 'desc' ],
+            "order"      : [ 7, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 14 ], 'bSortable': false },
                 { "targets": ver, "visible": false }

@@ -601,7 +601,6 @@ class ModeloVenta {
         }
         return utf8_encode(trim($ou));
     }
-
     // timer
     function getTimerEstructura($in) {
         $ou = '';
@@ -610,7 +609,7 @@ class ModeloVenta {
 
         );
         $sql_lineas = '';
-        if ('' == trim($in['lineas'])) {
+        if ('' != trim($in['lineas'])) {
             $sql_lineas = 'WHERE lineal_id IN (' . $in['lineas'] . ')';
         }
         $this->q->sql = '
@@ -621,5 +620,39 @@ class ModeloVenta {
         $this->q->data = NULL;
         $data = $this->q->exe();
         return strtotime($data[0]['timestamp']);
+    }
+    function getTimerReoirteEstructura($campania_id) {
+        $this->q->fields = array(
+            'campania' => '',
+            'dato01' => '',
+            'dato02' => '',
+            'dato03' => '',
+        );
+        $this->q->sql = '
+                        CALL ventas_timer_reporte_estructura(
+                          "' . $campania_id . '"
+                        )
+                        ';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0];
+    }
+    function getCampaniaIdByLinealId($in) {
+        $this->q->fields = array(
+            'campania_id' => '',            
+        );
+        $sql_lineas = '';
+        if ('' != trim($in['lineas'])) {
+            $sql_lineas = 'WHERE cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql = '
+                        SELECT DISTINCT cl.campania_id 
+                        FROM campania_lineal cl
+                        JOIN lineal l ON l.id = cl.campania_id AND l.info_status = 1
+                        ' . $sql_lineas ;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
     }
 }

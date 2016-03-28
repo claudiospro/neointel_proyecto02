@@ -14,6 +14,11 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+// --------------------------- report
+#venta_listado_timer table td {
+    padding: 0;
+}
+
 // --------------------------- forms
 @mixin activado() {
     background-color: #D3FFE4;
