@@ -116,14 +116,14 @@ $(document).ready(function() {
     function venta_listado_estado_row(item) {
         var enviar = {
             'campania': item.attr('campania'),
-            'estado': item.val(),
+            'estado_real': item.val(),
             'venta': item.attr('venta'),
         }
         none_simple(
             './procesos/ajax/select/ventas_listado_estado_row_change.php',
             enviar
         );
-        c(enviar);
+        // c(enviar);
         item.parent().parent().addClass('active');
     }
 });

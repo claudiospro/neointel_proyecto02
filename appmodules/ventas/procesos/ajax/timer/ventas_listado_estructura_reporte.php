@@ -18,7 +18,7 @@ if ('Asesor Comercial' != trim($_SESSION['perfiles'])) {
     if (isset($campanias)) {
 
         foreach($campanias as $row) {
-            $row = $venta->getTimerReoirteEstructura($row['campania_id']);
+            $row = $venta->getTimerRepoirteEstructura($row['campania_id'], $in['lineas']);
             // print_r($row);
             echo '<tr>';
             echo '<td>' . $row['campania'] . '</td>';

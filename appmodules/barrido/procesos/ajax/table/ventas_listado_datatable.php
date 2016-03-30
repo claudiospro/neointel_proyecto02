@@ -31,7 +31,7 @@ while( $row=mysqli_fetch_array($query) ) {
     }
     $sql_ini.= "
 SELECT
-  d4.nombre estado
+  d4.nombre estado_real
 , d3.nombre asesor_venta
 , v.info_create_fecha fecha_creacion
 , d2.nombre producto
@@ -39,13 +39,13 @@ SELECT
 --
 , v.id venta_id
 , v.campania
-, d1.estado estado_id
+, d1.estado_real estado_real_id
 FROM venta v 
 JOIN  venta_".$row['indice']." d1 ON d1.id=v.id
 -- definiciones
 LEFT JOIN venta_producto d2 ON d2.id=d1.producto
 LEFT JOIN usu_usuario d3 ON d3.id=v.asesor_venta_id
-LEFT JOIN venta_estado d4 ON d4.id=d1.estado
+LEFT JOIN venta_estado_real d4 ON d4.id=d1.estado_real
 WHERE v.campania = '".$row['indice']."' AND v.info_status=1 " . $sql_usuario ;
     
 }
@@ -81,7 +81,7 @@ if( !empty($requestData['columns'][0]['search']['value']) ) {
 $sql_filter.=' AND campania = "' . $campanias[0] . '"';
 }
 if( !empty($requestData['columns'][1]['search']['value']) ) {
-    $sql_filter.=' AND estado_id =  "' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '"';
+    $sql_filter.=' AND estado_real_id =  "' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
     $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
@@ -129,7 +129,7 @@ $totalFiltered = mysqli_num_rows($query); // when there is a search parameter th
 $sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." " . $requestData['order'][0]['dir'] . " LIMIT " . $requestData['start'] . " ,".$requestData['length']." ";// print $sql;
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 
-$q = mysqli_query($conn, 'SELECT id, nombre FROM venta_estado WHERE info_status = 1 ') or die("02.5");
+$q = mysqli_query($conn, 'SELECT id, nombre FROM venta_estado_real WHERE info_status = 1 ') or die("02.5");
 $str_combo = '<select class="lista-estado-row no-margin no-padding" campania="" venta="" style="background-color: transparent">';
 while( $row=mysqli_fetch_array($q) ) {
     $str_combo.= '<option value="' . $row['id'] . '">';
@@ -142,7 +142,7 @@ $query=mysqli_query($conn, $sql) or die("03");
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
-    $combo_estado = str_replace('option value="' . $row['estado_id'] . '"', 'option value="' . $row['estado_id'] . '" selected', $str_combo);
+    $combo_estado = str_replace('option value="' . $row['estado_real_id'] . '"', 'option value="' . $row['estado_real_id'] . '" selected', $str_combo);
     $combo_estado = str_replace('campania=""', 'campania="' . $row['campania'] . '"', $combo_estado);
     $combo_estado = str_replace('venta=""', 'venta="' . $row['venta_id'] . '"', $combo_estado);
     $nestedData[] = $combo_estado;

@@ -13,6 +13,17 @@ $(document).ready(function() {
     $('#declarativo_field_export').on('click', function (event) {
         venta_listado_report($(this));
     });
+    //
+    $('#filtro_tramitacion_1').on('click', function () {
+        venta_listado_filtro_tramitacion(1);
+    });
+    $('#filtro_tramitacion_2').on('click', function () {
+        venta_listado_filtro_tramitacion(2);
+    });
+    $('#filtro_tramitacion_3').on('click', function () {
+        venta_listado_filtro_tramitacion(3);
+    });
+    //
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
         var v = $(this).val();
@@ -44,9 +55,13 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('click', '.delete', function (event) {
         venta_listado_modal_delete($(this));
     });
+    $(window).on('closed.zf.reveal', function () {
+        venta_listado_modal_close();
+    });    
     $(prefixId+'add').on('click', function (event) {
         venta_listado_modal_add();
     });
+    // 
     $('body').on('click', 'form.myform a.save-exit', function (e) {
         var ou = venta_listado_modal_save_validate();
         if (ou == '0') {
@@ -72,13 +87,15 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 10, 13, 14];
+            ver = [5, 6, 10, 12, 13];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [12, 13, 14];
-        } else if(enviar.perfil == 'Tramitacion') {
-            ver = [13, 14];
+            ver = [5, 11, 12, 13];
+        } else if(enviar.perfil == 'Tramitacion' ||
+                  enviar.perfil == 'Tramitacion-Carga' ||
+                  enviar.perfil == 'Tramitacion-Validacion') {
+            ver = [12, 13];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [13];
+            ver = [12];
         } else if(enviar.perfil == 'Gerencia') {
             ver = [];
         }
@@ -93,7 +110,7 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 30,
+            "pageLength" : 20,
             "order"      : [ 7, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 14 ], 'bSortable': false },
@@ -147,6 +164,13 @@ $(document).ready(function() {
             a('La Fecha INICIO no puede ser MAYOR a la de FIN');
         }
     }
+    //
+    function venta_listado_filtro_tramitacion(num) {
+        $(prefixId + 'estado-tbl').val(1).change();
+        $(prefixId + 'estado-tramitacion-tbl').val(num).change();
+        $(prefixId + 'eliminado-tbl').val('no').change();
+    }
+    //
     function venta_listado_modal_view(item) {
         var enviar = {
             'campania': item.attr('campania'),
@@ -213,6 +237,13 @@ $(document).ready(function() {
             }
         }
 
+    }
+    function venta_listado_modal_close() {
+        // $('tr' ).removeClass('active');
+        var item = $('#field_venta_id').val();
+        //  c(item);
+        $('.item-datatable').parent().parent().removeClass('active');
+        $('.item-datatable-' + item).parent().parent().addClass('active');
     }
     function venta_listado_modal_save_validate() {
         var ou = 1;
@@ -304,6 +335,11 @@ $(document).ready(function() {
         element_simple(
             './procesos/ajax/select/ventas_listado_estado_real.php',
             prefixId+'estado-real-tbl',
+            enviar
+        );
+        element_simple(
+            './procesos/ajax/select/ventas_listado_estado_tramitacion.php',
+            prefixId+'estado-tramitacion-tbl',
             enviar
         );
     }

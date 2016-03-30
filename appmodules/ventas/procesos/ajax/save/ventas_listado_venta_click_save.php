@@ -21,6 +21,14 @@ $sql_campos = 'id';  // insert
 $sql_valores = $id;  // insert
 $sql_set = '';       // update
 
+// lo siguiente es si existe "estado_real" para cambiar
+foreach ($campos as $row) {
+    if ($row['nombre'] == 'estado_real') {
+        $dato['estado'] = $venta->getEstadoRealToEstado($dato['estado_real']);
+    }
+}
+
+// construlle el sql
 foreach ($campos as $row) {
     if ($row['diccionario'] == '1') {
         $dato[$row['nombre']] = array (
@@ -32,8 +40,9 @@ foreach ($campos as $row) {
             $dato[$row['nombre']]['dependencia_value'] = $dato[$row['dependencia']];
         }
     }
+
     if (isset($dato[$row['nombre']])) {
-        if ($in['venta_id'] == '0') {
+        if ($in['venta_id'] == '0') {            
             $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'insert');
             if ($tmp['campos']!='') $sql_campos .= ', ';
             $sql_campos .= $tmp['campos'];
@@ -59,6 +68,6 @@ $venta->setVentaCampania($sql);
 /* echo '<hr>'; */
 /* print_r($campos); */
 /* echo '<hr>'; */
-/* print_r($sql); */
+// print($sql);
 
 echo $id;

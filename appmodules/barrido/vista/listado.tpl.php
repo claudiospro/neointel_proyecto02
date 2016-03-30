@@ -13,7 +13,7 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
 
 
-<script src="../../static/barrido/barrido_listado.js?v=1.0.5"></script>
+<script src="../../static/barrido/barrido_listado.js?v=1.1.0"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -57,7 +57,7 @@ $prefix = 'venta_listado_';
       <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
     </tr>
     <tr>
-      <th>Estado</th>
+      <th>Estado Real</th>
       <th>Asesor de Venta</th>
       <th>Fecha Creación</th>
       <th>Producto</th>

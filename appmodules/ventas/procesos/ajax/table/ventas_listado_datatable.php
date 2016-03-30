@@ -18,7 +18,7 @@ if ($perfiles=='Asesor Comercial') {
 }
 
 $sql_activo = '';
-if ($perfiles=='Asesor Comercial' || $perfiles=='Supervisor' || $perfiles=='Tramitacion' || $perfiles=='Tramitacion-Validacion' || $perfiles=='Tramitacion-Carga') {
+if ($perfiles != 'Admin' && $perfiles != 'Gerencia' && $perfiles != 'Coordinador') {
     $sql_activo.= ' AND v.info_status=1';
 }
 
@@ -147,9 +147,6 @@ if( !empty($requestData['columns'][12]['search']['value']) ) {
 $bool_str = array('0'=>'Si', '1'=>'No');
 if( !empty($requestData['columns'][13]['search']['value']) ) {
     $bool = $requestData['columns'][13]['search']['value'];
-    $bool = strtolower($bool);
-    $bool = trim($bool);
-    $bool = Utilidades::sanear_complete_string($bool);
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
@@ -193,6 +190,17 @@ $sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." ".$requestD
 
 $query=mysqli_query($conn, $sql) or die("03");
 
+// esto es para decir cuando no se puede $editar
+$editar['Admin']                        = array (0 => true , 1 => true , 2 => true , 3=> true );
+$editar['Gerencia']                     = array (0 => true , 1 => true , 2 => true , 3=> true );
+$editar['Coordinador']                  = array (0 => true , 1 => true , 2 => true , 3=> true );
+$editar['Tramitacion']                  = array (0 => true , 1 => true , 2 => true , 3=> true );
+$editar['Tramitacion-Validacion-Carga'] = array (0 => true , 1 => true , 2 => true , 3=> false);
+$editar['Tramitacion-Carga']            = array (0 => true , 1 => false, 2 => true , 3=> false);
+$editar['Tramitacion-Validacion']       = array (0 => true , 1 => true , 2 => false, 3=> false);
+$editar['Supervisor']                   = array (0 => true , 1 => true , 2 => false, 3=> false);
+$editar['Asesor Comercial']             = array (0 => false, 1 => false, 2 => false, 3=> false);
+
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
@@ -212,20 +220,20 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
     $acciones = '';    
-    if ($perfiles!='Asesor Comercial') { // aca hay que cambiar por el estado de tramitacion
+    if ($editar[ $perfiles ][ $row['estado_tramitacion_id'] ]) { // aca hay que cambiar por el estado de tramitacion
         $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     }
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
-    if ($perfiles!='Asesor Comercial') {
+    if ($editar[ $perfiles ][ $row['estado_tramitacion_id'] ]) {
         $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     }
-    $nestedData[] = '<center>' . $acciones . '</center>';
+    $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
 
     $data[] = $nestedData;
 }
 
 $json_data = array(
-    "draw"            => intval( $requestData['draw'] ) // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw.
+    "draw"              => intval( $requestData['draw'] ) // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw.
     , "recordsTotal"    => intval( $totalData ) // total number of records
     , "recordsFiltered" => intval( $totalFiltered ) // total number of records after searching, if there is no searching then totalFiltered = totalData
     , "data"            => $data   // total data array

@@ -243,7 +243,10 @@ class ModeloVenta {
         $ou = '';
         $perfiles = explode(', ', trim($campo['perfiles']));
         $permisos = explode(', ', trim($campo['permisos']));
-        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];        
+        $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
+        if ($campo['nombre']=='estado') {
+            $permiso = 'w';
+        }
         
         if ($permiso == 'w') {
             if ($campo['diccionario'] == '1') {
@@ -376,6 +379,29 @@ class ModeloVenta {
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
+    }
+    function getEstadoTramitacionActivas($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );        
+        $this->q->sql = '
+        SELECT id, nombre FROM venta_estado_tramitacion WHERE info_status=1';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    //
+    function getEstadoRealToEstado($id) {
+        $this->q->fields = array(
+            'estado_id' => '',
+        );        
+        $this->q->sql = 'SELECT estado_id FROM venta_estado_real WHERE id = "' . $id . '"';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['estado_id'];
     }
     //
     function getAutoComplete($in) {
@@ -621,7 +647,7 @@ class ModeloVenta {
         $data = $this->q->exe();
         return strtotime($data[0]['timestamp']);
     }
-    function getTimerReoirteEstructura($campania_id) {
+    function getTimerRepoirteEstructura($campania_id, $lineas) {
         $this->q->fields = array(
             'campania' => '',
             'dato01' => '',
@@ -630,7 +656,8 @@ class ModeloVenta {
         );
         $this->q->sql = '
                         CALL ventas_timer_reporte_estructura(
-                          "' . $campania_id . '"
+                          "' . $campania_id . '",
+                          "' . $lineas . '"
                         )
                         ';
         $this->q->data = NULL;

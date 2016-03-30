@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.1.6"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.1.7"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>
 
@@ -45,16 +45,34 @@ $prefix = 'venta_listado_';
       <?php if ('Asesor Comercial' != trim($_SESSION['perfiles'])): ?>
         <div>
           Usar Filtro:
-          <input class="no-margin" type="radio" id="filtro_tramitacion_0" name="filtro_tramitacion" checked> NO
+          <input class="no-margin" type="radio" id="filtro_tramitacion_0" name="filtro_tramitacion" checked><label for="filtro_tramitacion_0" style="display:inline">No</label>
         </div>
         <table width="100%" style="margin: 0">
           <thead>
             <tr>
               <td>Campaña</td>
-              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_1" name="filtro_tramitacion">Sin Validar<br>Sin Cargar</td>
-              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_2" name="filtro_tramitacion">Validados<br>Sin Cargar</td>
-              <td class="text-center"><input class="no-margin" type="radio" id="filtro_tramitacion_3" name="filtro_tramitacion">
-                Validados y Cargados<br>En Tramitación</td>
+              <td class="text-center">
+                <input class="no-margin" type="radio" id="filtro_tramitacion_1" name="filtro_tramitacion">
+                <label for="filtro_tramitacion_1">
+                  Sin Validar , Sin Cargar
+                  <br>En Tramitación
+                </label>
+
+              </td>
+              <td class="text-center">
+                <input class="no-margin" type="radio" id="filtro_tramitacion_2" name="filtro_tramitacion">
+                <label for="filtro_tramitacion_2">
+                  Validados, Sin Cargar
+                  <br>En Tramitación
+                </label>
+              </td>
+              <td class="text-center">
+                <input class="no-margin" type="radio" id="filtro_tramitacion_3" name="filtro_tramitacion">
+                <label for="filtro_tramitacion_3">
+                  Validados y Cargados
+                  <br>En Tramitación
+                </label>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -91,7 +109,7 @@ $prefix = 'venta_listado_';
 
 <table id="<?php echo $prefix . 'tabla' ?>">
   <thead>
-      
+    <!--  
     <tr>
       <td>0</td>
       <td>1</td>
@@ -109,12 +127,12 @@ $prefix = 'venta_listado_';
       <td>13</td>
       <td>14</td>
     </tr>
-    
+    -->  
     <tr>
       <td>
         <select id="<?php echo $prefix ?>campanias-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 250px;"
+                style="padding: 0px; width: 200px;"
                 data-column="0">          
         </select>
       </td>
@@ -124,25 +142,40 @@ $prefix = 'venta_listado_';
       <td>
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 150px;"
+                style="padding: 0px; width: 120px;"
                 data-column="4">          
         </select>
       </td>
       <td>
         <select id="<?php echo $prefix ?>estado-real-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 250px;"
+                style="padding: 0px; width: 200px;"
                 data-column="5">          
         </select>
       </td>
-      <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
+      <td>
+        <select id="<?php echo $prefix ?>estado-tramitacion-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 170px;"
+                data-column="6">          
+        </select>
+      </td>
       <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
+      <td>
+        <select id="<?php echo $prefix ?>eliminado-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 70px;"
+                data-column="13">
+          <option value=""></option>          
+          <option value="no">No</option>
+          <option value="si">Si</option>
+        </select>
+      </td>
       <td>
         <center>
           <span style="width: 90px; display: block;">

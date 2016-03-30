@@ -2,21 +2,20 @@
 include "../../../../../lib/mysql/dbconnector.php";
 include "../../../../../lib/mysql/conexion01.php";
 include "../../../../../lib/mysql/utilidades.php";
-include "../../../modelo/ModeloBarrido.php";
+include "../../../../../lib/html/tabla.php";
+include "../../../modelo/ModeloVenta.php";
 
-$modelo = new ModeloBarrido();
 session_start();
-
+$venta = new ModeloVenta();
 // -------------------------------------------------------- INPUT
-$in['campania'] =  Utilidades::clear_input($_POST['campania']);
-$in['estado_real'] = Utilidades::clear_input_id($_POST['estado_real']);
-$in['estado'] = $modelo->getEstadoRealToEstado($in['estado_real']);
-$in['id'] =  Utilidades::clear_input_id($_POST['venta']) ;
-$in['fecha'] = date('Y-m-d H:i:s');
-$in['usuario'] = $_SESSION['user_id'];
+$in[] = '';
 
 // -------------------------------------------------------- Data
-$modelo->updateVenta($in);
+$ou = $venta->getEstadoTramitacionActivas($in);
+$combo = new OptionComboSimple();
+// $combo->set_option(0);
+$combo->set_format(array('id', 'nombre'));
+$combo->imprimir($ou);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
