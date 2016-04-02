@@ -87,15 +87,15 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 6, 10, 12, 13];
+            ver = [5, 6, 7, 11, 13, 14];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [5, 11, 12, 13];
+            ver = [5, 6, 12, 13, 14];
         } else if(enviar.perfil == 'Tramitacion' ||
                   enviar.perfil == 'Tramitacion-Carga' ||
                   enviar.perfil == 'Tramitacion-Validacion') {
-            ver = [12, 13];
+            ver = [13, 14];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [12];
+            ver = [13];
         } else if(enviar.perfil == 'Gerencia') {
             ver = [];
         }
@@ -111,9 +111,9 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 20,
-            "order"      : [ 7, 'desc' ],
+            "order"      : [ 8, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 14 ], 'bSortable': false },
+                { 'aTargets': [ 15 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 
@@ -166,7 +166,7 @@ $(document).ready(function() {
     }
     //
     function venta_listado_filtro_tramitacion(num) {
-        $(prefixId + 'estado-tbl').val(1).change();
+        // $(prefixId + 'estado-tbl').val(1).change();
         $(prefixId + 'estado-tramitacion-tbl').val(num).change();
         $(prefixId + 'eliminado-tbl').val('no').change();
     }
@@ -241,7 +241,6 @@ $(document).ready(function() {
     function venta_listado_modal_close() {
         // $('tr' ).removeClass('active');
         var item = $('#field_venta_id').val();
-        //  c(item);
         $('.item-datatable').parent().parent().removeClass('active');
         $('.item-datatable-' + item).parent().parent().addClass('active');
     }
@@ -306,13 +305,18 @@ $(document).ready(function() {
 	    data: enviar,
 	    url: './procesos/ajax/save/ventas_listado_venta_click_save.php',
 	    success: function(data) {
+                // $('.item-datatable-' + data).parent().parent().addClass('active');
                 dataTable_listado
                     .search(data)
                     .draw();
                 dataTable_listado
                     .search('');
+                var myVar = setInterval(function() {
+                    $('.item-datatable-' + data).parent().parent().addClass('active');
+                    clearInterval(myVar);
+		}, 1000);
             }
-        }); 
+        });
     }
     //
     function venta_listado_combos() {

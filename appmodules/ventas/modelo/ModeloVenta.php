@@ -682,4 +682,42 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;
     }
+
+    // ----------------------------- Editable-Inline
+    function getCampaniaEditable($ventaId) {
+        $this->q->fields = array(
+            'campania' => '',            
+        );
+        $this->q->sql = '
+                        SELECT campania FROM venta where id = ' . $ventaId . '
+                        ' ;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['campania'];
+    }
+    function getEstadoTramitacionIdEditable($in) {
+        $this->q->fields = array(
+            'estado_real' => '',            
+        );
+        $this->q->sql = '
+                        SELECT estado_tramitacion FROM venta_' . $in['campania'] . ' WHERE id = "' . $in['venta_id'] . '"
+                        ' ;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['estado_real'];
+    }
+    function getValorEditable($in) {
+        $this->q->fields = array(
+            'valor' => '',            
+        );
+        $this->q->sql = '
+                        SELECT ' . $in['campo']  . ' FROM venta_' . $in['campania'] . ' WHERE id = "' . $in['venta_id'] . '"
+                        ' ;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data[0]['valor'];
+    }
 }

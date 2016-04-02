@@ -7,10 +7,9 @@ session_start();
     
 if ('Asesor Comercial' != trim($_SESSION['perfiles'])) {
     $venta = new ModeloVenta();
-
+    
     // -------------------------------------------------------- INPUT
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
-
     // --------------------------------------------------------- DATA
     $campanias = $venta->getCampaniaIdByLinealId($in);
 

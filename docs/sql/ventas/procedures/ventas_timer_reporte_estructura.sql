@@ -13,7 +13,7 @@ BEGIN
     ;
     SET @sql_text1 = CONCAT('SELECT count(*) INTO @num FROM ', 'venta_', ou_indice, ' d JOIN venta v ON v.id=d.id WHERE v.info_status=1 AND d.estado = 1 AND d.estado_tramitacion = 1');
     IF in_lineas != '' THEN
-       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN ("', in_lineas , '") ');
+       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN (', in_lineas , ') ');
     END IF;
     PREPARE stmt FROM @sql_text1;
     EXECUTE stmt;
@@ -22,7 +22,7 @@ BEGIN
     ;
     SET @sql_text1 = CONCAT('SELECT count(*) INTO @num FROM ', 'venta_', ou_indice, ' d JOIN venta v ON v.id=d.id WHERE v.info_status=1 AND d.estado = 1 AND d.estado_tramitacion = 2');
     IF in_lineas != '' THEN
-       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN ("', in_lineas , '") ');
+       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN (', in_lineas , ') ');
     END IF;
     PREPARE stmt FROM @sql_text1;
     EXECUTE stmt;
@@ -31,7 +31,7 @@ BEGIN
     ;
     SET @sql_text1 = CONCAT('SELECT count(*) INTO @num FROM ', 'venta_', ou_indice, ' d JOIN venta v ON v.id=d.id WHERE v.info_status=1 AND d.estado = 1 AND v.info_create_fecha >= "2016-03-07 00:00:00" AND d.estado_tramitacion = 3 ');
     IF in_lineas != '' THEN
-       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN ("', in_lineas , '") ');
+       SET @sql_text1 = CONCAT( @sql_text1, ' AND v.lineal_id IN (', in_lineas , ') ');
     END IF;
     PREPARE stmt FROM @sql_text1;
     EXECUTE stmt;

@@ -1,3 +1,7 @@
+@mixin activado() {
+    background-color: #D3FFE4;
+}
+
 // ---------------------------- general
 .no-margin{ margin:0; }
 .no-padding{ padding:0; }
@@ -19,10 +23,34 @@
     padding: 0;
 }
 
-// --------------------------- forms
-@mixin activado() {
-    background-color: #D3FFE4;
+// --------------------------- table
+
+select.active {
+    @include activado();
 }
+tbody td {
+    position: relative;
+}
+thead input, thead select {
+    font-size: 0.8em !important;
+    font-weight: normal !important;
+}
+tr.active td, tr.active th {
+    background-color: rgba(0, 255, 39, 0.16);
+    color: #0d7108;
+}
+// ------------- editable
+.editable-inline {
+    a {
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+// --------------------------- forms
 .search-input-text.active{
     @include activado();
 }
@@ -48,15 +76,5 @@ input.error{
 .ui-autocomplete {
     z-index: 9999;
 }
-select.active {
-    @include activado();
-}
-thead input, thead select {
-    font-size: 0.8em !important;
-    font-weight: normal !important;
-}
-tr.active td, tr.active th {
-    background-color: rgba(0, 255, 39, 0.16);
-    color: #0d7108;
-}
+
 

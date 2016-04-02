@@ -37,6 +37,27 @@
 #venta_listado_timer table td {
   padding: 0; }
 
+select.active {
+  background-color: #D3FFE4; }
+
+tbody td {
+  position: relative; }
+
+thead input, thead select {
+  font-size: 0.8em !important;
+  font-weight: normal !important; }
+
+tr.active td, tr.active th {
+  background-color: rgba(0, 255, 39, 0.16);
+  color: #0d7108; }
+
+.editable-inline a {
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%; }
+
 .search-input-text.active {
   background-color: #D3FFE4; }
 
@@ -57,16 +78,5 @@ input.error {
 
 .ui-autocomplete {
   z-index: 9999; }
-
-select.active {
-  background-color: #D3FFE4; }
-
-thead input, thead select {
-  font-size: 0.8em !important;
-  font-weight: normal !important; }
-
-tr.active td, tr.active th {
-  background-color: rgba(0, 255, 39, 0.16);
-  color: #0d7108; }
 
 /*# sourceMappingURL=estilo.css.map */

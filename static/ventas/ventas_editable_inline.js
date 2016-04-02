@@ -1,0 +1,42 @@
+$(document).ready(function() {
+    var option_empty='<option value=""></option>';
+    var prefixId = '#venta_listado_';
+    var prefixClass = '.venta_listado_';
+    // --------------------------------------------------------------- LOAD
+    
+
+    // ------------------------------------------------------------ EVENTOS
+    $(prefixId+'tabla').on('click', '.editable-inline a', function () {
+        editable_input($(this));
+    });
+
+    
+    // ---------------------------------------------------------- FUNCIONES
+    function editable_input(item) {
+        $('.editable-inline a').show();
+        $('.editable-inline span').show();
+        $('.editable-inline div').hide();
+        
+        var enviar = {
+            'venta_id': item.next().attr('venta_id'),
+            'campo': item.next().attr('campo'),
+        }        
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: './procesos/ajax/editable/ventas_listado_table_td_field_click.php',
+	    success: function(data) {
+                if (data != '-1') {
+                    item.hide();
+                    item.next().hide();
+                    item.next()
+                        .next()
+                        .empty()
+                        .show()
+                        .html(data);
+                }
+            }
+        });
+        // c(enviar);
+    }
+});
