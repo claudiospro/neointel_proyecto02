@@ -392,6 +392,18 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;
     }
+    function getEstadoTramitacionPerfilActivas($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );        
+        $this->q->sql = '
+        SELECT id, nombre FROM venta_estado_tramitacion WHERE id not in (' . $in['tramitacion-denegado'] . ') AND info_status=1';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
     //
     function getEstadoRealToEstado($id) {
         $this->q->fields = array(
@@ -719,5 +731,17 @@ class ModeloVenta {
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data[0]['valor'];
+    }
+    function setValorEditable($in) {
+        $this->q->fields = array(
+        );
+        $this->q->sql = '
+                        UPDATE venta_' . $in['campania'] . ' SET ' . $in['campo']  . ' = "' . $in['valor']  . '" 
+                        WHERE id = "' . $in['venta_id'] . '"
+                        ' ;
+        print $this->q->sql;
+        $this->q->data = NULL;
+        $this->q->exe();
+        
     }
 }

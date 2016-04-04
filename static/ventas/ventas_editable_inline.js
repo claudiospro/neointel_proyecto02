@@ -9,7 +9,9 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('click', '.editable-inline a', function () {
         editable_input($(this));
     });
-
+    $(prefixId+'tabla').on('click', '.editable-inline button', function () {
+        editable_ouput($(this));
+    });
     
     // ---------------------------------------------------------- FUNCIONES
     function editable_input(item) {
@@ -38,5 +40,29 @@ $(document).ready(function() {
             }
         });
         // c(enviar);
+    }
+    function editable_ouput(item) {
+        var datos = {
+            'campo': item.parent().prev().attr('campo'), 
+            'venta_id': item.parent().prev().attr('venta_id'),      
+        }
+        if (datos.campo == 'estado_real') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'estado_observacion') {
+            datos.valor = item.prev().val();
+            datos.label = datos.valor;
+        } else if (datos.campo == 'estado_tramitacion') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        }
+        // c(datos);     
+
+        none_simple('./procesos/ajax/editable/ventas_listado_table_td_field_save.php', datos);
+        
+        item.parent().prev().empty().html(datos.label);        
+        item.parent().hide();
+        item.parent().prev().show();
+        item.parent().prev().prev().show();        
     }
 });
