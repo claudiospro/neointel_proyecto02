@@ -739,7 +739,7 @@ class ModeloVenta {
                         UPDATE venta_' . $in['campania'] . ' SET ' . $in['campo']  . ' = "' . $in['valor']  . '" 
                         WHERE id = "' . $in['venta_id'] . '"
                         ' ;
-        print $this->q->sql;
+        // print $this->q->sql;
         $this->q->data = NULL;
         $this->q->exe();
         

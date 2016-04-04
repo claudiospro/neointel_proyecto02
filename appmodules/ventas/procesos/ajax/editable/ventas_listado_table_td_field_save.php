@@ -18,5 +18,10 @@ $in['valor']       = Utilidades::clear_input($_POST['valor']);
 
 // --------------------------------------------------------- DATA
 $modelo->setValorEditable($in);
-
-Utilidades::printr($in);
+// Utilidades::printr($in);
+if ($in['campo'] == 'estado_real') {
+    $in['campo'] = 'estado';
+    $in['valor'] = $modelo->getEstadoRealToEstado($in['valor']);
+    $modelo->setValorEditable($in);
+}
+// Utilidades::printr($in);
