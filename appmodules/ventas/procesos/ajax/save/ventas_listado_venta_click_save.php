@@ -22,8 +22,9 @@ $sql_valores = $id;  // insert
 $sql_set = '';       // update
 
 // lo siguiente es si existe "estado_real" para cambiar
+// print_r($campos);
 foreach ($campos as $row) {
-    if ($row['nombre'] == 'estado_real') {
+    if (isset($dato['estado_real']) && $row['nombre'] == 'estado_real') {
         $dato['estado'] = $venta->getEstadoRealToEstado($dato['estado_real']);
     }
 }

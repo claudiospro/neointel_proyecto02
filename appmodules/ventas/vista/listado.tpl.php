@@ -56,7 +56,6 @@ $prefix = 'venta_listado_';
                 <input class="no-margin" type="radio" id="filtro_tramitacion_1" name="filtro_tramitacion">
                 <label for="filtro_tramitacion_1">
                   Sin Validar , Sin Cargar
-                  <br>En Tramitación
                 </label>
 
               </td>
@@ -64,7 +63,6 @@ $prefix = 'venta_listado_';
                 <input class="no-margin" type="radio" id="filtro_tramitacion_2" name="filtro_tramitacion">
                 <label for="filtro_tramitacion_2">
                   Validados, Sin Cargar
-                  <br>En Tramitación
                 </label>
               </td>
               <td class="text-center">
