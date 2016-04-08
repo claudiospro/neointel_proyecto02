@@ -29,7 +29,8 @@ $prefix = 'venta_reporte_mes_';
      if (isset($data)) {
          foreach($data as $key => $row)
          {
-             $js = '$("#pai-' . $key . '").highcharts({';
+             $js = '
+$("#pai-' . $key . '").highcharts({';
              $js.= 'chart: { type: "pie" },';
              $js.= 'title: { text: "' . utf8_encode($row['titulo']) . '" },';
              $js.= '

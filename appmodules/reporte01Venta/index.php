@@ -39,11 +39,24 @@ if (isset($_GET['anio-mes'])) {
         
         foreach($data0['estado'] as $row) {
             // busco en listado
-            $data1[ $data0['indice'][$row['campania']] ]['estado'][ $row['estado_id'] ] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
-            if (!isset( $data1[0]['estado'][ $row['estado_id'] ] ))
-                $data1[0]['estado'][ $row['estado_id'] ] = $data1[ $data0['indice'][$row['campania']] ]['estado'][ $row['estado_id'] ];
+            $index = $data0['indice'][$row['campania']];
+            $e = $row['estado_id'];
+            $data1[$index]['estado'][$e] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
+            if (!isset( $data1[0]['estado'][$e]))
+                $data1[0]['estado'][$e] = $data1[$index]['estado'][$e];
             else
-                $data1[0]['estado'][ $row['estado_id'] ]['y'] += $row['total'];
+                $data1[0]['estado'][$e]['y'] += $row['total'];
+        }
+        foreach($data0['estado_real'] as $row) {
+            // busco en listado
+            $index = $data0['indice'][$row['campania']];
+            $e = $row['estado'];
+            $er = $row['estado_real_id'];
+            $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
+            if (!isset($data1[0]['estado_real'][$e][$er]))
+                $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
+            else
+                $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
         }
     }
     

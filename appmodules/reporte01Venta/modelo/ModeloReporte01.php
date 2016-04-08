@@ -52,6 +52,7 @@ class ModeloVenta {
         
         // ---------------------------------------------------------------- estado real
         $this->q->fields = array(
+            'estado' => '',
             'estado_id' => '',
             'estado_real' => '',
             'estado_real_id' => '',
@@ -70,7 +71,10 @@ class ModeloVenta {
             GROUP by 1)
             ';
         }
-        $this->q->sql = 'SELECT e.estado_id, e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_estado_real e ON e.id=t.estado_real';
+        $this->q->sql = 'SELECT e.nombre, er.estado_id, er.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                         JOIN venta_estado_real er ON er.id = t.estado_real
+                         JOIN venta_estado e ON e.id = er.estado_id
+                        ';
         $data['estado_real'] = $this->q->exe();
         return $data;
     }
