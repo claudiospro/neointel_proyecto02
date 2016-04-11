@@ -80,7 +80,7 @@ $("#pai-' . $key . '").highcharts({';
                  id: "' . utf8_encode($kk) . '",
                  data: [';
                      $t = 0;
-                     foreach($row['estado'] as $r) {
+                     foreach($rr as $r) {
                          $t += $r['y'];
                      }     
                      foreach($rr as $r)
