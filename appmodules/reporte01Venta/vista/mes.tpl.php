@@ -51,10 +51,14 @@ $("#pai-' . $key . '").highcharts({';
              colorByPoint: true,
              data: [';
              if (isset($row['estado'])) {
+                 $t = 0;
+                 foreach($row['estado'] as $r) {
+                     $t += $r['y'];
+                 }
                  foreach($row['estado'] as $r)
                  {
                      $js.= '{';
-                     $js.= ' name: "' . utf8_encode($r['name']) . '", ';
+                     $js.= ' name: "' . utf8_encode($r['name']) . '(' . round($r['y']/$t*100,2) . '%)' . '", ';
                      $js.= ' y: ' . $r['y'] . ', ';
                      if ($r['drilldown'] != '')
                          $js.= 'drilldown: "' . utf8_encode($r['drilldown']) . '"';
@@ -75,11 +79,14 @@ $("#pai-' . $key . '").highcharts({';
                  name: "' . utf8_encode($kk) . '",
                  id: "' . utf8_encode($kk) . '",
                  data: [';
-                     
+                     $t = 0;
+                     foreach($row['estado'] as $r) {
+                         $t += $r['y'];
+                     }     
                      foreach($rr as $r)
                      {
                          $js.= '[';
-                         $js.= '"' . utf8_encode($r['name']) . '", ';
+                         $js.= '"' . utf8_encode($r['name']) . '(' . round($r['y']/$t*100,2) . '%)' . '", ';
                          $js.= ''  . utf8_encode($r['y']) . ', ';
                          $js.= '], ';
                          // break;
