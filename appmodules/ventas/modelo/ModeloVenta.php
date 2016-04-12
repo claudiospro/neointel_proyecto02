@@ -672,6 +672,7 @@ class ModeloVenta {
                           "' . $lineas . '"
                         )
                         ';
+        echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data[0];
@@ -687,7 +688,7 @@ class ModeloVenta {
         $this->q->sql = '
                         SELECT DISTINCT cl.campania_id 
                         FROM campania_lineal cl
-                        JOIN lineal l ON l.id = cl.campania_id AND l.info_status = 1
+                        JOIN lineal l ON l.id = cl.campania_id
                         ' . $sql_lineas ;
         // print $this->q->sql .'<br>';
         $this->q->data = NULL;
