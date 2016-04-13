@@ -6,7 +6,7 @@ include "../../../../../lib/html/tabla.php";
 include "../../../modelo/ModeloUsuario.php";
 
 session_start();
-$modelo = new ModeloVenta();
+$modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
 $in[] = '';
 

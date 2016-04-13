@@ -33,21 +33,27 @@ $(document).ready(function() {
             $(this).addClass('active');
         }
     });
-    $(prefixId+'tabla').on('click', '.edit', function (event) {
-        usuario_listado_modal_edit($(this));
-    });
-    $(prefixId+'tabla').on('click', '.delete', function (event) {
-        usuario_listado_modal_delete($(this));
-    });
-    $(window).on('closed.zf.reveal', function () {
-        usuario_listado_modal_close();
-    });    
+    //
     $(prefixId+'add').on('click', function (event) {
         usuario_listado_modal_add();
     });
+    $(prefixId+'tabla').on('click', '.edit', function (event) {
+        usuario_listado_modal_edit($(this));
+    });
+    $(window).on('closed.zf.reveal', function () {
+        usuario_listado_modal_close();
+    });
+    //
+    $(prefixId+'tabla').on('change', '.item-vigente-tbl', function (event) {
+        usuario_listado_change_vigente($(this));
+    });
     // 
     $('body').on('click', 'form.myform a.save-exit', function (e) {
+        
         usuario_listado_modal_save_exit();  
+    });
+    $('body').on('click', 'form.myform a.reseteo-pwd', function (e) {
+        usuario_listado_modal_reseteo_pwd();  
     });
     // ---------------------------------------------------------- FUNCIONES
     function usuario_listado_tabla() {
@@ -97,72 +103,54 @@ $(document).ready(function() {
     //
     function usuario_listado_modal_add() {
         var enviar = {
-            'campania': $(prefixId+'campanias').val(),
-            'venta_id': '0',
-            'view': '0',
+            'usuario_id': '0',
         }
         // c(enviar);
         element_simple(
-            './procesos/ajax/click/ventas_listado_view_modal.php',
+            './procesos/ajax/click/usuario_listado_modal.php',
             prefixId+'modal_div .ajax',
             enviar
         );
     }
     function usuario_listado_modal_edit(item) {
         var enviar = {
-            'campania': item.attr('campania'),
-            'venta_id': item.attr('venta_id'),
-            'view': '0',
+            'usuario_id': item.attr('usuario_id'),
         }
         // c(enviar);
         element_simple(
-            './procesos/ajax/click/ventas_listado_view_modal.php',
+            './procesos/ajax/click/usuario_listado_modal.php',
             prefixId+'modal_div .ajax',
             enviar
         );
     }
-    function usuario_listado_modal_delete(item) {
-        var perfil = $(prefixId+'perfiles').val();
-        var enviar = {
-            'venta_id': item.attr('venta_id')
-        }
-        var eliminar = confirm('¿Desea realmente eliminar Eliminar?');        
-        if (eliminar) {
-            none_simple(
-                './procesos/ajax/delete/ventas_listado_venta_delete.php',
-                enviar
-            );
-            // ajax cambiar (segun estado si es 1 a 0 si es 0 a 1)
-            if (perfil == 'Asesor Comercial' || perfil == 'Supervisor' || perfil == 'Tramitacion' ) {
-                item.parent().parent().parent().css( 'background-color', '#FEC7C7' );
-                var myVar = setInterval( function(){
-		    item.parent().parent().parent().remove();
-                    clearInterval(myVar);
-		}, 2100);
-            } else {
-                dataTable_listado
-                    .search(enviar.venta_id)
-                    .draw();
-                dataTable_listado
-                    .search('');
-            }
-        }
-
-    }
     function usuario_listado_modal_close() {
         // $('tr' ).removeClass('active');
-        var item = $('#field_venta_id').val();
+        var item = $('#field_usuario_id').val();
         $('.item-datatable').parent().parent().removeClass('active');
         $('.item-datatable-' + item).parent().parent().addClass('active');
     }
+    //
+    function usuario_listado_change_vigente(item) {
+        var enviar = {
+            'vigente': item.val(),
+            'usuario_id': item.attr('usuario_id'),
+        }
+        // c(enviar);
+        none_simple(
+            './procesos/ajax/change/usuario_listado_td_vigente_change.php',
+            enviar
+        );
+        item.parent().parent().parent().addClass('active');
+    }
+    //
     function usuario_listado_modal_save_exit() {
         var enviar = $("form.myform").serialize();
         $.ajax({
 	    type: "POST",
 	    data: enviar,
-	    url: './procesos/ajax/save/ventas_listado_venta_click_save.php',
+	    url: './procesos/ajax/save/usuario_listado_venta_click_save.php',
 	    success: function(data) {
-                // $('.item-datatable-' + data).parent().parent().addClass('active');
+                // dataTable_listado.draw();
                 dataTable_listado
                     .search(data)
                     .draw();
@@ -174,7 +162,15 @@ $(document).ready(function() {
 		}, 1000);
             }
         });
+    } 
+    function usuario_listado_modal_reseteo_pwd() {
+        var enviar = {
+            'usuario_id': $('#field_usuario_id').val()
+        }
+        none_simple(
+            './procesos/ajax/click/usuario_listado_modal_pwd_click.php',
+            enviar
+        );
+        alert('Contraseña Reseteada');
     }
-    //
-    
 });

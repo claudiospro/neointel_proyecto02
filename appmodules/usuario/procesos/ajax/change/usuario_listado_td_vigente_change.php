@@ -2,20 +2,19 @@
 include "../../../../../lib/mysql/dbconnector.php";
 include "../../../../../lib/mysql/conexion01.php";
 include "../../../../../lib/mysql/utilidades.php";
-include "../../../../../lib/html/tabla.php";
 include "../../../modelo/ModeloUsuario.php";
 
-session_start();
 $modelo = new ModeloUsuario();
+session_start();
+
 // -------------------------------------------------------- INPUT
-$in[] = '';
+$in['id'] = Utilidades::clear_input_id($_POST['usuario_id']);
+$in['info_status'] = Utilidades::clear_input($_POST['vigente']);
+$in['fecha'] = date('Y-m-d H:i:s');
+$in['usuario'] = $_SESSION['user_id'];
 
 // -------------------------------------------------------- Data
-$ou = $modelo->getGrupo($in);
-$combo = new OptionComboSimple();
-// $combo->set_option(0);
-$combo->set_format(array('id', 'nombre'));
-$combo->imprimir($ou);
+$modelo->updateVigente($in);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);

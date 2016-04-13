@@ -87,9 +87,10 @@ $prefix = 'usuario_listado_';
           </td>
           <td>
             <select id="<?php echo $prefix ?>campanias-tbl"
-                    class="no-margin search-input-select active"
-                    style="padding: 0px; width: 60px;"
+                    class="no-margin no-padding search-input-select"
+                    style="width: 45px;"
                     data-column="4">
+              <option value=""></option>
               <option value="01">Si</option>
               <option value="00">No</option>
             </select>

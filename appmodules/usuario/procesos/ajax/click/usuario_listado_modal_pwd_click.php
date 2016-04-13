@@ -2,24 +2,22 @@
 include "../../../../../lib/mysql/dbconnector.php";
 include "../../../../../lib/mysql/conexion01.php";
 include "../../../../../lib/mysql/utilidades.php";
-include "../../../../../lib/html/tabla.php";
 include "../../../modelo/ModeloUsuario.php";
-
 session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
-$in[] = '';
+$in['fecha'] = date('Y-m-d H:i:s');
+$in['usuario'] = $_SESSION['user_id'];
+$in['form']['usuario_id'] = Utilidades::clear_input_id($_POST['usuario_id']);
+
 
 // -------------------------------------------------------- Data
-$ou = $modelo->getGrupo($in);
-$combo = new OptionComboSimple();
-// $combo->set_option(0);
-$combo->set_format(array('id', 'nombre'));
-$combo->imprimir($ou);
+$dato = $modelo->setUsuarioPwd($in);
+
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
-// Utilidades::printr($campos);
+// Utilidades::printr($_SESSION);
 // Utilidades::printr($dato);
 
 // -------------------------------------------------------- OUT

@@ -11,15 +11,16 @@ session_start();
 
 $sql_ini = '
 SELECT
-u.nombre, u.login,  p.nombre perfil, u.info_status, 
+u.nombre, u.login,  p.nombre perfil, u.info_status vigente, 
 u.id, up.perfil_id, ul.lineal_id
 FROM usu_usuario u
 LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
 LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
 LEFT JOIN usu_perfil p ON p.id=up.perfil_id
+WHERE u.id !=1
 ';
 
-$sql_ini = "
+$sql = "
 SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
 " . $sql_ini . "
 ) unido, (SELECT @rownum:=0) R
@@ -32,7 +33,7 @@ $requestData= $_REQUEST;
 
 
 // getting total number records without any search
-$sql = $sql_ini;
+// $sql = $sql_ini;
 // echo $sql;
 $query=mysqli_query($conn, $sql) or die("01");
 
@@ -57,9 +58,7 @@ if( !empty($requestData['columns'][3]['search']['value']) ) {
     $sql_filter.=' AND perfil_id = "' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND info_status = "' . (int)$requestData['columns'][4]['search']['value'] . '"';
-} else {
-    $sql_filter.=' AND info_status = "1"';
+    $sql_filter.=' AND vigente = "' . (int)$requestData['columns'][4]['search']['value'] . '"';
 }
 // 5 (acciones)
 
@@ -69,8 +68,11 @@ $sql_donde = '';
 $pagina ='';
 if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  {
     // esto es para recuperar la pagina (es muy importante)
-    $sql_donde.= 'SELECT * FROM (' . $sql;
-    $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
+
+    
+    $sql_donde.= 'SELECT * FROM (SELECT unido.*, @rownum:=@rownum+1 row_num  FROM ( ' . $sql_ini;
+    $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'] ;
+    $sql_donde.= ') unido, (SELECT @rownum:=0) R WHERE 1=1';
     $sql_donde.= ') unido2 WHERE id=' . intval($requestData['search']['value']) ;
     $query=mysqli_query($conn, $sql_donde) or die("01.5");
     $cnt = mysqli_num_rows($query);
@@ -101,23 +103,32 @@ $query=mysqli_query($conn, $sql) or die("03");
 
 $data = array();
 $id_old = 0;
+$combo = '
+<select class="item-vigente-tbl no-margin no-padding search-input-select"
+        usuario_id=""
+        style="width: 45px;">
+   <option value="1">Si</option>
+   <option value="0">No</option>
+</select>
+';
 while( $row=mysqli_fetch_array($query) ) {
-    if ($id_old != $row['id'])
-    {
+    // if ($id_old != $row['id'])
+    // {
         $nestedData = array();
         $nestedData[] = utf8_encode($row['nombre']);
-        $nestedData[] = utf8_encode($row['login']);
-        $nestedData[] = utf8_encode($row['perfil']);
-        $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
+        $nestedData[] = '<center>' . utf8_encode($row['login']) . '</center>';
+        $nestedData[] = '<center>' . utf8_encode($row['perfil']) . '</center>';
+        $tmp = $combo;
+        $tmp = str_replace('option value="' . $row['vigente'] . '"', 'option value="' . $row['vigente'] . '" selected', $tmp);
+        $tmp = str_replace('usuario_id=""', 'usuario_id="' . $row['id'] . '"', $tmp);
+        $nestedData[] = '<center>' . $tmp . '</center>';
         $acciones = '';    
         $acciones.= '<a class="button tiny edit no-margin" usuario_id="' . $row['id'] . '" data-open="usuario_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
-        $acciones.= '<a class="button tiny delete no-margin alert" usuario_id="' . $row['id'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
         $nestedData[] = '<center class="item-datatable item-datatable-' . $row['id'] . '">' . $acciones . '</center>';
         $data[] = $nestedData;
         
         $id_old = $row['id'];
-    }
-
+        //  }
 }
 
 $json_data = array(
@@ -126,6 +137,8 @@ $json_data = array(
     , "recordsFiltered" => intval( $totalFiltered ) // total number of records after searching, if there is no searching then totalFiltered = totalData
     , "data"            => $data   // total data array
     , "sql"             => $sql
+    , "donde"           => $sql_donde
+    , "pagina"          => $pagina
 );
 
 echo json_encode($json_data);  // send data as json format
