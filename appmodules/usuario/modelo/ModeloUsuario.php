@@ -67,25 +67,17 @@ class ModeloUsuario {
         $this->q->fields = array();
         $this->q->data = NULL;
         $this->q->sql = '
-        UPDATE usu_usuario SET 
-          nombre       = "' . $in['form']['nombre']. '" 
-        , nombre_corto = "' . $in['form']['nombre_corto']. '"
-        , login        = "' . $in['form']['login']. '"
-        , comentario   = "' . $in['form']['comentario']. '"
-        , info_status  = "' . $in['form']['vigente']. '"
-        , info_update      = "' . $in['fecha'] . '"
-        , info_update_user = "' . $in['usuario'] . '"
-        WHERE id = "' . $in['form']['usuario_id']. '"
-        ';
-        // echo $this->q->sql;        
-        $this->q->exe();
-        $this->q->data = NULL;
-        $this->q->sql = '
-        UPDATE usu_usuario_perfil SET 
-          perfil_id        = "' . $in['form']['perfil_id']. '"
-        , info_update      = "' . $in['fecha'] . '"
-        , info_update_user = "' . $in['usuario'] . '"
-        WHERE usuario_id = "' . $in['form']['usuario_id']. '"
+        CALL usu_usuario_save(
+          "' . $in['form']['usuario_id']. '"
+        , "' . $in['form']['nombre']. '"
+        , "' . $in['form']['nombre_corto']. '"
+        , "' . $in['form']['login']. '"
+        , "' . $in['form']['comentario']. '"
+        , "' . $in['form']['vigente']. '"
+        , "' . $in['form']['perfil_id']. '"
+        , "' . $in['fecha'] . '"
+        , "' . $in['usuario'] . '"
+        )
         ';
         // echo $this->q->sql;        
         $this->q->exe();        
@@ -137,5 +129,28 @@ class ModeloUsuario {
         // echo $this->q->sql . '\n';
         $this->q->exe();
     }
-    
+    //
+    function updateUsuarioGrupo($in) {
+        $this->q->fields = array();
+        $this->q->data = NULL;
+        // estado
+        if ($in['form']['estado'] == '1') {
+            $this->q->sql = '
+                            INSERT INTO usu_usuario_lineal(usuario_id, lineal_id, info_create, info_create_user)
+                            VALUES ("' . $in['form']['usuario_id'] . '",
+                                    "' . $in['form']['lineal_id'] . '",
+                                    "' . $in['fecha'] . '",
+                                    "' . $in['usuario'] . '"
+                            )
+                            ';
+        } else {
+            $this->q->sql = '
+                            DELETE FROM usu_usuario_lineal WHERE
+                            usuario_id = "' . $in['form']['usuario_id'] . '" AND 
+                            lineal_id = "' . $in['form']['lineal_id'] . '"
+                            ';
+        } 
+        // echo $this->q->sql;
+        $this->q->exe();
+    }
 }

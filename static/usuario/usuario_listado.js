@@ -6,6 +6,8 @@ $(document).ready(function() {
     // --------------------------------------------------------------- LOAD
     usuario_listado_tabla();
     usuario_listado_combos();
+
+    
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .reload').on('click', function (event) {
         usuario_listado_reload();
@@ -54,6 +56,9 @@ $(document).ready(function() {
     });
     $('body').on('click', 'form.myform a.reseteo-pwd', function (e) {
         usuario_listado_modal_reseteo_pwd();  
+    });
+    $('body').on('change', '.item-grupo', function (event) {
+        usuario_listado_modal_grupo_checkbox($(this));
     });
     // ---------------------------------------------------------- FUNCIONES
     function usuario_listado_tabla() {
@@ -126,8 +131,8 @@ $(document).ready(function() {
     function usuario_listado_modal_close() {
         // $('tr' ).removeClass('active');
         var item = $('#field_usuario_id').val();
-        $('.item-datatable').parent().parent().removeClass('active');
-        $('.item-datatable-' + item).parent().parent().addClass('active');
+        $(prefixId + 'tabla .item-datatable').parent().parent().removeClass('active');
+        $(prefixId + 'tabla .item-datatable-' + item).parent().parent().addClass('active');
     }
     //
     function usuario_listado_change_vigente(item) {
@@ -157,7 +162,7 @@ $(document).ready(function() {
                 dataTable_listado
                     .search('');
                 var myVar = setInterval(function() {
-                    $('.item-datatable-' + data).parent().parent().addClass('active');
+                    $(prefixId+'tabla .item-datatable-' + data).parent().parent().addClass('active');
                     clearInterval(myVar);
 		}, 1000);
             }
@@ -172,5 +177,18 @@ $(document).ready(function() {
             enviar
         );
         alert('Contraseña Reseteada');
+    }
+    //
+    function usuario_listado_modal_grupo_checkbox(item) {
+        var enviar = {
+            'estado': item.is(':checked'),
+            'grupo_id': item.attr('grupo_id'),
+            'usuario_id': $('#field_usuario_id').val(),
+        }
+        // c(enviar);
+        none_simple(
+            './procesos/ajax/change/usuario_listado_modal_grupo_change.php',
+            enviar
+        );
     }
 });

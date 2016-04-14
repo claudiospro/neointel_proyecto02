@@ -12,21 +12,20 @@ session_start();
 $sql_ini = '
 SELECT
 u.nombre, u.login,  p.nombre perfil, u.info_status vigente, 
-u.id, up.perfil_id, ul.lineal_id
+u.id, up.perfil_id -- , ul.lineal_id
 FROM usu_usuario u
-LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
+-- LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
 LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
 LEFT JOIN usu_perfil p ON p.id=up.perfil_id
 WHERE u.id !=1
 ';
 
 $sql = "
-SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
+SELECT * FROM (
 " . $sql_ini . "
-) unido, (SELECT @rownum:=0) R
+) unido01
 WHERE 1=1
 ";
-
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
@@ -41,11 +40,10 @@ $query=mysqli_query($conn, $sql) or die("01");
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$sql = $sql_ini;
-
 $sql_filter = '';
 if( !empty($requestData['columns'][0]['search']['value']) && $requestData['columns'][0]['search']['value'] != '-1') {
-    $sql_filter.=' AND lineal_id = "' . $requestData['columns'][0]['search']['value'] . '"';
+    $sql_filter.=' AND EXISTS (SELECT id FROM usu_usuario_lineal ul WHERE ul.lineal_id = "' . $requestData['columns'][0]['search']['value'] . '"
+                               AND ul.usuario_id=unido01.id)';
 }
 
 if( !empty($requestData['columns'][1]['search']['value']) ) {
@@ -68,13 +66,20 @@ $sql_donde = '';
 $pagina ='';
 if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  {
     // esto es para recuperar la pagina (es muy importante)
-
-    
-    $sql_donde.= 'SELECT * FROM (SELECT unido.*, @rownum:=@rownum+1 row_num  FROM ( ' . $sql_ini;
-    $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'] ;
-    $sql_donde.= ') unido, (SELECT @rownum:=0) R WHERE 1=1';
-    $sql_donde.= ') unido2 WHERE id=' . intval($requestData['search']['value']) ;
+    $dd = 'tem_usuario_usuario_' . rand(0,200);
+    $sql_donde = 'CREATE TEMPORARY TABLE '. $dd . ' ' . $sql;
+    $sql_donde.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1);
     $query=mysqli_query($conn, $sql_donde) or die("01.5");
+    // print $sql_donde;
+    $sql_donde = '
+                 SELECT * FROM (
+                    SELECT *, @rownum:=@rownum+1 row_num  FROM (
+                      SELECT * FROM ' . $dd . '
+                    ) unido1, (SELECT @rownum:=0) R
+                 ) unido2
+                 WHERE id = ' . $requestData['search']['value'];
+    $query=mysqli_query($conn, $sql_donde) or die("01.5");
+    
     $cnt = mysqli_num_rows($query);
     if ($cnt > 0) {
         while( $row=mysqli_fetch_array($query) ) $pagina = $row['row_num'];
@@ -87,10 +92,13 @@ if ( !empty($requestData['search']['value']) && trim($requestData['search']['val
         }
         $pagina *= $requestData['length'];
     }
+    $sql_donde = 'DROP TEMPORARY TABLE '. $dd;    
+    $query=mysqli_query($conn, $sql_donde) or die("01.6");
 }
 if ($pagina != '')
     $requestData['start'] = $pagina;
 
+// print $sql;
 $query=mysqli_query($conn, $sql) or die("02");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 
