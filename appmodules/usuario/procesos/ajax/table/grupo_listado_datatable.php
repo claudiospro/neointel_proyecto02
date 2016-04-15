@@ -107,7 +107,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['campania']);
     $nestedData[] = '<center>' . $info_status[$row['vigente']] . '<center>';
     $acciones = '';    
-    $acciones.= '<a class="button tiny edit no-margin" grupo_id="' . $row['id'] . '" data-open="usuario_listado_modal_divs" title="Editar" >
+    $acciones.= '<a class="button tiny edit no-margin" grupo_id="' . $row['id'] . '" data-open="usuario_listado_modal_div2" title="Editar" >
                    <i class="fi-pencil medium"></i>
                  </a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['id'] . '">' . $acciones . '</center>';

@@ -43,7 +43,9 @@ $(document).ready(function() {
         usuario_listado_modal_edit($(this));
     });
     $(window).on('closed.zf.reveal', function () {
-        usuario_listado_modal_close();
+        if ( $(prefixId+'modal_div').attr('modelo') == 'usuario' ) {
+            usuario_listado_modal_close();
+        }        
     });
     //
     $(prefixId+'tabla').on('change', '.item-vigente-tbl', function (event) {
@@ -51,7 +53,6 @@ $(document).ready(function() {
     });
     // 
     $('body').on('click', 'form.myform a.save-exit', function (e) {
-        
         usuario_listado_modal_save_exit();  
     });
     $('body').on('click', 'form.myform a.reseteo-pwd', function (e) {
@@ -111,6 +112,7 @@ $(document).ready(function() {
             'usuario_id': '0',
         }
         // c(enviar);
+        $(prefixId+'modal_div').attr('modelo','usuario');
         element_simple(
             './procesos/ajax/click/usuario_listado_modal.php',
             prefixId+'modal_div .ajax',
@@ -122,6 +124,7 @@ $(document).ready(function() {
             'usuario_id': item.attr('usuario_id'),
         }
         // c(enviar);
+        $(prefixId+'modal_div').attr('modelo','usuario');
         element_simple(
             './procesos/ajax/click/usuario_listado_modal.php',
             prefixId+'modal_div .ajax',
@@ -153,7 +156,7 @@ $(document).ready(function() {
         $.ajax({
 	    type: "POST",
 	    data: enviar,
-	    url: './procesos/ajax/save/usuario_listado_venta_click_save.php',
+	    url: './procesos/ajax/save/usuario_listado_click_save.php',
 	    success: function(data) {
                 // dataTable_listado.draw();
                 dataTable_listado

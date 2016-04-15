@@ -8,7 +8,7 @@ include "../../../modelo/ModeloUsuario.php";
 session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
-$in[] = '';
+$in['perfil'] = trim($_SESSION['perfiles']);
 
 // -------------------------------------------------------- Data
 $ou = $modelo->getPerfil($in);

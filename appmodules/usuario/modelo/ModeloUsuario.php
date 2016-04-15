@@ -28,8 +28,18 @@ class ModeloUsuario {
             'nombre' => '',
         );
         $this->q->sql = '
-        SELECT id, nombre FROM usu_perfil WHERE id != 1
+        SELECT id, nombre FROM usu_perfil WHERE 1 = 1
         ';
+        if ($in['perfil'] == 'Administracion') {
+            $this->q->sql .= 'AND id NOT IN (2, 3, 6, 7, 8, 9)';
+        } elseif ($in['perfil'] == 'Coordinador') {
+            $this->q->sql .= 'AND id NOT IN (2, 6, 10)';
+        } elseif ($in['perfil'] == 'Gerencia') {
+            $this->q->sql .= 'AND id NOT IN (1)';
+        } else {
+            $this->q->sql .= 'AND id NOT IN (2, 3, 6, 7, 8, 9)';
+        }
+        $this->q->sql .= ' ORDER BY 2';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
@@ -69,10 +79,10 @@ class ModeloUsuario {
         $this->q->sql = '
         CALL usu_usuario_save(
           "' . $in['form']['usuario_id']. '"
-        , "' . $in['form']['nombre']. '"
-        , "' . $in['form']['nombre_corto']. '"
-        , "' . $in['form']['login']. '"
-        , "' . $in['form']['comentario']. '"
+        , "' . utf8_decode($in['form']['nombre']) . '"
+        , "' . utf8_decode($in['form']['nombre_corto']) . '"
+        , "' . utf8_decode($in['form']['login']) . '"
+        , "' . utf8_decode($in['form']['comentario']) . '"
         , "' . $in['form']['vigente']. '"
         , "' . $in['form']['perfil_id']. '"
         , "' . $in['fecha'] . '"
@@ -152,5 +162,62 @@ class ModeloUsuario {
         } 
         // echo $this->q->sql;
         $this->q->exe();
+    }
+    
+    // --------------------------------------- grupo
+    function getGrupoItem($in) {
+        $this->q->fields = array(
+            'grupo_id' => '',
+            'nombre' => '',
+            'campania_id' => '',
+            'vigente' => '',            
+        );
+        $this->q->sql = '
+        SELECT l.id, l.nombre, cl.campania_id, l.info_status 
+        FROM lineal l
+        JOIN campania_lineal cl ON cl.lineal_id = l.id
+        WHERE l.id = "' . $in['grupo_id'] . '"
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        if ($in['grupo_id'] != '0') {
+            $data = $this->q->exe();
+            $data = $data[0];
+        } else {
+            $data = $this->q->fields;
+        }        
+        return $data;
+    }
+    function getCampaniasActivas($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );
+        $this->q->sql = '
+        SELECT c.id, c.nombre FROM campania c 
+        WHERE c.info_status = 1
+        ORDER BY 2
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    function setGrupo($in) {
+        $this->q->fields = array('id' => '');
+        $this->q->data = NULL;
+        $this->q->sql = '
+        CALL usu_lineal_save(
+          "' . $in['form']['grupo_id']. '"
+        , "' . utf8_decode($in['form']['nombre']) . '"
+        , "' . $in['form']['vigente']. '"
+        , "' . $in['form']['campania_id']. '"
+        , "' . $in['fecha'] . '"
+        , "' . $in['usuario'] . '"
+        )
+        ';
+        // echo $this->q->sql;        
+        $data = $this->q->exe();        
+        return $data[0]['id'];
     }
 }

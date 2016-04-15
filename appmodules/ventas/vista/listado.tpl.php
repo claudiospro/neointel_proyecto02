@@ -84,19 +84,21 @@ $prefix = 'venta_listado_';
   </div>
 </div>
 
-<div class="row">
-  <div class="large-1 columns">
-    <a id="<?php echo $prefix ?>add"
-       class="button success no-margin"
-       data-open="venta_listado_modal_div"
-       title="Añadir">
-      <i class="fi-plus"></i>
-    </a>
+<?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial'): ?>
+  <div class="row">
+    <div class="large-1 columns">
+      <a id="<?php echo $prefix ?>add"
+         class="button success no-margin"
+         data-open="venta_listado_modal_div"
+         title="Añadir">
+        <i class="fi-plus"></i>
+      </a>
+    </div>
+    <div class="large-11 columns">
+      <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
+    </div>
   </div>
-  <div class="large-11 columns">
-    <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
-  </div>
-</div>
+<?php endif ?>
 
 <div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
   <div class="ajax">

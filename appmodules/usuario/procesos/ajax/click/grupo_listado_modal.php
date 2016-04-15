@@ -6,24 +6,17 @@ include "../../../modelo/ModeloUsuario.php";
 session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
-$in['usuario_id'] = Utilidades::clear_input_id($_POST['usuario_id']);
-$in['perfil'] = trim($_SESSION['perfiles']);
+$in['grupo_id'] = Utilidades::clear_input_id($_POST['grupo_id']);
+
 
 // -------------------------------------------------------- Data
-$dato = $modelo->getUsuario($in);
-$form['usuario_id']   = array('type' => 'hidden'  , 'label' => '');
-$form['nombre']       = array('type' => 'text'    , 'label' => 'Nombre');
-$form['nombre_corto'] = array('type' => 'text'    , 'label' => 'Nombre Corto');
-$form['login']        = array('type' => 'text'    , 'label' => 'Usuario (DNI)');
-$form['pwd']          = array('type' => 'pwd'     , 'label' => 'Contraseña');
-$form['perfil_id']    = array('type' => 'select1' , 'label' => 'Perfil', 'combo' => 'usu_perfil');
-$form['comentario']   = array('type' => 'textarea', 'label' => 'Comentario');
-$form['vigente']      = array('type' => 'bool'    , 'label' => 'Vigente');
+$dato = $modelo->getGrupoItem($in);
+$form['grupo_id']    = array('type' => 'hidden'  , 'label' => '');
+$form['nombre']      = array('type' => 'text'    , 'label' => 'Nombre');
+$form['campania_id'] = array('type' => 'select1' , 'label' => 'Campania', 'combo' => 'campania');
+$form['vigente']     = array('type' => 'bool'    , 'label' => 'Vigente');
 
-$combo['usu_perfil'] = $modelo->getPerfil($in);
-
-$grupos = $modelo->getGrupoByUsuario($in);
-
+$combo['campania']   = $modelo->getCampaniasActivas(array());
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
@@ -32,16 +25,7 @@ $grupos = $modelo->getGrupoByUsuario($in);
 // Utilidades::printr($grupos);
 
 // -------------------------------------------------------- OUT
-echo '<div class="row"><div class="large-10 medium-11 small-12 columns">
-        <ul class="breadcrumbs no-margin">
-          <li><a href="#" item="0">General</a></li>
-          <li><a href="#" item="1">Grupos</a></li>
-        </ul> 
-      </div></div>
-      <hr>
-     ';
-echo '<div class="tab-item tab-item-0">';
-echo '<form class="myform">';
+echo '<form class="myform-grupo">';
 echo '<div class="row">';
 echo '<div class="large-10 medium-11 small-12 columns">';
 foreach($form as $name => $row) {
@@ -121,40 +105,6 @@ echo '
       </div>
 ';
 echo '</form>';
-echo '</div>';
-echo '<div class="tab-item tab-item-1" style="display:none">';
-echo '<div class="row">';
-echo '<div class="large-10 medium-11 small-12 columns">';
-if (isset($grupos))
-{
-    echo '<table>';
-    echo '<tr><th colspan="3">Grupos</th></tr>';
-    foreach($grupos as $row)
-    {
-        $checked = '';
-        if ($row['usuario_id'] != '')
-            $checked = 'checked';
-        echo '<tr>';
-        echo '<td  width="400px">' . utf8_encode($row['nombre']) . '<td>';
-        echo '<td><input type="checkbox"
-                     class="no-margin item-grupo"
-                     grupo_id  ="' . $row['id'] . '"
-                     usuario_id="' . $dato['usuario_id'] . '"
-                     ' . $checked . '
-              /></td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-}
 
-echo '</div>';
-echo '</div>';
-echo '</div>';
+
 ?>
-<script>
- $('#usuario_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
-     $('#usuario_listado_modal_div .tab-item').hide();
-     $('#usuario_listado_modal_div .tab-item-' + $(this).attr('item') ).show();
-     e.preventDefault();
- });
-</script>

@@ -9,6 +9,8 @@ $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->d
 
 session_start();
 
+$perfil = trim($_SESSION['perfiles']);
+
 $sql_ini = '
 SELECT
 u.nombre, u.login,  p.nombre perfil, u.info_status vigente, 
@@ -20,12 +22,25 @@ LEFT JOIN usu_perfil p ON p.id=up.perfil_id
 WHERE u.id !=1
 ';
 
+
+if ($perfil == 'Administracion') {
+    $sql_ini .= 'AND up.perfil_id NOT IN (2, 3, 6, 7, 8, 9)';
+} elseif ($perfil == 'Coordinador') {
+    $sql_ini .= 'AND up.perfil_id NOT IN (2, 6, 10)';
+} elseif ($perfil == 'Gerencia') {
+    $sql_ini .= 'AND up.perfil_id NOT IN (1)';
+} else {
+    $sql_ini .= 'AND up.perfil_id NOT IN (2, 3, 6, 7, 8, 9, 10)';
+}
+
 $sql = "
 SELECT * FROM (
 " . $sql_ini . "
 ) unido01
 WHERE 1=1
 ";
+
+
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
