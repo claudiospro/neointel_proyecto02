@@ -54,13 +54,15 @@ class ModeloUsuario {
             'login' => '',
             'pwd' => '',
             'perfil_id' => '',
+            'perfil' => '',
             'comentario' => '',
             'vigente' => '',            
         );
         $this->q->sql = '
-        SELECT u.id, u.nombre, u.nombre_corto, u.login, u.pwd, up.perfil_id,  u.comentario, u.info_status
+        SELECT u.id, u.nombre, u.nombre_corto, u.login, u.pwd, up.perfil_id, p.nombre, u.comentario, u.info_status
         FROM usu_usuario u
         LEFT JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+        LEFT JOIN usu_perfil p ON p.id = up.perfil_id
         WHERE u.id = "' . $in['usuario_id'] . '"
         ';
         // echo $this->q->sql;        
@@ -112,10 +114,14 @@ class ModeloUsuario {
             'id' => '',
             'nombre' => '',
             'usuario_id' => '',
+            'campania' => '',
         );
         $this->q->sql = '
-        SELECT l.id, l.nombre, ul.usuario_id FROM lineal l
+        SELECT l.id, l.nombre, ul.usuario_id, c.nombre
+        FROM lineal l
         LEFT JOIN usu_usuario_lineal ul ON ul.lineal_id=l.id AND ul.usuario_id = "' . $in['usuario_id'] . '"
+        LEFT JOIN campania_lineal cl ON cl.lineal_id=l.id
+        LEFT JOIN campania c ON c.id = cl.campania_id
         WHERE l.info_status = 1
         ORDER BY 1
         ';
@@ -141,6 +147,26 @@ class ModeloUsuario {
     }
     //
     function updateUsuarioGrupo($in) {
+        $this->q->fields = array('perfil'=>'');
+        $this->q->data = NULL;
+        $this->q->sql = '
+        SELECT p.nombre FROM usu_usuario_perfil up 
+        JOIN usu_perfil p ON p.id=up.perfil_id
+        WHERE up.usuario_id="' . $in['form']['usuario_id'] . '"
+        ';
+        $perfil= $this->q->exe();
+        $perfil= $perfil[0]['perfil'];
+
+        if ($perfil == 'Asesor Comercial' || $perfil == 'Supervisor') {
+            $this->q->fields = array();
+            $this->q->data = NULL;
+            $this->q->sql = '
+            DELETE FROM usu_usuario_lineal WHERE
+            usuario_id = "' . $in['form']['usuario_id'] . '"
+            ';
+            $this->q->exe();
+        }
+        
         $this->q->fields = array();
         $this->q->data = NULL;
         // estado

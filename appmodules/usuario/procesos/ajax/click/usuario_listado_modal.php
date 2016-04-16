@@ -125,18 +125,24 @@ echo '</div>';
 echo '<div class="tab-item tab-item-1" style="display:none">';
 echo '<div class="row">';
 echo '<div class="large-10 medium-11 small-12 columns">';
-if (isset($grupos))
+if (isset($grupos) && $dato['perfil'] != 'Administracion' && $dato['perfil'] != 'Gerencia')
 {
     echo '<table>';
     echo '<tr><th colspan="3">Grupos</th></tr>';
     foreach($grupos as $row)
     {
+        if ($dato['perfil'] == 'Asesor Comercial' || $dato['perfil'] == 'Supervisor') {
+            $type= 'radio';
+        } else {
+            $type= 'checkbox';
+        }
         $checked = '';
         if ($row['usuario_id'] != '')
             $checked = 'checked';
         echo '<tr>';
-        echo '<td  width="400px">' . utf8_encode($row['nombre']) . '<td>';
-        echo '<td><input type="checkbox"
+        echo '<td  width="400px">' . utf8_encode($row['nombre']) . ' (' . utf8_encode($row['campania']) . ')' . '<td>';
+        echo '<td><input type="' . $type . '"
+                     name="modal-grupo-dd"
                      class="no-margin item-grupo"
                      grupo_id  ="' . $row['id'] . '"
                      usuario_id="' . $dato['usuario_id'] . '"
