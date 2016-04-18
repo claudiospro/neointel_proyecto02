@@ -39,14 +39,21 @@ class ModeloVenta {
         foreach($campanias as $row) {
             if ($this->q->sql != '')
                 $this->q->sql .= ' UNION ';
+            if ($in['dia'] != '00')
+            {
+                $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
+            } else {
+                $in['fecha'] = $in['anio-mes'] . '%';
+            }
             $this->q->sql .= '
             (SELECT d.estado, count(d.id) total, "' . $row['indice'] . '" campania
             FROM venta_' . $row['indice'] . ' d
             JOIN venta v ON v.id=d.id
-            WHERE v.info_create_fecha LIKE "' . $in['anio-mes'] . '%"
+            WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '"
             GROUP by 1)
             ';
         }
+        // Utilidades::printr($this->q->sql);
         $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_estado e ON e.id=t.estado';
         $data['estado'] = $this->q->exe();
         
@@ -63,14 +70,21 @@ class ModeloVenta {
         foreach($campanias as $row) {
             if ($this->q->sql != '')
                 $this->q->sql .= ' UNION ';
+            if ($in['dia'] != '00')
+            {
+                $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
+            } else {
+                $in['fecha'] = $in['anio-mes'] . '%';
+            }
             $this->q->sql .= '
             (SELECT d.estado_real, count(d.id) total, "' . $row['indice'] . '" campania
             FROM venta_' . $row['indice'] . ' d
             JOIN venta v ON v.id=d.id
-            WHERE v.info_create_fecha LIKE "' . $in['anio-mes'] . '%"
+            WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '"
             GROUP by 1)
             ';
         }
+        // Utilidades::printr($this->q->sql);
         $this->q->sql = 'SELECT e.nombre, er.estado_id, er.nombre, t.* FROM (' . $this->q->sql . ') as t 
                          JOIN venta_estado_real er ON er.id = t.estado_real
                          JOIN venta_estado e ON e.id = er.estado_id

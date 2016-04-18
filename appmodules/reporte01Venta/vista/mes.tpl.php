@@ -29,8 +29,7 @@ $prefix = 'venta_reporte_mes_';
      if (isset($data)) {
          foreach($data as $key => $row)
          {
-             $js = '
-$("#pai-' . $key . '").highcharts({';
+             $js = '$("#pai-' . $key . '").highcharts({';
              $js.= 'chart: { type: "pie" },';
              $js.= 'title: { text: "' . utf8_encode($row['titulo']) . '" },';
              $js.= '
@@ -38,13 +37,13 @@ $("#pai-' . $key . '").highcharts({';
              series: {
                  dataLabels: {
                      enabled: true,
-                     format: "<span style=\'color:{point.color}\'>{point.name}</span>: {point.y}"
+                     format: "<span>{point.name}</span> => {point.y} %"
                  }
              }
          },
          tooltip: {
              headerFormat: "<span style=\'font-size:11px\'>{series.name}</span><br>",
-             pointFormat:  "<span style=\'color:{point.color}\'>{point.name}</span>: <b>{point.y}</b><br/>"
+             pointFormat:  "<span>{point.name}</span> => <b>{point.y} %</b>"
          },
          series: [{
              name: "Estado",
@@ -52,16 +51,17 @@ $("#pai-' . $key . '").highcharts({';
              data: [';
              if (isset($row['estado'])) {
                  $t = 0;
-                 foreach($row['estado'] as $r) {
+                 foreach($row['estado'] as $r)
+                 {
                      $t += $r['y'];
                  }
                  foreach($row['estado'] as $r)
                  {
                      $js.= '{';
-                     $js.= ' name: "' . utf8_encode($r['name']) . '(' . round($r['y']/$t*100,2) . '%)' . '", ';
-                     $js.= ' y: ' . $r['y'] . ', ';
+                     $js.= ' name: "' . utf8_encode($r['name']) . ' (' . $r['y'] . '/' . $t . ')' . '", ';
+                     $js.= ' y: ' . round($r['y']/$t*100,2) . ', ';
                      if ($r['drilldown'] != '')
-                         $js.= 'drilldown: "' . utf8_encode($r['drilldown']) . '"';
+                         $js.= 'drilldown: "' .   utf8_encode($r['drilldown']) . '"';
                      $js.= '}, ';
                      // break;
                  }
@@ -86,8 +86,8 @@ $("#pai-' . $key . '").highcharts({';
                      foreach($rr as $r)
                      {
                          $js.= '[';
-                         $js.= '"' . utf8_encode($r['name']) . '(' . round($r['y']/$t*100,2) . '%)' . '", ';
-                         $js.= ''  . utf8_encode($r['y']) . ', ';
+                         $js.= '"' . utf8_encode($r['name']) . ' (' . $r['y'] . '/' . $t . ')' . '", ';
+                         $js.= ''  . round($r['y']/$t*100,2) . ', ';
                          $js.= '], ';
                          // break;
                      }
@@ -112,16 +112,42 @@ $("#pai-' . $key . '").highcharts({';
 
 <form action="index.php">
   <div class="row">
-    <div class="large-6 medium-8 columns">
+    <div class="large-12 medium-12 small-12 columns">
       <div class="row">
-        <div class="large-9 medium-8 columns">
+        <div class="large-2 medium-3 small-3 columns">
+          <select name="tipo" class="no-margin">
+            <option value="01">Estados</option>
+            <option value="02">Resid. / Autono.</option>
+          </select>
+        </div>
+        <div class="large-2 medium-4 small-6 columns">
           <div class="input-group datapicker-month no-margin">
             <input name="anio-mes" type="text" readonly="" class="no-margin" value="<?php echo $in['anio-mes'] ?>" >
             <a class="input-group-label" title="Limpiar"><i class="fi-calendar size-24"></i></a>
           </div>
         </div>
-        <div class="large-3 medium-4 columns">
+        <div class="large-1 medium-2 small-3 columns">
+          <select name="dia" class="no-margin">
+            <option value="00"></option>
+            <?php
+            for($i = 1; $i<=31; $i++)
+            {
+                $selected = '';
+                if ($i === (int)$in['dia'])
+                {
+                    $selected = 'selected';
+                }
+                printf('<option value="%\'.02d" ' . $selected . '>%\'.02d</option>'
+                     , $i, $i
+                );
+            }            
+            ?>
+          </select>
+        </div>
+        <div class="large-1 medium-2 small-12 columns">
           <button type="submit" class="button no-margin expanded success">Ver</button>
+        </div>
+        <div class="large-1 medium-1 small-1 columns">
         </div>
       </div>    
     </div>

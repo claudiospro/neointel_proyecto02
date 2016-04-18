@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.1.7"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.1.8"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.0"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>

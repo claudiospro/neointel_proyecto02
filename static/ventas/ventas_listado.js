@@ -240,9 +240,9 @@ $(document).ready(function() {
     }
     function venta_listado_modal_close() {
         // $('tr' ).removeClass('active');
-        var item = $('#field_venta_id').val();
-        $('.item-datatable').parent().parent().removeClass('active');
-        $('.item-datatable-' + item).parent().parent().addClass('active');
+        // var item = $('#field_venta_id').val();
+        // $('.item-datatable').parent().parent().removeClass('active');
+        // $('.item-datatable-' + item).parent().parent().addClass('active');
     }
     function venta_listado_modal_save_validate() {
         var ou = 1;
@@ -307,14 +307,14 @@ $(document).ready(function() {
 	    success: function(data) {
                 // $('.item-datatable-' + data).parent().parent().addClass('active');
                 dataTable_listado
-                    .search(data)
+                    // .search(data)
                     .draw();
-                dataTable_listado
-                    .search('');
-                var myVar = setInterval(function() {
-                    $('.item-datatable-' + data).parent().parent().addClass('active');
-                    clearInterval(myVar);
-		}, 1000);
+                // dataTable_listado
+                //     .search('');
+                // var myVar = setInterval(function() {
+                //     $('.item-datatable-' + data).parent().parent().addClass('active');
+                //     clearInterval(myVar);
+		// }, 1000);
             }
         });
     }

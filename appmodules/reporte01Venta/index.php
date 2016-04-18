@@ -14,6 +14,7 @@ if (isset($_GET['anio-mes'])) {
 
     // -------------------------------------------------------- INPUT
     $in['anio-mes'] = Utilidades::clear_input($_GET['anio-mes']);
+    $in['dia'] = Utilidades::clear_input($_GET['dia']);
     $l = explode('-', $in['anio-mes']);
     $in['anio'] = $l[0];
     $in['mes'] = $l[1];
@@ -67,43 +68,44 @@ if (isset($_GET['anio-mes'])) {
     // Utilidades::printr($data0);
     // Utilidades::printr($data1);
 } else {
-    $in['anio-mes'] = date('Y-m');;
+    $in['anio-mes'] = date('Y-m');
+    $in['dia'] = '00';
 }
 
-$data[0]['titulo'] = 'Ventas Totales - Marzo 2015';
-$data[0]['tab'] = 'Total';
+// $data[0]['titulo'] = 'Ventas Totales - Marzo 2015';
+// $data[0]['tab'] = 'Total';
 
-$data[0]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'500', 'drilldown'=>'En tramitacion');
-$data[0]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'100', 'drilldown'=>'Ok tramitado');
-$data[0]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'300', 'drilldown'=>'Ko cliente');
+// $data[0]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'500', 'drilldown'=>'En tramitacion');
+// $data[0]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'100', 'drilldown'=>'Ok tramitado');
+// $data[0]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'300', 'drilldown'=>'Ko cliente');
 
-$data[0]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'50');
-$data[0]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'100');
-$data[0]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'100');
+// $data[0]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'50');
+// $data[0]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'100');
+// $data[0]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'100');
 
-$data[0]['estado_real']['Ok tramitado'][1] = array('name'=>'Pendiente' , 'y'=>'100');
+// $data[0]['estado_real']['Ok tramitado'][1] = array('name'=>'Pendiente' , 'y'=>'100');
 
 
-$data[1]['titulo'] = 'OASDDK - Marzo 2015';
-$data[1]['tab'] = 'OASDDK';
+// $data[1]['titulo'] = 'OASDDK - Marzo 2015';
+// $data[1]['tab'] = 'OASDDK';
 
-$data[1]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'100', 'drilldown'=>'En tramitacion');
-$data[1]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'150', 'drilldown'=>'');
-$data[1]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'150', 'drilldown'=>'');
+// $data[1]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'100', 'drilldown'=>'En tramitacion');
+// $data[1]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'150', 'drilldown'=>'');
+// $data[1]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'150', 'drilldown'=>'');
 
-$data[1]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'10');
-$data[1]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'20');
-$data[1]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'10');
-$data[1]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'10');
-$data[1]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'20');
-$data[1]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'10');
-$data[1]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'10');
-$data[1]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'20');
+// $data[1]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'20');
+// $data[1]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'10');
+// $data[1]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'10');
 
  $data = $data1 ;
 // Utilidades::printr($data);
