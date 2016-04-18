@@ -15,6 +15,7 @@ if (isset($_GET['anio-mes'])) {
     // -------------------------------------------------------- INPUT
     $in['anio-mes'] = Utilidades::clear_input($_GET['anio-mes']);
     $in['dia'] = Utilidades::clear_input($_GET['dia']);
+    $in['tipo'] = Utilidades::clear_input($_GET['tipo']);
     $l = explode('-', $in['anio-mes']);
     $in['anio'] = $l[0];
     $in['mes'] = $l[1];
@@ -23,7 +24,7 @@ if (isset($_GET['anio-mes'])) {
     
     // ------------------------------------------------------- OUTPUT
     $data0 = $modelo->getDatos($in);
-    if (isset($data0) && $data0['estado']!=null) {
+    if (isset($data0)) {
         $data1[0] = array();
         
         $mes = array (1 => 'Enero', 2 => 'Febreo', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre');
@@ -32,33 +33,46 @@ if (isset($_GET['anio-mes'])) {
         $data1[0]['titulo'] = 'Ventas: Total, ' . $mes[ (int)$in['mes'] ] . ' ' . $in['anio'];
         $data1[0]['tab'] = 'Total';
         
-        
-        foreach($data0['indice'] as $key => $row) {
-            $data1[$row]['titulo'] = 'Ventas: ' . $data0['indice_nombre'][$key] . ', ' . $mes[ (int)$in['mes'] ] . ' ' . $in['anio'];
-            $data1[$row]['tab'] = $data0['indice_nombre'][$key] ;
-        }
-        
-        foreach($data0['estado'] as $row) {
-            // busco en listado
-            $index = $data0['indice'][$row['campania']];
-            $e = $row['estado_id'];
-            $data1[$index]['estado'][$e] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
-            if (!isset( $data1[0]['estado'][$e]))
-                $data1[0]['estado'][$e] = $data1[$index]['estado'][$e];
-            else
-                $data1[0]['estado'][$e]['y'] += $row['total'];
-        }
-        foreach($data0['estado_real'] as $row) {
-            // busco en listado
-            $index = $data0['indice'][$row['campania']];
-            $e = $row['estado'];
-            $er = $row['estado_real_id'];
-            $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
-            if (!isset($data1[0]['estado_real'][$e][$er]))
-                $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
-            else
-                $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
-        }
+        if (isset($data0['indice']))
+            foreach($data0['indice'] as $key => $row) {
+                $data1[$row]['titulo'] = 'Ventas: ' . $data0['indice_nombre'][$key] . ', ' . $mes[ (int)$in['mes'] ] . ' ' . $in['anio'];
+                $data1[$row]['tab'] = $data0['indice_nombre'][$key] ;
+            }
+        if (isset($data0['estado']))
+            foreach($data0['estado'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $e = $row['estado_id'];
+                $data1[$index]['estado'][$e] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
+                if (!isset( $data1[0]['estado'][$e]))
+                    $data1[0]['estado'][$e] = $data1[$index]['estado'][$e];
+                else
+                    $data1[0]['estado'][$e]['y'] += $row['total'];
+            }
+        if (isset($data0['estado_real']))
+            foreach($data0['estado_real'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $e = $row['estado'];
+                $er = $row['estado_real_id'];
+                $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
+                if (!isset($data1[0]['estado_real'][$e][$er]))
+                    $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
+                else
+                    $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
+            }
+        // ---------------------------------------------------------------------------------------
+        if (isset($data0['cliente_tipo']))
+            foreach($data0['cliente_tipo'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $e = $row['cliente_tipo_id'];
+                $data1[$index]['cliente_tipo'][$e] = array ('name'=>$row['cliente_tipo'], 'y'=>$row['total']);
+                if (!isset( $data1[0]['cliente_tipo'][$e]))
+                    $data1[0]['cliente_tipo'][$e] = $data1[$index]['cliente_tipo'][$e];
+                else
+                    $data1[0]['cliente_tipo'][$e]['y'] += $row['total'];
+            }
     }
     
 
@@ -70,6 +84,7 @@ if (isset($_GET['anio-mes'])) {
 } else {
     $in['anio-mes'] = date('Y-m');
     $in['dia'] = '00';
+    $in['tipo'] = '01';
 }
 
 // $data[0]['titulo'] = 'Ventas Totales - Marzo 2015';
@@ -108,6 +123,7 @@ if (isset($_GET['anio-mes'])) {
 // $data[1]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'10');
 
  $data = $data1 ;
+// Utilidades::printr($data0);
 // Utilidades::printr($data);
 
 require 'vista/mes.tpl.php';

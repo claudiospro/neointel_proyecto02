@@ -60,12 +60,25 @@ $prefix = 'venta_reporte_mes_';
                      $js.= '{';
                      $js.= ' name: "' . utf8_encode($r['name']) . ' (' . $r['y'] . '/' . $t . ')' . '", ';
                      $js.= ' y: ' . round($r['y']/$t*100,2) . ', ';
-                     if ($r['drilldown'] != '')
-                         $js.= 'drilldown: "' .   utf8_encode($r['drilldown']) . '"';
                      $js.= '}, ';
                      // break;
                  }
-             }             
+             }
+             if (isset($row['cliente_tipo'])) {
+                 $t = 0;
+                 foreach($row['cliente_tipo'] as $r)
+                 {
+                     $t += $r['y'];
+                 }
+                 foreach($row['cliente_tipo'] as $r)
+                 {
+                     $js.= '{';
+                     $js.= ' name: "' . utf8_encode($r['name']) . ' (' . $r['y'] . '/' . $t . ')' . '", ';
+                     $js.= ' y: ' . round($r['y']/$t*100,2) . ', ';
+                     $js.= '}, ';
+                     // break;
+                 }
+             }
              $js.= '
              ]
          }],
@@ -116,8 +129,20 @@ $prefix = 'venta_reporte_mes_';
       <div class="row">
         <div class="large-2 medium-3 small-3 columns">
           <select name="tipo" class="no-margin">
-            <option value="01">Estados</option>
-            <option value="02">Resid. / Autono.</option>
+            <?php
+            $ll = array('1'=> 'Estados', '2'=>'Resid. / Autono.');
+            for($i = 1; $i<=2; $i++)
+            {
+                $selected = '';
+                if ($i === (int)$in['tipo'])
+                {
+                    $selected = 'selected';
+                }
+                printf('<option value="%\'.02d" ' . $selected . '>%s</option>'
+                     , $i, $ll[$i]
+                );
+            }
+            ?>
           </select>
         </div>
         <div class="large-2 medium-4 small-6 columns">
@@ -178,7 +203,6 @@ $prefix = 'venta_reporte_mes_';
   <div class="large-10 medium-9 small-9 columns">
     <div class="tabs-content vertical" data-tabs-content="vert-tabs">
       <?php
-
       $first = true;
       foreach($data as $key => $row)
       {

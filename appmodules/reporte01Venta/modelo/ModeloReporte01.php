@@ -28,68 +28,102 @@ class ModeloVenta {
             $data['indice'][$row['indice']] = $i++;
             $data['indice_nombre'][$row['indice']] = $row['nombre'];
         }
-        // ---------------------------------------------------- estado
-        $this->q->fields = array(
-            'estado' => '',
-            'estado_id' => '',
-            'total' => '',
-            'campania' => '',
-        );
-        $this->q->sql = '';
-        foreach($campanias as $row) {
-            if ($this->q->sql != '')
-                $this->q->sql .= ' UNION ';
-            if ($in['dia'] != '00')
-            {
-                $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
-            } else {
-                $in['fecha'] = $in['anio-mes'] . '%';
+        if ($in['tipo'] == '01')
+        {
+            // ---------------------------------------------------- estado
+            $this->q->fields = array(
+                'estado' => '',
+                'estado_id' => '',
+                'total' => '',
+                'campania' => '',
+            );
+            $this->q->sql = '';
+            foreach($campanias as $row) {
+                if ($this->q->sql != '')
+                    $this->q->sql .= ' UNION ';
+                if ($in['dia'] != '00')
+                {
+                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
+                } else {
+                    $in['fecha'] = $in['anio-mes'] . '%';
+                }
+                $this->q->sql .= '
+                (SELECT d.estado, count(d.id) total, "' . $row['indice'] . '" campania
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                GROUP by 1)
+                ';
             }
-            $this->q->sql .= '
-            (SELECT d.estado, count(d.id) total, "' . $row['indice'] . '" campania
-            FROM venta_' . $row['indice'] . ' d
-            JOIN venta v ON v.id=d.id
-            WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '"
-            GROUP by 1)
-            ';
-        }
-        // Utilidades::printr($this->q->sql);
-        $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_estado e ON e.id=t.estado';
-        $data['estado'] = $this->q->exe();
+            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_estado e ON e.id=t.estado';
+            // Utilidades::printr($this->q->sql);
+            $data['estado'] = $this->q->exe();
         
-        // ---------------------------------------------------------------- estado real
-        $this->q->fields = array(
-            'estado' => '',
-            'estado_id' => '',
-            'estado_real' => '',
-            'estado_real_id' => '',
-            'total' => '',
-            'campania' => '',
-        );
-        $this->q->sql = '';
-        foreach($campanias as $row) {
-            if ($this->q->sql != '')
-                $this->q->sql .= ' UNION ';
-            if ($in['dia'] != '00')
-            {
-                $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
-            } else {
-                $in['fecha'] = $in['anio-mes'] . '%';
+            // ---------------------------------------------------------------- estado real
+            $this->q->fields = array(
+                'estado' => '',
+                'estado_id' => '',
+                'estado_real' => '',
+                'estado_real_id' => '',
+                'total' => '',
+                'campania' => '',
+            );
+            $this->q->sql = '';
+            foreach($campanias as $row) {
+                if ($this->q->sql != '')
+                    $this->q->sql .= ' UNION ';
+                if ($in['dia'] != '00')
+                {
+                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
+                } else {
+                    $in['fecha'] = $in['anio-mes'] . '%';
+                }
+                $this->q->sql .= '
+                (SELECT d.estado_real, count(d.id) total, "' . $row['indice'] . '" campania
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                GROUP by 1)
+                ';
             }
-            $this->q->sql .= '
-            (SELECT d.estado_real, count(d.id) total, "' . $row['indice'] . '" campania
-            FROM venta_' . $row['indice'] . ' d
-            JOIN venta v ON v.id=d.id
-            WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '"
-            GROUP by 1)
-            ';
-        }
-        // Utilidades::printr($this->q->sql);
-        $this->q->sql = 'SELECT e.nombre, er.estado_id, er.nombre, t.* FROM (' . $this->q->sql . ') as t 
+            // Utilidades::printr($this->q->sql);
+            $this->q->sql = 'SELECT e.nombre, er.estado_id, er.nombre, t.* FROM (' . $this->q->sql . ') as t 
                          JOIN venta_estado_real er ON er.id = t.estado_real
                          JOIN venta_estado e ON e.id = er.estado_id
                         ';
-        $data['estado_real'] = $this->q->exe();
+            $data['estado_real'] = $this->q->exe();
+        }
+        elseif($in['tipo'] == '02')
+        {
+            $this->q->fields = array(
+                'cliente_tipo' => '',
+                'cliente_tipo_id' => '',
+                'total' => '',
+                'campania' => '',
+            );
+            $this->q->sql = '';
+            foreach($campanias as $row) {
+                if ($this->q->sql != '')
+                    $this->q->sql .= ' UNION ';
+                if ($in['dia'] != '00')
+                {
+                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
+                } else {
+                    $in['fecha'] = $in['anio-mes'] . '%';
+                }
+                $this->q->sql .= '
+                (SELECT d.cliente_tipo, count(d.id) total, "' . $row['indice'] . '" campania
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                GROUP by 1)
+                ';
+            }
+            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_cliente_tipo e ON e.id=t.cliente_tipo';
+            // Utilidades::printr($this->q->sql);
+            $data['cliente_tipo'] = $this->q->exe();
+        }
+
         return $data;
     }
 }
