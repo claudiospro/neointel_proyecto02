@@ -60,6 +60,8 @@ $prefix = 'venta_reporte_mes_';
                      $js.= '{';
                      $js.= ' name: "' . utf8_encode($r['name']) . ' (' . $r['y'] . '/' . $t . ')' . '", ';
                      $js.= ' y: ' . round($r['y']/$t*100,2) . ', ';
+                     if ($r['drilldown'] != '')
+                         $js.= 'drilldown: "' . utf8_encode($r['drilldown']) . '"';
                      $js.= '}, ';
                      // break;
                  }
