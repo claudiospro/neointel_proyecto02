@@ -16,6 +16,7 @@ class ModeloUsuario {
         JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id AND up.perfil_id = 4
         JOIN usu_usuario u ON u.id=ul.usuario_id
         WHERE l.info_status = 1
+        ORDER BY 2
         ';
         // echo $this->q->sql;        
         $this->q->data = NULL;
