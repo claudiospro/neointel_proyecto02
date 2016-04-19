@@ -24,13 +24,15 @@ WHERE u.id !=1
 
 
 if ($perfil == 'Administracion') {
-    $sql_ini .= 'AND up.perfil_id NOT IN (2, 3, 6, 7, 8, 9)';
+    $sql_ini .= 'AND up.perfil_id NOT IN (1, 2, 3, 6, 7, 8, 9)';
 } elseif ($perfil == 'Coordinador') {
-    $sql_ini .= 'AND up.perfil_id NOT IN (2, 6, 10)';
+    $sql_ini .= 'AND up.perfil_id NOT IN (1, 2, 6, 10)';
 } elseif ($perfil == 'Gerencia') {
     $sql_ini .= 'AND up.perfil_id NOT IN (1)';
+} elseif ($perfil == 'Admin') {
+    $sql_ini .= 'AND up.perfil_id NOT IN (0)';
 } else {
-    $sql_ini .= 'AND up.perfil_id NOT IN (2, 3, 6, 7, 8, 9, 10)';
+    $sql_ini .= 'AND up.perfil_id NOT IN (1, 2, 3, 6, 7, 8, 9, 10)';
 }
 
 $sql = "

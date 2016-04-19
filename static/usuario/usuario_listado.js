@@ -51,9 +51,13 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('change', '.item-vigente-tbl', function (event) {
         usuario_listado_change_vigente($(this));
     });
+    //
+    $('body').on('change', 'form.myform  #field_perfil_id', function (event) {
+        usuario_listado_modal_perfil_id($(this));
+    });
     // 
     $('body').on('click', 'form.myform a.save-exit', function (e) {
-        usuario_listado_modal_save_exit();  
+        return usuario_listado_modal_save_exit();
     });
     $('body').on('click', 'form.myform a.reseteo-pwd', function (e) {
         usuario_listado_modal_reseteo_pwd();  
@@ -75,7 +79,7 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 20,
+            "pageLength" : 8,
             // "order"      : [ 8, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 4 ], 'bSortable': false },
@@ -152,24 +156,46 @@ $(document).ready(function() {
     }
     //
     function usuario_listado_modal_save_exit() {
+        var out = true;
         var enviar = $("form.myform").serialize();
-        $.ajax({
-	    type: "POST",
-	    data: enviar,
-	    url: './procesos/ajax/save/usuario_listado_click_save.php',
-	    success: function(data) {
-                // dataTable_listado.draw();
-                dataTable_listado
-                    .search(data)
-                    .draw();
-                dataTable_listado
-                    .search('');
-                var myVar = setInterval(function() {
-                    $(prefixId+'tabla .item-datatable-' + data).parent().parent().addClass('active');
-                    clearInterval(myVar);
-		}, 1000);
+        // c(enviar);
+        var validar = [] ;
+        validar['tot'] = 0 ;
+        $('.item-grupo').each(function(){
+            if($(this).is(':checked')) { 
+                validar['tot'] = validar['tot'] +1;
             }
         });
+        validar['perfil_id'] = $('#field_perfil_id').val();
+        
+        if (validar['tot'] > 1 && validar['perfil_id'] == '4') {
+            out = false;
+            alert('Solo seleccione un Grupo');
+        }
+        if (validar['tot'] > 1 && validar['perfil_id'] == '5') {
+            out = false;
+            alert('Solo seleccione un Grupo');
+        }
+        if (out) {
+            $.ajax({
+	        type: "POST",
+	        data: enviar,
+	        url: './procesos/ajax/save/usuario_listado_click_save.php',
+	        success: function(data) {
+                    dataTable_listado
+                        .search(data)
+                        .draw();
+                    dataTable_listado
+                        .search('');
+                    var myVar = setInterval(function() {
+                        $(prefixId+'tabla .item-datatable-' + data).parent().parent().addClass('active');
+                        clearInterval(myVar);
+		    }, 700);
+                }
+            });
+        }
+
+        return out;
     } 
     function usuario_listado_modal_reseteo_pwd() {
         var enviar = {
@@ -181,17 +207,24 @@ $(document).ready(function() {
         );
         alert('Contraseña Reseteada');
     }
+    function usuario_listado_modal_perfil_id(item) {
+        if (item.val() == 4 || item.val() == 6) {
+            $('form.myform .validar').show();
+        } else {
+            $('form.myform .validar').hide();
+        }
+    }
     //
     function usuario_listado_modal_grupo_checkbox(item) {
-        var enviar = {
-            'estado': item.is(':checked'),
-            'grupo_id': item.attr('grupo_id'),
-            'usuario_id': $('#field_usuario_id').val(),
-        }
-        // c(enviar);
-        none_simple(
-            './procesos/ajax/change/usuario_listado_modal_grupo_change.php',
-            enviar
-        );
+        // var enviar = {
+        //     'estado': item.is(':checked'),
+        //     'grupo_id': item.attr('grupo_id'),
+        //     'usuario_id': $('#field_usuario_id').val(),
+        // }
+        // // c(enviar);
+        // none_simple(
+        //     './procesos/ajax/change/usuario_listado_modal_grupo_change.php',
+        //     enviar
+        // );
     }
 });

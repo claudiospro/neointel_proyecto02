@@ -17,8 +17,8 @@ $form['nombre_corto'] = array('type' => 'text'    , 'label' => 'Nombre Corto');
 $form['login']        = array('type' => 'text'    , 'label' => 'Usuario (DNI)');
 $form['pwd']          = array('type' => 'pwd'     , 'label' => 'Contraseña');
 $form['perfil_id']    = array('type' => 'select1' , 'label' => 'Perfil', 'combo' => 'usu_perfil');
-$form['comentario']   = array('type' => 'textarea', 'label' => 'Comentario');
 $form['vigente']      = array('type' => 'bool'    , 'label' => 'Vigente');
+$form['comentario']   = array('type' => 'textarea', 'label' => 'Comentario');
 
 $combo['usu_perfil'] = $modelo->getPerfil($in);
 
@@ -32,15 +32,6 @@ $grupos = $modelo->getGrupoByUsuario($in);
 // Utilidades::printr($grupos);
 
 // -------------------------------------------------------- OUT
-echo '<div class="row"><div class="large-10 medium-11 small-12 columns">
-        <ul class="breadcrumbs no-margin">
-          <li><a href="#" item="0">General</a></li>
-          <li><a href="#" item="1">Grupos</a></li>
-        </ul> 
-      </div></div>
-      <hr>
-     ';
-echo '<div class="tab-item tab-item-0">';
 echo '<form class="myform">';
 echo '<div class="row">';
 echo '<div class="large-10 medium-11 small-12 columns">';
@@ -98,6 +89,7 @@ foreach($form as $name => $row) {
         echo '<div class="large-3  medium-3 small-3 columns">' . $row['label'] . '</div>';
         echo '<div class="large-9 medium-9 small-9 columns" style="background-color: #71b4e4">
                 <select name = "' . $name . '"
+                        id = "field_' . $name . '"
                         class="no-margin"
                 >';
         foreach ($combo[$row['combo']]  as $r) {
@@ -111,56 +103,41 @@ foreach($form as $name => $row) {
         echo '</div>';
     }
 }
+echo '<div class="row">';
+echo '<div class="large-3  medium-3 small-3 columns">Grupos</div>';
+echo '<div class="large-9 medium-9 small-9 columns" style="background-color: #71b4e4">';
+if (isset($grupos))
+{
+    foreach($grupos as $row)
+    {
+        $checked = '';
+        if ($row['usuario_id'] != '')
+            $checked = 'checked';
+        echo '<input type="checkbox"
+                     name="lineales[' . $row['id'] . ']"
+                     class="no-margin item-grupo"
+                     ' . $checked . '
+              />';
+        echo utf8_encode($row['nombre']) . ' (' . utf8_encode($row['campania']) . ')<br>';
+    }
+}
+echo '</div>';
+echo '</div>';
 echo '</div>';
 echo '</div><!-- row -->';
+
+$display = 'display:none';
+if($dato['perfil'] == 'Supervisor'  || $dato['perfil'] == 'Coordinador') {
+    $display = '';
+}
+
 echo '
       <div class="row ">
          <div class="large-10 medium-11 small-12 columns text-right no-padding">
+           <a class="button no-margin validar" style="' . $display . '">Validar</a>
            <a data-close="" class="button success no-margin save-exit">Guardar y Cerrar</a>
          </div>
       </div>
 ';
 echo '</form>';
-echo '</div>';
-echo '<div class="tab-item tab-item-1" style="display:none">';
-echo '<div class="row">';
-echo '<div class="large-10 medium-11 small-12 columns">';
-if (isset($grupos) && $dato['perfil'] != 'Administracion' && $dato['perfil'] != 'Gerencia')
-{
-    echo '<table>';
-    echo '<tr><th colspan="3">Grupos</th></tr>';
-    foreach($grupos as $row)
-    {
-        if ($dato['perfil'] == 'Asesor Comercial' || $dato['perfil'] == 'Supervisor') {
-            $type= 'radio';
-        } else {
-            $type= 'checkbox';
-        }
-        $checked = '';
-        if ($row['usuario_id'] != '')
-            $checked = 'checked';
-        echo '<tr>';
-        echo '<td  width="400px">' . utf8_encode($row['nombre']) . ' (' . utf8_encode($row['campania']) . ')' . '<td>';
-        echo '<td><input type="' . $type . '"
-                     name="modal-grupo-dd"
-                     class="no-margin item-grupo"
-                     grupo_id  ="' . $row['id'] . '"
-                     usuario_id="' . $dato['usuario_id'] . '"
-                     ' . $checked . '
-              /></td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-}
-
-echo '</div>';
-echo '</div>';
-echo '</div>';
 ?>
-<script>
- $('#usuario_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
-     $('#usuario_listado_modal_div .tab-item').hide();
-     $('#usuario_listado_modal_div .tab-item-' + $(this).attr('item') ).show();
-     e.preventDefault();
- });
-</script>

@@ -31,13 +31,15 @@ class ModeloUsuario {
         SELECT id, nombre FROM usu_perfil WHERE 1 = 1
         ';
         if ($in['perfil'] == 'Administracion') {
-            $this->q->sql .= 'AND id NOT IN (2, 3, 6, 7, 8, 9)';
+            $this->q->sql .= 'AND id NOT IN (1, 2, 3, 6, 7, 8, 9)';
         } elseif ($in['perfil'] == 'Coordinador') {
-            $this->q->sql .= 'AND id NOT IN (2, 6, 10)';
+            $this->q->sql .= 'AND id NOT IN (1, 2, 6, 10)';
         } elseif ($in['perfil'] == 'Gerencia') {
             $this->q->sql .= 'AND id NOT IN (1)';
+        } elseif ($in['perfil'] == 'Admin') {
+            $this->q->sql .= 'AND id NOT IN (0)';
         } else {
-            $this->q->sql .= 'AND id NOT IN (2, 3, 6, 7, 8, 9)';
+            $this->q->sql .= 'AND id NOT IN (1, 2, 3, 6, 7, 8, 9)';
         }
         $this->q->sql .= ' ORDER BY 2';
         // echo $this->q->sql;        
@@ -92,8 +94,34 @@ class ModeloUsuario {
         )
         ';
         // echo $this->q->sql;        
-        $this->q->exe();        
+        $this->q->exe();
 
+        if(isset($in['form']['lineales']))
+        {
+            $this->q->fields = array();
+            $this->q->data = NULL;
+            $this->q->sql = '
+            DELETE FROM usu_usuario_lineal WHERE
+            usuario_id = "' . $in['form']['usuario_id'] . '"
+            ';
+            $this->q->exe();
+            foreach($in['form']['lineales'] as $key => $row)
+            {
+                $this->q->fields = array();
+                $this->q->data = NULL;
+                $this->q->sql = '
+                INSERT INTO usu_usuario_lineal
+                (usuario_id, lineal_id, info_create, info_create_user)
+                VALUES (  "' . $in['form']['usuario_id'] . '"
+                        , "' . $key . '"
+                        , "' . $in['fecha'] . '"
+                        , "' . $in['usuario'] . '"
+                )
+                ';
+                // echo $this->q->sql;
+                $this->q->exe();
+            }
+        }
     }
     function setUsuarioPwd($in) {
         $this->q->fields = array();
