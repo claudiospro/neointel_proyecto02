@@ -134,7 +134,7 @@ class ModeloVenta {
                                   value="' . utf8_encode($data) . '">';
                 }
 
-            } elseif ($campo['diccionario']=='2') {
+            } elseif ($campo['diccionario']=='2') { // sin dependencia, con estado vacio
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
@@ -157,7 +157,7 @@ class ModeloVenta {
                     
                 }
                 $ou.= '</select>';
-            } elseif ($campo['diccionario']=='3') {
+            } elseif ($campo['diccionario']=='3') { // con dependencia, con estado vacio
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
@@ -182,7 +182,7 @@ class ModeloVenta {
                 }
                 
                 $ou.= '</select>';
-            } elseif ($campo['diccionario']=='4') {
+            } elseif ($campo['diccionario']=='4') { // con dependencia, sin elemento vacio 
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
@@ -205,6 +205,28 @@ class ModeloVenta {
                     }
                 }
                 
+                $ou.= '</select>';
+            }  elseif ($campo['diccionario']=='5') { // sin dependencia, sin elemento vacio
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $this->q->fields = array('id' => '', 'nombre' => '');
+                $orderby = 'ORDER BY 2';
+                if ($campo['diccionario_orden'] == '0') $orderby = '';
+                
+                if ($campo['diccionario_nombre'] == '')
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ' . $orderby;
+                else
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 ' . $orderby;
+                //echo $this->q->sql;        
+                $this->q->data = NULL;
+                $data = $this->q->exe();
+                foreach ($data as $row) {
+                    if ($row['id'] != $dato) {
+                        $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                    } else {
+                        $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                    }
+                    
+                }
                 $ou.= '</select>';
             } else {
                 $ou = '<input name="' . $campo['nombre'] . '" 
