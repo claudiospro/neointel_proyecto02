@@ -155,7 +155,7 @@ class ModeloUsuario {
         WHERE l.info_status = 1
         ORDER BY 2
         ';
-        echo Utilidades::printr($this->q->sql);
+        // echo Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
