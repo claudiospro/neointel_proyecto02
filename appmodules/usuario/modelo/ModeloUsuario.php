@@ -147,15 +147,15 @@ class ModeloUsuario {
             'campania' => '',
         );
         $this->q->sql = '
-        SELECT l.id, l.nombre, ul.usuario_id, c.nombre
+        SELECT DISTINCT l.id, l.nombre, ul.usuario_id, c.nombre
         FROM lineal l
         LEFT JOIN usu_usuario_lineal ul ON ul.lineal_id=l.id AND ul.usuario_id = "' . $in['usuario_id'] . '"
         LEFT JOIN campania_lineal cl ON cl.lineal_id=l.id
         LEFT JOIN campania c ON c.id = cl.campania_id
         WHERE l.info_status = 1
-        ORDER BY 1
+        ORDER BY 2
         ';
-        // echo $this->q->sql;        
+        echo Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
