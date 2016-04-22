@@ -17,10 +17,10 @@ else
     $in['form']['vigente'] = '0';
 
 // -------------------------------------------------------- DATA
-$modelo->setUsuario($in);
+$id = $modelo->setUsuario($in);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
 
 // ---------------------------------------------------------- OU
-echo $in['form']['usuario_id'];
+echo $id;

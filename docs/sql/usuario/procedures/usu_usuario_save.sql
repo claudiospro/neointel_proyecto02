@@ -44,7 +44,10 @@ BEGIN
      , info_update_user = in_usuario
      WHERE usuario_id = in_id
      ;
+     SET ou_id = in_id;
   END IF
+  ;
+  SELECT ou_id
   ;
 END $$
 DELIMITER ;

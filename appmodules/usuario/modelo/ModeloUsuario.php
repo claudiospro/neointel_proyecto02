@@ -79,7 +79,7 @@ class ModeloUsuario {
         return $data;
     }
     function setUsuario($in) {
-        $this->q->fields = array();
+        $this->q->fields = array('usuario_id' => '');
         $this->q->data = NULL;
         $this->q->sql = '
         CALL usu_usuario_save(
@@ -95,8 +95,8 @@ class ModeloUsuario {
         )
         ';
         // echo $this->q->sql;        
-        $this->q->exe();
-
+        $data =  $this->q->exe();
+        
         if(isset($in['form']['lineales']))
         {
             $this->q->fields = array();
@@ -113,7 +113,7 @@ class ModeloUsuario {
                 $this->q->sql = '
                 INSERT INTO usu_usuario_lineal
                 (usuario_id, lineal_id, info_create, info_create_user)
-                VALUES (  "' . $in['form']['usuario_id'] . '"
+                VALUES (  "' . $data[0]['usuario_id'] . '"
                         , "' . $key . '"
                         , "' . $in['fecha'] . '"
                         , "' . $in['usuario'] . '"
@@ -123,6 +123,7 @@ class ModeloUsuario {
                 $this->q->exe();
             }
         }
+        return $data[0]['usuario_id'];
     }
     function setUsuarioPwd($in) {
         $this->q->fields = array();
