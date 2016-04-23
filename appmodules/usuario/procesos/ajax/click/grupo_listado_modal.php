@@ -27,7 +27,7 @@ $combo['campania']   = $modelo->getCampaniasActivas(array());
 // -------------------------------------------------------- OUT
 echo '<form class="myform-grupo">';
 echo '<div class="row">';
-echo '<div class="large-10 medium-11 small-12 columns">';
+echo '<div class="large-12 medium-12 small-12 columns">';
 foreach($form as $name => $row) {
     if ($row['type'] == 'hidden') {
         echo '<input type="hidden" 
@@ -99,7 +99,7 @@ echo '</div>';
 echo '</div><!-- row -->';
 echo '
       <div class="row ">
-         <div class="large-10 medium-11 small-12 columns text-right no-padding">
+         <div class="large-12 medium-12 small-12 columns text-right no-padding">
            <a data-close="" class="button success no-margin save-exit">Guardar y Cerrar</a>
          </div>
       </div>
