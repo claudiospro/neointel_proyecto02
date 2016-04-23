@@ -66,13 +66,13 @@ $(document).ready(function() {
     }
     function venta_listado_estados() {
         var enviar = {}
+        // element_simple(
+        //     './procesos/ajax/select/ventas_listado_estados_reales_select.php',
+        //     prefixId+'estados',
+        //     enviar
+        // );
         element_simple(
-            './procesos/ajax/select/ventas_listado_estados_select.php',
-            prefixId+'estados',
-            enviar
-        );
-        element_simple(
-            '../ventas/procesos/ajax/select/ventas_listado_estado.php',
+            '../ventas/procesos/ajax/select/ventas_listado_estado_real.php',
             prefixId+'estado-tbl',
             enviar
         );

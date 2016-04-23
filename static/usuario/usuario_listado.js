@@ -176,6 +176,21 @@ $(document).ready(function() {
             out = false;
             alert('Solo seleccione un Grupo');
         }
+        if (validar['tot'] > 0 && validar['perfil_id'] == '2') {
+            out = false;
+            alert('No puede pertenece a un grupo');
+        }
+        if (validar['tot'] > 0 && validar['perfil_id'] == '10') {
+            out = false;
+            alert('No puede pertenece a un grupo');
+        }
+        if (validar['tot'] == 0 && validar['perfil_id'] != '2'
+            && validar['perfil_id'] != '10'
+           )
+        {
+            out = false;
+            alert('Debe pertenecer a un grupo');
+        }
         if (out) {
             $.ajax({
 	        type: "POST",

@@ -13,7 +13,7 @@ $prefix = 'venta_listado_';
 <script src="../../lib/vendor/datatable-1.10.10/DataTables-1.10.10/js/dataTables.foundation.min.js"></script>
 
 
-<script src="../../static/barrido/barrido_listado.js?v=1.1.0"></script>
+<script src="../../static/barrido/barrido_listado.js?v=1.1.5"></script>
 <?php $js = ob_get_clean() ?>
 
 

@@ -25,7 +25,7 @@ $prefix = 'usuario_listado_';
 
 <script src="../../lib/main/sesion.js"></script>
 
-<script src="../../static/usuario/usuario_listado.js?v=1.1.0"></script>
+<script src="../../static/usuario/usuario_listado.js?v=1.1.2"></script>
 <script src="../../static/usuario/grupo_listado.js?v=1.0.0"></script>
 
 <?php $js = ob_get_clean() ?>
@@ -170,14 +170,14 @@ $prefix = 'usuario_listado_';
     </div>
   </div>
 </div>
-<div class="reveal full" modelo="" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
+<div class="reveal" modelo="" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177); height:80%;">
   <div class="ajax">
   </div>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="reveal full" modelo="" id="<?php echo $prefix ?>modal_div2" data-reveal style="background-color: rgb(242, 216, 177)">
+<div class="reveal" modelo="" id="<?php echo $prefix ?>modal_div2" data-reveal style="background-color: rgb(242, 216, 177); height:200px;">
   <div class="ajax">
   </div>
   <button class="close-button" data-close aria-label="Close modal" type="button">

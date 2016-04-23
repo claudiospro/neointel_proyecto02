@@ -59,7 +59,7 @@ class ModeloUsuario {
             'perfil_id' => '',
             'perfil' => '',
             'comentario' => '',
-            'vigente' => '',            
+            'vigente' => '1',            
         );
         $this->q->sql = '
         SELECT u.id, u.nombre, u.nombre_corto, u.login, u.pwd, up.perfil_id, p.nombre, u.comentario, u.info_status
@@ -96,16 +96,16 @@ class ModeloUsuario {
         ';
         // echo $this->q->sql;        
         $data =  $this->q->exe();
-        
+
+        $this->q->fields = array();
+        $this->q->data = NULL;
+        $this->q->sql = '
+        DELETE FROM usu_usuario_lineal WHERE
+        usuario_id = "' . $in['form']['usuario_id'] . '"
+        ';
+        $this->q->exe();        
         if(isset($in['form']['lineales']))
         {
-            $this->q->fields = array();
-            $this->q->data = NULL;
-            $this->q->sql = '
-            DELETE FROM usu_usuario_lineal WHERE
-            usuario_id = "' . $in['form']['usuario_id'] . '"
-            ';
-            $this->q->exe();
             foreach($in['form']['lineales'] as $key => $row)
             {
                 $this->q->fields = array();
