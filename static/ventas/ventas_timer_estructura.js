@@ -1,5 +1,6 @@
 var timestamp_estructura = 0;
 
+
 function timer_estructura() {
     // console.log(timestamp_estructura);
     $.ajax({
@@ -9,7 +10,8 @@ function timer_estructura() {
         dataType:"html",
         success: function(data) {
             timestamp_tmp = data.trim();
-            if(timestamp_estructura != timestamp_tmp) {
+            if(timestamp_estructura != timestamp_tmp && timestamp_tmp != '-1') {
+                $('#venta_listado_timer').show();
                 timestamp_estructura = timestamp_tmp;
                 timer_estructura_reporte();
                 // console.log(timestamp_estructura);

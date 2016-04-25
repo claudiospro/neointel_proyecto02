@@ -79,4 +79,17 @@ input.error {
 .ui-autocomplete {
   z-index: 9999; }
 
+.timer-por-aprobar {
+  background-color: #bcbcbc;
+  color: white;
+  font-size: 1.8em;
+  padding: 8px 0;
+  text-align: center; }
+  .timer-por-aprobar span {
+    font-size: 0.7em; }
+  .timer-por-aprobar a {
+    color: #10702d;
+    font-size: 1.5em;
+    font-weight: bold; }
+
 /*# sourceMappingURL=estilo.css.map */

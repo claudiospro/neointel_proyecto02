@@ -79,6 +79,11 @@ $(document).ready(function() {
             venta_listado_modal_save_continue();
         }
     });
+    // ----------------------------
+    $('.timer-por-aprobar').on('click', 'a', function (event) {
+        venta_listado_timer_por_aprobar();
+    });
+    
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -92,7 +97,9 @@ $(document).ready(function() {
             ver = [5, 6, 12, 13, 14];
         } else if(enviar.perfil == 'Tramitacion' ||
                   enviar.perfil == 'Tramitacion-Carga' ||
-                  enviar.perfil == 'Tramitacion-Validacion') {
+                  enviar.perfil == 'Tramitacion-Validacion' ||
+                  enviar.perfil == 'Tramitacion-Validacion-Carga'
+                 ) {
             ver = [13, 14];
         } else if(enviar.perfil == 'Coordinador') {
             ver = [13];
@@ -345,6 +352,14 @@ $(document).ready(function() {
             './procesos/ajax/select/ventas_listado_estado_tramitacion.php',
             prefixId+'estado-tramitacion-tbl',
             enviar
+        );
+    }
+    // --------------------
+    function venta_listado_timer_por_aprobar() {
+        element_simple(
+            './procesos/ajax/click/ventas_listado_por_aprobar_modal.php',
+            prefixId+'modal_por_aprobar .ajax',
+            {}
         );
     }
 });

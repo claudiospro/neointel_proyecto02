@@ -14,8 +14,10 @@ $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 set_time_limit(0); //Establece el número de segundos que se permite la ejecución de un script.
 // print_r($_SESSION);
 $perfil = trim($_SESSION['perfiles']);
-if ($perfil == 'Supervisor' || $perfil == 'Asesor Comercial'  ) {
-        echo '-1';
-} else {
-    echo $venta->getTimerEstructura($in);
+if ($perfil == 'Supervisor' )
+{
+    echo $venta->getTimerPorAprobar($in);
+} else
+{
+    echo '-1';
 }

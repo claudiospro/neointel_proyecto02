@@ -661,7 +661,7 @@ class ModeloVenta {
         }
         return utf8_encode(trim($ou));
     }
-    // timer
+    // timer structura
     function getTimerEstructura($in) {
         $ou = '';
         $this->q->fields = array(
@@ -703,21 +703,106 @@ class ModeloVenta {
         $this->q->fields = array(
             'campania_id' => '',            
         );
-        $sql_lineas = '';
-        if ('' != trim($in['lineas'])) {
-            $sql_lineas = 'WHERE cl.lineal_id IN (' . $in['lineas'] . ')';
-        }
         $this->q->sql = '
                         SELECT DISTINCT cl.campania_id 
                         FROM campania_lineal cl
-                        JOIN lineal l ON l.id = cl.campania_id
-                        ' . $sql_lineas ;
+                        ';
+        if ('' != trim($in['lineas'])) {
+            $this->q->sql .= ' WHERE cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
         // print $this->q->sql .'<br>';
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
     }
+    // timer por_aprobar
+    function getTimerPorAprobar($in) {
+        $ou = '';
+        $this->q->fields = array(
+            'timestamp' => '',
+        );
+        $sql_lineas = '';
+        if ('' != trim($in['lineas'])) {
+            $sql_lineas = 'WHERE lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql = '
+                        SELECT info_update_fecha FROM venta 
+                        ' . $sql_lineas . '           
+                        ORDER BY info_update_fecha DESC LIMIT 1  
+                        ';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return strtotime($data[0]['timestamp']);
+    }
+    function getTimerRepoirtePorAprobar($campania, $lineas) {
+        $this->q->fields = array(
+            'cnt' => '',
+        );
+        $this->q->sql = '
+                        SELECT COUNT(v.id) 
+                        FROM venta_' . $campania . ' d
+                        JOIN venta v ON v.id = d.id 
+                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $lineas . ')
+                        ';
+        // echo $this->q->sql;
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        $ou['cnt'] = $data[0]['cnt'];
 
+        $this->q->fields = array(
+            'date' => '',
+        );
+        $this->q->sql = '
+                        SELECT v.info_create_fecha
+                        FROM venta_' . $campania . ' d
+                        JOIN venta v ON v.id = d.id 
+                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $lineas . ')
+                        ORDER BY 1 desc
+                        LIMIT 1
+                        ';
+        // echo $this->q->sql;
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        $ou['date'] = $data[0]['date'];
+        return $ou;
+    }
+    function getCampaniaNombreByLinealId($in) {
+        $this->q->fields = array(
+            'indice' => '',            
+        );
+        $this->q->sql = '
+                        SELECT DISTINCT c.indice
+                        FROM campania_lineal cl
+                        JOIN campania c ON c.id = cl.campania_id
+                        ';
+        if ('' != trim($in['lineas'])) {
+            $this->q->sql.= 'WHERE cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    function getVentasPorAprobar($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'fecha' => '',
+            'asesor_venta' => '',
+        );
+        $this->q->sql = '
+                        SELECT v.id, v.info_create_fecha, a.nombre
+                        FROM venta_' . $in['campania'] . ' d
+                        JOIN venta v ON v.id = d.id
+                        JOIN usu_usuario a ON a.id = v.asesor_venta_id
+                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $in['lineas'] . ')
+                        ORDER BY 1 desc
+                        ';
+        // echo $this->q->sql;
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    
     // ----------------------------- Editable-Inline
     function getCampaniaEditable($ventaId) {
         $this->q->fields = array(
