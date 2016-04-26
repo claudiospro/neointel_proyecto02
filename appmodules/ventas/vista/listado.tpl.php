@@ -99,10 +99,10 @@ include '../autentificacion/vista/menu.tpl.php';
   </div>
 </div>
 
-<div class="reveal full"
+<div class="reveal"
      id="<?php echo $prefix ?>modal_por_aprobar"
      data-reveal
-     style="background-color: rgb(242, 216, 177)"
+     style="background-color: rgb(242, 216, 177); height:550px"
 >
   <div class="row">
     <div class="large-12 columns">

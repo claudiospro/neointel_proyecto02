@@ -83,7 +83,12 @@ $(document).ready(function() {
     $('.timer-por-aprobar').on('click', 'a', function (event) {
         venta_listado_timer_por_aprobar();
     });
-    
+    $(prefixId+'modal_por_aprobar').on('click', '.edit', function (event) {
+        venta_listado_modal_edit($(this));
+    });
+    $(prefixId+'modal_por_aprobar').on('click', '.aprobar', function (event) {
+        venta_listado_timer_por_aprobar_save($(this));
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -361,5 +366,20 @@ $(document).ready(function() {
             prefixId+'modal_por_aprobar .ajax',
             {}
         );
+    }
+    function venta_listado_timer_por_aprobar_save(item) {
+        var enviar = {
+            'venta_id' : item.attr('venta_id'),
+            'campania' : item.attr('campania'),
+        }
+        none_simple(
+            './procesos/ajax/save/ventas_listado_por_aprobar_modal_click_save.php',
+            enviar
+        );              
+        item.parent().parent().css( 'background-color', '#FCCB6A' );
+        var myVar = setInterval( function(){
+	    item.parent().parent().remove();
+            clearInterval(myVar);
+	}, 1800);
     }
 });

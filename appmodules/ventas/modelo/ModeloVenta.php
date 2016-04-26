@@ -742,7 +742,7 @@ class ModeloVenta {
                         SELECT COUNT(v.id) 
                         FROM venta_' . $campania . ' d
                         JOIN venta v ON v.id = d.id 
-                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $lineas . ')
+                        WHERE d.aprobado_supervisor = 2 AND v.info_status = 1 AND v.lineal_id IN (' . $lineas . ')
                         ';
         // echo $this->q->sql;
         $this->q->data = NULL;
@@ -756,7 +756,7 @@ class ModeloVenta {
                         SELECT v.info_create_fecha
                         FROM venta_' . $campania . ' d
                         JOIN venta v ON v.id = d.id 
-                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $lineas . ')
+                        WHERE d.aprobado_supervisor = 2 AND v.lineal_id IN (' . $lineas . ')
                         ORDER BY 1 desc
                         LIMIT 1
                         ';
@@ -794,13 +794,32 @@ class ModeloVenta {
                         FROM venta_' . $in['campania'] . ' d
                         JOIN venta v ON v.id = d.id
                         JOIN usu_usuario a ON a.id = v.asesor_venta_id
-                        WHERE d.aprobado_supervisor != 2 AND v.lineal_id IN (' . $in['lineas'] . ')
+                        WHERE d.aprobado_supervisor = 2 AND v.info_status = 1 AND v.lineal_id IN (' . $in['lineas'] . ')
                         ORDER BY 1 desc
                         ';
         // echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
+    }
+    function setVentaPorAprobar($in) {
+        $this->q->fields = array();
+        $this->q->sql = '
+        UPDATE venta_' . $in['campania'] . ' SET aprobado_supervisor = 1
+        WHERE id = "' . $in['venta_id'] . '"
+        ';
+        echo $this->q->sql;        
+        $this->q->data = NULL;
+        $this->q->exe();
+        //
+        $this->q->sql = '
+        UPDATE venta SET info_update_fecha = "' . $in['fecha'] . '", info_update_user = "' . $in['usuario'] . '"
+        WHERE id = "' . $in['venta_id'] . '"
+        ';
+        echo $this->q->sql;        
+        $this->q->data = NULL;
+        $this->q->exe();
+
     }
     
     // ----------------------------- Editable-Inline
