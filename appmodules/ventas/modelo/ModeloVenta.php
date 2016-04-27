@@ -216,7 +216,7 @@ class ModeloVenta {
                     $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 ' . $orderby;
                 else
                     $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 ' . $orderby;
-                //echo $this->q->sql;        
+                // echo $this->q->sql . '<br>';        
                 $this->q->data = NULL;
                 $data = $this->q->exe();
                 foreach ($data as $row) {
@@ -694,11 +694,11 @@ class ModeloVenta {
                           "' . $lineas . '"
                         )
                         ';
-        echo $this->q->sql;
+        // echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data[0];
-    }
+    }// aqui
     function getCampaniaIdByLinealId($in) {
         $this->q->fields = array(
             'campania_id' => '',            

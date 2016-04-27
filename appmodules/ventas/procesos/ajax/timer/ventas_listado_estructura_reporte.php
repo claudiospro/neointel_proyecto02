@@ -4,29 +4,33 @@ include "../../../../../lib/mysql/conexion01.php";
 include "../../../../../lib/mysql/utilidades.php";
 include "../../../modelo/ModeloVenta.php";
 session_start();
-    
-if ('Asesor Comercial' != trim($_SESSION['perfiles'])) {
+$perfil = trim($_SESSION['perfiles']);
+if ($perfil != 'Asesor Comercial'
+    && $perfil != 'Supervisor')
+{
     $venta = new ModeloVenta();
     
     // -------------------------------------------------------- INPUT
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
     // --------------------------------------------------------- DATA
-    $campanias = $venta->getCampaniaIdByLinealId($in);
-
+    $campanias = $venta->getCampaniaNombreByLinealId($in);
+    // print_r($campanias);
     // ---------------------------------------------------------- OUT
+    $ou = array();
     if (isset($campanias)) {
-
         foreach($campanias as $row) {
-            $row = $venta->getTimerRepoirteEstructura($row['campania_id'], $in['lineas']);
+            $row = $venta->getTimerRepoirteEstructura($row['indice'], $in['lineas']);
+            foreach ($row as $k => $r) {
+                if (! isset($ou[$k]))
+                    $ou[$k] = $r;
+                else
+                    $ou[$k] += $r;
+            }
             // print_r($row);
-            echo '<tr>';
-            echo '<td>' . $row['campania'] . '</td>';
-            echo '<td class="text-center">' . $row['dato01'] . '</td>';
-            echo '<td class="text-center">' . $row['dato02'] . '</td>';
-            echo '<td class="text-center">' . $row['dato03'] . '</td>';
-            echo '</tr>';
         }
-
+        unset($ou['campania']);
+        // print_r($ou);
+        echo json_encode($ou);
     }
-
+    
 }

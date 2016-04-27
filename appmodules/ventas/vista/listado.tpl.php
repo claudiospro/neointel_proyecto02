@@ -28,9 +28,9 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.3.0"></script>
-<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.0"></script>
-<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.0"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.3.3"></script>
+<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.1"></script>
+<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.1"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>
 
@@ -45,47 +45,7 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <input type="hidden" id="<?php echo $prefix . 'perfiles' ?>" value="<?php echo trim($_SESSION['perfiles']) ?>">
 
-<div class="row">
-  <div class="large-12 columns">
-    <div id="<?php echo $prefix . 'timer' ?>" style="display:none;">
-      <div>
-        Usar Filtro:
-        <input class="no-margin" type="radio" id="filtro_tramitacion_0" name="filtro_tramitacion" checked><label for="filtro_tramitacion_0" style="display:inline">No</label>
-      </div>
-      <table width="100%" style="margin: 0">
-        <thead>
-          <tr>
-            <td>Campaña</td>
-            <td class="text-center">
-              <input class="no-margin" type="radio" id="filtro_tramitacion_1" name="filtro_tramitacion">
-              <label for="filtro_tramitacion_1">
-                Sin Validar , Sin Cargar
-                <br>En Tramitación
-              </label>
-              
-            </td>
-            <td class="text-center">
-              <input class="no-margin" type="radio" id="filtro_tramitacion_2" name="filtro_tramitacion">
-              <label for="filtro_tramitacion_2">
-                Validados, Sin Cargar
-                <br>En Tramitación
-              </label>
-            </td>
-            <td class="text-center">
-              <input class="no-margin" type="radio" id="filtro_tramitacion_3" name="filtro_tramitacion">
-              <label for="filtro_tramitacion_3">
-                Validados y Cargados
-                <br>En Tramitación
-              </label>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+<?php include './vista/timer-estructura.tpl.php' ?>
 
 <!-- --------------------------------------------------------------------------- -->
 

@@ -14,16 +14,6 @@ $(document).ready(function() {
         venta_listado_report($(this));
     });
     //
-    $('#filtro_tramitacion_1').on('click', function () {
-        venta_listado_filtro_tramitacion(1);
-    });
-    $('#filtro_tramitacion_2').on('click', function () {
-        venta_listado_filtro_tramitacion(2);
-    });
-    $('#filtro_tramitacion_3').on('click', function () {
-        venta_listado_filtro_tramitacion(3);
-    });
-    //
     $(prefixId+'tabla .search-input-text').on('keyup click', function (event) {
         var i = $(this).attr('data-column');
         var v = $(this).val();
@@ -122,7 +112,7 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 20,
+            "pageLength" : 10,
             "order"      : [ 8, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 15 ], 'bSortable': false },
@@ -175,12 +165,6 @@ $(document).ready(function() {
         } else {
             a('La Fecha INICIO no puede ser MAYOR a la de FIN');
         }
-    }
-    //
-    function venta_listado_filtro_tramitacion(num) {
-        // $(prefixId + 'estado-tbl').val(1).change();
-        $(prefixId + 'estado-tramitacion-tbl').val(num).change();
-        $(prefixId + 'eliminado-tbl').val('no').change();
     }
     //
     function venta_listado_modal_view(item) {
