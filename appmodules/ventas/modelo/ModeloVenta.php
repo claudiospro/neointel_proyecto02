@@ -715,6 +715,75 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;
     }
+    function getTimerEstructuraListado($in) {
+        $campanias = $this->getCampaniaNombreByLinealId($in);
+        $this->q->fields = array(
+            'id' => '',
+            'fecha' => '',
+            'cliente' => '',
+            'campania' => '',
+            'indice' => '',
+            'supervisor' => '',
+            'asesor_venta' => '',
+        );
+        $this->q->sql = '';        
+
+        if (isset($campanias)) {
+            $sql_proceso = '';
+            if ($in['proceso'] == '1') {
+                $sql_proceso .= ' d.aprobado_supervisor = 2 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
+            } elseif ($in['proceso'] == '2') {
+                $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
+            } elseif ($in['proceso'] == '3') {
+                $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 1 AND d.tramitacion_venta_cargar = 2 AND';
+
+            } 
+            foreach($campanias as $row) {
+                if ($this->q->sql != '')
+                    $this->q->sql .= ' UNION ';
+                $this->q->sql .= '
+                SELECT v.id, v.info_create_fecha, d.cliente_nombre, "' . $row['nombre'] . '", "' . $row['indice'] . '", s.nombre supervisor , a.nombre asesor
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id = d.id
+                JOIN usu_usuario a ON a.id = v.asesor_venta_id
+                JOIN usu_usuario s ON s.id = v.supervisor_id
+                WHERE ' . $sql_proceso . ' v.info_status = 1 AND v.lineal_id IN (' . $in['lineas'] . ')
+                ';
+            }
+        }
+        $this->q->sql = 'SELECT * FROM (' . $this->q->sql . ') as unido ORDER BY 2 ASC';
+        //Utilidades::printr($this->q->sql);
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    function setTimerEstructuraSave($in) {
+        $this->q->fields = array();
+        $sql_proceso='';
+        if ($in['proceso'] == '1') {
+            $sql_proceso='aprobado_supervisor = 1';
+        } elseif ($in['proceso'] == '2') {
+            $sql_proceso='tramitacion_venta_validar = 1';
+        } elseif ($in['proceso'] == '3') {
+            $sql_proceso='tramitacion_venta_cargar = 1';
+        } 
+        $this->q->sql = '
+        UPDATE venta_' . $in['campania'] . ' SET ' . $sql_proceso . '
+        WHERE id = "' . $in['venta_id'] . '"
+        ';
+        echo $this->q->sql;        
+        $this->q->data = NULL;
+        $this->q->exe();
+        //
+        $this->q->sql = '
+        UPDATE venta SET info_update_fecha = "' . $in['fecha'] . '", info_update_user = "' . $in['usuario'] . '"
+        WHERE id = "' . $in['venta_id'] . '"
+        ';
+        echo $this->q->sql;        
+        $this->q->data = NULL;
+        $this->q->exe();
+
+    }
     // timer por_aprobar
     function getTimerPorAprobar($in) {
         $ou = '';
@@ -768,10 +837,11 @@ class ModeloVenta {
     }
     function getCampaniaNombreByLinealId($in) {
         $this->q->fields = array(
-            'indice' => '',            
+            'indice' => '',
+            'nombre' => '',
         );
         $this->q->sql = '
-                        SELECT DISTINCT c.indice
+                        SELECT DISTINCT c.indice, c.nombre
                         FROM campania_lineal cl
                         JOIN campania c ON c.id = cl.campania_id
                         ';
@@ -795,7 +865,7 @@ class ModeloVenta {
                         JOIN venta v ON v.id = d.id
                         JOIN usu_usuario a ON a.id = v.asesor_venta_id
                         WHERE d.aprobado_supervisor = 2 AND v.info_status = 1 AND v.lineal_id IN (' . $in['lineas'] . ')
-                        ORDER BY 1 desc
+                        ORDER BY 1 asc
                         ';
         // echo $this->q->sql;
         $this->q->data = NULL;
@@ -808,7 +878,7 @@ class ModeloVenta {
         UPDATE venta_' . $in['campania'] . ' SET aprobado_supervisor = 1
         WHERE id = "' . $in['venta_id'] . '"
         ';
-        echo $this->q->sql;        
+        // echo $this->q->sql;        
         $this->q->data = NULL;
         $this->q->exe();
         //
@@ -816,7 +886,7 @@ class ModeloVenta {
         UPDATE venta SET info_update_fecha = "' . $in['fecha'] . '", info_update_user = "' . $in['usuario'] . '"
         WHERE id = "' . $in['venta_id'] . '"
         ';
-        echo $this->q->sql;        
+        // echo $this->q->sql;        
         $this->q->data = NULL;
         $this->q->exe();
 

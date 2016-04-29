@@ -2,8 +2,8 @@
  .timer-tramitacion {
      background-color: #acacac;
      color: white;
-     font-size: 40px;
-     padding: 15px 12px;
+     font-size: 30px;
+     padding: 10px;
  }
  .timer-tramitacion .div00 {
  }
@@ -35,16 +35,30 @@
   <div class="large-12 columns">
     <div class="timer-tramitacion" style="display:none">
       <div class="div00 div01">
-        <span class="item-1 active">Falta Aprobar</span>
-        <span class="item-2">Falta Validar</span>
-        <span class="item-3">Falta Cargar</span>
+        <span class="item-1 active">Falta Aprobar (Supervisor - Venta)</span>
+        <span class="item-2">Falta Validar (BackOffice - Venta)</span>
+        <span class="item-3">Falta Cargar (BackOffice - Venta)</span>
       </div>
       <div class="div00 div02">
-        <a item="1" class="item-1 active">0</a>
-        <a item="2" class="item-2">0</a>
-        <a item="3" class="item-3">0</a>
+        <a item="1" data-open="timer-tramitacion_modal" class="item-1 active">0</a>
+        <a item="2" data-open="timer-tramitacion_modal" class="item-2">0</a>
+        <a item="3" data-open="timer-tramitacion_modal" class="item-3">0</a>
       </div>
       <div style="clear:both"></div>
     </div>
   </div>
+</div>
+<div class="reveal full"
+     id="timer-tramitacion_modal"
+     style="background-color: rgb(242, 216, 177); height:550px"
+     data-reveal>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="ajax">
+      </div>      
+    </div>
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>

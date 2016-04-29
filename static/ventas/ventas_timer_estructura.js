@@ -42,8 +42,6 @@ function timer_estructura_reporte() {
 }
 
 $(document).ready(function() {
-
-    
     // --------------------------------------------------------------- LOAD
     timer_estructura();
 
@@ -56,5 +54,42 @@ $(document).ready(function() {
         $(".timer-tramitacion a").removeClass('active');
         $(this).addClass('active');
     });
+    $('.timer-tramitacion a').on('click', function (event) {
+        timer_estructura_modal($(this));
+    });
+    $('#timer-tramitacion_modal').on('click', '.aprobar', function (event) {
+        timer_estructura_modal_save($(this));
+        // venta_listado_timer_por_aprobar_save($(this));
+    });
+
     
+    // ---------------------------------------------------------- FUNCIONES
+    function timer_estructura_modal(item) {
+        var enviar = {
+            'proceso': item.attr('item'),
+        }
+        element_simple(
+            './procesos/ajax/click/ventas_listado_estructura_modal.php',
+            '#timer-tramitacion_modal .ajax',
+            enviar
+        );
+        // c(enviar);
+    }
+    function timer_estructura_modal_save(item) {
+        var enviar = {
+            'venta_id' : item.attr('venta_id'),
+            'campania' : item.attr('campania'),
+            'proceso'  : $('#timer-tramitacion_modal .field_proceso').val(),
+        }
+        // c(enviar);
+        none_simple(
+            './procesos/ajax/save/ventas_listado_estructura_modal_click_save.php',
+            enviar
+        );              
+        item.parent().parent().css( 'background-color', '#FCCB6A' );
+        var myVar = setInterval( function(){
+	    item.parent().parent().remove();
+            clearInterval(myVar);
+	}, 1800);        
+    }
 });

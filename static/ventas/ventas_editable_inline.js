@@ -52,10 +52,7 @@ $(document).ready(function() {
         } else if (datos.campo == 'estado_observacion') {
             datos.valor = item.prev().val();
             datos.label = datos.valor;
-        } else if (datos.campo == 'estado_tramitacion') {
-            datos.valor = item.prev().val();
-            datos.label = item.prev().children('option:selected').text();
-        }
+        } 
         // c(datos);     
 
         none_simple('./procesos/ajax/editable/ventas_listado_table_td_field_save.php', datos);

@@ -29,9 +29,9 @@ $prefix = 'venta_listado_';
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
 <script src="../../static/ventas/ventas_listado.js?v=1.3.3"></script>
-<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.1"></script>
-<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.1"></script>
-<script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.0"></script>
+<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.2"></script>
+<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.2"></script>
+<script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.1"></script>
 <?php $js = ob_get_clean() ?>
 
 
@@ -61,9 +61,8 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <div class="reveal"
      id="<?php echo $prefix ?>modal_por_aprobar"
-     data-reveal
      style="background-color: rgb(242, 216, 177); height:550px"
->
+     data-reveal>
   <div class="row">
     <div class="large-12 columns">
       <div class="ajax">
@@ -78,7 +77,7 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <!-- --------------------------------------------------------------------------- -->
 
-<?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial'): ?>
+<?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial' || trim($_SESSION['perfiles']) == 'Supervisor'): ?>
   <div class="row">
     <div class="large-1 columns">
       <a id="<?php echo $prefix ?>add"
@@ -151,24 +150,17 @@ include '../autentificacion/vista/menu.tpl.php';
         </select>
       </td>
       <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
-      <td>
-        <select id="<?php echo $prefix ?>estado-tramitacion-tbl"
-                class="no-margin search-input-select"
-                style="padding: 0px; width: 170px;"
-                data-column="7">          
-        </select>
-      </td>
+      <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="10"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
       <td>
         <select id="<?php echo $prefix ?>eliminado-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 70px;"
-                data-column="14">
+                data-column="13">
           <option value=""></option>          
           <option value="no">No</option>
           <option value="si">Si</option>
@@ -194,7 +186,6 @@ include '../autentificacion/vista/menu.tpl.php';
       <th>Estado</th>
       <th>Estado Real</th>
       <th>Observación</th>
-      <th>Estado Tramitación</th>
       <th>Fecha Creación</th>
       <th>Fecha Instalada</th>
       <th>Fecha Ultima</th>

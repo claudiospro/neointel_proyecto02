@@ -41,43 +41,41 @@ while( $row=mysqli_fetch_array($query) ) {
         $sql_ini.= ' UNION ';
     }
     $sql_ini.= "
-SELECT
-  d1.nombre campania_nombre
-, d2.nombre producto
-, d.cliente_nombre
-, d.cliente_documento
-, d3.nombre estado
-, d8.nombre estado_real
-, d.estado_observacion
-, d9.nombre estado_tramitacion
-, v.info_create_fecha fecha_creacion
-, d.fecha_instalada
-, v.info_update_fecha fecha_actualizacion
-, d4.nombre asesor_venta
-, d6.nombre supervisor
-, d7.nombre coordinador
-, v.info_status
---
-, v.id venta_id
-, v.campania
-, d.estado estado_id
-, d.estado_real estado_real_id
-, d.estado_tramitacion estado_tramitacion_id
-FROM venta v 
-JOIN  venta_".$row['indice']." d ON d.id=v.id
--- definiciones
-LEFT JOIN campania d1 ON d1.indice=v.campania
-LEFT JOIN venta_producto d2 ON d2.id=d.producto
-LEFT JOIN venta_estado d3 ON d3.id=d.estado
-LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
-LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
-LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
-LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
-LEFT JOIN venta_estado_tramitacion d9 ON d9.id=d.estado_tramitacion
-WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";
-    
+    SELECT
+      d1.nombre campania_nombre
+    , d2.nombre producto
+    , d.cliente_nombre
+    , d.cliente_documento
+    , d3.nombre estado
+    , d8.nombre estado_real
+    , d.estado_observacion
+    , v.info_create_fecha fecha_creacion
+    , d.fecha_instalada
+    , v.info_update_fecha fecha_actualizacion
+    , d4.nombre asesor_venta
+    , d6.nombre supervisor
+    , d7.nombre coordinador
+    , v.info_status
+    --
+    , v.id venta_id
+    , v.campania
+    , d.estado estado_id
+    , d.estado_real estado_real_id
+    , d.aprobado_supervisor
+    , d.tramitacion_venta_validar
+    , d.tramitacion_venta_cargar
+    FROM venta v 
+    JOIN  venta_".$row['indice']." d ON d.id=v.id
+    -- definiciones
+    LEFT JOIN campania d1 ON d1.indice=v.campania
+    LEFT JOIN venta_producto d2 ON d2.id=d.producto
+    LEFT JOIN venta_estado d3 ON d3.id=d.estado
+    LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
+    LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
+    LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
+    LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
+    WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";    
 }
-
 
 $sql_ini = "
 SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
@@ -124,38 +122,34 @@ if( !empty($requestData['columns'][4]['search']['value']) ) {
 if( !empty($requestData['columns'][5]['search']['value']) ) {
     $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
 }
-
 if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND estado_tramitacion_id = "' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][13]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
+    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
-if( !empty($requestData['columns'][14]['search']['value']) ) {
-    $bool = $requestData['columns'][14]['search']['value'];
+if( !empty($requestData['columns'][13]['search']['value']) ) {
+    $bool = $requestData['columns'][13]['search']['value'];
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
         $sql_filter.=' AND info_status  = "1"';
     }    
 }
-// 15 (acciones)
+// 14 (acciones)
 
 $sql.= $sql_filter;
 
@@ -193,15 +187,6 @@ $sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." ".$requestD
 $query=mysqli_query($conn, $sql) or die("03");
 
 // esto es para decir cuando no se puede $editar
-$editar['Admin']                        = array (0 => true , 1 => true , 2 => true , 3=> true );
-$editar['Gerencia']                     = array (0 => true , 1 => true , 2 => true , 3=> true );
-$editar['Coordinador']                  = array (0 => true , 1 => true , 2 => true , 3=> true );
-$editar['Tramitacion']                  = array (0 => true , 1 => true , 2 => true , 3=> true );
-$editar['Tramitacion-Validacion-Carga'] = array (0 => true , 1 => true , 2 => true , 3=> false);
-$editar['Tramitacion-Carga']            = array (0 => true , 1 => false, 2 => true , 3=> false);
-$editar['Tramitacion-Validacion']       = array (0 => true , 1 => true , 2 => false, 3=> false);
-$editar['Supervisor']                   = array (0 => true , 1 => true , 2 => false, 3=> false);
-$editar['Asesor Comercial']             = array (0 => false, 1 => false, 2 => false, 3=> false);
 
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {
@@ -224,12 +209,6 @@ while( $row=mysqli_fetch_array($query) ) {
                        <div style="display:none"></div>
                      </div>
                     ';
-    $nestedData[] = '<div class="editable-inline" class="">
-                       <a></a>
-                       <span venta_id="' . $row['venta_id'] . '" campo="estado_tramitacion">' . utf8_encode($row['estado_tramitacion']) . '</span>
-                       <div style="display:none"></div>
-                     </div>
-                    ';
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion']);
@@ -237,17 +216,26 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
-    $acciones = '';    
-    if ($editar[ $perfiles ][ $row['estado_tramitacion_id'] ]) { // aca hay que cambiar por el estado de tramitacion
-        $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
-    }
+
+    $valido = validar_permisos($row);
+    $acciones = '';
+    if ($valido) $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
-    if ($editar[ $perfiles ][ $row['estado_tramitacion_id'] ]) {
-        $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
-    }
+    if ($valido) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
 
     $data[] = $nestedData;
+}
+
+function validar_permisos($row) {
+    $ou = true;
+    $perfil = trim($_SESSION['perfiles']);
+    
+    if ($perfil == 'Asesor Comercial')
+        $ou = false;
+    if ($perfil == 'Supervisor' && $row['aprobado_supervisor'] == '1')
+        $ou = false;
+    return $ou;
 }
 
 $json_data = array(

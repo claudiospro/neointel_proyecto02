@@ -2,8 +2,7 @@ $(document).ready(function() {
     var prefixId = '#venta_item_';
     var prefixClass = '.venta_item_';
     var dataTable_listado = '';
-    // --------------------------------------------------------------- LOAD
-
+    
     // ------------------------------------------------------------ EVENTOS
     $('.venta_item_autocomplete').focus(function() {
         venta_item_autocomplete($(this));
@@ -25,13 +24,50 @@ $(document).ready(function() {
             $(this).addClass('error');
         }
     });
-
+    //
     $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
         venta_item_div($(this));
         e.preventDefault();
     });
     $(".copy-link-wrap").click(function() {
         // venta_item_zclip($(this));
+    });
+    //
+    var timer_proceso_tramitacion = {
+        'a': $('#field_aprobado_supervisor').val(),
+        'b': $('#field_tramitacion_venta_validar').val(),
+        'c': $('#field_tramitacion_venta_cargar').val(),
+    }
+    // c(timer_proceso_tramitacion);
+    $('#field_aprobado_supervisor').on('change', function (event) {
+        var a = $(this);        
+        var b = $('#field_tramitacion_venta_validar');
+        var c = $('#field_tramitacion_venta_cargar');
+        if (b.val() != '2' || b.val() != '2'){
+            a.val(timer_proceso_tramitacion['a']);
+        } else {
+            timer_proceso_tramitacion['a'] = a.val();
+        }
+    });
+    $('#field_tramitacion_venta_validar').on('change', function (e) {
+        var a = $('#field_aprobado_supervisor');
+        var b = $(this);
+        var c = $('#field_tramitacion_venta_cargar');
+        if (a.val() != '1' || c.val() != '2'){
+            b.val(timer_proceso_tramitacion['b']);
+        } else {
+            timer_proceso_tramitacion['b'] = b.val();
+        }
+    });
+    $('#field_tramitacion_venta_cargar').on('change', function (e) {
+        var a = $('#field_aprobado_supervisor');
+        var b = $('#field_tramitacion_venta_validar');
+        var c = $(this);
+        if (a.val() != '1' || b.val() != '1'){
+            c.val(timer_proceso_tramitacion['c']);
+        } else {
+            timer_proceso_tramitacion['c'] = c.val();
+        }
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {
@@ -71,4 +107,5 @@ $(document).ready(function() {
             }
         });
     }
+
 });

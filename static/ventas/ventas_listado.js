@@ -79,6 +79,9 @@ $(document).ready(function() {
     $(prefixId+'modal_por_aprobar').on('click', '.aprobar', function (event) {
         venta_listado_timer_por_aprobar_save($(this));
     });
+    $('#timer-tramitacion_modal').on('click', '.edit', function (event) {
+        venta_listado_modal_edit($(this));
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -87,17 +90,17 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 6, 7, 11, 13, 14];
+            ver = [5, 6, 10, 12, 13];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [5, 6, 12, 13, 14];
+            ver = [5, 6, 11, 12, 13];
         } else if(enviar.perfil == 'Tramitacion' ||
                   enviar.perfil == 'Tramitacion-Carga' ||
                   enviar.perfil == 'Tramitacion-Validacion' ||
                   enviar.perfil == 'Tramitacion-Validacion-Carga'
                  ) {
-            ver = [13, 14];
+            ver = [12, 13];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [13];
+            ver = [12];
         } else if(enviar.perfil == 'Gerencia') {
             ver = [];
         }
@@ -113,9 +116,9 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 10,
-            "order"      : [ 8, 'desc' ],
+            "order"      : [ 7, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 15 ], 'bSortable': false },
+                { 'aTargets': [ 14 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 
@@ -335,11 +338,6 @@ $(document).ready(function() {
         element_simple(
             './procesos/ajax/select/ventas_listado_estado_real.php',
             prefixId+'estado-real-tbl',
-            enviar
-        );
-        element_simple(
-            './procesos/ajax/select/ventas_listado_estado_tramitacion.php',
-            prefixId+'estado-tramitacion-tbl',
             enviar
         );
     }
