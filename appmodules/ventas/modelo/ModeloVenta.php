@@ -736,8 +736,12 @@ class ModeloVenta {
                 $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
             } elseif ($in['proceso'] == '3') {
                 $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 1 AND d.tramitacion_venta_cargar = 2 AND';
-
-            } 
+            }
+            $sql_lineas = '';
+            if ('' != trim($in['lineas'])) {
+                $sql_lineas = 'AND v.lineal_id IN (' . $in['lineas'] . ')'; 
+            }
+            
             foreach($campanias as $row) {
                 if ($this->q->sql != '')
                     $this->q->sql .= ' UNION ';
@@ -747,7 +751,7 @@ class ModeloVenta {
                 JOIN venta v ON v.id = d.id
                 JOIN usu_usuario a ON a.id = v.asesor_venta_id
                 JOIN usu_usuario s ON s.id = v.supervisor_id
-                WHERE ' . $sql_proceso . ' v.info_status = 1 AND v.lineal_id IN (' . $in['lineas'] . ')
+                WHERE ' . $sql_proceso . ' v.info_status = 1 ' . $sql_lineas . '
                 ';
             }
         }
