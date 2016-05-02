@@ -67,13 +67,15 @@ $(document).ready(function() {
     function timer_estructura_modal(item) {
         var enviar = {
             'proceso': item.attr('item'),
+            'title': $('.timer-tramitacion span.item-'+item.attr('item')).html(), 
         }
+        // c(enviar);
         element_simple(
             './procesos/ajax/click/ventas_listado_estructura_modal.php',
             '#timer-tramitacion_modal .ajax',
             enviar
         );
-        // c(enviar);
+        
     }
     function timer_estructura_modal_save(item) {
         var enviar = {

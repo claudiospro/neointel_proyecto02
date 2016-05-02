@@ -1,4 +1,3 @@
-
 <?php
 include "../../../../../lib/mysql/dbconnector.php";
 include "../../../../../lib/mysql/conexion01.php";
@@ -9,19 +8,12 @@ $venta = new ModeloVenta();
 // -------------------------------------------------------- INPUT
 $in['lineas']  = Utilidades::clear_input($_SESSION['lineas']);
 $in['proceso'] = Utilidades::clear_input($_POST['proceso']);
+$in['title'] = Utilidades::clear_input($_POST['title']);
 
 // --------------------------------------------------------- DATA
 
 $ou = $venta->getTimerEstructuraListado($in);
-echo '<center><h2>';
-if ($in['proceso'] == '1') {
-    echo '<u>Falta Aprobar</u> (Supervisor - Venta)';
-} elseif ($in['proceso'] == '2') {
-    echo '<u>Falta Validar</u> (BackOffice - Venta) ';
-} elseif ($in['proceso'] == '3') {
-    echo '<u>Falta Cargar</u> (BackOffice - Venta)';
-} 
-echo '</h2></center>';
+echo '<center><h2>' . html_entity_decode($in['title']) . '</h2></center>';
 
 echo '<input type="hidden" class="field_proceso" value="' . $in['proceso'] . '">';
 echo '<table>';

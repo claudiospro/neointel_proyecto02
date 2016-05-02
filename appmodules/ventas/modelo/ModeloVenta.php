@@ -736,6 +736,8 @@ class ModeloVenta {
                 $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
             } elseif ($in['proceso'] == '3') {
                 $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 1 AND d.tramitacion_venta_cargar = 2 AND';
+            } else {
+                $sql_proceso .= ' d.aprobado_supervisor = 0 AND d.tramitacion_venta_validar = 0 AND d.tramitacion_venta_cargar = 0 AND';
             }
             $sql_lineas = '';
             if ('' != trim($in['lineas'])) {
