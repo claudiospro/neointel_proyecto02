@@ -687,6 +687,9 @@ class ModeloVenta {
             'dato01' => '',
             'dato02' => '',
             'dato03' => '',
+            'dato04' => '',
+            'dato05' => '',
+            'dato06' => '',            
         );
         $this->q->sql = '
                         CALL ventas_timer_reporte_estructura(
@@ -731,13 +734,68 @@ class ModeloVenta {
         if (isset($campanias)) {
             $sql_proceso = '';
             if ($in['proceso'] == '1') {
-                $sql_proceso .= ' d.aprobado_supervisor = 2 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
+                $sql_proceso .= '    d.aprobado_supervisor = 2 
+                                 AND d.tramitacion_venta_validar = 2 
+                                 AND d.tramitacion_venta_cargar = 2
+                                 AND d.tramitacion_postventa_validar = 2
+                                 AND d.tramitacion_postventa_citar = 2
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
             } elseif ($in['proceso'] == '2') {
-                $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 2 AND d.tramitacion_venta_cargar = 2 AND';
+                $sql_proceso .= '    d.aprobado_supervisor = 1 
+                                 AND d.tramitacion_venta_validar = 2 
+                                 AND d.tramitacion_venta_cargar = 2
+                                 AND d.tramitacion_postventa_validar = 2
+                                 AND d.tramitacion_postventa_citar = 2
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
             } elseif ($in['proceso'] == '3') {
-                $sql_proceso .= ' d.aprobado_supervisor = 1 AND d.tramitacion_venta_validar = 1 AND d.tramitacion_venta_cargar = 2 AND';
+                $sql_proceso .= '    d.aprobado_supervisor = 1 
+                                 AND d.tramitacion_venta_validar = 1 
+                                 AND d.tramitacion_venta_cargar = 2 
+                                 AND d.tramitacion_postventa_validar = 2
+                                 AND d.tramitacion_postventa_citar = 2
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
+            } elseif ($in['proceso'] == '4') {
+                $sql_proceso .= '    d.aprobado_supervisor = 1
+                                 AND d.tramitacion_venta_validar = 1
+                                 AND d.tramitacion_venta_cargar = 1
+                                 AND d.tramitacion_postventa_validar = 2
+                                 AND d.tramitacion_postventa_citar = 2
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
+            } elseif ($in['proceso'] == '5') {
+                $sql_proceso .= '    d.aprobado_supervisor = 1 
+                                 AND d.tramitacion_venta_validar = 1 
+                                 AND d.tramitacion_venta_cargar = 1 
+                                 AND d.tramitacion_postventa_validar = 1
+                                 AND d.tramitacion_postventa_citar = 2
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
+            } elseif ($in['proceso'] == '6') {
+                $sql_proceso .= '    d.aprobado_supervisor = 1 
+                                 AND d.tramitacion_venta_validar = 1 
+                                 AND d.tramitacion_venta_cargar = 1 
+                                 AND d.tramitacion_postventa_validar = 1
+                                 AND d.tramitacion_postventa_citar = 1
+                                 AND d.tramitacion_postventa_intalar = 2
+                                 AND
+                                ';
             } else {
-                $sql_proceso .= ' d.aprobado_supervisor = 0 AND d.tramitacion_venta_validar = 0 AND d.tramitacion_venta_cargar = 0 AND';
+                $sql_proceso .= '    d.aprobado_supervisor = 1 
+                                 AND d.tramitacion_venta_validar = 1 
+                                 AND d.tramitacion_venta_cargar = 1 
+                                 AND d.tramitacion_postventa_validar = 1
+                                 AND d.tramitacion_postventa_citar = 1
+                                 AND d.tramitacion_postventa_intalar = 1
+                                 AND
+                                ';
             }
             $sql_lineas = '';
             if ('' != trim($in['lineas'])) {
@@ -758,13 +816,14 @@ class ModeloVenta {
             }
         }
         $this->q->sql = 'SELECT * FROM (' . $this->q->sql . ') as unido ORDER BY 2 ASC';
-        //Utilidades::printr($this->q->sql);
+        // Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
     }
     function setTimerEstructuraSave($in) {
         $this->q->fields = array();
+        $procesar = true;
         $sql_proceso='';
         if ($in['proceso'] == '1') {
             $sql_proceso='aprobado_supervisor = 1';
@@ -772,23 +831,33 @@ class ModeloVenta {
             $sql_proceso='tramitacion_venta_validar = 1';
         } elseif ($in['proceso'] == '3') {
             $sql_proceso='tramitacion_venta_cargar = 1';
-        } 
-        $this->q->sql = '
-        UPDATE venta_' . $in['campania'] . ' SET ' . $sql_proceso . '
-        WHERE id = "' . $in['venta_id'] . '"
-        ';
-        echo $this->q->sql;        
-        $this->q->data = NULL;
-        $this->q->exe();
-        //
-        $this->q->sql = '
-        UPDATE venta SET info_update_fecha = "' . $in['fecha'] . '", info_update_user = "' . $in['usuario'] . '"
-        WHERE id = "' . $in['venta_id'] . '"
-        ';
-        echo $this->q->sql;        
-        $this->q->data = NULL;
-        $this->q->exe();
-
+        } elseif ($in['proceso'] == '4') {
+            $sql_proceso='tramitacion_postventa_validar = 1';
+        } elseif ($in['proceso'] == '5') {
+            $sql_proceso='tramitacion_postventa_citar = 1';
+        } elseif ($in['proceso'] == '6') {
+            $sql_proceso='tramitacion_postventa_intalar = 1';
+        } else {
+            $procesar = false;
+        }
+        if ($procesar)
+        {
+            $this->q->sql = '
+            UPDATE venta_' . $in['campania'] . ' SET ' . $sql_proceso . '
+            WHERE id = "' . $in['venta_id'] . '"
+            ';
+            // echo $this->q->sql;        
+            $this->q->data = NULL;
+            $this->q->exe();
+            //
+            $this->q->sql = '
+            UPDATE venta SET info_update_fecha = "' . $in['fecha'] . '", info_update_user = "' . $in['usuario'] . '"
+            WHERE id = "' . $in['venta_id'] . '"
+            ';
+            // echo $this->q->sql;        
+            $this->q->data = NULL;
+            $this->q->exe();
+        }
     }
     // timer por_aprobar
     function getTimerPorAprobar($in) {

@@ -16,10 +16,11 @@ $ou = $venta->getTimerEstructuraListado($in);
 echo '<center><h2>' . html_entity_decode($in['title']) . '</h2></center>';
 
 echo '<input type="hidden" class="field_proceso" value="' . $in['proceso'] . '">';
-echo '<table>';
+echo '<table width="100%">';
 echo '<thead>';
 echo '<tr>';
-echo '<th>Fecha de Creación</th>
+echo '<th>Nro</th>
+      <th>Fecha de Creación</th>
       <th>Cliente</th>
       <th>Campaña</th>
       <th>Supervisor</th>
@@ -28,10 +29,11 @@ echo '<th>Fecha de Creación</th>
      ';
 echo '</tr>';
 echo '</thead>';
-
+$i = 1;
 if (isset($ou)) {
     foreach($ou as $r) {
         echo '<tr>';
+        echo '<td>' . $i++ . '</td>';
         echo '<td><center>' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($r['fecha'])  . '</center></td>';
         echo '<td>' . utf8_encode($r['cliente']) . '</td>';
         echo '<td>' . utf8_encode($r['campania']) . '</td>';

@@ -29,12 +29,14 @@ function timer_estructura_reporte() {
         dataType:"html",
         success: function(data) {
             var jsn = jQuery.parseJSON( data );
-
             if (jQuery.isPlainObject(jsn)) {
                 $('.timer-tramitacion').show();
                 $('.timer-tramitacion a.item-1').html(jsn.dato01);
                 $('.timer-tramitacion a.item-2').html(jsn.dato02);
                 $('.timer-tramitacion a.item-3').html(jsn.dato03);
+                $('.timer-tramitacion a.item-4').html(jsn.dato04);
+                $('.timer-tramitacion a.item-5').html(jsn.dato05);
+                $('.timer-tramitacion a.item-6').html(jsn.dato06);
                 // c(jsn);
             }
         }

@@ -37,36 +37,123 @@ $(document).ready(function() {
         'a': $('#field_aprobado_supervisor').val(),
         'b': $('#field_tramitacion_venta_validar').val(),
         'c': $('#field_tramitacion_venta_cargar').val(),
+        'd': $('#field_tramitacion_postventa_validar').val(),
+        'e': $('#field_tramitacion_postventa_citar').val(),
+        'f': $('#field_tramitacion_postventa_intalar').val(),        
     }
     // c(timer_proceso_tramitacion);
     $('#field_aprobado_supervisor').on('change', function (event) {
-        var a = $(this);        
+        var a = $(this);
         var b = $('#field_tramitacion_venta_validar');
         var c = $('#field_tramitacion_venta_cargar');
-        if (b.val() != '2' || b.val() != '2'){
+        var d = $('#field_tramitacion_postventa_validar');
+        var e = $('#field_tramitacion_postventa_citar');
+        var f = $('#field_tramitacion_postventa_intalar');
+        if (b.val() != '2'
+            || c.val() != '2'
+            || d.val() != '2'
+            || e.val() != '2'
+            || f.val() != '2'
+           )
+        {
             a.val(timer_proceso_tramitacion['a']);
         } else {
             timer_proceso_tramitacion['a'] = a.val();
         }
     });
-    $('#field_tramitacion_venta_validar').on('change', function (e) {
+    $('#field_tramitacion_venta_validar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
         var b = $(this);
         var c = $('#field_tramitacion_venta_cargar');
-        if (a.val() != '1' || c.val() != '2'){
+        var d = $('#field_tramitacion_postventa_validar');
+        var e = $('#field_tramitacion_postventa_citar');
+        var f = $('#field_tramitacion_postventa_intalar');
+        if (a.val() != '1'
+            || c.val() != '2'
+            || d.val() != '2'
+            || e.val() != '2'
+            || f.val() != '2'
+           )
+        {
             b.val(timer_proceso_tramitacion['b']);
         } else {
             timer_proceso_tramitacion['b'] = b.val();
         }
     });
-    $('#field_tramitacion_venta_cargar').on('change', function (e) {
+    $('#field_tramitacion_venta_cargar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
         var b = $('#field_tramitacion_venta_validar');
         var c = $(this);
-        if (a.val() != '1' || b.val() != '1'){
+        var d = $('#field_tramitacion_postventa_validar');
+        var e = $('#field_tramitacion_postventa_citar');
+        var f = $('#field_tramitacion_postventa_intalar');
+        if (a.val() != '1'
+            || b.val() != '1'
+            || d.val() != '2'
+            || e.val() != '2'
+            || f.val() != '2'
+           )
+        {
             c.val(timer_proceso_tramitacion['c']);
         } else {
             timer_proceso_tramitacion['c'] = c.val();
+        }
+    });
+    $('#field_tramitacion_postventa_validar').on('change', function (event) {
+        var a = $('#field_aprobado_supervisor');
+        var b = $('#field_tramitacion_venta_validar');
+        var c = $('#field_tramitacion_venta_cargar');
+        var d = $(this);
+        var e = $('#field_tramitacion_postventa_citar');
+        var f = $('#field_tramitacion_postventa_intalar');
+        if (a.val() != '1'
+            || b.val() != '1'
+            || c.val() != '1'
+            || e.val() != '2'
+            || f.val() != '2'
+           )
+        {
+            d.val(timer_proceso_tramitacion['d']);
+        } else {
+            timer_proceso_tramitacion['d'] = d.val();
+        }
+    });
+    $('#field_tramitacion_postventa_citar').on('change', function (event) {
+        var a = $('#field_aprobado_supervisor');
+        var b = $('#field_tramitacion_venta_validar');
+        var c = $('#field_tramitacion_venta_cargar');
+        var d = $('#field_tramitacion_postventa_validar');
+        var e = $(this);
+        var f = $('#field_tramitacion_postventa_intalar');
+        if (a.val() != '1'
+            || b.val() != '1'
+            || c.val() != '1'
+            || d.val() != '1'
+            || f.val() != '2'
+           )
+        {
+            e.val(timer_proceso_tramitacion['e']);
+        } else {
+            timer_proceso_tramitacion['e'] = e.val();
+        }
+    });
+    $('#field_tramitacion_postventa_intalar').on('change', function (event) {
+        var a = $('#field_aprobado_supervisor');
+        var b = $('#field_tramitacion_venta_validar');
+        var c = $('#field_tramitacion_venta_cargar');
+        var d = $('#field_tramitacion_postventa_validar');
+        var e = $('#field_tramitacion_postventa_citar');
+        var f = $(this);
+        if (a.val() != '1'
+            || b.val() != '1'
+            || c.val() != '1'
+            || d.val() != '1'
+            || e.val() != '1'
+           )
+        {
+            f.val(timer_proceso_tramitacion['f']);
+        } else {
+            timer_proceso_tramitacion['f'] = f.val();
         }
     });
     // ---------------------------------------------------------- FUNCIONES

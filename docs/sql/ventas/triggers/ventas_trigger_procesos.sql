@@ -21,7 +21,26 @@ BEGIN
       WHERE id = NEW.id
       ;
    END IF
-   ;   
+   ;
+   -- ------------------------------- postVenta
+   IF NEW.tramitacion_postventa_validar <> OLD.tramitacion_postventa_validar THEN
+      UPDATE venta SET proceso_validar_externo= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
+   IF NEW.tramitacion_postventa_citar <> OLD.tramitacion_postventa_citar THEN
+      UPDATE venta SET proceso_cita= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
+   IF NEW.tramitacion_postventa_intalar <> OLD.tramitacion_postventa_intalar THEN
+      UPDATE venta SET proceso_instalacion= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
 END
 $$
 
@@ -47,6 +66,25 @@ BEGIN
       WHERE id = NEW.id
       ;
    END IF
-   ;   
+   ;
+   -- ------------------------------- postVenta
+   IF NEW.tramitacion_postventa_validar <> OLD.tramitacion_postventa_validar THEN
+      UPDATE venta SET proceso_validar_externo= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
+   IF NEW.tramitacion_postventa_citar <> OLD.tramitacion_postventa_citar THEN
+      UPDATE venta SET proceso_cita= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
+   IF NEW.tramitacion_postventa_intalar <> OLD.tramitacion_postventa_intalar THEN
+      UPDATE venta SET proceso_instalacion= NOW()
+      WHERE id = NEW.id
+      ;
+   END IF
+   ;
 END
 $$
