@@ -217,24 +217,29 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
 
-    $valido = validar_permisos($row);
     $acciones = '';
-    if ($valido) $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
+    if (validar_permisos('edit' , $row)) $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
-    if ($valido) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
+    if (validar_permisos('tran', $row)) $acciones.= '<a class="button tiny view no-margin warning " venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div3" title="Trasparencia" ><i class="fi-magnifying-glass medium"></i></a>';
+    if (validar_permisos('dele', $row)) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
 
     $data[] = $nestedData;
 }
 
-function validar_permisos($row) {
+function validar_permisos($accion, $row) {
     $ou = true;
     $perfil = trim($_SESSION['perfiles']);
-    
-    if ($perfil == 'Asesor Comercial')
-        $ou = false;
-    if ($perfil == 'Supervisor' && $row['aprobado_supervisor'] == '1')
-        $ou = false;
+    if ($accion == 'edit' || $accion == 'dele')
+    {
+        if ($perfil == 'Asesor Comercial') $ou = false;
+        if ($perfil == 'Supervisor' && $row['aprobado_supervisor'] == '1') $ou = false;
+        if ($perfil == 'Gerencia') $ou = false;
+    }
+    if ($accion == 'tran')
+    {
+        if ($perfil != 'Gerencia' && $perfil != 'Admin' ) $ou = false;
+    }
     return $ou;
 }
 

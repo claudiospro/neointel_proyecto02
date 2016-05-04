@@ -34,7 +34,7 @@ class ModeloUsuario {
         if ($in['perfil'] == 'Administracion') {
             $this->q->sql .= 'AND id NOT IN (1, 2, 3, 6, 7, 8, 9)';
         } elseif ($in['perfil'] == 'Coordinador') {
-            $this->q->sql .= 'AND id NOT IN (1, 2, 6, 10)';
+            $this->q->sql .= 'AND id NOT IN (1, 2, 10)';
         } elseif ($in['perfil'] == 'Gerencia') {
             $this->q->sql .= 'AND id NOT IN (1)';
         } elseif ($in['perfil'] == 'Admin') {
