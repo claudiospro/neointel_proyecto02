@@ -115,7 +115,7 @@ $(document).ready(function() {
             // "scrollY": false,
             // "scrollX": true,
             
-            "pageLength" : 10,
+            "pageLength" : 15,
             "order"      : [ 7, 'desc' ],
             "aoColumnDefs": [
                 { 'aTargets': [ 14 ], 'bSortable': false },

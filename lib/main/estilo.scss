@@ -30,11 +30,16 @@
 select.active {
     @include activado();
 }
+
+#venta_listado_tabla td {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+
 tbody td {
     position: relative;
     font-size: 0.8em;
-    padding-bottom: 0;
-    padding-top: 0;
     .item-estado, .item-estado-real {
         padding: 6px 3px;
     }
@@ -67,14 +72,14 @@ tbody td {
         color: #001560;
     }
     .item-estado-real-5 {
-        background-color: #ffc02f;
-        color: #985821;
+        background-color: #ff9d9d;
+        color: #600000;
     }
     .item-estado-real-6 {
-        background-color: #3add53;
-        color: #00601c
+        background-color: #76a2ff;
+        color: #1e40b7;
     }
-    .item-estado-real-7, .item-estado-real-11 {
+    .item-estado-real-7 {
         background-color: #ffe78b;
         color: #605300;
     }
@@ -90,7 +95,20 @@ tbody td {
         background-color: #3add53;
         color: #00601c
     }
-    
+    .item-estado-real-12,
+    .item-estado-real-13,
+    .item-estado-real-14,
+    .item-estado-real-15,
+    .item-estado-real-16,
+    .item-estado-real-17
+    {
+        background-color: #ff9d9d;
+        color: #600000;
+    }
+    .item-estado-real-18 {
+        background-color: #76a2ff;
+        color: #1e40b7;
+    }    
 }
 thead input, thead select {
     font-size: 0.8em !important;
