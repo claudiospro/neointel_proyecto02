@@ -19,6 +19,8 @@
 .size-72 { font-size: 72px; }
 
 // --------------------------- report
+
+
 #venta_listado_timer table td {
     padding: 0;
 }
@@ -30,6 +32,65 @@ select.active {
 }
 tbody td {
     position: relative;
+    font-size: 0.8em;
+    padding-bottom: 0;
+    padding-top: 0;
+    .item-estado, .item-estado-real {
+        padding: 6px 3px;
+    }
+    .item-estado-1 {
+        background-color: #f9ff9d;
+        color: #5a6000;
+    }
+    .item-estado-2 {
+        background-color: #3ADD53;
+        color: #00601C;
+    }
+    .item-estado-3 {
+        background-color: #ff9d9d;
+        color: #600000;
+    }
+    .item-estado-real-1 {
+        background-color: #C9EE70;
+        color: #5a6000;
+    }
+    .item-estado-real-2 {
+        background-color: #f9ff9d;
+        color: #5a6000;
+    }
+    .item-estado-real-3 {
+        background-color: #3ADD53;
+        color: #00601C;
+    }
+    .item-estado-real-4 {
+        background-color: #57c5f8;
+        color: #001560;
+    }
+    .item-estado-real-5 {
+        background-color: #ffc02f;
+        color: #985821;
+    }
+    .item-estado-real-6 {
+        background-color: #3add53;
+        color: #00601c
+    }
+    .item-estado-real-7, .item-estado-real-11 {
+        background-color: #ffe78b;
+        color: #605300;
+    }
+    .item-estado-real-8 {
+        background-color: #ff9d9d;
+        color: #600000;
+    }
+    .item-estado-real-9 {
+        background-color: #cdcdcd;
+        color: #696c6a;
+    }
+    .item-estado-real-10 {
+        background-color: #3add53;
+        color: #00601c
+    }
+    
 }
 thead input, thead select {
     font-size: 0.8em !important;

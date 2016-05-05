@@ -41,7 +41,51 @@ select.active {
   background-color: #D3FFE4; }
 
 tbody td {
-  position: relative; }
+  position: relative;
+  font-size: 0.8em;
+  padding-bottom: 0;
+  padding-top: 0; }
+  tbody td .item-estado, tbody td .item-estado-real {
+    padding: 6px 3px; }
+  tbody td .item-estado-1 {
+    background-color: #f9ff9d;
+    color: #5a6000; }
+  tbody td .item-estado-2 {
+    background-color: #3ADD53;
+    color: #00601C; }
+  tbody td .item-estado-3 {
+    background-color: #ff9d9d;
+    color: #600000; }
+  tbody td .item-estado-real-1 {
+    background-color: #C9EE70;
+    color: #5a6000; }
+  tbody td .item-estado-real-2 {
+    background-color: #f9ff9d;
+    color: #5a6000; }
+  tbody td .item-estado-real-3 {
+    background-color: #3ADD53;
+    color: #00601C; }
+  tbody td .item-estado-real-4 {
+    background-color: #57c5f8;
+    color: #001560; }
+  tbody td .item-estado-real-5 {
+    background-color: #ffc02f;
+    color: #985821; }
+  tbody td .item-estado-real-6 {
+    background-color: #3add53;
+    color: #00601c; }
+  tbody td .item-estado-real-7, tbody td .item-estado-real-11 {
+    background-color: #ffe78b;
+    color: #605300; }
+  tbody td .item-estado-real-8 {
+    background-color: #ff9d9d;
+    color: #600000; }
+  tbody td .item-estado-real-9 {
+    background-color: #cdcdcd;
+    color: #696c6a; }
+  tbody td .item-estado-real-10 {
+    background-color: #3add53;
+    color: #00601c; }
 
 thead input, thead select {
   font-size: 0.8em !important;

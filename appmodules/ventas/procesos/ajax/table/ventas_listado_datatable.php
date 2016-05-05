@@ -196,10 +196,10 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['cliente_documento']);
-    $nestedData[] = utf8_encode($row['estado']);
+    $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
                        <a></a>
-                       <span venta_id="' . $row['venta_id'] . '" campo="estado_real">' . utf8_encode($row['estado_real']) . '</span>
+                       <span venta_id="' . $row['venta_id'] . '" campo="estado_real" class="item-estado-real item-estado-real-' . $row['estado_real_id'] . '">' . utf8_encode($row['estado_real']) . '</span>
                        <div style="display:none"></div>
                      </div>
                     ';

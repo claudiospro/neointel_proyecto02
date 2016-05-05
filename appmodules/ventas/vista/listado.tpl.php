@@ -180,18 +180,18 @@ include '../autentificacion/vista/menu.tpl.php';
     </tr>
     <tr>
       <th>Campaña</th>
-      <th>Producto</th>      
-      <th>Cliente</th>
+      <th><span style="display: block; width: 230px;">Producto</span></th>      
+      <th><span style="display: block; width: 230px;">Cliente</span></th>
       <th>Documento</th>
       <th>Estado</th>
       <th>Estado Real</th>
-      <th>Observación</th>
+      <th><span style="display: block; width: 250px;">Observación</span></th>
       <th>Fecha Creación</th>
       <th>Fecha Instalada</th>
       <th>Fecha Ultima</th>
-      <th>Asesor de Venta</th>
-      <th>Supervisor</th>
-      <th>Coordinador</th>
+      <th><span style="display: block; width: 200px;">Asesor de Venta</span></th>
+      <th><span style="display: block; width: 200px;">Supervisor</span></th>
+      <th><span style="display: block; width: 200px;">Coordinador</span></th>
       <th>Eliminado</th>
       <th>Acciones</th>
     </tr>
