@@ -118,7 +118,7 @@ $(document).ready(function() {
             "pageLength" : 15,
             "order"      : [ 9, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 8 ], 'bSortable': false },
+                { 'aTargets': [ 4, 8 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 

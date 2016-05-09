@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.3.6"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.3.7"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
@@ -138,7 +138,27 @@ include '../autentificacion/vista/menu.tpl.php';
       <td>
         <select class="no-margin search-input-select"
                 style="padding: 0px; width: 90px;"
-                data-column="4">          
+                data-column="4">
+          <option value="0"></option>
+          <optgroup label="Venta">
+            <option value="a0">Venta</option>
+            <option value="a1">Aprobación:Pendiente</option>
+            <option value="a2">Aprobación:Caida</option>
+            <option value="a3">Validación:Pendiente</option>
+            <option value="a4">Validación:Caida</option>
+            <option value="a5">Cargado:Pendiente</option>
+            <option value="a6">Cargado:Caida</option>
+          </optgroup>
+          <optgroup label="PostVenta">
+            <option value="b0">PostVenta</option>
+            <option value="b1">Validación:Pendiente</option>
+            <option value="b2">Validación:Caida</option>
+            <option value="b3">Cita:Pendiente</option>
+            <option value="b4">Cita:Caida</option>
+            <option value="b5">Instalación:Pendiente</option>
+            <option value="b6">Instalación:Caida</option>
+            <option value="b7">Instalación:Si</option>
+          </optgroup>
         </select>
       </td>
       <td>

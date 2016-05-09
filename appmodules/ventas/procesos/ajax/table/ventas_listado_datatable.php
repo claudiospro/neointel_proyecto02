@@ -65,8 +65,19 @@ while( $row=mysqli_fetch_array($query) ) {
     , d.aprobado_supervisor
     , d.tramitacion_venta_validar
     , d.tramitacion_venta_cargar
+    , d.tramitacion_postventa_validar
+    , d.tramitacion_postventa_citar
+    , d.tramitacion_postventa_intalar
+    , CONCAT(
+        d.aprobado_supervisor
+      , d.tramitacion_venta_validar
+      , d.tramitacion_venta_cargar
+      , d.tramitacion_postventa_validar
+      , d.tramitacion_postventa_citar
+      , d.tramitacion_postventa_intalar  
+      ) AS proceso_clds
     FROM venta v 
-    JOIN  venta_".$row['indice']." d ON d.id=v.id
+    JOIN venta_".$row['indice']." d ON d.id=v.id
     -- definiciones
     LEFT JOIN campania d1 ON d1.indice=v.campania
     LEFT JOIN venta_producto d2 ON d2.id=d.producto
@@ -75,7 +86,7 @@ while( $row=mysqli_fetch_array($query) ) {
     LEFT JOIN usu_usuario d6 ON d6.id=v.supervisor_id
     LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
     LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
-    WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";    
+    WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";
 }
 
 $sql_ini = "
@@ -117,7 +128,27 @@ if( !empty($requestData['columns'][2]['search']['value']) ) {
 if( !empty($requestData['columns'][3]['search']['value']) ) {
     $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
-// 4
+if( !empty($requestData['columns'][4]['search']['value']) ) {
+    $valor = $requestData['columns'][4]['search']['value'];
+    if ($valor == 'a1') $sql_filter.=' AND proceso_clds = "222222"';
+    if ($valor == 'a2') $sql_filter.=' AND proceso_clds = "322222"';
+    if ($valor == 'a3') $sql_filter.=' AND proceso_clds = "122222"';
+    if ($valor == 'a4') $sql_filter.=' AND proceso_clds = "132222"';
+    if ($valor == 'a5') $sql_filter.=' AND proceso_clds = "112222"';
+    if ($valor == 'a6') $sql_filter.=' AND proceso_clds = "113222"';
+    if ($valor == 'a0') $sql_filter.=' AND proceso_clds IN(222222, 322222, 122222, 132222, 112222, 113222)';
+    
+    if ($valor == 'b1') $sql_filter.=' AND proceso_clds = "111222"';
+    if ($valor == 'b2') $sql_filter.=' AND proceso_clds = "111322"';
+    if ($valor == 'b3') $sql_filter.=' AND proceso_clds = "111122"';
+    if ($valor == 'b4') $sql_filter.=' AND proceso_clds = "111132"';
+    if ($valor == 'b5') $sql_filter.=' AND proceso_clds = "111112"';
+    if ($valor == 'b6') $sql_filter.=' AND proceso_clds = "111113"';
+    if ($valor == 'b7') $sql_filter.=' AND proceso_clds = "111111"';
+    if ($valor == 'b0') $sql_filter.=' AND proceso_clds IN(111222, 111322, 111122, 111132, 111112, 111113, 111111)';
+    
+}
+
 if( !empty($requestData['columns'][5]['search']['value']) ) {
     $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
 }
@@ -197,7 +228,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['cliente_documento']);
-    $nestedData[] = '...';
+    $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
                        <a></a>
@@ -244,6 +275,32 @@ function validar_permisos($accion, $row) {
     {
         if ($perfil != 'Gerencia' && $perfil != 'Admin' ) $ou = false;
     }
+    return $ou;
+}
+
+function mostrar_proceso($row) {
+    $ou = '';
+    $proceso = '';
+    $proceso .= $row['aprobado_supervisor'];
+    $proceso .= $row['tramitacion_venta_validar'];
+    $proceso .= $row['tramitacion_venta_cargar'];
+    $proceso .= $row['tramitacion_postventa_validar'];
+    $proceso .= $row['tramitacion_postventa_citar'];
+    $proceso .= $row['tramitacion_postventa_intalar'];
+
+    if ($proceso == '222222') $ou = 'Venta Aprovacion:Pendiente';
+    if ($proceso == '322222') $ou = 'Venta Aprovacion:Caida';
+    if ($proceso == '122222') $ou = 'Venta Validación:Pendiente';
+    if ($proceso == '132222') $ou = 'Venta Validación:Caida';
+    if ($proceso == '112222') $ou = 'Venta Cargado:Pendiente';
+    if ($proceso == '113222') $ou = 'Venta Cargado:Caida';
+    if ($proceso == '111222') $ou = 'PostVenta Validación:Pendiente';
+    if ($proceso == '111322') $ou = 'PostVenta Validación:Caida';
+    if ($proceso == '111122') $ou = 'PostVenta Cita:Pendiente';
+    if ($proceso == '111132') $ou = 'PostVenta Cita:Caida';
+    if ($proceso == '111112') $ou = 'PostVenta Intalación:Pendiente';
+    if ($proceso == '111113') $ou = 'PostVenta Intalación:Caida';
+    if ($proceso == '111111') $ou = 'PostVenta Intalación:Si';
     return $ou;
 }
 
