@@ -74,7 +74,7 @@ function validar_estado_observacion($in) {
          echo '-1';
 }
 function imprimir_estado_observacion($in) {
-    echo '<textarea class="no-margin no-padding" style="height: 100px; width: 280px; overflow-y: scroll; font-size: .8em;">' . utf8_encode($in['valor']) . '</textarea>';
+    echo '<textarea class="no-margin no-padding" style="height: 100px; width: 220px; overflow-y: scroll; font-size: .8em;">' . utf8_encode($in['valor']) . '</textarea>';
     echo '<button class="button tiny no-margin">Guardar</button>';
     // Utilidades::printr($in);    
 }

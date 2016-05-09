@@ -90,17 +90,17 @@ $(document).ready(function() {
         var ver = [];
 
         if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 6, 10, 12, 13];
+            ver = [4, 6, 11, 13, 14];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [5, 6, 11, 12, 13];
+            ver = [4, 6, 12, 13, 14];
         } else if(enviar.perfil == 'Tramitacion' ||
                   enviar.perfil == 'Tramitacion-Carga' ||
                   enviar.perfil == 'Tramitacion-Validacion' ||
                   enviar.perfil == 'Tramitacion-Validacion-Carga'
                  ) {
-            ver = [12, 13];
+            ver = [13, 14];
         } else if(enviar.perfil == 'Coordinador') {
-            ver = [12];
+            ver = [13];
         } else if(enviar.perfil == 'Gerencia') {
             ver = [];
         }
@@ -116,9 +116,9 @@ $(document).ready(function() {
             // "scrollX": true,
             
             "pageLength" : 15,
-            "order"      : [ 7, 'desc' ],
+            "order"      : [ 9, 'desc' ],
             "aoColumnDefs": [
-                { 'aTargets': [ 14 ], 'bSortable': false },
+                { 'aTargets': [ 8 ], 'bSortable': false },
                 { "targets": ver, "visible": false }
             ],
 

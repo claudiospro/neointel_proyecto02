@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.3.5"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.3.6"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
@@ -128,7 +128,7 @@ include '../autentificacion/vista/menu.tpl.php';
       <td>
         <select id="<?php echo $prefix ?>campanias-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 200px;"
+                style="padding: 0px; width: 150px;"
                 data-column="0">          
         </select>
       </td>
@@ -136,37 +136,27 @@ include '../autentificacion/vista/menu.tpl.php';
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
       <td>
+        <select class="no-margin search-input-select"
+                style="padding: 0px; width: 90px;"
+                data-column="4">          
+        </select>
+      </td>
+      <td>
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 120px;"
-                data-column="4">          
+                data-column="5">          
         </select>
       </td>
       <td>
         <select id="<?php echo $prefix ?>estado-real-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 200px;"
-                data-column="5">          
+                data-column="6">          
         </select>
       </td>
-      <td><input class="no-margin search-input-text" data-column="6"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="7"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="8"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="10" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="11" type="text"></td>
-      <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
-      <td>
-        <select id="<?php echo $prefix ?>eliminado-tbl"
-                class="no-margin search-input-select"
-                style="padding: 0px; width: 70px;"
-                data-column="13">
-          <option value=""></option>          
-          <option value="no">No</option>
-          <option value="si">Si</option>
-        </select>
-      </td>
-      <td>
+      <td><!-- 7: onservacion --></td>
+      <td> <!-- 8: acciones -->
         <center>
           <span style="width: 90px; display: block;">
             <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
@@ -176,24 +166,39 @@ include '../autentificacion/vista/menu.tpl.php';
             <?php endif ?>
           </span>
         </center>
+      </td>      
+      <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="10"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="11"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
+      <td>
+        <select id="<?php echo $prefix ?>eliminado-tbl"
+                class="no-margin search-input-select"
+                style="padding: 0px; width: 70px;"
+                data-column="14">
+          <option value=""></option>          
+          <option value="no">No</option>
+          <option value="si">Si</option>
+        </select>
       </td>
     </tr>
     <tr>
       <th>Campaña</th>
-      <th><span style="display: block; width: 230px;">Producto</span></th>      
-      <th><span style="display: block; width: 230px;">Cliente</span></th>
+      <th><span style="display: block; width: 150px;">Producto</span></th>      
+      <th><span style="display: block; width: 180px;">Cliente</span></th>
       <th>Documento</th>
+      <th>Proceso</th>
       <th>Estado</th>
       <th>Estado Real</th>
-      <th><span style="display: block; width: 250px;">Observación</span></th>
-      <th>Fecha Creación</th>
-      <th>Fecha Instalada</th>
-      <th>Fecha Ultima</th>
-      <th><span style="display: block; width: 200px;">Asesor de Venta</span></th>
-      <th><span style="display: block; width: 200px;">Supervisor</span></th>
-      <th><span style="display: block; width: 200px;">Coordinador</span></th>
-      <th>Eliminado</th>
+      <th><span style="display: block; width: 220px;">Observación</span></th>
       <th>Acciones</th>
+      <th>Fecha Creación</th>
+      <th>Fecha Ultima</th>
+      <th><span style="display: block; width: 160px;">Asesor de Venta</span></th>
+      <th><span style="display: block; width: 160px;">Supervisor</span></th>
+      <th><span style="display: block; width: 160px;">Coordinador</span></th>
+      <th>Eliminado</th>
     </tr>
   </thead>
 </table>

@@ -46,11 +46,12 @@ while( $row=mysqli_fetch_array($query) ) {
     , d2.nombre producto
     , d.cliente_nombre
     , d.cliente_documento
+    , 'proceso'
     , d3.nombre estado
     , d8.nombre estado_real
     , d.estado_observacion
+    , 'acciones'
     , v.info_create_fecha fecha_creacion
-    , d.fecha_instalada
     , v.info_update_fecha fecha_actualizacion
     , d4.nombre asesor_venta
     , d6.nombre supervisor
@@ -116,46 +117,46 @@ if( !empty($requestData['columns'][2]['search']['value']) ) {
 if( !empty($requestData['columns'][3]['search']['value']) ) {
     $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
-if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '"';
-}
+// 4
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
+    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
 }
-if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '%"';
+if( !empty($requestData['columns'][6]['search']['value']) ) {
+    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
 }
-if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND fecha_instalada LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '%"';
-}
+// 7
+// 8 (acciones)
 if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][13]['search']['value']) ) {
+    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
-if( !empty($requestData['columns'][13]['search']['value']) ) {
-    $bool = $requestData['columns'][13]['search']['value'];
+if( !empty($requestData['columns'][14]['search']['value']) ) {
+    $bool = $requestData['columns'][14]['search']['value'];
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
         $sql_filter.=' AND info_status  = "1"';
-    }    
+    }
 }
-// 14 (acciones)
+
 
 $sql.= $sql_filter;
 
 $sql_donde = '';
 $pagina ='';
-if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' )  {
+if ( !empty($requestData['search']['value']) && trim($requestData['search']['value']) != '' ) {
     // esto es para recuperar la pagina (es muy importante)
     $sql_donde.= 'SELECT * FROM (' . $sql;
     $sql_donde.= ' ORDER BY '. (intval($requestData['order'][0]['column'])+1) . ' ' . $requestData['order'][0]['dir'];
@@ -196,6 +197,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['cliente_documento']);
+    $nestedData[] = '...';
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
                        <a></a>
@@ -209,20 +211,22 @@ while( $row=mysqli_fetch_array($query) ) {
                        <div style="display:none"></div>
                      </div>
                     ';
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_instalada']);
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion']);
-    $nestedData[] = utf8_encode($row['asesor_venta']);
-    $nestedData[] = utf8_encode($row['supervisor']);
-    $nestedData[] = utf8_encode($row['coordinador']);
-    $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
-
+    
     $acciones = '';
     if (validar_permisos('edit' , $row)) $acciones.= '<a class="button tiny edit no-margin" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
     $acciones.= '<a class="button tiny view no-margin secondary" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div" title="Ver" ><i class="fi-info medium"></i></a>';
     if (validar_permisos('tran', $row)) $acciones.= '<a class="button tiny view no-margin warning " venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div3" title="Trasparencia" ><i class="fi-magnifying-glass medium"></i></a>';
     if (validar_permisos('dele', $row)) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
+
+    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
+    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion']);
+    $nestedData[] = utf8_encode($row['asesor_venta']);
+    $nestedData[] = utf8_encode($row['supervisor']);
+    $nestedData[] = utf8_encode($row['coordinador']);
+    $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
+
+
 
     $data[] = $nestedData;
 }

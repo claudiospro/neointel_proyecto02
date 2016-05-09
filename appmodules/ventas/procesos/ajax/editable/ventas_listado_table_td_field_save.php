@@ -13,7 +13,7 @@ $in['venta_id']    = Utilidades::clear_input_id($_POST['venta_id']);
 $in['usuario']     = $_SESSION['user_id'];
 $in['perfil']      = trim($_SESSION['perfiles']);
 $in['campania']    = $modelo->getCampaniaEditable($in['venta_id']) ;
-$in['valor']       = Utilidades::clear_input($_POST['valor']);
+$in['valor']       = Utilidades::clear_input_text($_POST['valor']);
 
 
 // --------------------------------------------------------- DATA
