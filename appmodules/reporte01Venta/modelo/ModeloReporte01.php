@@ -12,12 +12,13 @@ class ModeloVenta {
         $this->q->sql = '
         SELECT DISTINCT c.indice, c.nombre FROM campania c
         JOIN campania_lineal cl ON cl.campania_id = c.id
-        WHERE c.info_status=1
+        WHERE c.venta=1 
         ';
         if ('' != trim($in['lineas'])) {
             $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
         }
         $this->q->data = NULL;
+        // Utilidades::printr($this->q->sql);
         $data = $this->q->exe();        
         return $data;
     }

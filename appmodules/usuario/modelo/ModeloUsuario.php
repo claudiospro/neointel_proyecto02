@@ -15,9 +15,13 @@ class ModeloUsuario {
         JOIN usu_usuario_lineal ul ON ul.lineal_id=l.id
         JOIN usu_usuario_perfil up ON up.usuario_id=ul.usuario_id AND up.perfil_id = 4
         JOIN usu_usuario u ON u.id=ul.usuario_id
-        WHERE l.info_status = 1
-        ORDER BY 2
+        WHERE l.info_status = 1        
         ';
+        if ('' != trim($in['lineas'])) {
+            $this->q->sql .= ' AND ul.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql .= ' ORDER BY 2';
+        
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
@@ -250,10 +254,14 @@ class ModeloUsuario {
             'nombre' => '',
         );
         $this->q->sql = '
-        SELECT c.id, c.nombre FROM campania c 
-        WHERE c.info_status = 1
-        ORDER BY 2
+        SELECT DISTINCT c.id, c.nombre FROM campania c 
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status = 1 
         ';
+        if ($in['lineas'] != '') {
+            $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql .= ' ORDER BY 2';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();

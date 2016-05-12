@@ -15,7 +15,7 @@ $prefix = 'venta_reporte_mes_';
 
 <script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
-<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.0.1"></script>
+<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.0.2"></script>
 
 <script type="text/javascript">
  $(function () {

@@ -53,7 +53,7 @@ $(document).ready(function() {
             'supervisor_id': $('#supervisor_id').val(),
             'asesor_comercial_id': $('#asesor_comercial_id').val(),
         }
-        c(enviar);
+        // c(enviar);
         element_simple(
             './procesos/ajax/select/reporte01venta_asesor_comercial_id.php',
             '#asesor_comercial_id',

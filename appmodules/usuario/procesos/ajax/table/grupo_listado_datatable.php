@@ -9,6 +9,8 @@ $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->d
 
 session_start();
 
+$lineas = trim($_SESSION['lineas']);
+
 $sql_ini = '
 SELECT l.nombre, c.nombre campania, l.info_status vigente,
        l.id
@@ -16,7 +18,9 @@ FROM lineal l
 JOIN campania_lineal cp ON cp.lineal_id=l.id
 JOIN campania c ON c.id = cp.campania_id
 ';
-
+if ($lineas != '') {
+    $sql_ini .= 'WHERE l.id IN (' . $lineas . ')';
+}
 // $sql = "
 // SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
 // " . $sql_ini . "

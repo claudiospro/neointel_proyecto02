@@ -22,6 +22,9 @@
           <?php if (array_search('Usuario', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'usuario' ?>">Usuario</a></li>
           <?php endif ?>
+          <?php if (array_search('Apuntes', explode(' ',trim($_SESSION['resources']))) !== false): ?>
+            <li><a href="<?php echo $base_url . 'apuntes' ?>">Apuntes</a></li>
+          <?php endif ?>
         </ul>
       </li>
     </ul>

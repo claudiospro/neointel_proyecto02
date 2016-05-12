@@ -368,7 +368,7 @@ class ModeloVenta {
         $this->q->sql = '
         SELECT DISTINCT c.indice, c.nombre FROM campania c
         JOIN campania_lineal cl ON cl.campania_id = c.id
-        WHERE c.info_status = 1';
+        WHERE c.info_status = 1 AND c.venta=1';
         if ('' != trim($in['lineas'])) {
             $this->q->sql.= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
         }
@@ -918,10 +918,11 @@ class ModeloVenta {
         $this->q->sql = '
                         SELECT DISTINCT c.indice, c.nombre
                         FROM campania_lineal cl
-                        JOIN campania c ON c.id = cl.campania_id
+                        JOIN campania c ON c.id = cl.campania_id 
+                        WHERE  c.venta=1
                         ';
         if ('' != trim($in['lineas'])) {
-            $this->q->sql.= 'WHERE cl.lineal_id IN (' . $in['lineas'] . ')';
+            $this->q->sql.= 'AND  cl.lineal_id IN (' . $in['lineas'] . ')';
         }
         // print $this->q->sql .'<br>';
         $this->q->data = NULL;

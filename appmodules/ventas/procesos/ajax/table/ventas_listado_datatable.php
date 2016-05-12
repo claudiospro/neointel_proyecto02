@@ -26,7 +26,7 @@ if ($perfiles != 'Admin' && $perfiles != 'Gerencia' && $perfiles != 'Coordinador
 // con esto se optimiza, en vez de mostrar todo, solo se muestra uno solo
 $sql = 'SELECT DISTINCT c.indice FROM campania c
         JOIN campania_lineal cl ON cl.campania_id = c.id
-        WHERE c.info_status=1';
+        WHERE c.venta=1';
 if ('' != trim($_SESSION['lineas'])) {
     $sql.= ' AND cl.lineal_id IN (' . $_SESSION['lineas'] . ')';
 }

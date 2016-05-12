@@ -7,7 +7,7 @@ session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
 $in['grupo_id'] = Utilidades::clear_input_id($_POST['grupo_id']);
-
+$in['lineas'] = trim($_SESSION['lineas']);
 
 // -------------------------------------------------------- Data
 $dato = $modelo->getGrupoItem($in);
@@ -16,7 +16,7 @@ $form['nombre']      = array('type' => 'text'    , 'label' => 'Nombre');
 $form['campania_id'] = array('type' => 'select1' , 'label' => 'Campania', 'combo' => 'campania');
 $form['vigente']     = array('type' => 'bool'    , 'label' => 'Vigente');
 
-$combo['campania']   = $modelo->getCampaniasActivas(array());
+$combo['campania']   = $modelo->getCampaniasActivas($in);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);

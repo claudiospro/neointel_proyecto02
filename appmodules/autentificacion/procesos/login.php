@@ -10,5 +10,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ModeloAuten::logIn($in);
     // var_dump($_SESSION);
 }
-header('Location: ../../autentificacion/index.php');
+header('Location: ../../ventas/index.php');
 

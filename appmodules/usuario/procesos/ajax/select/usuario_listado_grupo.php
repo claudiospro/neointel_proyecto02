@@ -8,7 +8,7 @@ include "../../../modelo/ModeloUsuario.php";
 session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
-$in[] = '';
+$in['lineas'] = $_SESSION['lineas'];
 
 // -------------------------------------------------------- Data
 $ou = $modelo->getGrupo($in);

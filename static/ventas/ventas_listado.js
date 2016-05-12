@@ -92,7 +92,7 @@ $(document).ready(function() {
         if(enviar.perfil == 'Asesor Comercial') {
             ver = [4, 6, 11, 13, 14];
         } else if(enviar.perfil == 'Supervisor') {
-            ver = [4, 6, 12, 13, 14];
+            ver = [4, 12, 13, 14];
         } else if(enviar.perfil == 'Tramitacion' ||
                   enviar.perfil == 'Tramitacion-Carga' ||
                   enviar.perfil == 'Tramitacion-Validacion' ||
