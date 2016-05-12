@@ -31,7 +31,7 @@ $prefix = 'venta_reporte_mes_';
      $color['estado'][3] = '#ff9d9d';
 
      $color['estado_real'][1]  = '#c9ee70';
-     $color['estado_real'][2]  = '#ffe4e4';
+     $color['estado_real'][2]  = '#f9ff9d';
      $color['estado_real'][3]  = '#3add53';
      $color['estado_real'][4]  = '#57c5f8';
      $color['estado_real'][5]  = '#ff9d9d';
