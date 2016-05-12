@@ -255,14 +255,13 @@ class ModeloUsuario {
         );
         $this->q->sql = '
         SELECT DISTINCT c.id, c.nombre FROM campania c 
-        JOIN campania_lineal cl ON cl.campania_id = c.id
         WHERE c.info_status = 1 
         ';
-        if ($in['lineas'] != '') {
-            $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
-        }
-        $this->q->sql .= ' ORDER BY 2';
-        // echo $this->q->sql;        
+        // if ($in['lineas'] != '') {
+        //     $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
+        // }
+        // $this->q->sql .= ' ORDER BY 2';
+        echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
