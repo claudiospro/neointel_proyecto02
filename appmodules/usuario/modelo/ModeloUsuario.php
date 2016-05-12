@@ -261,7 +261,7 @@ class ModeloUsuario {
         //     $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
         // }
         // $this->q->sql .= ' ORDER BY 2';
-        echo $this->q->sql;        
+        // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
