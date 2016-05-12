@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.3.7"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.3.8"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
@@ -137,7 +137,7 @@ include '../autentificacion/vista/menu.tpl.php';
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
       <td>
         <select class="no-margin search-input-select"
-                style="padding: 0px; width: 90px;"
+                style="padding: 0px; width: 130px;"
                 data-column="4">
           <option value="0"></option>
           <optgroup label="Venta">
@@ -181,8 +181,8 @@ include '../autentificacion/vista/menu.tpl.php';
           <span style="width: 90px; display: block;">
             <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
             <?php if(trim($_SESSION['perfiles']) !='Asesor Comercial'): ?>
-              &nbsp;&nbsp;
-              <a class="report" title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a>
+              <!-- &nbsp;&nbsp; --> 
+              <!-- <a class="report" title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a> -->
             <?php endif ?>
           </span>
         </center>

@@ -109,7 +109,7 @@ $(document).ready(function() {
             "serverSide" : true,
             "lengthChange": false,
             // "searching": false,
-            "info": false,
+            "info": true,
             //"bAutoWidth" : false,
 
             // "scrollY": false,

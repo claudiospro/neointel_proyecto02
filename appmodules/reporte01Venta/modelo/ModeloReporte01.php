@@ -28,6 +28,36 @@ class ModeloVenta {
             $data['indice'][$row['indice']] = $i++;
             $data['indice_nombre'][$row['indice']] = $row['nombre'];
         }
+        $filtros = '';
+        if ($in['dia-ini'] != '00') {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" AND 
+                        ';
+        } else {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" AND
+                         ';
+        }
+        if ($in['dia-end'] != '00') {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" AND
+                        ';
+        } else {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND 
+                        ';
+        }
+        if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
+            $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
+                        ';
+        }
+        if ($in['asesor_comercial_id'] != '00') {
+            $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND 
+                        ';
+        }
+        $filtros .= '
+                    v.info_status=1 AND 
+                    d.aprobado_supervisor = 1 AND 
+                    d.tramitacion_venta_validar = 1 AND 
+                    d.tramitacion_venta_cargar = 1
+        ';
+        
         if ($in['tipo'] == '01')
         {
             // ---------------------------------------------------- estado
@@ -36,26 +66,21 @@ class ModeloVenta {
                 'estado_id' => '',
                 'total' => '',
                 'campania' => '',
-            );
+            );            
             $this->q->sql = '';
             foreach($campanias as $row) {
                 if ($this->q->sql != '')
                     $this->q->sql .= ' UNION ';
-                if ($in['dia'] != '00')
-                {
-                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
-                } else {
-                    $in['fecha'] = $in['anio-mes'] . '%';
-                }
                 $this->q->sql .= '
                 (SELECT d.estado, count(d.id) total, "' . $row['indice'] . '" campania
                 FROM venta_' . $row['indice'] . ' d
                 JOIN venta v ON v.id=d.id
-                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                WHERE ' . $filtros . '
                 GROUP by 1)
                 ';
             }
-            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_estado e ON e.id=t.estado';
+            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                             JOIN venta_estado e ON e.id=t.estado';
             // Utilidades::printr($this->q->sql);
             $data['estado'] = $this->q->exe();
         
@@ -67,34 +92,32 @@ class ModeloVenta {
                 'estado_real_id' => '',
                 'total' => '',
                 'campania' => '',
-            );
+            );          
+            
+
             $this->q->sql = '';
             foreach($campanias as $row) {
                 if ($this->q->sql != '')
                     $this->q->sql .= ' UNION ';
-                if ($in['dia'] != '00')
-                {
-                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
-                } else {
-                    $in['fecha'] = $in['anio-mes'] . '%';
-                }
+
                 $this->q->sql .= '
                 (SELECT d.estado_real, count(d.id) total, "' . $row['indice'] . '" campania
                 FROM venta_' . $row['indice'] . ' d
                 JOIN venta v ON v.id=d.id
-                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                WHERE ' . $filtros . '
                 GROUP by 1)
                 ';
             }
-            // Utilidades::printr($this->q->sql);
             $this->q->sql = 'SELECT e.nombre, er.estado_id, er.nombre, t.* FROM (' . $this->q->sql . ') as t 
-                         JOIN venta_estado_real er ON er.id = t.estado_real
-                         JOIN venta_estado e ON e.id = er.estado_id
+                             JOIN venta_estado_real er ON er.id = t.estado_real
+                             JOIN venta_estado e ON e.id = er.estado_id
                         ';
+            // Utilidades::printr($this->q->sql);
             $data['estado_real'] = $this->q->exe();
         }
         elseif($in['tipo'] == '02')
         {
+            // ---------------------------------------------------- tipo de cliente
             $this->q->fields = array(
                 'cliente_tipo' => '',
                 'cliente_tipo_id' => '',
@@ -105,25 +128,139 @@ class ModeloVenta {
             foreach($campanias as $row) {
                 if ($this->q->sql != '')
                     $this->q->sql .= ' UNION ';
-                if ($in['dia'] != '00')
-                {
-                    $in['fecha'] = $in['anio-mes'] . '-' . $in['dia'] . '%';
-                } else {
-                    $in['fecha'] = $in['anio-mes'] . '%';
-                }
                 $this->q->sql .= '
                 (SELECT d.cliente_tipo, count(d.id) total, "' . $row['indice'] . '" campania
                 FROM venta_' . $row['indice'] . ' d
                 JOIN venta v ON v.id=d.id
-                WHERE v.info_create_fecha LIKE "' . $in['fecha'] . '" AND v.info_status=1
+                WHERE ' . $filtros . '
                 GROUP by 1)
                 ';
             }
-            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t JOIN venta_cliente_tipo e ON e.id=t.cliente_tipo';
+            $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                             JOIN venta_cliente_tipo e ON e.id=t.cliente_tipo';
             // Utilidades::printr($this->q->sql);
             $data['cliente_tipo'] = $this->q->exe();
+            
+            // ---------------------------------------------------------------- estado real
+            $this->q->fields = array(
+                'estado_real'     => '',
+                'cliente_tipo'    => '',
+                'estado_real_id'  => '',
+                'cliente_tipo_id' => '',
+                'total'           => '',
+                'campania'        => '',
+            );
+            $this->q->sql = '';
+            foreach($campanias as $row) {
+                if ($this->q->sql != '')
+                    $this->q->sql .= ' UNION ';
+                $this->q->sql .= '
+                (
+                SELECT d.estado_real, d.cliente_tipo, count(d.id) total, "' . $row['indice'] . '" campania
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE ' . $filtros . '
+                GROUP by 1,2
+                )
+                ';
+            }
+            $this->q->sql = 'SELECT er.nombre, ct.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                         JOIN venta_estado_real er ON er.id = t.estado_real
+                         JOIN venta_cliente_tipo ct ON t.cliente_tipo = ct.id
+                        ';
+            // Utilidades::printr($this->q->sql);
+            $data['estado_real'] = $this->q->exe();            
         }
 
         return $data;
+    }
+    function getSupervisorByFechas($in) {
+        $ou = null;
+        $filtros = '';
+        if ($in['dia-ini'] != '00') {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" AND ';
+        } else {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" AND ';
+        }
+        if ($in['dia-end'] != '00') {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" AND ';
+        } else {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND ';
+        }
+        $filtros .= '
+                    v.info_status=1 AND 
+                    d.aprobado_supervisor = 1 AND 
+                    d.tramitacion_venta_validar = 1 AND 
+                    d.tramitacion_venta_cargar = 1
+        ';
+        $campanias = $this->getCampaniasActivas($in);
+        $this->q->fields = array(
+            'supervisor' => '',
+            'supervisor_id' => '',
+        );            
+        $this->q->sql = '';
+        foreach($campanias as $row) {
+            if ($this->q->sql != '')
+                $this->q->sql .= ' UNION ';
+            $this->q->sql .= '
+                (SELECT DISTINCT v.supervisor_id
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE ' . $filtros . '
+                )
+                ';
+        }
+        $this->q->sql = 'SELECT u.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                         JOIN usu_usuario u on u.id = t.supervisor_id
+                         ORDER BY 1
+                        ';
+        // Utilidades::printr($this->q->sql);
+        $ou = $this->q->exe(); 
+        return $ou;
+    }
+    function getAsesorComercialByFechas($in) {
+        $ou = null;
+        $filtros = '';
+        if ($in['dia-ini'] != '00') {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" AND ';
+        } else {
+            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" AND ';
+        }
+        if ($in['dia-end'] != '00') {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" AND ';
+        } else {
+            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND ';
+        }
+        $filtros .= '
+                    v.info_status=1 AND 
+                    d.aprobado_supervisor = 1 AND 
+                    d.tramitacion_venta_validar = 1 AND 
+                    d.tramitacion_venta_cargar = 1 AND
+        ';
+        $filtros .= 'v.supervisor_id = "' . $in['supervisor_id'] . '"
+        ';
+        $campanias = $this->getCampaniasActivas($in);
+        $this->q->fields = array(
+            'asesor_venta' => '',
+            'asesor_venta_id' => '',
+        );            
+        $this->q->sql = '';
+        foreach($campanias as $row) {
+            if ($this->q->sql != '')
+                $this->q->sql .= ' UNION ';
+            $this->q->sql .= '
+                SELECT DISTINCT v.asesor_venta_id
+                FROM venta_' . $row['indice'] . ' d
+                JOIN venta v ON v.id=d.id
+                WHERE ' . $filtros . '                
+                ';
+        }
+        $this->q->sql = 'SELECT u.nombre, t.* FROM (' . $this->q->sql . ') as t 
+                         JOIN usu_usuario u on u.id = t.asesor_venta_id
+                         ORDER BY 1
+                        ';
+        // Utilidades::printr($this->q->sql);
+        $ou = $this->q->exe(); 
+        return $ou;
     }
 }

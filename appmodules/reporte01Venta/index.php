@@ -9,16 +9,28 @@ include "./modelo/ModeloReporte01.php";
 
 
 $data1 = null;
-if (isset($_GET['anio-mes'])) {
+if (isset($_GET['anio-mes-ini'])) {
     $modelo = new ModeloVenta();
 
     // -------------------------------------------------------- INPUT
-    $in['anio-mes'] = Utilidades::clear_input($_GET['anio-mes']);
-    $in['dia'] = Utilidades::clear_input($_GET['dia']);
+    $in['anio-mes-ini'] = Utilidades::clear_input($_GET['anio-mes-ini']);
+    $in['anio-mes-end'] = Utilidades::clear_input($_GET['anio-mes-end']);
+    $in['dia-ini'] = Utilidades::clear_input($_GET['dia-ini']);
+    $in['dia-end'] = Utilidades::clear_input($_GET['dia-end']);
     $in['tipo'] = Utilidades::clear_input($_GET['tipo']);
-    $l = explode('-', $in['anio-mes']);
+    $l = explode('-', $in['anio-mes-ini']);
     $in['anio'] = $l[0];
     $in['mes'] = $l[1];
+    if (isset($_GET['supervisor_id']) && $_GET['supervisor_id'] !='') {
+        $in['supervisor_id'] = Utilidades::clear_input($_GET['supervisor_id']);
+    } else {
+        $in['supervisor_id'] = '00';
+    }
+    if (isset($_GET['asesor_comercial_id']) && $_GET['asesor_comercial_id'] !='') {
+        $in['asesor_comercial_id'] = Utilidades::clear_input($_GET['asesor_comercial_id']);
+    } else {
+        $in['asesor_comercial_id'] = '00';
+    }    
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 
     
@@ -30,15 +42,15 @@ if (isset($_GET['anio-mes'])) {
         $mes = array (1 => 'Enero', 2 => 'Febreo', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre');
 
     
-        $data1[0]['titulo'] = 'Ventas: Total, ' . $mes[ (int)$in['mes'] ] . ' ' . $in['anio'];
+        $data1[0]['titulo'] = 'Ventas: Totales';
         $data1[0]['tab'] = 'Total';
         
         if (isset($data0['indice']))
             foreach($data0['indice'] as $key => $row) {
-                $data1[$row]['titulo'] = 'Ventas: ' . $data0['indice_nombre'][$key] . ', ' . $mes[ (int)$in['mes'] ] . ' ' . $in['anio'];
+                $data1[$row]['titulo'] = 'Ventas: ' . $data0['indice_nombre'][$key];
                 $data1[$row]['tab'] = $data0['indice_nombre'][$key] ;
             }
-        if (isset($data0['estado']))
+        if (isset($data0['estado']) && $in['tipo'] == '01')
             foreach($data0['estado'] as $row) {
                 // busco en listado
                 $index = $data0['indice'][$row['campania']];
@@ -49,7 +61,7 @@ if (isset($_GET['anio-mes'])) {
                 else
                     $data1[0]['estado'][$e]['y'] += $row['total'];
             }
-        if (isset($data0['estado_real']))
+        if (isset($data0['estado_real']) && $in['tipo'] == '01')
             foreach($data0['estado_real'] as $row) {
                 // busco en listado
                 $index = $data0['indice'][$row['campania']];
@@ -62,16 +74,28 @@ if (isset($_GET['anio-mes'])) {
                     $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
             }
         // ---------------------------------------------------------------------------------------
-        if (isset($data0['cliente_tipo']))
+        if (isset($data0['cliente_tipo']) && $in['tipo'] == '02')
             foreach($data0['cliente_tipo'] as $row) {
                 // busco en listado
                 $index = $data0['indice'][$row['campania']];
                 $e = $row['cliente_tipo_id'];
-                $data1[$index]['cliente_tipo'][$e] = array ('name'=>$row['cliente_tipo'], 'y'=>$row['total']);
+                $data1[$index]['cliente_tipo'][$e] = array ('name'=>$row['cliente_tipo'], 'y'=>$row['total'], 'drilldown' => $row['cliente_tipo']);
                 if (!isset( $data1[0]['cliente_tipo'][$e]))
                     $data1[0]['cliente_tipo'][$e] = $data1[$index]['cliente_tipo'][$e];
                 else
                     $data1[0]['cliente_tipo'][$e]['y'] += $row['total'];
+            }
+        if (isset($data0['estado_real']) && $in['tipo'] == '02')
+            foreach($data0['estado_real'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $e = $row['cliente_tipo'];
+                $er = $row['estado_real_id'];
+                $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
+                if (!isset($data1[0]['estado_real'][$e][$er]))
+                    $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
+                else
+                    $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
             }
     }
     
@@ -82,9 +106,14 @@ if (isset($_GET['anio-mes'])) {
     // Utilidades::printr($data0);
     // Utilidades::printr($data1);
 } else {
-    $in['anio-mes'] = date('Y-m');
-    $in['dia'] = '00';
+    $in['anio-mes-ini'] = date('Y-m');
+    $in['anio-mes-end'] = date('Y-m');
+    $in['dia-ini'] = '00';
+    $in['dia-end'] = '00';
     $in['tipo'] = '01';
+    $in['supervisor_id'] = '00';
+    $in['asesor_comercial_id'] = '00';
+    $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 }
 
 // $data[0]['titulo'] = 'Ventas Totales - Marzo 2015';
