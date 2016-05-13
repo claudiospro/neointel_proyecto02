@@ -35,7 +35,7 @@ class ModeloVenta {
                         ';
         } else {
             $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" AND
-                         ';
+                        ';
         }
         if ($in['dia-end'] != '00') {
             $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" AND
@@ -44,14 +44,26 @@ class ModeloVenta {
             $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND 
                         ';
         }
-        if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
-            $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
-                        ';
+        if ($in['modo'] == 'Estructura') {
+            if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
+                $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
+                ';
+            }
+            if ($in['asesor_comercial_id'] != '00') {
+                $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND
+                ';
+            }
+        } elseif ($in['modo'] == 'Supervisor') {
+            if ($in['supervisor_id'] != '00') {
+                $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
+                ';
+            }
+            if ($in['asesor_comercial_id'] != '00') {
+                $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND 
+                ';
+            }
         }
-        if ($in['asesor_comercial_id'] != '00') {
-            $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND 
-                        ';
-        }
+
         $filtros .= '
                     v.info_status=1 AND 
                     d.aprobado_supervisor = 1 AND 

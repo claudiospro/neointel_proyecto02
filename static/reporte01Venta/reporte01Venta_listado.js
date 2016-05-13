@@ -40,7 +40,7 @@ $(document).ready(function() {
         // c(enviar);
         element_simple(
             './procesos/ajax/select/reporte01venta_supervisor_id.php',
-            '#supervisor_id',
+            'select#supervisor_id',
             enviar
         );
     }

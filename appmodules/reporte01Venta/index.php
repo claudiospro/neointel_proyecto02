@@ -9,6 +9,13 @@ include "./modelo/ModeloReporte01.php";
 
 
 $data1 = null;
+
+$in['modo'] = 'Estructura';
+if( 'Supervisor' == trim($_SESSION['perfiles']))
+{
+    $in['modo'] = 'Supervisor';
+}
+
 if (isset($_GET['anio-mes-ini'])) {
     $modelo = new ModeloVenta();
 

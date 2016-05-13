@@ -15,7 +15,7 @@ $prefix = 'venta_reporte_mes_';
 
 <script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
-<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.0.2"></script>
+<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.0.3"></script>
 
 <script type="text/javascript">
  $(function () {
@@ -164,7 +164,7 @@ $prefix = 'venta_reporte_mes_';
 <?php include '../autentificacion/vista/url.php' ?>
 <?php include '../autentificacion/vista/menu.tpl.php' ?>
 <?php
-// Utilidades::printr($in);
+// Utilidades::printr($_SESSION);
 ?>
 
 <form action="index.php">
@@ -254,25 +254,28 @@ $prefix = 'venta_reporte_mes_';
       </div>
     </div>
     <div class="large-6 medium-6 small-12 columns">
-      <div class="row">
-        <div class="large-3  medium-2  small-2  columns">
-          Supervisor
+      <?php if( 'Supervisor' != trim($_SESSION['perfiles'])): ?>
+        <div class="row">
+          <div class="large-3  medium-2  small-2  columns">
+            Supervisor
+          </div>
+          <div class="large-9  medium-10  small-10  columns">
+            <div id="supervisor"></div>
+            <select id="supervisor_id" name="supervisor_id" class="no-margin">
+              <option value="<?php echo $in['supervisor_id']  ?>"></option>
+            </select>
+          </div>
         </div>
-        <div class="large-9  medium-10  small-10  columns">
-          <div id="supervisor"></div>
-          <select id="supervisor_id" name="supervisor_id" class="no-margin">
-            <option value="<?php echo $in['supervisor_id']  ?>"></option>
-          </select>
-        </div>
-      </div>
+      <?php else: ?>
+        <input type="hidden" id="supervisor_id" name="supervisor_id" value="<?php echo $_SESSION['user_id'] ?>">
+      <?php endif ?>
       <div class="row">
         <div class="large-3  medium-2  small-2  columns">
           Acesor
         </div>
         <div class="large-9  medium-10  small-10  columns">
           <div id="asesor_comercial"></div>
-          <select id="asesor_comercial_id" name="asesor_comercial_id" class="no-margin">
-            
+          <select id="asesor_comercial_id" name="asesor_comercial_id" class="no-margin">            
             <option value="<?php echo $in['asesor_comercial_id']  ?>"></option>
           </select>
         </div>
