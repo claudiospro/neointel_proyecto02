@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.3.9"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.4.0"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
@@ -122,6 +122,7 @@ include '../autentificacion/vista/menu.tpl.php';
       <td>12</td>
       <td>13</td>
       <td>14</td>
+      <td>15</td>
     </tr>
     -->
     <tr>
@@ -135,10 +136,11 @@ include '../autentificacion/vista/menu.tpl.php';
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
       <td>
         <select class="no-margin search-input-select"
                 style="padding: 0px; width: 130px;"
-                data-column="4">
+                data-column="5">
           <option value="0"></option>
           <optgroup label="Venta">
             <option value="a0">Venta</option>
@@ -165,18 +167,18 @@ include '../autentificacion/vista/menu.tpl.php';
         <select id="<?php echo $prefix ?>estado-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 120px;"
-                data-column="5">          
+                data-column="6">
         </select>
       </td>
       <td>
         <select id="<?php echo $prefix ?>estado-real-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 200px;"
-                data-column="6">          
+                data-column="7">          
         </select>
       </td>
-      <td><!-- 7: onservacion --></td>
-      <td> <!-- 8: acciones -->
+      <td><!-- 8: onservacion --></td>
+      <td> <!-- 9: acciones -->
         <center>
           <span style="width: 90px; display: block;">
             <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
@@ -187,16 +189,16 @@ include '../autentificacion/vista/menu.tpl.php';
           </span>
         </center>
       </td>      
-      <td><input class="no-margin search-input-text" data-column="9"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="10"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="11"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="14"  type="text"></td>
       <td>
         <select id="<?php echo $prefix ?>eliminado-tbl"
                 class="no-margin search-input-select"
                 style="padding: 0px; width: 70px;"
-                data-column="14">
+                data-column="15">
           <option value=""></option>          
           <option value="no">No</option>
           <option value="si">Si</option>
@@ -205,7 +207,8 @@ include '../autentificacion/vista/menu.tpl.php';
     </tr>
     <tr>
       <th>Campaña</th>
-      <th><span style="display: block; width: 150px;">Producto</span></th>      
+      <th><span style="display: block; width: 150px;">Producto</span></th>
+      <th>Tipo Cliente</th>
       <th><span style="display: block; width: 180px;">Cliente</span></th>
       <th>Documento</th>
       <th>Proceso</th>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../js/tinymce/tinymce.min.js"></script>
+    <script>
+     tinymce.init({
+         body_class: 'my_class',
+         selector:'textarea',
+         hidden_input: false,
+         elementpath: true,
+         height: 300,
+         menubar: false,
+         toolbar: 'bold italic underline strikethrough removeformat',
+         language: 'es',
+         force_br_newlines: true,
+         force_p_newlines: false,
+         forced_root_block: '',
+
+     });
+    </script>
+  </head>
+  <body>
+    <div class="my_class">
+      <form method="post" action="save.php">
+        <textarea name="texto"></textarea>
+        <input type="submit" name="save" value="Submit" />
+      </form>
+    </div>
+    
+  </body>
+</html>

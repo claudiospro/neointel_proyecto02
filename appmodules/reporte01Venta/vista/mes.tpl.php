@@ -9,9 +9,9 @@ $prefix = 'venta_reporte_mes_';
 
 
 <?php ob_start() ?>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="../../lib/vendor/highcharts/js/highcharts.js"></script>
+<script src="../../lib/vendor/highcharts/js/modules/data.js"></script>
+<script src="../../lib/vendor/highcharts/js/modules/drilldown.js"></script>
 
 <script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
@@ -47,8 +47,8 @@ $prefix = 'venta_reporte_mes_';
      $color['estado_real'][17] = '#fe8d8d';
      $color['estado_real'][18] = '#638add';
      
-     $color['estado_real'][19] = 'black';
-     $color['estado_real'][20] = 'black';
+     $color['estado_real'][19] = '#638add';
+     $color['estado_real'][20] = '#638add';
      $color['estado_real'][21] = 'black';
      $color['estado_real'][22] = 'black';
      $color['estado_real'][23] = 'black';
@@ -271,7 +271,7 @@ $prefix = 'venta_reporte_mes_';
       <?php endif ?>
       <div class="row">
         <div class="large-3  medium-2  small-2  columns">
-          Acesor
+          Asesor
         </div>
         <div class="large-9  medium-10  small-10  columns">
           <div id="asesor_comercial"></div>
