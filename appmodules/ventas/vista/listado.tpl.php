@@ -182,9 +182,14 @@ include '../autentificacion/vista/menu.tpl.php';
         <center>
           <span style="width: 90px; display: block;">
             <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
-            <?php if(trim($_SESSION['perfiles']) !='Asesor Comercial'): ?>
-              <!-- &nbsp;&nbsp; --> 
-              <!-- <a class="report" title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a> -->
+            <?php if(
+                trim($_SESSION['perfiles']) =='Admin'||
+                trim($_SESSION['perfiles']) =='Gerencia' ||
+                trim($_SESSION['perfiles']) =='Coordinador' ||
+                trim($_SESSION['perfiles']) =='Tramitacion'
+            ): ?> 
+              &nbsp;&nbsp;
+              <a class="report" title="Declarativo" data-open="venta_listado_modal_declarativo_div"><i class="fi-page-add size-36" style="color: rgb(204, 146, 12);"></i></a> 
             <?php endif ?>
           </span>
         </center>
