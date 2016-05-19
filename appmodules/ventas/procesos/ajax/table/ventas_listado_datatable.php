@@ -292,19 +292,19 @@ function mostrar_proceso($row) {
     $proceso .= $row['tramitacion_postventa_citar'];
     $proceso .= $row['tramitacion_postventa_intalar'];
 
-    if ($proceso == '222222') $ou = 'Venta Aprovacion:Pendiente';
-    if ($proceso == '322222') $ou = 'Venta Aprovacion:Caida';
-    if ($proceso == '122222') $ou = 'Venta Validación:Pendiente';
-    if ($proceso == '132222') $ou = 'Venta Validación:Caida';
-    if ($proceso == '112222') $ou = 'Venta Cargado:Pendiente';
-    if ($proceso == '113222') $ou = 'Venta Cargado:Caida';
-    if ($proceso == '111222') $ou = 'PostVenta Validación:Pendiente';
-    if ($proceso == '111322') $ou = 'PostVenta Validación:Caida';
-    if ($proceso == '111122') $ou = 'PostVenta Cita:Pendiente';
-    if ($proceso == '111132') $ou = 'PostVenta Cita:Caida';
-    if ($proceso == '111112') $ou = 'PostVenta Intalación:Pendiente';
-    if ($proceso == '111113') $ou = 'PostVenta Intalación:Caida';
-    if ($proceso == '111111') $ou = 'PostVenta Intalación:Si';
+    if ($proceso == '222222') $ou = '<span style="color:black">Venta Aprovacion:Pendiente</span>';
+    if ($proceso == '322222') $ou = '<span style="color:red">Venta Aprovacion:Caida</span>';
+    if ($proceso == '122222') $ou = '<span style="color:black">Venta Validación:Pendiente</span>';
+    if ($proceso == '132222') $ou = '<span style="color:red">Venta Validación:Caida</span>';
+    if ($proceso == '112222') $ou = '<span style="color:black">Venta Cargado:Pendiente</span>';
+    if ($proceso == '113222') $ou = '<span style="color:red">Venta Cargado:Caida</span>';
+    if ($proceso == '111222') $ou = '<span style="color:black">PostVenta Validación:Pendiente</span>';
+    if ($proceso == '111322') $ou = '<span style="color:red">PostVenta Validación:Caida</span>';
+    if ($proceso == '111122') $ou = '<span style="color:black">PostVenta Cita:Pendiente</span>';
+    if ($proceso == '111132') $ou = '<span style="color:red">PostVenta Cita:Caida</span>';
+    if ($proceso == '111112') $ou = '<span style="color:black">PostVenta Intalación:Pendiente</span>';
+    if ($proceso == '111113') $ou = '<span style="color:red">PostVenta Intalación:Caida</span>';
+    if ($proceso == '111111') $ou = '<span style="color:green">PostVenta Intalación:Si</span>';
     return $ou;
 }
 

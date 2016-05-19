@@ -143,23 +143,23 @@ include '../autentificacion/vista/menu.tpl.php';
                 data-column="5">
           <option value="0"></option>
           <optgroup label="Venta">
-            <option value="a0">Venta</option>
+            <option value="a0" style="color:blue">Venta</option>
             <option value="a1">Aprobación:Pendiente</option>
-            <option value="a2">Aprobación:Caida</option>
+            <option value="a2" style="color:red">Aprobación:Caida</option>
             <option value="a3">Validación:Pendiente</option>
-            <option value="a4">Validación:Caida</option>
+            <option value="a4" style="color:red">Validación:Caida</option>
             <option value="a5">Cargado:Pendiente</option>
-            <option value="a6">Cargado:Caida</option>
+            <option value="a6" style="color:red">Cargado:Caida</option>
           </optgroup>
           <optgroup label="PostVenta">
-            <option value="b0">PostVenta</option>
+            <option value="b0" style="color:blue">PostVenta</option>
             <option value="b1">Validación:Pendiente</option>
-            <option value="b2">Validación:Caida</option>
+            <option value="b2" style="color:red">Validación:Caida</option>
             <option value="b3">Cita:Pendiente</option>
-            <option value="b4">Cita:Caida</option>
+            <option value="b4" style="color:red">Cita:Caida</option>
             <option value="b5">Instalación:Pendiente</option>
-            <option value="b6">Instalación:Caida</option>
-            <option value="b7">Instalación:Si</option>
+            <option value="b6" style="color:red">Instalación:Caida</option>
+            <option value="b7" style="color:green">Instalación:Si</option>
           </optgroup>
         </select>
       </td>

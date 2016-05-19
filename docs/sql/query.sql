@@ -1,29 +1,33 @@
-SELECT COUNT(*) AS 'a=1, b=1,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=1, b=1,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=1, b=1,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=1, b=2,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=1, b=2,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=1, b=2,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=1, b=3,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=1, b=3,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=1, b=3,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=1 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=3;
---
-SELECT COUNT(*) AS 'a=2, b=1,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=2, b=1,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=2, b=1,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=2, b=2,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=2, b=2,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=2, b=2,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=2, b=3,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=2, b=3,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=2, b=3,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=2 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=3;
---
-SELECT COUNT(*) AS 'a=3, b=1,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=3, b=1,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=3, b=1,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=1 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=3, b=2,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=3, b=2,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=3, b=2,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=2 AND tramitacion_venta_cargar=3;
-SELECT COUNT(*) AS 'a=3, b=3,c=1' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=1;
-SELECT COUNT(*) AS 'a=3, b=3,c=2' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=2;
-SELECT COUNT(*) AS 'a=3, b=3,c=3' FROM venta_campania_001 WHERE aprobado_supervisor=3 AND tramitacion_venta_validar=3 AND tramitacion_venta_cargar=3;
+-- cantidad total
+SELECT 
+  COUNT(v.id)
+FROM venta_campania_001 d 
+JOIN venta v ON v.id = d.id
+WHERE 
+    v.info_create_fecha LIKE '2016-04%'
+AND v.info_status = 1
+AND d.estado = 2 
+AND d.aprobado_supervisor = 1 
+AND d.tramitacion_venta_validar = 1
+AND d.tramitacion_venta_cargar = 1 
+AND d.tramitacion_postventa_validar = 1
+AND d.tramitacion_postventa_citar = 1
+AND d.tramitacion_postventa_intalar = 1
+;
+
+
+SELECT 
+
+FROM venta_campania_001 d 
+JOIN venta v ON v.id = d.id
+WHERE 
+    v.info_create_fecha LIKE '2016-04%'
+AND v.info_status = 1
+AND d.estado = 2 
+AND d.aprobado_supervisor = 1 
+AND d.tramitacion_venta_validar = 1
+AND d.tramitacion_venta_cargar = 1 
+AND d.tramitacion_postventa_validar = 1
+AND d.tramitacion_postventa_citar = 1
+AND d.tramitacion_postventa_intalar = 1
+;
