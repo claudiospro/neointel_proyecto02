@@ -265,7 +265,7 @@ class Utilidades {
         return $string;
     }
     static function printr($in) {
-        echo '<pre style="border: 1px solid; margin-bottom: 10px; background-color: rgb(196, 196, 196);">';
+        echo '<pre style="border: 1px solid; margin-bottom: 10px; background-color: rgb(196, 196, 196); height: 300px;">';
         print_r($in);
         echo '</pre>';
     }

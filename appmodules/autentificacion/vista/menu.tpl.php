@@ -14,10 +14,10 @@
             <li><a href="<?php echo $base_url . 'barrido' ?>">Barrido de Ventas</a></li>
           <?php endif ?>
           <?php if (array_search('Reporte-01-Venta', explode(' ',trim($_SESSION['resources']))) !== false): ?>
-            <li><a href="<?php echo $base_url . 'reporte01Venta' ?>">Reporte Venta Mes</a></li>
+            <li><a href="<?php echo $base_url . 'reporte01Venta' ?>">Reporte Venta</a></li>
           <?php endif ?>
-          <?php if (array_search('Base', explode(' ',trim($_SESSION['resources']))) !== false): ?>
-            <li><a href="<?php echo $base_url . 'base' ?>">Base</a></li>
+          <?php if (array_search('Comisiones', explode(' ',trim($_SESSION['resources']))) !== false): ?>
+            <li><a href="<?php echo $base_url . 'comisiones' ?>">Comisiones</a></li>
           <?php endif ?>
           <?php if (array_search('Usuario', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'usuario' ?>">Usuario</a></li>
