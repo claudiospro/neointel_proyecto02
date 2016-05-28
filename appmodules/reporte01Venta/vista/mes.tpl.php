@@ -65,7 +65,7 @@ $prefix = 'venta_reporte_mes_';
          {
              $js = '$("#pai-' . $key . '").highcharts({';
              $js.= 'chart: { type: "pie" },';
-             $js.= 'title: { text: "' . utf8_encode($row['titulo']) . '" },';
+             $js.= 'title: { text: "" },';
              $js.= '
          plotOptions: {
              series: {
@@ -169,10 +169,15 @@ $prefix = 'venta_reporte_mes_';
 
 <form action="index.php">
   <div class="row">
+    <div class="large-3 medium-5 small-12 columns">
+      <select name="campania_id" id="campania_id" class="no-margin">
+        <option value="<?php echo $in['campania_id']  ?>"></option>
+      </select>
+    </div>
     <div class="large-3 medium-5 small-9 columns">
       <select name="tipo" class="no-margin">
         <?php
-        $ll = array('1'=> 'Estados', '2'=>'Resid. / Autono.');
+        $ll = array('1'=> 'Estados', '2'=>'Tipo Cliente');
         for($i = 1; $i<=2; $i++)
         {
             $selected = '';
@@ -286,36 +291,16 @@ $prefix = 'venta_reporte_mes_';
 
 <?php if (isset($data)):  ?>
 <div class="row collapse">
-  <div class="large-2 medium-3 small-3 columns">
-    <ul class="tabs vertical" id="vert-tabs" data-tabs>
-      <?php
-      $first = true;
-      foreach($data as $key => $row)
-      {
-          if ($first)
-          {
-              $first= false;
-              echo '<li class="tabs-title is-active"><a href="#panel-' . $key . '" aria-selected="true">' . $row['tab'] . '</a></li>';
-          } else
-          {
-              echo '<li class="tabs-title"><a href="#panel-' . $key . '">' . $row['tab'] . '</a></li>';          
-          }          
-      }
-      ?>
-    </ul>
-  </div>
-  <div class="large-10 medium-9 small-9 columns">
-    <div class="tabs-content vertical" data-tabs-content="vert-tabs">
-      <?php
-      $first = true;
-      foreach($data as $key => $row)
-      {
-          echo '<div class="tabs-panel is-active" id="panel-' . $key . '">';
-          echo '<div id="pai-' . $key . '" style=""></div>';
-          echo '</div>';
-      }
-      ?>
-    </div>
+  <div class="large-12 medium-12 small-12 columns">
+    <?php
+    $first = true;
+    foreach($data as $key => $row)
+    {
+        echo '<div class="tabs-panel is-active" id="panel-' . $key . '">';
+        echo '<div id="pai-' . $key . '" style=""></div>';
+        echo '</div>';
+    }
+    ?>
   </div>
 </div>
 

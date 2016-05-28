@@ -8,8 +8,7 @@ include "../../../modelo/ModeloVenta.php";
 session_start();
 $venta = new ModeloVenta();
 // -------------------------------------------------------- INPUT
-$in[] = '';
-
+$in['campania'] = Utilidades::clear_input($_POST['campania']);
 // -------------------------------------------------------- Data
 $ou = $venta->getEstadoRealActivas($in);
 $combo = new OptionComboSimple();

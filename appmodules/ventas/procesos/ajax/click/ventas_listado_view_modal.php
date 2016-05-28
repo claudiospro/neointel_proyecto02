@@ -75,7 +75,7 @@ for ($i=0; $i < $total; $i++) {
             $row_str .= utf8_encode($campos[$i]['grupo_etiqueta']) . ':';
             $row_str .= '</label></div>';
             $row_str .= '<div class="small-10 columns"><div class="callout primary">';
-            for ($j=$i; $campos[$i]['grupo'] == $campos[$j]['grupo']; $j++) {
+            for ($j=$i; (($j < $total) and ($campos[$i]['grupo'] == $campos[$j]['grupo'])); $j++) {
                 $perfiles = explode(', ', trim($campos[$j]['perfiles']));
                 $permisos = explode(', ', trim($campos[$j]['permisos']));
                 $campos[$j]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
@@ -94,6 +94,7 @@ for ($i=0; $i < $total; $i++) {
                     $row_str .= '</div>'; 
                     $row_str .= '</div>';
                 }
+                $k = $j+1;
             }
             $i = $j - 1;
             $row_str .= '</div></div>';

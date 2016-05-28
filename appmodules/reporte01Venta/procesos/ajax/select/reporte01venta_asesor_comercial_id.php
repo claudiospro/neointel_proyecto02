@@ -12,6 +12,7 @@ $in['anio-mes-ini'] = Utilidades::clear_input($_POST['anio-mes-ini']);
 $in['dia-ini'] = Utilidades::clear_input_id((int)$_POST['dia-ini']);
 $in['anio-mes-end'] = Utilidades::clear_input($_POST['anio-mes-end']);
 $in['dia-end'] = Utilidades::clear_input_id((int)$_POST['dia-end']);
+$in['campania_id'] = Utilidades::clear_input($_POST['campania_id']);
 $in['supervisor_id'] = Utilidades::clear_input_id((int)$_POST['supervisor_id']);
 $in['asesor_comercial_id'] = Utilidades::clear_input_id((int)$_POST['asesor_comercial_id']);
 $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);

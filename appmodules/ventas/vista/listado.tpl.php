@@ -79,16 +79,18 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial' || trim($_SESSION['perfiles']) == 'Supervisor'): ?>
   <div class="row">
-    <div class="large-1 columns">
-      <a id="<?php echo $prefix ?>add"
-         class="button success no-margin"
-         data-open="venta_listado_modal_div"
-         title="Añadir">
-        <i class="fi-plus"></i>
-      </a>
+    <div class="large-3 medium-4 small-8 columns">
+      <div class="input-group no-margin">
+        <a id="<?php echo $prefix ?>add"
+           class="button success no-margin input-group-label"
+           data-open="venta_listado_modal_div"
+           title="Añadir">
+          <i class="fi-plus"></i>
+        </a>
+        <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
+      </div>      
     </div>
-    <div class="large-11 columns">
-      <select class="no-margin" id="<?php echo $prefix ?>campanias"></select>
+    <div class="large-1 medium-1 small-2 columns text-right">
     </div>
   </div>
 <?php endif ?>
@@ -122,17 +124,18 @@ include '../autentificacion/vista/menu.tpl.php';
       <td>12</td>
       <td>13</td>
       <td>14</td>
-      <td>15</td>
     </tr>
     -->
     <tr>
-      <td>
+      <td colspan="20" class="text-center">
         <select id="<?php echo $prefix ?>campanias-tbl"
                 class="no-margin search-input-select"
-                style="padding: 0px; width: 150px;"
+                style="padding: 0px; width: 250px;"
                 data-column="0">          
         </select>
       </td>
+    </tr>
+    <tr>
       <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
@@ -141,7 +144,7 @@ include '../autentificacion/vista/menu.tpl.php';
         <select class="no-margin search-input-select"
                 style="padding: 0px; width: 130px;"
                 data-column="5">
-          <option value="0"></option>
+          <option value=""></option>
           <optgroup label="Venta">
             <option value="a0" style="color:blue">Venta</option>
             <option value="a1">Aprobación:Pendiente</option>
@@ -211,7 +214,6 @@ include '../autentificacion/vista/menu.tpl.php';
       </td>
     </tr>
     <tr>
-      <th>Campaña</th>
       <th><span style="display: block; width: 150px;">Producto</span></th>
       <th>Tipo Cliente</th>
       <th><span style="display: block; width: 180px;">Cliente</span></th>

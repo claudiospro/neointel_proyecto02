@@ -16,10 +16,11 @@ if( 'Supervisor' == trim($_SESSION['perfiles']))
     $in['modo'] = 'Supervisor';
 }
 
-if (isset($_GET['anio-mes-ini'])) {
+if (isset($_GET['campania_id'])) {
     $modelo = new ModeloVenta();
 
     // -------------------------------------------------------- INPUT
+    $in['campania_id'] = Utilidades::clear_input_id($_GET['campania_id']);
     $in['anio-mes-ini'] = Utilidades::clear_input($_GET['anio-mes-ini']);
     $in['anio-mes-end'] = Utilidades::clear_input($_GET['anio-mes-end']);
     $in['dia-ini'] = Utilidades::clear_input($_GET['dia-ini']);
@@ -63,10 +64,7 @@ if (isset($_GET['anio-mes-ini'])) {
                 $index = $data0['indice'][$row['campania']];
                 $e = $row['estado_id'];
                 $data1[$index]['estado'][$e] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
-                if (!isset( $data1[0]['estado'][$e]))
-                    $data1[0]['estado'][$e] = $data1[$index]['estado'][$e];
-                else
-                    $data1[0]['estado'][$e]['y'] += $row['total'];
+
             }
         if (isset($data0['estado_real']) && $in['tipo'] == '01')
             foreach($data0['estado_real'] as $row) {
@@ -75,10 +73,7 @@ if (isset($_GET['anio-mes-ini'])) {
                 $e = $row['estado'];
                 $er = $row['estado_real_id'];
                 $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
-                if (!isset($data1[0]['estado_real'][$e][$er]))
-                    $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
-                else
-                    $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
+
             }
         // ---------------------------------------------------------------------------------------
         if (isset($data0['cliente_tipo']) && $in['tipo'] == '02')
@@ -87,10 +82,6 @@ if (isset($_GET['anio-mes-ini'])) {
                 $index = $data0['indice'][$row['campania']];
                 $e = $row['cliente_tipo_id'];
                 $data1[$index]['cliente_tipo'][$e] = array ('name'=>$row['cliente_tipo'], 'y'=>$row['total'], 'drilldown' => $row['cliente_tipo']);
-                if (!isset( $data1[0]['cliente_tipo'][$e]))
-                    $data1[0]['cliente_tipo'][$e] = $data1[$index]['cliente_tipo'][$e];
-                else
-                    $data1[0]['cliente_tipo'][$e]['y'] += $row['total'];
             }
         if (isset($data0['estado_real']) && $in['tipo'] == '02')
             foreach($data0['estado_real'] as $row) {
@@ -99,10 +90,6 @@ if (isset($_GET['anio-mes-ini'])) {
                 $e = $row['cliente_tipo'];
                 $er = $row['estado_real_id'];
                 $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
-                if (!isset($data1[0]['estado_real'][$e][$er]))
-                    $data1[0]['estado_real'][$e][$er] = $data1[$index]['estado_real'][$e][$er];
-                else
-                    $data1[0]['estado_real'][$e][$er]['y'] += $row['total'];
             }
     }
     
@@ -113,6 +100,7 @@ if (isset($_GET['anio-mes-ini'])) {
     // Utilidades::printr($data0);
     // Utilidades::printr($data1);
 } else {
+    $in['campania_id'] = '00';
     $in['anio-mes-ini'] = date('Y-m');
     $in['anio-mes-end'] = date('Y-m');
     $in['dia-ini'] = '00';

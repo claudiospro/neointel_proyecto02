@@ -278,8 +278,8 @@ AND d.tramitacion_postventa_intalar = 1
         echo '<caption>Residencial</caption>';
         echo '<thead>
                <tr>
-                <th></th>
-                <th><a title=" (Fibra + Telf)">2P</a></th>
+                <th>&nbsp;</th>
+                <th><a title="(Fibra + Telf)">2P</a></th>
                 <th><a title="(Fibra + Telf + TV extra)">3P</a></th>
                 <th><a title="Small">S</a></th>
                 <th><a title="Medium">M</a></th>
@@ -340,7 +340,8 @@ AND d.tramitacion_postventa_intalar = 1
         echo '<caption>Autonomos</caption>';
         echo '<thead>
                <tr>
-                <th colspan="2"></th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
                 <th><a title="Small">S</a></th>
                 <th><a title="Medium">M</a></th>
                 <th><a title="Large">L</a></th>

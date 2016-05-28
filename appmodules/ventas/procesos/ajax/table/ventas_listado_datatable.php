@@ -42,8 +42,7 @@ while( $row=mysqli_fetch_array($query) ) {
     }
     $sql_ini.= "
     SELECT
-      d1.nombre campania_nombre
-    , d2.nombre producto
+      d2.nombre producto
     , d9.nombre cliente_tipo
     , d.cliente_nombre
     , d.cliente_documento
@@ -80,7 +79,6 @@ while( $row=mysqli_fetch_array($query) ) {
     FROM venta v 
     JOIN venta_".$row['indice']." d ON d.id=v.id
     -- definiciones
-    LEFT JOIN campania d1 ON d1.indice=v.campania
     LEFT JOIN venta_producto d2 ON d2.id=d.producto
     LEFT JOIN venta_estado d3 ON d3.id=d.estado
     LEFT JOIN usu_usuario d4 ON d4.id=v.asesor_venta_id
@@ -227,7 +225,6 @@ $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
 
-    $nestedData[] = utf8_encode($row['campania_nombre']);
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_tipo']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);

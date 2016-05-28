@@ -35,6 +35,18 @@ $(document).ready(function() {
     $('table').on( 'change', '.lista-estado-row', function () {
         venta_listado_estado_row($(this));
     });
+
+    $(prefixId+'campanias-tbl').on( 'change', function () {
+        var enviar = {
+            'campania': $(prefixId+'campanias-tbl').val()  
+        }
+        // c(enviar);
+        element_simple(
+            '../ventas/procesos/ajax/select/ventas_listado_estado_real.php',
+            prefixId+'estado-tbl',
+            enviar
+        );
+    });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
@@ -71,11 +83,6 @@ $(document).ready(function() {
         //     prefixId+'estados',
         //     enviar
         // );
-        element_simple(
-            '../ventas/procesos/ajax/select/ventas_listado_estado_real.php',
-            prefixId+'estado-tbl',
-            enviar
-        );
         $.ajax({
 	    type: "POST",
 	    data: enviar,
@@ -84,6 +91,18 @@ $(document).ready(function() {
                 $(prefixId+'campanias-tbl').html(data);
 	    }
         });
+        var myVar = setInterval( function() {
+            var enviar = {
+                'campania': $(prefixId+'campanias-tbl').val()  
+            }
+            // c(enviar);
+            element_simple(
+                '../ventas/procesos/ajax/select/ventas_listado_estado_real.php',
+                prefixId+'estado-tbl',
+                enviar
+            );
+            clearInterval(myVar);
+	}, 800);
     }
     function venta_listado_cambiar() {
         if( $('.accion:checked').length > 0 ) {

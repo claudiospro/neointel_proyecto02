@@ -69,6 +69,17 @@ class ModeloVenta {
     function imprimirCampo($dato, $campo, $campania) {
         $dato = utf8_encode($dato);
         $ou = $dato;
+        /*
+         * DICCIONARIOS
+         * 1: auto completado
+         * 2: combo, con vacio, sin dependencia
+         * 5: combo, sin vacio, sin dependencia
+         * 3: combo, con vacio, con dependencia
+         * 4: combo, sin vacio, con dependencia
+         * 6: combo, con vacio, con dependencia-multiple
+         * 7: combo, sin vacio, con dependencia-multiple
+         */
+        
         if ($campo['permiso'] == 'w') {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
                 $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
@@ -206,7 +217,7 @@ class ModeloVenta {
                 }
                 
                 $ou.= '</select>';
-            }  elseif ($campo['diccionario']=='5') { // sin dependencia, sin elemento vacio
+            } elseif ($campo['diccionario']=='5') { // sin dependencia, sin elemento vacio
                 $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $orderby = 'ORDER BY 2';
@@ -226,6 +237,31 @@ class ModeloVenta {
                         $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
                     }
                     
+                }
+                $ou.= '</select>';
+            } elseif ($campo['diccionario']=='6' or $campo['diccionario']=='7') {
+                $orderby = 'ORDER BY 2';
+                if ($campo['diccionario_orden'] == '0') $orderby = '';
+                
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                if ($campo['diccionario']=='6')
+                    $ou.= '<option value="0"></option>';
+                $this->q->fields = array('id' => '', 'nombre' => '');
+                if ($campo['diccionario_nombre'] == '')
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania LIKE "%' . $campania . '%" ' . $orderby;
+                else
+                    $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['diccionario_nombre'] . ' WHERE info_status=1 and campania LIKE "%' . $campania . '%" ' . $orderby;
+                // echo $this->q->sql;        
+                $this->q->data = NULL;
+                $data = $this->q->exe();
+                if ($data) {
+                    foreach ($data as $row) {
+                        if ($row['id'] != $dato) {
+                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                        } else {
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                        }
+                    }
                 }
                 $ou.= '</select>';
             } else {
@@ -372,7 +408,6 @@ class ModeloVenta {
         if ('' != trim($in['lineas'])) {
             $this->q->sql.= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
         }
-        $this->q->sql.= ' ORDER BY 2';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
@@ -396,7 +431,7 @@ class ModeloVenta {
             'nombre' => '',
         );        
         $this->q->sql = '
-        SELECT id, nombre FROM venta_estado_real WHERE info_status=1';
+        SELECT id, nombre FROM venta_estado_real WHERE info_status=1 AND campania LIKE "%' . $in['campania'] . '%"';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();

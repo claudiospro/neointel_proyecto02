@@ -77,8 +77,10 @@ $sql = $sql_ini;
 $sql_filter = '';
 if( !empty($requestData['columns'][0]['search']['value']) ) {
     $sql_filter.=' AND campania = "' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '"';
+    $CAMPANIA = $requestData['columns'][0]['search']['value'];
 }else {
-$sql_filter.=' AND campania = "' . $campanias[0] . '"';
+    $sql_filter.=' AND campania = "' . $campanias[0] . '"';
+    $CAMPANIA = $campanias[0];
 }
 if( !empty($requestData['columns'][1]['search']['value']) ) {
     $sql_filter.=' AND estado_real_id =  "' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '"';
@@ -129,7 +131,7 @@ $totalFiltered = mysqli_num_rows($query); // when there is a search parameter th
 $sql.=" ORDER BY ". (intval($requestData['order'][0]['column'])+1)." " . $requestData['order'][0]['dir'] . " LIMIT " . $requestData['start'] . " ,".$requestData['length']." ";// print $sql;
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 
-$q = mysqli_query($conn, 'SELECT id, nombre FROM venta_estado_real WHERE info_status = 1 ') or die("02.5");
+$q = mysqli_query($conn, 'SELECT id, nombre FROM venta_estado_real WHERE info_status = 1 AND campania LIKE "%' . $CAMPANIA . '%"') or die("02.5");
 $str_combo = '<select class="lista-estado-row no-margin no-padding" campania="" venta="" style="background-color: transparent">';
 while( $row=mysqli_fetch_array($q) ) {
     $str_combo.= '<option value="' . $row['id'] . '">';
