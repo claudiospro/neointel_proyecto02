@@ -28,7 +28,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.4.2"></script>
+<script src="../../static/ventas/ventas_listado.js?v=1.4.3"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
@@ -212,6 +212,7 @@ include '../autentificacion/vista/menu.tpl.php';
           <option value="si">Si</option>
         </select>
       </td>
+      <td></td>
     </tr>
     <tr>
       <th><span style="display: block; width: 150px;">Producto</span></th>
@@ -229,6 +230,7 @@ include '../autentificacion/vista/menu.tpl.php';
       <th><span style="display: block; width: 160px;">Supervisor</span></th>
       <th><span style="display: block; width: 160px;">Coordinador</span></th>
       <th>Eliminado</th>
+      <th></th>
     </tr>
   </thead>
 </table>
