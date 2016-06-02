@@ -21,7 +21,14 @@ if (isset($_GET['campania_id']))
         &&'Vodafone One' == trim($in['campania_info']['nombre']))
     {
         $pr = $modelo->campania_001_Vodafon_one($in);
-        $ou = $modelo->campania_001_Vodafon_one_process($pr);
+        if (is_array($pr['datos']))
+        {
+            $ou = $modelo->campania_001_Vodafon_one_process($pr);
+        }
+        else
+        {
+            $ou = null;
+        }        
     }
     
     

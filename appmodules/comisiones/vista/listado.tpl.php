@@ -10,8 +10,8 @@ $prefix = 'comisiones_listado_';
 <link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
 <style>
  .tablas-comisiones table {
-     float: left;
-     margin: 0 0 0 1em;
+     /*float: left;*/
+     /*margin: 0 0 0 1em;*/
  }
  .tablas-comisiones table  th,
  .tablas-comisiones table  td
@@ -86,11 +86,18 @@ include '../autentificacion/vista/menu.tpl.php';
         </a>
       </div>
     </div>
-    <div class="large-1  medium-2  small-3 columns">
+    <div class="large-2  medium-4  small-6 columns">
       <button class="button no-margin">Buscar</button>
+      <?php if ( isset($ou) ): ?>
+        <a id="export-excel"
+           class="button success hollow no-margin"
+           href=""
+           target="_blank"
+        >EXCEL
+        </a>
+      <?php endif ?>
     </div>
-    <div class="large-1  medium-1  small-1 columns">
-    </div>
+    <div class="large-1  medium-1  small-1 columns"></div>
   </div>
 </form>
 <div class="row">
@@ -100,6 +107,7 @@ include '../autentificacion/vista/menu.tpl.php';
           $in['campania_info']['indice'] == 'campania_001' &&
           'Vodafone One' == trim($in['campania_info']['nombre'])
       ): ?>
+        <input type="hidden" id="campania_nombre" value="<?php echo $in['campania_info']['nombre'] ?>" >
         <ul class="tabs" data-tabs id="example-tabs">
           <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Total</a></li>
           <li class="tabs-title"><a href="#panel2">Supervisores</a></li>
@@ -107,91 +115,45 @@ include '../autentificacion/vista/menu.tpl.php';
         </ul>
         <div class="tabs-content" data-tabs-content="example-tabs">
           <div class="tabs-panel is-active" id="panel1">
-            <?php $modelo->campania_001_Vodafon_one_imprimir($ou['fibra']['total'], $ou['movil']['total']) ?>
+            <?php
+            echo $modelo->campania_001_Vodafon_one_html_header();
+            echo $modelo->campania_001_Vodafon_one_html_body(
+                'Total',
+                $ou['fibra']['total'],
+                $ou['movil']['total']
+            );
+            echo $modelo->campania_001_Vodafon_one_html_footer();  
+            ?>
           </div>
           <div class="tabs-panel" id="panel2">
-
-            <div class="row collapse">
-              <div class="medium-2 columns">
-                <ul class="tabs vertical" id="supervisores-vert-tabs" data-tabs>
-                  <?php
-                  $first = true;
-                  $i = 0;
-                  foreach($ou['fibra']['supervisor'] as $name => $r) {
-                      $i++;
-                      $is_active = '';
-                      $aria_selected = '';
-                      if ($first) {
-                          $is_active = 'is-active';
-                          $aria_selected = 'aria-selected="true"';
-                          $first = false;
-                      }
-                      echo '<li class="tabs-title ' .$is_active . '">
-                             <a href="#panel_supervisores_' . $i . '"
-                              ' . $aria_selected . ' >' . utf8_encode(strtoupper($name)) . '
-                             </a>
-                            </li>';
-                  }
-                  ?>
-                </ul>
-              </div>
-              <div class="medium-10 columns">
-                <div class="tabs-content vertical" data-tabs-content="supervisores-vert-tabs">
-                  <?php
-                  $first = true;
-                  $i = 0;
-                  foreach($ou['fibra']['supervisor'] as $name => $r) {
-                      $i++;
-                      $is_active = '';
-                      if ($first) {
-                          $is_active = 'is-active';
-                          $first = false;
-                      }
-                      echo '<div class="tabs-panel ' . $is_active . '" id="panel_supervisores_' . $i . '">';
-                      $modelo->campania_001_Vodafon_one_imprimir($ou['fibra']['supervisor'][$name], $ou['movil']['supervisor'][$name]);
-                      echo '</div>';
-                  }
-                  ?>
-                </div>
-              </div>              
-            </div>
-            
+            <?php
+            echo $modelo->campania_001_Vodafon_one_html_header();
+            foreach($ou['fibra']['supervisor'] as $name => $r) {
+                echo $modelo->campania_001_Vodafon_one_html_body(
+                    utf8_encode(strtoupper($name)),
+                    $ou['fibra']['supervisor'][$name],
+                    $ou['movil']['supervisor'][$name]
+                );
+            }
+            echo $modelo->campania_001_Vodafon_one_html_footer();
+            ?>
           </div>
           <div class="tabs-panel" id="panel3">
-
             <?php
-            $i = 0;
-            echo '<ul class="accordion" data-accordion role="tablist">';
+            echo $modelo->campania_001_Vodafon_one_html_header();
             foreach($ou['fibra']['asesor_venta'] as $name => $r) {
-                echo '<li class="accordion-item">';
-                $i++;
-                echo '
-                <a href="#panel_asesor_venta_' . $i . '"
-                   role="tab"
-                   class="accordion-title"
-                   id="panel_heading_asesor_venta_' . $i . '"
-                   aria-controls="panel1d">
-                  ' . utf8_encode($name) . '
-                </a>
-                <div id="panel_asesor_venta_' . $i . '"
-                     class="accordion-content"
-                     role="tabpanel"
-                     data-tab-content
-                     aria-labelledby="panel_heading_asesor_venta_' . $i . '">
-                ';
-                
                 if (!isset($ou['fibra']['asesor_venta'][$name]))
                     $ou['fibra']['asesor_venta'][$name] = array();
                 if (!isset($ou['movil']['asesor_venta'][$name]))
-                    $ou['movil']['asesor_venta'][$name] = array();                      
-                $modelo->campania_001_Vodafon_one_imprimir(
-                    $ou['fibra']['asesor_venta'][$name]
-                  , $ou['movil']['asesor_venta'][$name]
+                    $ou['movil']['asesor_venta'][$name] = array();
+                
+                echo $modelo->campania_001_Vodafon_one_html_body(
+                    utf8_encode(strtoupper($name)),
+                    $ou['fibra']['asesor_venta'][$name],
+                    $ou['movil']['asesor_venta'][$name]
                 );
-                echo ' </div>';
-                echo '</li>';
             }
-            echo '</ul>';
+            echo $modelo->campania_001_Vodafon_one_html_footer();
             ?>
           </div>
         </div>

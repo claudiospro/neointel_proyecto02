@@ -16,7 +16,7 @@ class ModeloComision {
         ';
         if ($in['lineas'] != '')
             $this->q->sql.= '            
-            AND cl.lineal_id IN (' . $in['lineales'] . ')
+            AND cl.lineal_id IN (' . $in['lineas'] . ')
             ';
         // Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
@@ -40,6 +40,7 @@ class ModeloComision {
     function campania_001_Vodafon_one($in) {
         $this->q->fields = array(
             'id' => '',
+            'cliente_tipo' => '',
             'producto' => '',
             'producto_observacion' => '',
             'con_television' => '',
@@ -62,6 +63,7 @@ class ModeloComision {
         $this->q->sql = '
 SELECT 
   d.id
+, d.cliente_tipo
 , d.producto
 , d.producto_observacion
 , d.con_television
@@ -138,9 +140,7 @@ AND d.tramitacion_postventa_intalar = 1
         $supervisor= array();
         $asesor = array();
         
-        $ou['total'] = array();        
-        $ou['supervisor'] = array();
-        $ou['asesor_venta']=  array();
+        $ou = array();        
         /*
           +----+-------------------------------+
           | id | nombre                        |
@@ -173,91 +173,113 @@ AND d.tramitacion_postventa_intalar = 1
           |  4 | Mini   |
           +----+--------+
         */
+        /* MODALIDAD
+          +----+--------------+
+          | id | nombre       |
+          +----+--------------+
+          |  1 | Alta Nueva   |
+          |  2 | Portabilidad |
+          +----+--------------+
+         */
         foreach($data['datos'] as $r) {           
             $ou['data'][$r['id']] = $r;
             // ----------------------------------------------- las tarifa
             if ($r['producto'] == '13')
-            {                
+            {
+                $mo = 'Alta Nueva';
+                if ($r['fijo_modalidad'] == '1') $mo = 'Alta Nueva';
+                if ($r['fijo_modalidad'] == '2') $mo = 'Portabilidad';
+                
                 $ou['fibra']['total']['autonomo']['adsl']
-                    [] = $r['id'];
+                    [$mo][] = $r['id'];
                 $ou['fibra']['supervisor'][$r['supervisor']]['autonomo']['adsl']
-                    [] = $r['id'];
+                    [$mo][] = $r['id'];
                 $ou['fibra']['asesor_venta'][$r['asesor_venta']]['autonomo']['adsl']
-                    [] = $r['id'];
+                    [$mo][] = $r['id'];
                 $tipo = 'autonomo';
-            }
-            if (
-                $r['producto'] == '2'  ||
-                $r['producto'] == '6'  ||
-                $r['producto'] == '10'
-            )
+                
+            } else
             {
-                if ($r['producto'] == '2' ) $mb = '50MB';
-                if ($r['producto'] == '6' ) $mb = '120MB';
-                if ($r['producto'] == '10') $mb = '300MB';
+                if ($r['cliente_tipo'] == '2')
+                { // autonomo
+                    if ($r['producto'] == '2'  || $r['producto'] == '3'  || $r['producto'] == '4'  || $r['producto'] == '5' ) $mb = '50MB';
+                    if ($r['producto'] == '6'  || $r['producto'] == '7'  || $r['producto'] == '8'  || $r['producto'] == '9' ) $mb = '120MB';
+                    if ($r['producto'] == '10' || $r['producto'] == '11' || $r['producto'] == '14' || $r['producto'] == '1' ) $mb = '300MB';
+
+                    $mo = 'Alta Nueva';
+                    if ($r['fijo_modalidad'] == '1') $mo = 'Alta Nueva';
+                    if ($r['fijo_modalidad'] == '2') $mo = 'Portabilidad';
                 
-                $ou['fibra']['total']['autonomo']['fibra']
-                    [$mb][] = $r['id'];
-                $ou['fibra']['supervisor'][$r['supervisor']]['autonomo']['fibra']
-                    [$mb][] = $r['id'];
-                $ou['fibra']['asesor_venta'][$r['asesor_venta']]['autonomo']['fibra']
-                    [$mb][] = $r['id'];
-                $tipo = 'autonomo';
-            }
-            if (
-                $r['producto'] == '3'  || $r['producto'] == '4'  || $r['producto'] == '5' ||
-                $r['producto'] == '7'  || $r['producto'] == '8'  || $r['producto'] == '9' ||
-                $r['producto'] == '11' || $r['producto'] == '14' || $r['producto'] == '1' 
-            )
-            {
-                if ($r['con_television'] == '2' || $r['con_television'] == '3') $p = '3P';
-                else $p = '2P';
+                    $ou['fibra']['total']['autonomo']['fibra']
+                        [$mb][$mo][] = $r['id'];
+                    $ou['fibra']['supervisor'][$r['supervisor']]['autonomo']['fibra']
+                        [$mb][$mo][] = $r['id'];
+                    $ou['fibra']['asesor_venta'][$r['asesor_venta']]['autonomo']['fibra']
+                        [$mb][$mo][] = $r['id'];
+                    $tipo = 'autonomo';
+                }
+                elseif($r['cliente_tipo'] == '1')
+                { // residencial
+                    if ($r['con_television'] == '2' || $r['con_television'] == '3') $p = '3P';
+                    else $p = '2P';
                 
-                if ($r['producto'] == '3' || $r['producto'] == '4' || $r['producto'] == '5') $mb = '50MB';
-                if ($r['producto'] == '7' || $r['producto'] == '8' || $r['producto'] == '9' ) $mb = '120MB';
-                if ($r['producto'] == '11' || $r['producto'] == '14' || $r['producto'] == '1' ) $mb = '300MB';
+                    if ($r['producto'] == '2'  || $r['producto'] == '3'  || $r['producto'] == '4'  || $r['producto'] == '5' ) $mb = '50MB';
+                    if ($r['producto'] == '6'  || $r['producto'] == '7'  || $r['producto'] == '8'  || $r['producto'] == '9' ) $mb = '120MB';
+                    if ($r['producto'] == '10' || $r['producto'] == '11' || $r['producto'] == '14' || $r['producto'] == '1' ) $mb = '300MB';
                 
-                $ou['fibra']['total']['residencial'][$p]
-                    [$mb][] = $r['id'];
-                $ou['fibra']['supervisor'][$r['supervisor']]['residencial'][$p]
-                    [$mb][] = $r['id'];
-                $ou['fibra']['asesor_venta'][$r['asesor_venta']]['residencial'][$p]
-                    [$mb][] = $r['id'];
-                $tipo = 'residencial';
+                    $ou['fibra']['total']['residencial'][$p]
+                        [$mb][] = $r['id'];
+                    $ou['fibra']['supervisor'][$r['supervisor']]['residencial'][$p]
+                        [$mb][] = $r['id'];
+                    $ou['fibra']['asesor_venta'][$r['asesor_venta']]['residencial'][$p]
+                        [$mb][] = $r['id'];
+                    $tipo = 'residencial';
+
+
+                    
+                }
             }
             // ----------------------------------------------- las lineas
-            /*
-              [fijo_numero] => 968524549
-              [fijo_modalidad] => 2
-              [movil_numero] => 607518241
-              [movil_modalidad] => 2
-              [movil_tarifa] => 2
-              [movil_adicional_1_numero] => 610720890
-              [movil_adicional_1_modalidad] => 2
-              [movil_adicional_1_tarifa] => 4
-              [movil_adicional_2_numero] => 
-              [movil_adicional_2_modalidad] => 0
-              [movil_adicional_2_tarifa] => 0
-            */
+            
+            
+            
             if ('' != trim($r['movil_numero']) && $r['movil_modalidad'] != '0' && $r['movil_modalidad'] != '4')
             {
                 if ($r['movil_tarifa'] == '1') $m = 'S';
                 if ($r['movil_tarifa'] == '2') $m = 'M';
                 if ($r['movil_tarifa'] == '3') $m = 'L';
-                
-                $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];
+
+                if ($tipo == 'autonomo')
+                {
+                    $ou['movil']['total'][$tipo]['linea 1'][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 1'][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 1'][$m][] = $r['id'];                    
+                }
+                elseif ($tipo == 'residencial')
+                {
+                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];
+                }
             }
             if ('' != trim($r['movil_adicional_1_numero']) && $r['movil_adicional_1_modalidad'] != '0' && $r['movil_adicional_1_modalidad'] != '4')
             {
                 if ($r['movil_adicional_1_tarifa'] == '1') $m = 'S';
                 if ($r['movil_adicional_1_tarifa'] == '2') $m = 'M';
                 if ($r['movil_adicional_1_tarifa'] == '3') $m = 'L';
-                
-                $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];
+
+                if ($tipo == 'autonomo')
+                {
+                    $ou['movil']['total'][$tipo]['linea 2'][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2'][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2'][$m][] = $r['id'];
+                }
+                elseif ($tipo == 'residencial')
+                {
+                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];                    
+                }
             }
             if ('' != trim($r['movil_adicional_2_numero']) && $r['movil_adicional_2_modalidad'] != '0' && $r['movil_adicional_2_modalidad'] != '4')
             {
@@ -265,135 +287,221 @@ AND d.tramitacion_postventa_intalar = 1
                 if ($r['movil_adicional_2_tarifa'] == '2') $m = 'M';
                 if ($r['movil_adicional_2_tarifa'] == '3') $m = 'L';
                 
-                $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];
+                if ($tipo == 'autonomo')
+                {
+                    $ou['movil']['total'][$tipo]['linea 2'][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2'][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2'][$m][] = $r['id'];                    
+                }
+                elseif ($tipo == 'residencial')
+                {
+                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
+                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
+                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];                    
+                }
             }
         }
         return $ou;
     }
-    function campania_001_Vodafon_one_imprimir($fibra, $movil) {
-        echo '<div class="tablas-comisiones">';
-        echo '<table>';
-        echo '<caption>Residencial</caption>';
-        echo '<thead>
+    function campania_001_Vodafon_one_html_header() {
+        $ou = '';
+        $ou .= '<div class="tablas-comisiones">';
+        $ou .= '<table>';
+        $ou .= '
                <tr>
-                <th>&nbsp;</th>
-                <th><a title="(Fibra + Telf)">2P</a></th>
-                <th><a title="(Fibra + Telf + TV extra)">3P</a></th>
-                <th><a title="Small">S</a></th>
-                <th><a title="Medium">M</a></th>
-                <th><a title="Large">L</a></th>
-               </tr>
-              </thead>
-             ';
-        echo '<tbody>';
+                <th colspan="2" rowspan="2">&nbsp;</th>
 
-        if (!isset($fibra['residencial']['2P']['300MB']))
-            $fibra['residencial']['2P']['300MB'] = array();
-        if (!isset($fibra['residencial']['3P']['300MB']))
-            $fibra['residencial']['3P']['300MB'] = array();
+                <th colspan="3">Residencial</th>
+                <th colspan="4">Lineas</th>
+                <th colspan="3">Autonomos</th>
+                <th colspan="3">1ra Linea</th>
+                <th colspan="3">2da y 3ra Linea</th>
+                <th colspan="1">Lineas</th>
+                <th colspan="2">Total</th>
+               </tr>
+               <tr>
+                <th colspan="1"><a title="(Fibra + Telf)">2P</a></th>
+                <th colspan="1"><a title="(Fibra + Telf + TV extra)">3P</a></th>
+                <th colspan="1">SubTotal</th>
+                <th colspan="1"><a title="Small">S</a></th>
+                <th colspan="1"><a title="Medium">M</a></th>
+                <th colspan="1"><a title="Large">L</a></th>
+                <th colspan="1">SubTotal</th>
+                <!--  --!>
+                <th colspan="1">Alta Nueva</th>
+                <th colspan="1">Portabilidad</th>
+                <th colspan="1">SubTotal</th>
+                <th colspan="1"><a title="Small">S</a></th>
+                <th colspan="1"><a title="Medium">M</a></th>
+                <th colspan="1"><a title="Large">L</a></th>
+                <th colspan="1"><a title="Small">S</a></th>
+                <th colspan="1"><a title="Medium">M</a></th>
+                <th colspan="1"><a title="Large">L</a></th>
+                <th colspan="1">SubTotal</th>
+                <th colspan="1">Ventas</th>
+                <th colspan="1">Lineas</th>
+               </tr>
+             ';
+        return $ou;
+    }
+    function campania_001_Vodafon_one_html_footer() {
+        $ou = '';
+        $ou .= '</table>';
+        $ou .= '</div>';        
+        return $ou;        
+    }
+    function campania_001_Vodafon_one_html_body($titulo, $fibra, $movil) {
+        $ou = '';
+        // --------------------------------------------- lineas
         if (!isset($movil['residencial']['S']))
             $movil['residencial']['S'] = array();
         if (!isset($movil['residencial']['M']))
             $movil['residencial']['M'] = array();
         if (!isset($movil['residencial']['L']))
-            $movil['residencial']['L'] = array();        
-        echo '<tr>
-               <th>300MB</th>
-               <td>' . count($fibra['residencial']['2P']['300MB']) . '</td>
-               <td>' . count($fibra['residencial']['3P']['300MB']) . '</td>
-               <td rowspan="3">' . count($movil['residencial']['S']) . '</td>
-               <td rowspan="3">' . count($movil['residencial']['M']) . '</td>
-               <td rowspan="3">' . count($movil['residencial']['L']) . '</td>
-              </tr>
-             ';
+            $movil['residencial']['L'] = array();
+        //
+        if (!isset($movil['autonomo']['linea 1']['S']))
+            $movil['autonomo']['linea 1']['S'] = array();
+        if (!isset($movil['autonomo']['linea 1']['M']))
+            $movil['autonomo']['linea 1']['M'] = array();
+        if (!isset($movil['autonomo']['linea 1']['L']))
+            $movil['autonomo']['linea 1']['L'] = array();
         
+        if (!isset($movil['autonomo']['linea 2']['S']))
+            $movil['autonomo']['linea 2']['S'] = array();
+        if (!isset($movil['autonomo']['linea 2']['M']))
+            $movil['autonomo']['linea 2']['M'] = array();
+        if (!isset($movil['autonomo']['linea 2']['L']))
+            $movil['autonomo']['linea 2']['L'] = array();
+        
+        // --------------------------------------------- 300
+        if (!isset($fibra['residencial']['2P']['300MB']))
+            $fibra['residencial']['2P']['300MB'] = array();
+        if (!isset($fibra['residencial']['3P']['300MB']))
+            $fibra['residencial']['3P']['300MB'] = array();
+        //
+        if (!isset($fibra['autonomo']['fibra']['300MB']['Alta Nueva']))
+            $fibra['autonomo']['fibra']['300MB']['Alta Nueva'] = array();
+        if (!isset($fibra['autonomo']['fibra']['300MB']['Portabilidad']))
+            $fibra['autonomo']['fibra']['300MB']['Portabilidad'] = array();
+
+        // ----------------------------------------- 120
         if (!isset($fibra['residencial']['2P']['120MB']))
             $fibra['residencial']['2P']['120MB'] = array();
         if (!isset($fibra['residencial']['3P']['120MB']))
-            $fibra['residencial']['3P']['120MB'] = array();        
-        echo '<tr>
-               <th>120MB</th>
-               <td>' . count($fibra['residencial']['2P']['120MB']) . '</td>
-               <td>' . count($fibra['residencial']['3P']['120MB']) . '</td>
-              </tr>
-             ';
+            $fibra['residencial']['3P']['120MB'] = array();
+        //
+        if (!isset($fibra['autonomo']['fibra']['120MB']['Alta Nueva']))
+            $fibra['autonomo']['fibra']['120MB']['Alta Nueva'] = array();
+        if (!isset($fibra['autonomo']['fibra']['120MB']['Portabilidad']))
+            $fibra['autonomo']['fibra']['120MB']['Portabilidad'] = array();
 
+        // ----------------------------------------- 50        
         if (!isset($fibra['residencial']['2P']['50MB']))
             $fibra['residencial']['2P']['50MB'] = array();
         if (!isset($fibra['residencial']['3P']['50MB']))
-            $fibra['residencial']['3P']['50MB'] = array();        
-        echo '<tr>
-               <th>50MB</th>
+            $fibra['residencial']['3P']['50MB'] = array();
+        //
+        if (!isset($fibra['autonomo']['fibra']['50MB']['Alta Nueva']))
+            $fibra['autonomo']['fibra']['50MB']['Alta Nueva'] = array();
+        if (!isset($fibra['autonomo']['fibra']['50MB']['Portabilidad']))
+            $fibra['autonomo']['fibra']['50MB']['Portabilidad'] = array();
+        
+        // ----------------------------------------- adsl        
+        if (!isset($fibra['autonomo']['adsl']['Alta Nueva']))
+            $fibra['autonomo']['adsl']['Alta Nueva'] = array();
+        if (!isset($fibra['autonomo']['adsl']['Portabilidad']))
+            $fibra['autonomo']['adsl']['Portabilidad'] = array();
+
+        // ------------------------------------------ TOTAL
+        $total_1 = count($fibra['residencial']['2P']['300MB']) 
+                 + count($fibra['residencial']['2P']['120MB'])
+                 + count($fibra['residencial']['2P']['50MB'])
+                 + count($fibra['residencial']['3P']['300MB']) 
+                 + count($fibra['residencial']['3P']['120MB'])
+                 + count($fibra['residencial']['3P']['50MB'])
+                 ;
+        $total_2 = count($movil['residencial']['S'])
+                 + count($movil['residencial']['M'])
+                 + count($movil['residencial']['L'])
+                 ;
+        $total_3 = count($fibra['autonomo']['fibra']['300MB']['Alta Nueva'])
+                 + count($fibra['autonomo']['fibra']['300MB']['Portabilidad'])
+                 + count($fibra['autonomo']['fibra']['120MB']['Alta Nueva'])
+                 + count($fibra['autonomo']['fibra']['120MB']['Portabilidad'])
+                 + count($fibra['autonomo']['fibra']['50MB']['Alta Nueva'])
+                 + count($fibra['autonomo']['fibra']['50MB']['Portabilidad'])
+                 + count($fibra['autonomo']['adsl']['Alta Nueva'])
+                 + count($fibra['autonomo']['adsl']['Portabilidad'])
+                 ;        
+        $total_4 = count($movil['autonomo']['linea 1']['S'])
+                 + count($movil['autonomo']['linea 1']['M'])
+                 + count($movil['autonomo']['linea 1']['L'])
+                 + count($movil['autonomo']['linea 2']['S'])
+                 + count($movil['autonomo']['linea 2']['M'])
+                 + count($movil['autonomo']['linea 2']['L'])
+                 ;
+        $total_5 = $total_1 + $total_3;
+        $total_6 = $total_2 + $total_4;
+        $ou .= '
+              <tr>
+               <th rowspan="4" style="width: 100px;">' . $titulo . '</th>   
+               <th>Fibra 300MB</th>
+               <td>' . count($fibra['residencial']['2P']['300MB']) . '</td>
+               <td>' . count($fibra['residencial']['3P']['300MB']) . '</td>
+               <th rowspan="3">' . $total_1 . '</th>
+               <td rowspan="3">' . count($movil['residencial']['S']) . '</td>
+               <td rowspan="3">' . count($movil['residencial']['M']) . '</td>
+               <td rowspan="3">' . count($movil['residencial']['L']) . '</td>
+               <th rowspan="3">' . $total_2 . '</th>
+               <!--  --!>
+               <td>' . count($fibra['autonomo']['fibra']['300MB']['Alta Nueva']) . '</td>
+               <td>' . count($fibra['autonomo']['fibra']['300MB']['Portabilidad']) . '</td>
+               <th rowspan="4">' . $total_3 . '</th>
+               <td rowspan="4">' . count($movil['autonomo']['linea 1']['S']) . '</td>
+               <td rowspan="4">' . count($movil['autonomo']['linea 1']['M']) . '</td>
+               <td rowspan="4">' . count($movil['autonomo']['linea 1']['L']) . '</td>
+
+               <td rowspan="4">' . count($movil['autonomo']['linea 2']['S']) . '</td>
+               <td rowspan="4">' . count($movil['autonomo']['linea 2']['M']) . '</td>
+               <td rowspan="4">' . count($movil['autonomo']['linea 2']['L']) . '</td>
+               <th rowspan="4">' . $total_4 . '</th>
+               <th rowspan="4">' . $total_5 . '</th>
+               <th rowspan="4">' . $total_6 . '</th>
+              </tr>
+               ';        
+
+        $ou .= '<tr>
+               <th>Fibra 120MB</th>
+               <td>' . count($fibra['residencial']['2P']['120MB']) . '</td>
+               <td>' . count($fibra['residencial']['3P']['120MB']) . '</td>
+               <!--  --!>
+               <td>' . count($fibra['autonomo']['fibra']['120MB']['Alta Nueva']) . '</td>
+               <td>' . count($fibra['autonomo']['fibra']['120MB']['Portabilidad']) . '</td>
+              </tr>
+             ';
+
+        $ou .= '<tr>
+               <th>Fibra 50MB</th>
                <td>' . count($fibra['residencial']['2P']['50MB']) . '</td>
                <td>' . count($fibra['residencial']['3P']['50MB']) . '</td>
+               <!--  --!>
+               <td>' . count($fibra['autonomo']['fibra']['50MB']['Alta Nueva']) . '</td>
+               <td>' . count($fibra['autonomo']['fibra']['50MB']['Portabilidad']) . '</td>
               </tr>
              ';
+        $ou .= '</tr>';
         
-        echo '</tr>';
-        echo '</tbody>';
-        echo '</table>';
-
-        
-        echo '<table class="end">';
-        echo '<caption>Autonomos</caption>';
-        echo '<thead>
-               <tr>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th><a title="Small">S</a></th>
-                <th><a title="Medium">M</a></th>
-                <th><a title="Large">L</a></th>
-               </tr>
-              </thead>
-             ';
-        echo '<tbody>';
-        
-        if (!isset($fibra['autonomo']['fibra']['300MB']))
-            $fibra['autonomo']['fibra']['300MB'] = array();
-        if (!isset($movil['autonomo']['S']))
-            $movil['autonomo']['S'] = array();
-        if (!isset($movil['autonomo']['M']))
-            $movil['autonomo']['M'] = array();
-        if (!isset($movil['autonomo']['L']))
-            $movil['autonomo']['L'] = array();        
-        echo '<tr>
-               <th>Fibra 300 MB</th>
-               <td>' . count($fibra['autonomo']['fibra']['300MB']) . '</td>
-               <td rowspan="4">' . count($movil['autonomo']['S']) . '</td>
-               <td rowspan="4">' . count($movil['autonomo']['M']) . '</td>
-               <td rowspan="4">' . count($movil['autonomo']['L']) . '</td>
-              </tr>
-             ';
-
-        if (!isset($fibra['autonomo']['fibra']['120MB']))
-            $fibra['autonomo']['fibra']['120MB'] = array();   
-        echo '<tr>
-               <th>Fibra 120 MB</th>
-               <td>' . count($fibra['autonomo']['fibra']['120MB']) . '</td>
-              </tr>
-             ';
-
-        if (!isset($fibra['autonomo']['fibra']['50MB']))
-            $fibra['autonomo']['fibra']['50MB'] = array();        
-        echo '<tr>
-               <th>Fibra 50 MB</th>
-               <td>' . count($fibra['autonomo']['fibra']['50MB']) . '</td>
-              </tr>
-             ';
-        if (!isset($fibra['autonomo']['adsl']))
-            $fibra['autonomo']['adsl'] = array();        
-        echo '<tr>
+        $ou .= '<tr>
                <th>ADSL</th>
-               <td>' . count($fibra['autonomo']['adsl']) . '</td>
+               <td colspan="7">&nbsp;</td>
+               <!--  --!>
+               <td>' . count($fibra['autonomo']['adsl']['Alta Nueva']) . '</td> 
+               <td>' . count($fibra['autonomo']['adsl']['Portabilidad']) . '</td> 
               </tr>
              ';
-        
-        echo '</tbody>';
-        echo '</table>';
-        echo '<div style="clear:both;"></div>';
-        echo '</div>';
-        
+        $ou .= '</tr>';
+        $ou .= '<tr><th colspan="21"></th></tr>';
+        return $ou ;
     }
 }

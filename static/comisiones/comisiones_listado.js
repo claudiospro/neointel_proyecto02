@@ -6,9 +6,11 @@ $(document).ready(function() {
     // --------------------------------------------------------------- LOAD
     comisiones_listado_combos();
     // ------------------------------------------------------------ EVENTOS
-    // $(prefixId+'tabla .reload').on('click', function (event) {
-    // });
-    // ----------------------------
+    $('#export-excel').on('click', function (event) {
+        comisiones_listado_excel($(this));
+    });
+
+    
     // ---------------------------------------------------------- FUNCIONES
     function comisiones_listado_combos() {
         var enviar = {
@@ -20,5 +22,18 @@ $(document).ready(function() {
             '#campania_id',
             enviar
         );
+    }
+    function comisiones_listado_excel(item) {
+        var enviar = {
+            'campania_id': $('#campania_id').val(),
+            'fecha': $('#anio-mes').val(),
+        }
+        // c(enviar);
+        var enlace = '';        
+        enlace+= 'procesos/ajax/click/comisiones_listado_excel.php?';
+        enlace+= 'campania_id=' + enviar.campania_id + '&';
+        enlace+= 'fecha=' + enviar.fecha ;
+        item.attr('href', enlace);
+        
     }
 });
