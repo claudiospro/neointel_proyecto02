@@ -91,7 +91,7 @@ JOIN usu_usuario sup ON sup.id = v.supervisor_id
 WHERE 
     v.info_status = 1
 AND v.info_create_fecha LIKE "' . $in['anio-mes'] . '%"
-AND d.estado = 2
+AND d.estado_real = 3
 AND d.aprobado_supervisor = 1
 AND d.tramitacion_venta_validar = 1
 AND d.tramitacion_venta_cargar = 1
