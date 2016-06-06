@@ -133,6 +133,6 @@ echo '</div></div>';
 
 echo '
 <script src="../../static/ventas/ventas_datapicker.js"></script>
-<script src="../../static/ventas/ventas_view.js?v=1.1.2"></script>
+<script src="../../static/ventas/ventas_view.js?v=1.1.3"></script>
 ';
 

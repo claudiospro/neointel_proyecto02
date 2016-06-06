@@ -54,19 +54,7 @@ $(document).ready(function() {
         c.val(2);
         d.val(2);
         e.val(2);
-        f.val(2);
-        
-        // if (b.val() != '2'
-        //     || c.val() != '2'
-        //     || d.val() != '2'
-        //     || e.val() != '2'
-        //     || f.val() != '2'
-        //    )
-        // {
-        //     a.val(timer_proceso_tramitacion['a']);
-        // } else {
-        //     timer_proceso_tramitacion['a'] = a.val();
-        // }
+        f.val(2);        
     });
     $('#field_tramitacion_venta_validar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
@@ -81,18 +69,6 @@ $(document).ready(function() {
         d.val(2);
         e.val(2);
         f.val(2);
-        
-        // if (a.val() != '1'
-        //     || c.val() != '2'
-        //     || d.val() != '2'
-        //     || e.val() != '2'
-        //     || f.val() != '2'
-        //    )
-        // {
-        //     b.val(timer_proceso_tramitacion['b']);
-        // } else {
-        //     timer_proceso_tramitacion['b'] = b.val();
-        // }
     });
     $('#field_tramitacion_venta_cargar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
@@ -107,18 +83,6 @@ $(document).ready(function() {
         d.val(2);
         e.val(2);
         f.val(2);
-        
-        // if (a.val() != '1'
-        //     || b.val() != '1'
-        //     || d.val() != '2'
-        //     || e.val() != '2'
-        //     || f.val() != '2'
-        //    )
-        // {
-        //     c.val(timer_proceso_tramitacion['c']);
-        // } else {
-        //     timer_proceso_tramitacion['c'] = c.val();
-        // }
     });
     $('#field_tramitacion_postventa_validar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
@@ -134,17 +98,6 @@ $(document).ready(function() {
         e.val(2);
         f.val(2);
         
-        // if (a.val() != '1'
-        //     || b.val() != '1'
-        //     || c.val() != '1'
-        //     || e.val() != '2'
-        //     || f.val() != '2'
-        //    )
-        // {
-        //     d.val(timer_proceso_tramitacion['d']);
-        // } else {
-        //     timer_proceso_tramitacion['d'] = d.val();
-        // }
     });
     $('#field_tramitacion_postventa_citar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
@@ -159,18 +112,7 @@ $(document).ready(function() {
         c.val(1);
         d.val(1);
         f.val(2);
-        
-        // if (a.val() != '1'
-        //     || b.val() != '1'
-        //     || c.val() != '1'
-        //     || d.val() != '1'
-        //     || f.val() != '2'
-        //    )
-        // {
-        //     e.val(timer_proceso_tramitacion['e']);
-        // } else {
-        //     timer_proceso_tramitacion['e'] = e.val();
-        // }
+
     });
     $('#field_tramitacion_postventa_intalar').on('change', function (event) {
         var a = $('#field_aprobado_supervisor');
@@ -185,18 +127,32 @@ $(document).ready(function() {
         c.val(1);
         d.val(1);
         e.val(1);
-        
-        // if (a.val() != '1'
-        //     || b.val() != '1'
-        //     || c.val() != '1'
-        //     || d.val() != '1'
-        //     || e.val() != '1'
-        //    )
-        // {
-        //     f.val(timer_proceso_tramitacion['f']);
-        // } else {
-        //     timer_proceso_tramitacion['f'] = f.val();
-        // }
+    });
+
+    $('.is_number').keydown(function (e) {
+        if (
+            $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1
+                || (e.keyCode == 65 && e.ctrlKey === true)
+                || (e.keyCode >= 35 && e.keyCode <= 39))
+        {
+            return;
+        }
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }        
+    });
+    $('.is_number').keyup(function (e) {
+        var obj = $(this);
+        if ( obj.val().length == 0) {
+            
+            var myVar = setInterval( function(){
+                if ( obj.val().length == 0) {
+                    obj.val('1');
+                }
+                clearInterval(myVar);
+	    }, 1000);
+            
+        } 
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {

@@ -10,7 +10,25 @@ $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->d
 session_start();
 
 $lineas = trim($_SESSION['lineas']);
+// ---------------------------------------- campañas
+$campanias = '';
+if ($lineas != '') {
+    $sql = '
+        SELECT DISTINCT c.id FROM campania c 
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status = 1
+          AND cl.lineal_id IN (' . $lineas . ')
+    ';
+    $query=mysqli_query($conn, $sql) or die("0.1");
+    while( $row=mysqli_fetch_array($query) ) {
+        if ($campanias != '')
+            $campanias .= ', ';
+        $campanias .= $row['id'];
+    }
+}
 
+
+// ---------------------------------------- datos
 $sql_ini = '
 SELECT l.nombre, c.nombre campania, l.info_status vigente,
        l.id
@@ -18,8 +36,8 @@ FROM lineal l
 JOIN campania_lineal cp ON cp.lineal_id=l.id
 JOIN campania c ON c.id = cp.campania_id
 ';
-if ($lineas != '') {
-    $sql_ini .= 'WHERE l.id IN (' . $lineas . ')';
+if ($campanias != '') {
+    $sql_ini .= 'WHERE c.id IN (' . $campanias . ')';
 }
 // $sql = "
 // SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (

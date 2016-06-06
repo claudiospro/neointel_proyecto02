@@ -10,6 +10,21 @@ $conn = mysqli_connect($cnn->servername, $cnn->username, $cnn->password, $cnn->d
 session_start();
 
 $perfil = trim($_SESSION['perfiles']);
+$lineas = trim($_SESSION['lineas']);
+
+$campanias = '';
+if ($lineas != '') {
+    $sql = '
+        SELECT DISTINCT c.id FROM campania c 
+        JOIN campania_lineal cl ON cl.campania_id = c.id
+        WHERE c.info_status = 1
+          AND cl.lineal_id IN (' . $lineas . ')
+    ';
+    $query=mysqli_query($conn, $sql) or die("0.1");
+    while( $row=mysqli_fetch_array($query) ) {
+        $campanias['usuario'][] = $row['id'];
+    }
+}
 
 $sql_ini = '
 SELECT
@@ -137,23 +152,52 @@ $combo = '
 </select>
 ';
 while( $row=mysqli_fetch_array($query) ) {
-    // if ($id_old != $row['id'])
-    // {
-        $nestedData = array();
-        $nestedData[] = utf8_encode($row['nombre']);
-        $nestedData[] = '<center>' . utf8_encode($row['login']) . '</center>';
-        $nestedData[] = '<center>' . utf8_encode($row['perfil']) . '</center>';
+    $poder = true;
+    if ($campanias != '') {
+        $campanias['temp'] = array();
+        $s = '
+        SELECT DISTINCT cl.campania_id
+        FROM usu_usuario u 
+        JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+        JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+        WHERE u.id = ' . $row['id'] .  '
+        ';
+        $q=mysqli_query($conn, $s) or die("0.1");
+        while( $r=mysqli_fetch_array($q) ) {
+             $campanias['temp'][] = $r['campania_id'];
+        }
+        $poder = false;
+        foreach($campanias['usuario'] as $c)
+        {
+            if (array_search($c, $campanias['temp']) !== false ) 
+                $poder = true;
+        }
+    }
+
+    
+    
+    $nestedData = array();
+    $nestedData[] = utf8_encode($row['nombre']);
+    $nestedData[] = '<center>' . utf8_encode($row['login']) . '</center>';
+    $nestedData[] = '<center>' . utf8_encode($row['perfil']) . '</center>';
+    if ($poder) {
         $tmp = $combo;
         $tmp = str_replace('option value="' . $row['vigente'] . '"', 'option value="' . $row['vigente'] . '" selected', $tmp);
         $tmp = str_replace('usuario_id=""', 'usuario_id="' . $row['id'] . '"', $tmp);
-        $nestedData[] = '<center>' . $tmp . '</center>';
-        $acciones = '';    
+    } else {
+        $tmp = $bool_str[ $row['vigente'] ] ;
+    }
+
+    $nestedData[] = '<center>' . $tmp . '</center>';
+    $acciones = '';    
+    if ($poder) {
         $acciones.= '<a class="button tiny edit no-margin" usuario_id="' . $row['id'] . '" data-open="usuario_listado_modal_div" title="Editar" ><i class="fi-pencil medium"></i></a>';
-        $nestedData[] = '<center class="item-datatable item-datatable-' . $row['id'] . '">' . $acciones . '</center>';
-        $data[] = $nestedData;
+    }
+    $nestedData[] = '<center class="item-datatable item-datatable-' . $row['id'] . '">' . $acciones . '</center>';
+    $data[] = $nestedData;
         
-        $id_old = $row['id'];
-        //  }
+    $id_old = $row['id'];
+
 }
 
 $json_data = array(

@@ -8,6 +8,7 @@ $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
 $in['usuario_id'] = Utilidades::clear_input_id($_POST['usuario_id']);
 $in['perfil'] = trim($_SESSION['perfiles']);
+$in['lineas'] = trim($_SESSION['lineas']);
 
 // -------------------------------------------------------- Data
 $dato = $modelo->getUsuario($in);

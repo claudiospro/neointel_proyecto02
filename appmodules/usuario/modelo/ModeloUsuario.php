@@ -144,22 +144,48 @@ class ModeloUsuario {
     }
     //
     function getGrupoByUsuario($in) {
+        $campanias = '';
+        if ($in['lineas'] != '') {
+            $this->q->fields = array(
+                'id' => '',
+            );
+            $this->q->sql = '
+            SELECT DISTINCT c.id FROM campania c 
+            JOIN campania_lineal cl ON cl.campania_id = c.id
+            WHERE c.info_status = 1
+            AND cl.lineal_id IN (' . $in['lineas'] . ')
+            ';
+            echo Utilidades::printr($this->q->sql);
+            $this->q->data = NULL;
+            $data = $this->q->exe();
+            foreach ($data as $row) {
+                if ($campanias != '')
+                    $campanias .= ', ';
+                $campanias .= $row['id'];
+            }
+            
+        }
+        // --------------------------------
         $this->q->fields = array(
             'id' => '',
             'nombre' => '',
             'usuario_id' => '',
             'campania' => '',
         );
+
+        if ($campanias != '' )
+            $campanias  = 'AND cl.campania_id in (' . $campanias . ')';
         $this->q->sql = '
-        SELECT DISTINCT l.id, l.nombre, ul.usuario_id, c.nombre
+        SELECT l.id, l.nombre, ul.usuario_id, c.nombre
         FROM lineal l
-        LEFT JOIN usu_usuario_lineal ul ON ul.lineal_id=l.id AND ul.usuario_id = "' . $in['usuario_id'] . '"
-        LEFT JOIN campania_lineal cl ON cl.lineal_id=l.id
+        JOIN campania_lineal cl ON cl.lineal_id = l.id
+        LEFT JOIN usu_usuario_lineal ul ON ul.lineal_id = l.id and ul.usuario_id = ' . $in['usuario_id']. '
         LEFT JOIN campania c ON c.id = cl.campania_id
         WHERE l.info_status = 1
-        ORDER BY 2
+        ' . $campanias . '  
+        ORDER by 2
         ';
-        // echo Utilidades::printr($this->q->sql);
+        echo Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
@@ -255,12 +281,13 @@ class ModeloUsuario {
         );
         $this->q->sql = '
         SELECT DISTINCT c.id, c.nombre FROM campania c 
+        JOIN campania_lineal cl ON cl.campania_id = c.id
         WHERE c.info_status = 1 
         ';
-        // if ($in['lineas'] != '') {
-        //     $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
-        // }
-        // $this->q->sql .= ' ORDER BY 2';
+        if ($in['lineas'] != '') {
+            $this->q->sql .= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
+        }
+        $this->q->sql .= ' ORDER BY 2';
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();

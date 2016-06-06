@@ -107,6 +107,14 @@ class ModeloVenta {
                               value="' . $ou . '" 
                               maxlength="9"
                               class="no-margin venta_item_telefono ' . $error . '">';
+            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='INT') {
+                if ('' == trim($ou)) $ou = '1';
+                $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="number" 
+                              value="' . $ou . '"
+                              min="1"
+                              class="no-margin is_number">';
             } elseif ($campo['diccionario']=='1') {
                 if ($dato == '') {
                     $ou = '<input name="' . $campo['nombre'] . '"
