@@ -155,7 +155,7 @@ class ModeloUsuario {
             WHERE c.info_status = 1
             AND cl.lineal_id IN (' . $in['lineas'] . ')
             ';
-            echo Utilidades::printr($this->q->sql);
+            // echo Utilidades::printr($this->q->sql);
             $this->q->data = NULL;
             $data = $this->q->exe();
             foreach ($data as $row) {
@@ -185,7 +185,7 @@ class ModeloUsuario {
         ' . $campanias . '  
         ORDER by 2
         ';
-        echo Utilidades::printr($this->q->sql);
+        // echo Utilidades::printr($this->q->sql);
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;

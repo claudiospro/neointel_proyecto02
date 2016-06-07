@@ -43,6 +43,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $sql_ini.= "
     SELECT
       d2.nombre producto
+    , d.direccion_id
     , d9.nombre cliente_tipo
     , d.cliente_nombre
     , d.cliente_documento
@@ -123,16 +124,19 @@ if( !empty($requestData['columns'][1]['search']['value']) ) {
     $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
-    $sql_filter.=' AND cliente_tipo LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
+    $sql_filter.=' AND direccion_id LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_tipo LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $valor = $requestData['columns'][5]['search']['value'];
+    $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][6]['search']['value']) ) {
+    $valor = $requestData['columns'][6]['search']['value'];
     if ($valor == 'a1') $sql_filter.=' AND proceso_clds = "222222"';
     if ($valor == 'a2') $sql_filter.=' AND proceso_clds = "322222"';
     if ($valor == 'a3') $sql_filter.=' AND proceso_clds = "122222"';
@@ -150,32 +154,32 @@ if( !empty($requestData['columns'][5]['search']['value']) ) {
     if ($valor == 'b7') $sql_filter.=' AND proceso_clds = "111111"';
     if ($valor == 'b0') $sql_filter.=' AND proceso_clds IN(111222, 111322, 111122, 111132, 111112, 111113, 111111)';    
 }
-if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
-}
 if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '"';
+    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '"';
 }
-// 8
-// 9 (acciones)
-if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+if( !empty($requestData['columns'][8]['search']['value']) ) {
+    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '"';
 }
+// 9
+// 10 (acciones)
 if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][13]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][14]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][14]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][14]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][15]['search']['value']) ) {
+    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][15]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
-if( !empty($requestData['columns'][15]['search']['value']) ) {
-    $bool = $requestData['columns'][15]['search']['value'];
+if( !empty($requestData['columns'][16]['search']['value']) ) {
+    $bool = $requestData['columns'][16]['search']['value'];
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
@@ -226,6 +230,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
 
     $nestedData[] = utf8_encode($row['producto']);
+    $nestedData[] = utf8_encode($row['direccion_id']);
     $nestedData[] = utf8_encode($row['cliente_tipo']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['cliente_documento']);
