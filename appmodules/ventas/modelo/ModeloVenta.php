@@ -632,7 +632,7 @@ class ModeloVenta {
             if (utf8_encode($data[$i]['grupo'])=='') {
                 $head[] = array('name'=>utf8_encode($data[$i]['etiqueta']), 'items'=>1, 'list'=>array(utf8_encode($data[$i]['etiqueta'])));
             } else {
-                if ($i>0 && utf8_encode($data[$i]['grupo']) != utf8_encode($data[$i-1]['grupo'])) {
+                if (($i>0 && utf8_encode($data[$i]['grupo']) != utf8_encode($data[$i-1]['grupo'])) || $i==0) {
                     $k = 0;
                     $l = array();
                     for ($j=$i; $j < $tot; $j++) {                        

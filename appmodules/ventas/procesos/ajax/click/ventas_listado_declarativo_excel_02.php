@@ -5,7 +5,16 @@ include "../../../../../lib/mysql/utilidades.php";
 include "../../../modelo/ModeloVenta.php";
  
 require_once  '../../../../../lib/vendor/phpExcel-1.8.0/Classes/PHPExcel.php';
- 
+
+$border_style= array (
+    'borders' => array (
+        'allborders' => array (
+            'style' => PHPExcel_Style_Border::BORDER_HAIR,
+            'color' => array('argb' => '000000'),
+        ),
+    ),    
+);
+
 function getNameFromNumber($num) {
     $numeric = ($num - 1) % 26;
     $letter = chr(65 + $numeric);
@@ -15,6 +24,25 @@ function getNameFromNumber($num) {
     } else {
         return $letter;
     }
+}
+
+function c0($num) {
+    $numeric = ($num - 1) % 26;
+    $letter = chr(65 + $numeric);
+    $num2 = intval(($num - 1) / 26);
+    if ($num2 > 0) {
+        return c0($num2) . $letter;
+    } else {
+        return $letter;
+    }
+}
+
+function c1($num, $i) {
+    return c0($num) . $i;
+}
+
+function c2($num1, $num2, $i1, $i2) {
+    return c0($num1) . $i1 . ':' . c0($num2) . $i2;
 }
  
 $objPHPExcel = new PHPExcel();
@@ -47,6 +75,8 @@ if ($ou['head'] != null) {
         }
         $j+= $row['items'];
     }
+    $objPHPExcel->getActiveSheet()->getStyle(c2(1,$j,1,2))->applyFromArray($border_style);
+    $objPHPExcel->setActiveSheetIndex(0)->getStyle(c2(1,$j,1,2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFFFBF00');
 }
  
 $i = 3;
@@ -64,6 +94,7 @@ if ($ou['body'] != null) {
                 );
             $j++;
         }
+        $objPHPExcel->getActiveSheet()->getStyle(c2(1,$j,$i,$i))->applyFromArray($border_style);
         $i++;
     }
 }
