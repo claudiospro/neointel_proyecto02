@@ -49,16 +49,11 @@ $prefix = 'venta_reporte_mes_';
      
      $color['estado_real'][19] = '#638add';
      $color['estado_real'][20] = '#638add';
-     $color['estado_real'][21] = 'black';
-     $color['estado_real'][22] = 'black';
-     $color['estado_real'][23] = 'black';
-     $color['estado_real'][24] = 'black';
-     $color['estado_real'][25] = 'black';
-     $color['estado_real'][26] = 'black';
-     $color['estado_real'][27] = 'black';
-     $color['estado_real'][28] = 'black';
-     $color['estado_real'][29] = 'black';
-     $color['estado_real'][30] = 'black';
+     
+     $color['estado_real'][21] = '#f1d97e';
+     for ($i=21; $i<=55; $i++) {
+         $color['estado_real'][$i] = '#f1d97e';
+     }
      
      if (isset($data)) {
          foreach($data as $key => $row)
