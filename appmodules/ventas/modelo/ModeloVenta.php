@@ -84,8 +84,10 @@ class ModeloVenta {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
                 $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP') {
+                $tmp = substr($ou, 0, 10);
+                if ($tmp == '0000-00-00') $tmp = ''; 
                 $ou = '<div class="input-group datapicker-simple no-margin">
-                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . substr($ou, 0, 10) . '" readonly>
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $tmp . '" readonly>
                           <a class="input-group-label" title="Limpiar"><i class="fi-calendar"></i></a>
                        </div>
                       ';
