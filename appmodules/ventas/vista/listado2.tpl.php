@@ -28,12 +28,13 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<!--
 <script src="../../static/ventas/ventas_listado2.js?v=1.4.5"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.3"></script>
+
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
--->
+
+
 <?php $js = ob_get_clean() ?>
 
 
@@ -71,7 +72,6 @@ include '../autentificacion/vista/menu.tpl.php';
       </div>      
     </div>
   </div>
-
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -89,11 +89,19 @@ include '../autentificacion/vista/menu.tpl.php';
            title="Añadir">
           <i class="fi-plus"></i>
         </a>
-      <?php else: ?>
-        
       <?php endif ?>
       <select class="no-margin" id="<?php echo $prefix ?>campanias">
-        
+        <?php
+        foreach($in['campanias'] as $row)
+        {
+            $selected = '';
+            if ($row['id'] == $in['campania'])
+            {
+                $selected = 'selected';
+            }
+            echo '<option value="' . $row['id'] . '" ' . $selected . '>' . utf8_decode($row['nombre']) . '</option>';
+        }
+        ?>
       </select>
     </div>      
   </div>
@@ -113,6 +121,10 @@ include '../autentificacion/vista/menu.tpl.php';
 <?php include './vista/declarativo.tpl.php' ?>
 
 
+
+<table id="<?php echo $prefix . 'tabla' ?>">
+  <?php include './vista/tabla_' . $in['campania'] . '.tpl.php'  ?>
+</table>
 <?php $content = ob_get_clean() ?>
 
 <?php include '../autentificacion/vista/layout.tpl.php' ?>

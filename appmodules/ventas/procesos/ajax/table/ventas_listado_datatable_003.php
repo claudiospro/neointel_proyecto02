@@ -12,38 +12,20 @@ $perfiles = trim($_SESSION['perfiles']);
 $sql_usuario = '';
 if ($_SESSION['lineas'] != '' && $perfiles!='Asesor Comercial') {
     $sql_usuario.= 'AND v.lineal_id IN (' . $_SESSION['lineas'] . ')';
-} 
+}
 if ($perfiles=='Asesor Comercial') {
     $sql_usuario.= ' AND v.asesor_venta_id="' . $_SESSION['user_id'] . '"';
 }
-
 $sql_activo = '';
 if ($perfiles != 'Admin' && $perfiles != 'Gerencia' && $perfiles != 'Coordinador') {
     $sql_activo.= ' AND v.info_status=1';
 }
 
-// --------------------------------------------------------- ini lineales
-// con esto se optimiza, en vez de mostrar todo, solo se muestra uno solo
-$sql = 'SELECT DISTINCT c.indice FROM campania c
-        JOIN campania_lineal cl ON cl.campania_id = c.id
-        WHERE c.venta=1';
-if ('' != trim($_SESSION['lineas'])) {
-    $sql.= ' AND cl.lineal_id IN (' . $_SESSION['lineas'] . ')';
-}
-$query=mysqli_query($conn, $sql) or die("00");
-// --------------------------------------------------------- end lineales
-
+$campania = 'campania_003';
 $sql_ini='';
-$campanias = array();
-while( $row=mysqli_fetch_array($query) ) {
-    $campanias[] = $row['indice'];
-    if ($sql_ini!='') {
-        $sql_ini.= ' UNION ';
-    }
-    $sql_ini.= "
+$sql_ini.= "
     SELECT
       d2.nombre producto
-    , d.direccion_id
     , d9.nombre cliente_tipo
     , d.cliente_nombre
     , d.cliente_documento
@@ -78,7 +60,7 @@ while( $row=mysqli_fetch_array($query) ) {
       , d.tramitacion_postventa_intalar  
       ) AS proceso_clds
     FROM venta v 
-    JOIN venta_".$row['indice']." d ON d.id=v.id
+    JOIN venta_" . $campania . " d ON d.id=v.id
     -- definiciones
     LEFT JOIN venta_producto d2 ON d2.id=d.producto
     LEFT JOIN venta_estado d3 ON d3.id=d.estado
@@ -87,8 +69,9 @@ while( $row=mysqli_fetch_array($query) ) {
     LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
     LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
     LEFT JOIN venta_cliente_tipo d9 ON d9.id=d.cliente_tipo
-    WHERE v.campania = '".$row['indice']."'". $sql_activo . " " . $sql_usuario . "";
-}
+    WHERE v.campania = '" . $campania . "'" . $sql_activo . " " . $sql_usuario . ""
+        ;
+
 
 $sql_ini = "
 SELECT unido.*, @rownum:=@rownum+1 row_num  FROM (
@@ -115,36 +98,19 @@ $sql = $sql_ini;
 
 $sql_filter = '';
 if( !empty($requestData['columns'][0]['search']['value']) ) {
-    $sql_filter.=' AND campania = "' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '"';
-}else {
-$sql_filter.=' AND campania = "' . $campanias[0] . '"';
+    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][0]['search']['value']) . '%"';
 }
-
 if( !empty($requestData['columns'][1]['search']['value']) ) {
-    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_tipo LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][1]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][2]['search']['value']) ) {
-    $sql_filter.=' AND direccion_id LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND cliente_tipo LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $valor = $requestData['columns'][6]['search']['value'];
-    if ($valor == 'a1') $sql_filter.=' AND proceso_clds = "222222"';
-    if ($valor == 'a2') $sql_filter.=' AND proceso_clds = "322222"';
-    if ($valor == 'a3') $sql_filter.=' AND proceso_clds = "122222"';
-    if ($valor == 'a4') $sql_filter.=' AND proceso_clds = "132222"';
-    if ($valor == 'a5') $sql_filter.=' AND proceso_clds = "112222"';
-    if ($valor == 'a6') $sql_filter.=' AND proceso_clds = "113222"';
-    if ($valor == 'a0') $sql_filter.=' AND proceso_clds IN(222222, 322222, 122222, 132222, 112222, 113222)';
-    
+    $valor = $requestData['columns'][4]['search']['value'];   
     if ($valor == 'b1') $sql_filter.=' AND proceso_clds = "111222"';
     if ($valor == 'b2') $sql_filter.=' AND proceso_clds = "111322"';
     if ($valor == 'b3') $sql_filter.=' AND proceso_clds = "111122"';
@@ -154,32 +120,32 @@ if( !empty($requestData['columns'][6]['search']['value']) ) {
     if ($valor == 'b7') $sql_filter.=' AND proceso_clds = "111111"';
     if ($valor == 'b0') $sql_filter.=' AND proceso_clds IN(111222, 111322, 111122, 111132, 111112, 111113, 111111)';    
 }
-if( !empty($requestData['columns'][7]['search']['value']) ) {
-    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '"';
+if( !empty($requestData['columns'][5]['search']['value']) ) {
+    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
 }
-if( !empty($requestData['columns'][8]['search']['value']) ) {
-    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][8]['search']['value']) . '"';
+if( !empty($requestData['columns'][6]['search']['value']) ) {
+    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
 }
-// 9
-// 10 (acciones)
+// 7
+// 8 acciones)
+if( !empty($requestData['columns'][9]['search']['value']) ) {
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][10]['search']['value']) ) {
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+}
 if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][13]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][14]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][14]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][15]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][15]['search']['value']) . '%"';
+    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
-if( !empty($requestData['columns'][16]['search']['value']) ) {
-    $bool = $requestData['columns'][16]['search']['value'];
+if( !empty($requestData['columns'][14]['search']['value']) ) {
+    $bool = $requestData['columns'][14]['search']['value'];
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
@@ -230,7 +196,6 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
 
     $nestedData[] = utf8_encode($row['producto']);
-    $nestedData[] = utf8_encode($row['direccion_id']);
     $nestedData[] = utf8_encode($row['cliente_tipo']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
     $nestedData[] = utf8_encode($row['cliente_documento']);
@@ -262,7 +227,6 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
-    $nestedData[] = '';
 
     $data[] = $nestedData;
 }
@@ -292,19 +256,13 @@ function mostrar_proceso($row) {
     $proceso .= $row['tramitacion_postventa_citar'];
     $proceso .= $row['tramitacion_postventa_intalar'];
 
-    if ($proceso == '222222') $ou = '<span style="color:black">Venta<br>Aprobación:Pendiente</span>';
-    if ($proceso == '322222') $ou = '<span style="color:red">Venta<br>Aprobación:Caida</span>';
-    if ($proceso == '122222') $ou = '<span style="color:black">Venta<br>Validación:Pendiente</span>';
-    if ($proceso == '132222') $ou = '<span style="color:red">Venta<br>Validación:Caida</span>';
-    if ($proceso == '112222') $ou = '<span style="color:black">Venta<br> Cargado:Pendiente</span>';
-    if ($proceso == '113222') $ou = '<span style="color:red">Venta<br>Cargado:Caida</span>';
-    if ($proceso == '111222') $ou = '<span style="color:black"><b><u>PostVenta</u></b> <br>Validación:Pendiente</span>';
-    if ($proceso == '111322') $ou = '<span style="color:red">  <b><u>PostVenta</u></b> <br>Validación:Caida</span>';
-    if ($proceso == '111122') $ou = '<span style="color:black"><b><u>PostVenta</u></b> <br>Cita:Pendiente</span>';
-    if ($proceso == '111132') $ou = '<span style="color:red">  <b><u>PostVenta</u></b> <br>Cita:Caida</span>';
-    if ($proceso == '111112') $ou = '<span style="color:black"><b><u>PostVenta</u></b> <br>Intalación:Pendiente</span>';
-    if ($proceso == '111113') $ou = '<span style="color:red">  <b><u>PostVenta</u></b> <br>Intalación:Caida</span>';
-    if ($proceso == '111111') $ou = '<span style="color:green"><b><u>PostVenta</u></b> <br>Intalación:Si</span>';
+    if ($proceso == '111222') $ou = '<span style="color:black"> <br>Validación:Pendiente</span>';
+    if ($proceso == '111322') $ou = '<span style="color:red">   <br>Validación:Caida</span>';
+    if ($proceso == '111122') $ou = '<span style="color:black"> <br>Cita:Pendiente</span>';
+    if ($proceso == '111132') $ou = '<span style="color:red">   <br>Cita:Caida</span>';
+    if ($proceso == '111112') $ou = '<span style="color:black"> <br>Intalación:Pendiente</span>';
+    if ($proceso == '111113') $ou = '<span style="color:red">   <br>Intalación:Caida</span>';
+    if ($proceso == '111111') $ou = '<span style="color:green"> <br>Intalación:Si</span>';
     return $ou;
 }
 
