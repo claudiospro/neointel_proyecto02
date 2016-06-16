@@ -29,6 +29,7 @@ $sql_ini.= "
     , d9.nombre cliente_tipo
     , d.cliente_nombre
     , d.fecha_entrega
+    , d.precio
     , 'proceso'
     , d3.nombre estado
     , d8.nombre estado_real
@@ -114,8 +115,8 @@ if( !empty($requestData['columns'][3]['search']['value']) ) {
     $tmp = Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']);
     $sql_filter.=' AND (fecha_entrega LIKE "%' . $tmp . '%" OR fecha_entrega_observacion LIKE "%' . $tmp . '%" OR fecha_entrega_horario_nombre LIKE "%' . $tmp . '%")';
 }
-if( !empty($requestData['columns'][4]['search']['value']) ) {
-    $valor = $requestData['columns'][4]['search']['value'];   
+if( !empty($requestData['columns'][5]['search']['value']) ) {
+    $valor = $requestData['columns'][5]['search']['value'];   
     if ($valor == 'b1') $sql_filter.=' AND proceso_clds = "111222"';
     if ($valor == 'b2') $sql_filter.=' AND proceso_clds = "111322"';
     if ($valor == 'b3') $sql_filter.=' AND proceso_clds = "111122"';
@@ -125,32 +126,32 @@ if( !empty($requestData['columns'][4]['search']['value']) ) {
     if ($valor == 'b7') $sql_filter.=' AND proceso_clds = "111111"';
     if ($valor == 'b0') $sql_filter.=' AND proceso_clds IN(111222, 111322, 111122, 111132, 111112, 111113, 111111)';    
 }
-if( !empty($requestData['columns'][5]['search']['value']) ) {
-    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][5]['search']['value']) . '"';
-}
 if( !empty($requestData['columns'][6]['search']['value']) ) {
-    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
+    $sql_filter.=' AND estado_id = "' . Utilidades::sanear_complete_string($requestData['columns'][6]['search']['value']) . '"';
 }
-// 7
-// 8 acciones)
-if( !empty($requestData['columns'][9]['search']['value']) ) {
-    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][9]['search']['value']) . '%"';
+if( !empty($requestData['columns'][7]['search']['value']) ) {
+    $sql_filter.=' AND estado_real_id = "' . Utilidades::sanear_complete_string($requestData['columns'][7]['search']['value']) . '"';
 }
+// 8
+// 9 acciones)
 if( !empty($requestData['columns'][10]['search']['value']) ) {
-    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][10]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][11]['search']['value']) ) {
-    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
+    $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][11]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][12]['search']['value']) ) {
-    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
+    $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][12]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][13]['search']['value']) ) {
-    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
+    $sql_filter.=' AND supervisor LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][13]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][14]['search']['value']) ) {
+    $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][14]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
-if( !empty($requestData['columns'][14]['search']['value']) ) {
-    $bool = $requestData['columns'][14]['search']['value'];
+if( !empty($requestData['columns'][15]['search']['value']) ) {
+    $bool = $requestData['columns'][15]['search']['value'];
     if ($bool=='si' || $bool=='s') {
         $sql_filter.=' AND info_status  = "0"';
     } elseif($bool=='no' || $bool=='n') {
@@ -210,6 +211,7 @@ while( $row=mysqli_fetch_array($query) ) {
                                  <br><u>Fecha</u>: ' . $tmp . '
                                  <br><u>Horario</u>: ' . $row['fecha_entrega_horario_nombre']
     );
+    $nestedData[] = utf8_encode($row['precio']);
     $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
