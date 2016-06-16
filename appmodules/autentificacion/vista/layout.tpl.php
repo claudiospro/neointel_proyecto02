@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../lib/vendor/foundation-6/css/foundation.min.css" />
     <link rel="stylesheet" href="../../lib/vendor/foundation-icons/foundation-icons.css" />
     <?php if(isset($css)) echo $css ?>
-    <link rel="stylesheet" href="../../lib/main/estilo.css?v=1.2.9" />
+    <link rel="stylesheet" href="../../lib/main/estilo.css?v=1.3.0" />
     
   </head>
   <body>

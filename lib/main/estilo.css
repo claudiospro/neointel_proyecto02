@@ -112,13 +112,6 @@ tr.active td, tr.active th {
   background-color: rgba(0, 255, 39, 0.16);
   color: #0d7108; }
 
-.editable-inline a {
-  display: block;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%; }
-
 .search-input-text.active {
   background-color: #D3FFE4; }
 

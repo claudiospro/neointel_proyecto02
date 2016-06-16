@@ -8,7 +8,7 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
 ?>
 
 <thead>
-<!--  
+  <!--
   <tr>
     <td>0</td>
     <td>1</td>
@@ -24,20 +24,22 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
     <td>11</td>
     <td>12</td>
     <td>13</td>
-  <td>14</td>
-  <td>15</td>
+    <td>14</td>
+    <td>15</td>
+    <td>16</td>
   </tr>
--->  
+  -->
   <tr>
     <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="2"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="3"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="4"  type="text"></td>
+    <td><input class="no-margin search-input-text" data-column="5"  type="text"></td>
     <td>
       <select class="no-margin search-input-select"
               style="padding: 0px; width: 130px;"
-              data-column="5">
+              data-column="6">
         <option value=""></option>
         <option value="b0" style="color:blue">PostVenta</option>
         <option value="b1">Validación:Pendiente</option>
@@ -52,7 +54,7 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
     <td>
       <select class="no-margin search-input-select"
               style="padding: 0px; width: 120px;"
-              data-column="6">
+              data-column="7">
         <?php
         $combo->set_format(array('id', 'nombre'));
         $combo->imprimir($estados);
@@ -62,15 +64,15 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
     <td>
       <select class="no-margin search-input-select"
               style="padding: 0px; width: 200px;"
-              data-column="7">
+              data-column="8">
         <?php
         $combo->set_format(array('id', 'nombre'));
         $combo->imprimir($estados_reales);
         ?>
       </select>
     </td>
-    <td><!-- 8: onservacion --></td>
-    <td> <!-- 9: acciones -->
+    <td><!-- 9: onservacion --></td>
+    <td> <!-- 10: acciones -->
       <center>
         <span style="width: 90px; display: block;">
           <a title="ReCargar" class="reload"><i class="fi-refresh size-36"></i></a>
@@ -83,16 +85,16 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
         </span>
       </center>
     </td>      
-    <td><input class="no-margin search-input-text" data-column="10"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="11"  type="text"></td>
-    <td><input class="no-margin search-input-text" data-column="12" type="text"></td>
+    <td><input class="no-margin search-input-text" data-column="12"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="13" type="text"></td>
     <td><input class="no-margin search-input-text" data-column="14" type="text"></td>
+    <td><input class="no-margin search-input-text" data-column="15" type="text"></td>
     <td>
       <select id="<?php echo $prefix ?>eliminado-tbl"
               class="no-margin search-input-select"
               style="padding: 0px; width: 70px;"
-              data-column="15">
+              data-column="16">
         <option value=""></option>          
         <option value="no">No</option>
         <option value="si">Si</option>
@@ -105,6 +107,7 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
     <th><span style="display: block; width: 180px;">Cliente</span></th>
     <th><span style="display: block; width: 180px;">Entrega</span></th>
     <th>Precio</th>
+    <th>Tipo<br>Pago</th>
     <th>Proceso</th>
     <th>Estado</th>
     <th>Estado Real</th>

@@ -1,0 +1,11 @@
+.editable-inline.line2 {
+    min-height: 20px;
+    position: relative;
+}
+.editable-inline a {
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;   
+}
