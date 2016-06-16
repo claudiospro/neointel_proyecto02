@@ -28,7 +28,7 @@ $sql_ini.= "
       d2.nombre producto
     , d9.nombre cliente_tipo
     , d.cliente_nombre
-    , d.cliente_documento
+    , d.fecha_entrega
     , 'proceso'
     , d3.nombre estado
     , d8.nombre estado_real
@@ -51,6 +51,9 @@ $sql_ini.= "
     , d.tramitacion_postventa_validar
     , d.tramitacion_postventa_citar
     , d.tramitacion_postventa_intalar
+    , d.fecha_entrega_observacion
+    , d10.nombre fecha_entrega_horario_nombre
+    , d.fecha_entrega_horario
     , CONCAT(
         d.aprobado_supervisor
       , d.tramitacion_venta_validar
@@ -69,6 +72,7 @@ $sql_ini.= "
     LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
     LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
     LEFT JOIN venta_cliente_tipo d9 ON d9.id=d.cliente_tipo
+    LEFT JOIN venta_entrega_horario d10 ON d10.id = d.fecha_entrega_horario
     WHERE v.campania = '" . $campania . "'" . $sql_activo . " " . $sql_usuario . ""
         ;
 
@@ -107,7 +111,8 @@ if( !empty($requestData['columns'][2]['search']['value']) ) {
     $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][2]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][3]['search']['value']) ) {
-    $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']) . '%"';
+    $tmp = Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']);
+    $sql_filter.=' AND (fecha_entrega LIKE "%' . $tmp . '%" OR fecha_entrega_observacion LIKE "%' . $tmp . '%" OR fecha_entrega_horario_nombre LIKE "%' . $tmp . '%")';
 }
 if( !empty($requestData['columns'][4]['search']['value']) ) {
     $valor = $requestData['columns'][4]['search']['value'];   
@@ -198,7 +203,13 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['producto']);
     $nestedData[] = utf8_encode($row['cliente_tipo']);
     $nestedData[] = utf8_encode($row['cliente_nombre']);
-    $nestedData[] = utf8_encode($row['cliente_documento']);
+    $tmp = Utilidades::fechas_de_MysqlTimeStamp_a_string($row['fecha_entrega']);
+    if ($tmp == '0000-00-00') $tmp ='';
+    $nestedData[] = utf8_encode('<u>Obs</u>:
+                                 <br>' . $row['fecha_entrega_observacion'] . '
+                                 <br><u>Fecha</u>: ' . $tmp . '
+                                 <br><u>Horario</u>: ' . $row['fecha_entrega_horario_nombre']
+    );
     $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
@@ -238,11 +249,12 @@ function validar_permisos($accion, $row) {
     {
         if ($perfil == 'Asesor Comercial') $ou = false;
         if ($perfil == 'Supervisor' && $row['aprobado_supervisor'] == '1') $ou = false;
-        if ($perfil == 'Gerencia') $ou = false;
+        if ($perfil == 'Gerencia') $ou = true;
     }
     if ($accion == 'tran')
     {
-        if ($perfil != 'Gerencia' && $perfil != 'Admin' ) $ou = false;
+        if ( $perfil != 'Admin' ) $ou = false;
+
     }
     return $ou;
 }

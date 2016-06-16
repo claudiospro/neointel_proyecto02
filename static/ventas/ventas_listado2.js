@@ -141,7 +141,7 @@ $(document).ready(function() {
         else if (enviar.campania == 'campania_003')
         {
             order = 9;
-            unsortable = [4, 7, 8];
+            unsortable = [3, 4, 7, 8];
             lugar = '_003';
             if(enviar.perfil == 'Asesor Comercial') ver = [4, 6, 11, 13, 14];
             else if(enviar.perfil == 'Supervisor') ver = [3, 11, 12, 14];

@@ -98,10 +98,10 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
     </td>
   </tr>
   <tr>
-    <th><span style="display: block; width: 150px;">Producto</span></th>
+    <th><span style="display: block; width: 50px;">Producto</span></th>
     <th>Tipo Cliente</th>
     <th><span style="display: block; width: 180px;">Cliente</span></th>
-    <th>Documento</th>
+    <th><span style="display: block; width: 180px;">Entrega</span></th>
     <th>Proceso</th>
     <th>Estado</th>
     <th>Estado Real</th>
