@@ -29,6 +29,7 @@ function validar_estado_real($in) {
     $mostrar = false;
     if (
         $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia' ||
         $in['perfil'] == 'Tramitacion' ||
         $in['perfil'] == 'Tramitacion-Validacion' ||
         $in['perfil'] == 'Tramitacion-Carga' ||
@@ -62,6 +63,7 @@ function validar_estado_observacion($in) {
     $mostrar = false;
     if (
         $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia' ||
         $in['perfil'] == 'Tramitacion' ||
         $in['perfil'] == 'Tramitacion-Validacion' ||
         $in['perfil'] == 'Tramitacion-Carga' ||
