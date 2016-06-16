@@ -8,7 +8,7 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
 ?>
 
 <thead>
-  
+<!--  
   <tr>
     <td>0</td>
     <td>1</td>
@@ -27,7 +27,7 @@ $estados_reales = $modelo->getEstadoRealActivas($in);
   <td>14</td>
   <td>15</td>
   </tr>
-  
+-->  
   <tr>
     <td><input class="no-margin search-input-text" data-column="0"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="1"  type="text"></td>
