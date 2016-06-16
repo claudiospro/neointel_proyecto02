@@ -115,6 +115,9 @@ if( !empty($requestData['columns'][3]['search']['value']) ) {
     $tmp = Utilidades::sanear_complete_string($requestData['columns'][3]['search']['value']);
     $sql_filter.=' AND (fecha_entrega LIKE "%' . $tmp . '%" OR fecha_entrega_observacion LIKE "%' . $tmp . '%" OR fecha_entrega_horario_nombre LIKE "%' . $tmp . '%")';
 }
+if( !empty($requestData['columns'][4]['search']['value']) ) {
+    $sql_filter.=' AND precio LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][4]['search']['value']) . '%"';
+}
 if( !empty($requestData['columns'][5]['search']['value']) ) {
     $valor = $requestData['columns'][5]['search']['value'];   
     if ($valor == 'b1') $sql_filter.=' AND proceso_clds = "111222"';
