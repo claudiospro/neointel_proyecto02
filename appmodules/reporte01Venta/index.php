@@ -38,7 +38,7 @@ if (isset($_GET['campania_id'])) {
         $in['asesor_comercial_id'] = Utilidades::clear_input($_GET['asesor_comercial_id']);
     } else {
         $in['asesor_comercial_id'] = '00';
-    }    
+    }
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 
     

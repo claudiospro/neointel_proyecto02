@@ -77,7 +77,7 @@ class ModeloVenta {
                 'campania' => '',
             );            
             $this->q->sql = '
-                (SELECT d.estado, count(d.id) total, "' . $in['campania_id'] . '" campania
+                (SELECT d.estado, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
                 FROM venta_' . $in['campania_id'] . ' d
                 JOIN venta v ON v.id=d.id
                 WHERE ' . $filtros . '
@@ -86,7 +86,7 @@ class ModeloVenta {
 
             $this->q->sql = 'SELECT e.nombre, t.* FROM (' . $this->q->sql . ') as t 
                              JOIN venta_estado e ON e.id=t.estado';
-            // Utilidades::printr($this->q->sql);
+            Utilidades::printr($this->q->sql);
             $data['estado'] = $this->q->exe();
         
             // ---------------------------------------------------------------- estado real
@@ -101,7 +101,7 @@ class ModeloVenta {
             
 
             $this->q->sql = '
-                (SELECT d.estado_real, count(d.id) total, "' . $in['campania_id'] . '" campania
+                (SELECT d.estado_real, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
                 FROM venta_' . $in['campania_id'] . ' d
                 JOIN venta v ON v.id=d.id
                 WHERE ' . $filtros . '
@@ -124,7 +124,7 @@ class ModeloVenta {
                 'campania' => '',
             );
             $this->q->sql = '
-                (SELECT d.cliente_tipo, count(d.id) total, "' . $in['campania_id'] . '" campania
+                (SELECT d.cliente_tipo, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
                 FROM venta_' . $in['campania_id'] . ' d
                 JOIN venta v ON v.id=d.id
                 WHERE ' . $filtros . '
@@ -146,7 +146,7 @@ class ModeloVenta {
             );
             $this->q->sql = '
                 (
-                SELECT d.estado_real, d.cliente_tipo, count(d.id) total, "' . $in['campania_id'] . '" campania
+                SELECT d.estado_real, d.cliente_tipo, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
                 FROM venta_' . $in['campania_id'] . ' d
                 JOIN venta v ON v.id=d.id
                 WHERE ' . $filtros . '
