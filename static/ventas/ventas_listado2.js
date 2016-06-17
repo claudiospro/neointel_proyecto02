@@ -140,16 +140,16 @@ $(document).ready(function() {
         }
         else if (enviar.campania == 'campania_003')
         {
-            order = 11;
-            unsortable = [3, 4, 6, 9, 10];
+            order = 13;
+            unsortable = [3, 8, 11, 12];
             lugar = '_003';
-            if(enviar.perfil == 'Asesor Comercial') ver = [6, 8, 13, 15, 16];
-            else if(enviar.perfil == 'Supervisor') ver = [6, 14, 15, 16];
+            if(enviar.perfil == 'Asesor Comercial') ver = [8, 10, 15, 17, 18];
+            else if(enviar.perfil == 'Supervisor') ver = [8, 16, 17, 18];
             else if(enviar.perfil == 'Tramitacion' ||
                     enviar.perfil == 'Tramitacion-Carga' ||
                     enviar.perfil == 'Tramitacion-Validacion' ||
-                    enviar.perfil == 'Tramitacion-Validacion-Carga') ver = [15, 16];
-            else if(enviar.perfil == 'Coordinador') ver = [15];
+                    enviar.perfil == 'Tramitacion-Validacion-Carga') ver = [17, 18];
+            else if(enviar.perfil == 'Coordinador') ver = [17];
             else if(enviar.perfil == 'Gerencia') ver = [];
         }
 
