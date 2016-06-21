@@ -1062,4 +1062,12 @@ class ModeloVenta {
         $this->q->exe();
         
     }
+    function setSQL($fields, $sql) {
+        $this->q->fields = $fields;
+        $this->q->sql = $sql;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
 }

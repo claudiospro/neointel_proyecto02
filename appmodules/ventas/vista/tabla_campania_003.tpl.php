@@ -4,14 +4,14 @@ $combo = new OptionComboSimple();
 $pr['campania'] = Utilidades::clear_input($in['campania']);
 $estados = $modelo->getEstadoActivas($pr);
 $estados_reales = $modelo->getEstadoRealActivas($in);
-$test = false;
+$test = true;
 ?>
 
 <thead>
   <?php if($test): ?>
     <tr>
       <?php
-      for ($i=0; $i<=18; $i++) echo '<td>' .$i .'</td>';
+      for ($i=0; $i<=20; $i++) echo '<td>' .$i .'</td>';
       ?>
     </tr>
   <?php endif ?>
@@ -25,7 +25,9 @@ $test = false;
     <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>
     <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>   
-    <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>   
+    <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>
+    <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>
+    <td><input class="no-margin search-input-text" data-column="<?php print ++$col ?>"  type="text"></td>
     <td>
       <select class="no-margin search-input-select"
               style="padding: 0px; width: 130px;"
@@ -100,6 +102,8 @@ $test = false;
     <th>Precio</th>
     <th>Precio<br>Final</th>
     <th>Tipo<br>Pago</th>
+    <th><span style="display: block; width: 200px;">Recivio Dinero</span></th>
+    <th>Comprobante</th>
     <th>Proceso</th>
     <th>Estado</th>
     <th>Estado Real</th>

@@ -49,7 +49,7 @@ $sql_ini.= '
     , u1.nombre recibio_dinero_cliente_nombre
     ,         d.recibio_dinero_cliente
     , u2.nombre recibio_dinero_mensajero_nombre
-    , d.recibio_dinero_mensajero
+    ,         d.recibio_dinero_mensajero
     , venta_comprobante_tipo.nombre comprobante_tipo
     , d.comprobante_numero
     FROM venta v 

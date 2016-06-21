@@ -58,6 +58,21 @@ $(document).ready(function() {
         } else if (datos.campo == 'fecha_entrega') {
             datos.valor = item.prev().val();
             datos.label = datos.valor;
+        } else if (datos.campo == 'recibio_dinero_cliente') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'recibio_dinero_mensajero') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'comprobante_tipo') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'comprobante_numero') {
+            datos.valor = item.prev().val();
+            datos.label = datos.valor;
+        } else if (datos.campo == 'dinero_empresa') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
         }
         // c(datos);     
 

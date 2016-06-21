@@ -9,7 +9,7 @@ $prefix = 'venta_listado_';
 <link rel="stylesheet" href="../../lib/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css">
 
 <link rel="stylesheet" href="../../lib/vendor/foundation-datepicker/css/foundation-datepicker.min.css">
-<link rel="stylesheet" href="../../lib/main/editable.css?v=1.5.0">
+<link rel="stylesheet" href="../../lib/main/editable.css?v=1.5.1">
 <!-- <link rel="stylesheet" href="../../lib/vendor/zclip/style.css"> -->
 
 <?php $css = ob_get_clean() ?>
@@ -29,8 +29,8 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado2.js?v=1.4.9"></script>
-<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.5"></script>
+<script src="../../static/ventas/ventas_listado2.js?v=1.5.0"></script>
+<script src="../../static/ventas/ventas_editable_inline.js?v=1.0.6"></script>
 
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
 <script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>

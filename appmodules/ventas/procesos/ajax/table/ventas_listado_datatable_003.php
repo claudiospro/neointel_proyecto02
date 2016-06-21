@@ -33,7 +33,9 @@ $sql_ini.= "
     , d.precio
     , d.precio_final
     , d11.nombre tipo_pago_nombre
-    , 'proceso'
+    , 'recivio_dinero'
+    , 'comprobante'
+    , '__proceso__'
     , d3.nombre estado
     , d8.nombre estado_real
     , d.estado_observacion
@@ -66,6 +68,13 @@ $sql_ini.= "
       , d.tramitacion_postventa_citar
       , d.tramitacion_postventa_intalar  
       ) AS proceso_clds
+    , d12.nombre recibio_dinero_cliente_nombre
+    ,         d.recibio_dinero_cliente
+    , d13.nombre recibio_dinero_mensajero_nombre
+    ,          d.recibio_dinero_mensajero
+    , d14.nombre comprobante_tipo
+    ,          d.comprobante_numero    
+    , d15.nombre dinero_empresa
     FROM venta v 
     JOIN venta_" . $campania . " d ON d.id=v.id
     -- definiciones
@@ -78,6 +87,10 @@ $sql_ini.= "
     LEFT JOIN venta_cliente_tipo d9 ON d9.id=d.cliente_tipo
     LEFT JOIN venta_entrega_horario d10 ON d10.id = d.fecha_entrega_horario
     LEFT JOIN venta_tipo_pago d11 ON d11.id = d.tipo_pago
+    LEFT JOIN usu_usuario d12 ON d12.id= d.recibio_dinero_cliente
+    LEFT JOIN usu_usuario d13 ON d13.id= d.recibio_dinero_mensajero
+    LEFT JOIN venta_comprobante_tipo d14 ON d14.id = d.comprobante_tipo
+    LEFT JOIN venta_dinero_empresa d15 ON d15.id = d.dinero_empresa
     WHERE v.campania = '" . $campania . "'" . $sql_activo . " " . $sql_usuario . ""
         ;
 
@@ -133,6 +146,8 @@ if( !empty($requestData['columns'][++$col]['search']['value']) ) {
 if( !empty($requestData['columns'][++$col]['search']['value']) ) {
     $sql_filter.=' AND tipo_pago_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$col]['search']['value']) . '%"';
 }
+++$col;// ddd1
+++$col;// ddd2
 if( !empty($requestData['columns'][++$col]['search']['value']) ) {
     $valor = $requestData['columns'][$col]['search']['value'];   
     if ($valor == 'b1') $sql_filter.=' AND proceso_clds = "111222"';
@@ -245,7 +260,51 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode('<center>'.$row['producto_cantidad'].'</center>');
     $nestedData[] = utf8_encode($row['precio']);
     $nestedData[] = utf8_encode($row['precio_final']);
-    $nestedData[] = utf8_encode($row['tipo_pago_nombre']);    
+    $nestedData[] = utf8_encode($row['tipo_pago_nombre']);
+    $nestedData[] = '
+    <b>del Cliente</b>:
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="recibio_dinero_cliente">
+      ' . utf8_encode($row['recibio_dinero_cliente_nombre']) . '
+      </span>
+      <div style="display:none"></div>
+    </div>
+    <b>del Mensajero</b>:
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="recibio_dinero_mensajero">
+      ' . utf8_encode($row['recibio_dinero_mensajero_nombre']) . '
+      </span>
+      <div style="display:none"></div>
+    </div>
+    <b>Empresa</b>:
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="dinero_empresa">
+      ' . utf8_encode($row['dinero_empresa']) . '
+      </span>
+      <div style="display:none"></div>
+    </div>
+    ';
+    $nestedData[] = '
+    <b>Tipo</b>:
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="comprobante_tipo">
+      ' . utf8_encode($row['comprobante_tipo']) . '
+      </span>
+      <div style="display:none"></div>      
+    </div>
+    <b>Nmro</b>:
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="comprobante_numero">
+      ' . utf8_encode($row['comprobante_numero']) . '
+      </span>
+      <div style="display:none"></div>
+    </div>
+    ';
     $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
@@ -274,7 +333,7 @@ while( $row=mysqli_fetch_array($query) ) {
     $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
-
+    
     $data[] = $nestedData;
 }
 
