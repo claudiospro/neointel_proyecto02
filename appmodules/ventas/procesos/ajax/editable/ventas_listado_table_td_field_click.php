@@ -185,6 +185,7 @@ ORDER BY unido.nombre
         '
     );
     echo '<select class="no-margin no-padding" style="font-size: .8em">';
+    echo '<option value="0"></option>';
     foreach($data as $row)
     {
         if ($row['id'] == $in['valor'])
@@ -277,6 +278,7 @@ ORDER BY unido.nombre
         '
     );
     echo '<select class="no-margin no-padding" style="font-size: .8em">';
+    echo '<option value="0"></option>';
     foreach($data as $row)
     {
         if ($row['id'] == $in['valor'])
@@ -322,6 +324,7 @@ function comprobante_tipo_imprimir_1($in) {
         '
     );
     echo '<select class="no-margin no-padding" style="font-size: .8em">';
+    echo '<option value="0"></option>';
     foreach($data as $row)
     {
         if ($row['id'] == $in['valor'])
@@ -360,7 +363,7 @@ function comprobante_numero_validar($in) {
 }
 function comprobante_numero_imprimir_1($in) {
     echo '<textarea class="no-margin no-padding" 
-                    style="height: 100px; width: 220px; overflow-y: scroll; 
+                    style="height: 50px; width: 220px; overflow-y: scroll; 
                            font-size: .8em;">' . utf8_encode($in['valor']) .
         '</textarea>';
     echo '<button class="button tiny no-margin">Guardar</button>';
