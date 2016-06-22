@@ -45,26 +45,21 @@ if (isset($_GET['campania_id'])) {
     // ------------------------------------------------------- OUTPUT
     $data0 = $modelo->getDatos($in);
     if (isset($data0)) {
-        $data1[0] = array();
-        
+        $data1[0] = array();        
         $mes = array (1 => 'Enero', 2 => 'Febreo', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre');
 
-    
-        $data1[0]['titulo'] = 'Ventas: Totales';
-        $data1[0]['tab'] = 'Total';
-        
         if (isset($data0['indice']))
             foreach($data0['indice'] as $key => $row) {
                 $data1[$row]['titulo'] = 'Ventas: ' . $data0['indice_nombre'][$key];
                 $data1[$row]['tab'] = $data0['indice_nombre'][$key] ;
             }
+        // ---------------------------------------------------------------------------------------
         if (isset($data0['estado']) && $in['tipo'] == '01')
             foreach($data0['estado'] as $row) {
                 // busco en listado
                 $index = $data0['indice'][$row['campania']];
                 $e = $row['estado_id'];
                 $data1[$index]['estado'][$e] = array ('name'=>$row['estado'], 'y'=>$row['total'], 'drilldown' => $row['estado']);
-
             }
         if (isset($data0['estado_real']) && $in['tipo'] == '01')
             foreach($data0['estado_real'] as $row) {
@@ -91,9 +86,20 @@ if (isset($_GET['campania_id'])) {
                 $er = $row['estado_real_id'];
                 $data1[$index]['estado_real'][$e][$er] = array ( 'name'=>$row['estado_real'], 'y'=>$row['total'] );
             }
+        // ---------------------------------------------------------------------------------------
+        if (isset($data0['estados']) && $in['tipo'] == '03')
+            foreach($data0['estados'] as $row) {
+                $data1['estados'][ $row['id'] ] = array (
+                    'nombre' => $row['nombre'],
+                    'js' => '',
+                );
+            }
+        if (isset($data0['asesores']) && $in['tipo'] == '03')
+            foreach($data0['asesores'] as $row) {
+                $data1['asesores'][ utf8_encode($row['asesor_venta']) ]
+                    [ $row['estado_id'] ] = $row['total'];
+            }
     }
-    
-
     
     // --------------------------------------------------------- TEST
     // Utilidades::printr($in);
@@ -111,42 +117,7 @@ if (isset($_GET['campania_id'])) {
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 }
 
-// $data[0]['titulo'] = 'Ventas Totales - Marzo 2015';
-// $data[0]['tab'] = 'Total';
-
-// $data[0]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'500', 'drilldown'=>'En tramitacion');
-// $data[0]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'100', 'drilldown'=>'Ok tramitado');
-// $data[0]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'300', 'drilldown'=>'Ko cliente');
-
-// $data[0]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'50');
-// $data[0]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'100');
-// $data[0]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'100');
-
-// $data[0]['estado_real']['Ok tramitado'][1] = array('name'=>'Pendiente' , 'y'=>'100');
-
-
-// $data[1]['titulo'] = 'OASDDK - Marzo 2015';
-// $data[1]['tab'] = 'OASDDK';
-
-// $data[1]['estado'][1] = array('name'=>'En tramitacion', 'y'=>'100', 'drilldown'=>'En tramitacion');
-// $data[1]['estado'][2] = array('name'=>'Ok tramitado', 'y'=>'150', 'drilldown'=>'');
-// $data[1]['estado'][3] = array('name'=>'Ko cliente', 'y'=>'150', 'drilldown'=>'');
-
-// $data[1]['estado_real']['En tramitacion'][1] = array('name'=>'Pendiente' , 'y'=>'10');
-// $data[1]['estado_real']['En tramitacion'][2] = array('name'=>'En Tramitación' , 'y'=>'20');
-// $data[1]['estado_real']['En tramitacion'][3] = array('name'=>'Autoinstalable', 'y'=>'10');
-// $data[1]['estado_real']['En tramitacion'][4] = array('name'=>'Incidencia cliente', 'y'=>'10');
-// $data[1]['estado_real']['En tramitacion'][5] = array('name'=>'Pendiente de instalación', 'y'=>'20');
-// $data[1]['estado_real']['En tramitacion'][6] = array('name'=>'Pendiente de documentación', 'y'=>'10');
-// $data[1]['estado_real']['En tramitacion'][7] = array('name'=>'Desconectada', 'y'=>'10');
-// $data[1]['estado_real']['En tramitacion'][8] = array('name'=>'Pendiente por documentacion', 'y'=>'10');
-
- $data = $data1 ;
+$data = $data1 ;
 // Utilidades::printr($data0);
 // Utilidades::printr($data);
 

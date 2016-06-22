@@ -159,6 +159,41 @@ class ModeloVenta {
                         ';
             // Utilidades::printr($this->q->sql);
             $data['estado_real'] = $this->q->exe();            
+        } elseif($in['tipo'] == '03') {
+            // ---------------------------------------------------- estados
+            $this->q->fields = array(
+                'id' => '',
+                'nombre' => '',
+            );
+            $this->q->sql = '
+            SELECT id, nombre FROM venta_estado WHERE info_status = 1
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['estados'] = $this->q->exe();
+            // ---------------------------------------------------------------- estados x asesores
+            $this->q->fields = array(
+                'asesor_venta'    => '',
+                'estado_id'       => '',
+                'asesor_venta_id' => '',
+                'total'           => '',
+                'campania'        => '',
+            );
+            $this->q->sql = '
+            (
+             SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+             FROM venta_' . $in['campania_id'] . ' d
+             JOIN venta v ON v.id=d.id
+             WHERE ' . $filtros . '
+             GROUP by 1,2
+            )
+            ';
+            $this->q->sql = '
+            SELECT av.nombre, t.* FROM (' . $this->q->sql . ') as t 
+            JOIN usu_usuario av ON av.id = t.asesor_venta_id
+            ORDER BY 1
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['asesores'] = $this->q->exe();
         }
 
         return $data;
