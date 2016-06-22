@@ -40,6 +40,7 @@ class ModeloVenta {
             $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND 
                         ';
         }
+        
         if ($in['modo'] == 'Estructura') {
             if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
                 $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
@@ -59,7 +60,6 @@ class ModeloVenta {
                 ';
             }
         }
-
         $filtros .= '
                     v.info_status=1 AND 
                     d.aprobado_supervisor = 1 AND 

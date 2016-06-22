@@ -7,17 +7,25 @@ if (isset($data['asesores']))
     $js_encabezado = '';
     foreach($data['asesores'] as $key => $row)
     {
+        $total = 0;
+        foreach($row as $r)
+        {
+            $total += $r;
+        }
         if ($js_encabezado != '') $js_encabezado .= ', ';
-        $js_encabezado .= "'" . $key . "'";
-
+        $js_encabezado .= "'" . $key . " (" . $total . ")" . "'";
         foreach($data['estados'] as $k => $r)
         {
             if ($data['estados'][$k]['js'] != '')
                 $data['estados'][$k]['js'] .= ', ';
-            if (isset($row[$k]))
+            if (isset($row[$k])) {
                 $data['estados'][$k]['js'] .= $row[$k];
+            }
             else
-                $data['estados'][$k]['js'] .= '0';
+            {
+                $data['estados'][$k]['js'] .= '0';    
+            }
+            
         }
     }
 }
