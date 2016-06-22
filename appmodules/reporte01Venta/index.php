@@ -94,9 +94,32 @@ if (isset($_GET['campania_id'])) {
                     'js' => '',
                 );
             }
+        if (isset($data0['ventas']) && $in['tipo'] == '03')
+            foreach($data0['ventas'] as $row) {
+                $data1['ventas'][ $row['asesor_venta_id'] ]
+                    [ $row['estado_id'] ] = $row['total'];
+            }
         if (isset($data0['asesores']) && $in['tipo'] == '03')
             foreach($data0['asesores'] as $row) {
-                $data1['asesores'][ utf8_encode($row['asesor_venta']) ]
+                if ( isset($data1['ventas'][ $row['id'] ]) ) 
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ]
+                        = $data1['ventas'][ $row['id'] ];
+                else
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ] = array();
+
+                // $row['nombre'] $row['id']
+            }
+        // ---------------------------------------------------------------------------------------
+        if (isset($data0['estados']) && $in['tipo'] == '04')
+            foreach($data0['estados'] as $row) {
+                $data1['estados'][ $row['id'] ] = array (
+                    'nombre' => $row['nombre'],
+                    'js' => '',
+                );
+            }
+        if (isset($data0['asesores']) && $in['tipo'] == '04')
+            foreach($data0['asesores'] as $row) {
+                $data1['asesores'] [ utf8_encode($row['asesor_venta']) ]
                     [ $row['estado_id'] ] = $row['total'];
             }
     }

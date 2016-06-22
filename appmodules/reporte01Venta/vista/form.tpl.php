@@ -6,10 +6,15 @@
       </select>
     </div>
     <div class="large-3 medium-5 small-9 columns">
-      <select name="tipo" class="no-margin">
+      <select name="tipo" class="no-margin" style="font-size:.8em">
         <?php
-        $ll = array('1'=> 'Estados', '2'=>'Tipo Cliente', '3'=>'Comparativo de Asesores');
-        for($i = 1; $i<=3; $i++)
+        $ll = array('1'=> 'Estados',
+                    '2'=>'Tipo Cliente',
+                    '3'=>'Comparativo de Asesores Activos',
+                    '4'=>'Comparativo de Asesores Cesados',
+        );
+        $total = count($ll);
+        for($i = 1; $i<=$total; $i++)
         {
             $selected = '';
             if ($i === (int)$in['tipo'])

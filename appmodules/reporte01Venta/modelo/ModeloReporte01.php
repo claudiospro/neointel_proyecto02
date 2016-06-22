@@ -161,6 +161,53 @@ class ModeloVenta {
             $data['estado_real'] = $this->q->exe();            
         } elseif($in['tipo'] == '03') {
             // ---------------------------------------------------- estados
+            $this->q->fields = array (
+                'id' => '',
+                'nombre' => '',
+            );
+            $this->q->sql = '
+            SELECT id, nombre FROM venta_estado WHERE info_status = 1
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['estados'] = $this->q->exe();
+            // ----------------------------------------------------- estados x asesores (ventas)
+            $this->q->fields = array(
+                'estado_id'       => '',
+                'asesor_venta_id' => '',
+                'total'           => '',
+                'campania'        => '',
+            );
+            $this->q->sql = '
+            SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+            FROM venta_' . $in['campania_id'] . ' d
+            JOIN venta v ON v.id=d.id
+            WHERE ' . $filtros . '
+            GROUP by 1,2
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['ventas'] = $this->q->exe();
+            // ----------------------------------------------------- asesores
+            $this->q->fields = array(
+                'id'     => '',
+                'nombre' => '',
+            );
+            $this->q->sql = '
+            SELECT u.id, u.nombre 
+            FROM usu_usuario u
+            JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+            JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+            JOIN campania c ON c.id = cl.campania_id
+            JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+            WHERE u.info_status = 1
+              AND up.perfil_id IN (5)
+              AND c.indice = "' . $in['campania_id'] . '"
+            ORDER BY 2
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['asesores'] = $this->q->exe();
+            // ----------------------------------------------------- asesores
+        } elseif($in['tipo'] == '04') {
+            // ---------------------------------------------------- estados
             $this->q->fields = array(
                 'id' => '',
                 'nombre' => '',
@@ -190,12 +237,12 @@ class ModeloVenta {
             $this->q->sql = '
             SELECT av.nombre, t.* FROM (' . $this->q->sql . ') as t 
             JOIN usu_usuario av ON av.id = t.asesor_venta_id
+            WHERE av.info_status = 0
             ORDER BY 1
             ';
             // Utilidades::printr($this->q->sql);
             $data['asesores'] = $this->q->exe();
         }
-
         return $data;
     }
     function getSupervisorByFechas($in) {
