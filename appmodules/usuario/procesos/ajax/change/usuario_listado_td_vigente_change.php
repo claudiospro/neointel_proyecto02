@@ -18,7 +18,5 @@ $modelo->updateVigente($in);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
-// Utilidades::printr($campos);
-// Utilidades::printr($dato);
 
 // -------------------------------------------------------- OUT

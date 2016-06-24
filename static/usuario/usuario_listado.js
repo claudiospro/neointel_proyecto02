@@ -160,6 +160,31 @@ $(document).ready(function() {
         var enviar = $("form.myform").serialize();
         // c(enviar);
         var validar = [] ;
+        var fechas = {
+            'vigente': $('#field_modal_usuario_vigente').is(':checked'),
+            'entrada': $('#field_modal_usuario_fecha_entrada').val(),
+            'cese'   : $('#field_modal_usuario_fecha_cese').val(),
+        }
+        // c(fechas);
+        if (fechas.vigente == true && fechas.entrada == '') {
+            out = false;
+            alert('Para que este VIGENTE debe indicar FECHA_ENTRADA');
+        }
+        if (fechas.vigente == true && fechas.cese != '') {
+            out = false;
+            alert('Para que este VIGENTE debe estar vacio FECHA_CESE');
+            $('#field_modal_usuario_fecha_cese').val('');
+        }
+        if (fechas.vigente == false && fechas.entrada != '') {
+            out = false;
+            alert('Para que este CESADO debe estar vacio FECHA_ENTRADA');
+            $('#field_modal_usuario_fecha_entrada').val('');
+        }
+        if (fechas.vigente == false && fechas.cese == '') {
+            out = false;
+            alert('Para que este CESADO debe indicar FECHA_CESE');
+        }
+        
         validar['tot'] = 0 ;
         $('.item-grupo').each(function(){
             if($(this).is(':checked')) { 
@@ -191,6 +216,7 @@ $(document).ready(function() {
             out = false;
             alert('Debe pertenecer a un grupo');
         }
+        
         if (out) {
             $.ajax({
 	        type: "POST",

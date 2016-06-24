@@ -22,50 +22,75 @@ class ModeloVenta {
         $data = $this->q->exe();        
         return $data;
     }
+    function getLinealByUser($id) {
+        $this->q->fields = array(
+            'id' => '',
+        );
+        $this->q->sql = '
+        SELECT ul.lineal_id FROM usu_usuario_lineal ul
+        WHERE ul.usuario_id = "' . $id . '"
+        LIMIT 1
+        ';
+        $this->q->data = NULL;
+        // Utilidades::printr($this->q->sql);
+        $data = $this->q->exe();        
+        return $data[0]['id'];
+    }
     function getDatos($in) {
          $data['indice'][$in['campania_id']] = 0;
-            $data['indice_nombre'][$in['campania_id']] = $in['campania_id'];
-        $filtros = '';
+         $data['indice_nombre'][$in['campania_id']] = $in['campania_id'];
+         $filtros = '';
+         $filtros .= '
+             v.info_status=1
+         AND d.aprobado_supervisor = 1
+         AND d.tramitacion_venta_validar = 1
+         AND d.tramitacion_venta_cargar = 1
+        ';
+        $filtros_5 = '';
+        $filtros_5b = '';
         if ($in['dia-ini'] != '00') {
-            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" AND 
-                        ';
+            $filtros .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
+            $filtros_5 .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
+            $filtros_5b .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
         } else {
-            $filtros .= 'v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" AND
-                        ';
+            $filtros .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros_5 .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros_5b .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
         }
         if ($in['dia-end'] != '00') {
-            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" AND
-                        ';
+            $filtros .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
+            $filtros_5 .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
+            $filtros_5b .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
         } else {
-            $filtros .= 'v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" AND 
-                        ';
+            $filtros .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" ';
+            $filtros_5 .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-31 23:59:59"';
+            $filtros_5b .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-31 23:59:59"';
         }
-        
+        // filtro de usuarios
+        $filtros_4 = '';
+        if ($in['supervisor_id'] != '00') {
+            $in['supervisor_id_lineal'] = $this->getLinealByUser($in['supervisor_id']);
+        }
         if ($in['modo'] == 'Estructura') {
             if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
-                $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
-                ';
+                $filtros .= ' AND v.supervisor_id =  "' . $in['supervisor_id'] . '" ';
+                $filtros_4 .= ' AND ul.lineal_id =  "' . $in['supervisor_id_lineal'] . '"';
             }
             if ($in['asesor_comercial_id'] != '00') {
-                $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND
-                ';
+                $filtros .= ' AND v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" ';
+                $filtros_4 .= ' AND u.id =  "' . $in['asesor_comercial_id'] . '"';
             }
         } elseif ($in['modo'] == 'Supervisor') {
             if ($in['supervisor_id'] != '00') {
-                $filtros .= 'v.supervisor_id =  "' . $in['supervisor_id'] . '" AND 
-                ';
+                $filtros .= ' AND v.supervisor_id = "' . $in['supervisor_id'] . '" ';
+                $filtros_4 .= ' AND ul.lineal_id = "' . $in['supervisor_id_lineal'] . '" ';
             }
             if ($in['asesor_comercial_id'] != '00') {
-                $filtros .= 'v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" AND 
-                ';
+                $filtros .= ' AND v.asesor_venta_id = "' . $in['asesor_comercial_id'] . '" ';
+                $filtros_4 .= ' AND u.id = "' . $in['asesor_comercial_id'] . '"';
             }
         }
-        $filtros .= '
-                    v.info_status=1 AND 
-                    d.aprobado_supervisor = 1 AND 
-                    d.tramitacion_venta_validar = 1 AND 
-                    d.tramitacion_venta_cargar = 1
-        ';
+
         
         if ($in['tipo'] == '01')
         {
@@ -114,7 +139,7 @@ class ModeloVenta {
             // Utilidades::printr($this->q->sql);
             $data['estado_real'] = $this->q->exe();
         }
-        elseif($in['tipo'] == '02')
+        elseif ($in['tipo'] == '02')
         {
             // ---------------------------------------------------- tipo de cliente
             $this->q->fields = array(
@@ -159,7 +184,9 @@ class ModeloVenta {
                         ';
             // Utilidades::printr($this->q->sql);
             $data['estado_real'] = $this->q->exe();            
-        } elseif($in['tipo'] == '03') {
+        }
+        elseif ($in['tipo'] == '03')
+        {
             // ---------------------------------------------------- estados
             $this->q->fields = array (
                 'id' => '',
@@ -201,12 +228,18 @@ class ModeloVenta {
             WHERE u.info_status = 1
               AND up.perfil_id IN (5)
               AND c.indice = "' . $in['campania_id'] . '"
+            ' . $filtros_4 . '
+            ';
+            
+            $this->q->sql .= '
             ORDER BY 2
             ';
             // Utilidades::printr($this->q->sql);
             $data['asesores'] = $this->q->exe();
             // ----------------------------------------------------- asesores
-        } elseif($in['tipo'] == '04') {
+        }
+        elseif ($in['tipo'] == '04')
+        {
             // ---------------------------------------------------- estados
             $this->q->fields = array(
                 'id' => '',
@@ -217,31 +250,88 @@ class ModeloVenta {
             ';
             // Utilidades::printr($this->q->sql);
             $data['estados'] = $this->q->exe();
-            // ---------------------------------------------------------------- estados x asesores
+            // ----------------------------------------------------- estados x asesores (ventas)
             $this->q->fields = array(
-                'asesor_venta'    => '',
                 'estado_id'       => '',
                 'asesor_venta_id' => '',
                 'total'           => '',
                 'campania'        => '',
             );
             $this->q->sql = '
-            (
-             SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
-             FROM venta_' . $in['campania_id'] . ' d
-             JOIN venta v ON v.id=d.id
-             WHERE ' . $filtros . '
-             GROUP by 1,2
-            )
+            SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+            FROM venta_' . $in['campania_id'] . ' d
+            JOIN venta v ON v.id=d.id
+            WHERE ' . $filtros . '
+            GROUP by 1,2
             ';
+            // Utilidades::printr($this->q->sql);
+            $data['ventas'] = $this->q->exe();
+            // ----------------------------------------------------- asesores
+            $this->q->fields = array(
+                'id'     => '',
+                'nombre' => '',
+            );
             $this->q->sql = '
-            SELECT av.nombre, t.* FROM (' . $this->q->sql . ') as t 
-            JOIN usu_usuario av ON av.id = t.asesor_venta_id
-            WHERE av.info_status = 0
-            ORDER BY 1
+            SELECT DISTINCT unido.id, unido.nombre FROM (
+            (
+            SELECT u.id, u.nombre 
+            FROM usu_usuario u
+            JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+            JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+            JOIN campania c ON c.id = cl.campania_id
+            JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+            WHERE u.info_status = 0
+            AND up.perfil_id IN (5)
+            AND c.indice = "' . $in['campania_id'] . '"
+            ' . $filtros_4 . '
+            ' . $filtros_5 . '
+            )
+            UNION
+            (
+            SELECT u.id, u.nombre 
+            FROM usu_usuario u
+            JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+            JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+            JOIN campania c ON c.id = cl.campania_id
+            JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+            JOIN venta v ON v.asesor_venta_id = u.id
+            WHERE u.info_status = 0
+            AND up.perfil_id IN (5)
+            AND c.indice = "' . $in['campania_id'] . '"
+            ' . $filtros_4 . '
+            ' . $filtros_5b . '
+            )
+            ) AS unido
+            ';
+            
+            $this->q->sql .= '
+            ORDER BY 2
             ';
             // Utilidades::printr($this->q->sql);
             $data['asesores'] = $this->q->exe();
+            // ---------------------------------------------------------------- estados x asesores
+            // $this->q->fields = array(
+            //     'asesor_venta'    => '',
+            //     'estado_id'       => '',
+            //     'asesor_venta_id' => '',
+            //     'total'           => '',
+            //     'campania'        => '',
+            // );
+            // $this->q->sql = '
+            //  SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+            //  FROM venta_' . $in['campania_id'] . ' d
+            //  JOIN venta v ON v.id=d.id
+            //  WHERE ' . $filtros . '
+            //  GROUP by 1,2
+            // ';
+            // $this->q->sql = '
+            //  SELECT av.nombre, t.* FROM (' . $this->q->sql . ') as t 
+            //  JOIN usu_usuario av ON av.id = t.asesor_venta_id
+            //  WHERE av.info_status = 0
+            //  ORDER BY 1
+            // ';
+            // // Utilidades::printr($this->q->sql);
+            // $data['asesores'] = $this->q->exe();
         }
         return $data;
     }

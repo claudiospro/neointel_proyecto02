@@ -63,10 +63,25 @@ class ModeloUsuario {
             'perfil_id' => '',
             'perfil' => '',
             'comentario' => '',
-            'vigente' => '1',            
+            'telefono' => '',
+            'direccion' => '',
+            'vigente' => '1',
+            'fecha_entrada' => '',
+            'fecha_cese' => '',
         );
         $this->q->sql = '
-        SELECT u.id, u.nombre, u.nombre_corto, u.login, u.pwd, up.perfil_id, p.nombre, u.comentario, u.info_status
+        SELECT u.id
+             , u.nombre
+             , u.nombre_corto
+             , u.login, u.pwd
+             , up.perfil_id
+             , p.nombre
+             , u.comentario
+             , u.telefono
+             , u.direccion
+             , u.info_status
+             , u.fecha_entrada
+             , u.fecha_cese
         FROM usu_usuario u
         LEFT JOIN usu_usuario_perfil up ON up.usuario_id = u.id
         LEFT JOIN usu_perfil p ON p.id = up.perfil_id
@@ -92,7 +107,11 @@ class ModeloUsuario {
         , "' . utf8_decode($in['form']['nombre_corto']) . '"
         , "' . utf8_decode($in['form']['login']) . '"
         , "' . utf8_decode($in['form']['comentario']) . '"
+        , "' . $in['form']['telefono']. '"
+        , "' . $in['form']['direccion']. '"
         , "' . $in['form']['vigente']. '"
+        , "' . $in['form']['fecha_entrada']. '"
+        , "' . $in['form']['fecha_cese']. '"
         , "' . $in['form']['perfil_id']. '"
         , "' . $in['fecha'] . '"
         , "' . $in['usuario'] . '"
@@ -194,12 +213,22 @@ class ModeloUsuario {
     function updateVigente($in) {
         $this->q->fields = array();
         $this->q->data = NULL;
+        $fecha = '';
+        if ($in['info_status'] == 0) {
+            $fecha .= ', fecha_entrada = ""';
+            $fecha .= ', fecha_cese = "' . date('Y-m-d') . '"';
+        } elseif ($in['info_status'] == 1) {
+            $fecha .= ', fecha_entrada = "' . date('Y-m-d') . '"';
+            $fecha .= ', fecha_cese = ""';
+        }
+        
         // estado
         $this->q->sql = '
         UPDATE usu_usuario 
-        SET info_status="' . $in['info_status'] . '",
-            info_update_user="' . $in['usuario'] . '", 
-            info_update="' . $in['fecha'] . '"
+        SET info_status="' . $in['info_status'] . '"
+            , info_update_user="' . $in['usuario'] . '"
+            , info_update="' . $in['fecha'] . '"
+            ' . $fecha . '
         WHERE id="' . $in['id'] . '"
         ';
         // echo $this->q->sql . '\n';
