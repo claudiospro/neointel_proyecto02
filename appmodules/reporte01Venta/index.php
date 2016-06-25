@@ -101,11 +101,14 @@ if (isset($_GET['campania_id'])) {
             }
         if (isset($data0['asesores']) && $in['tipo'] == '03')
             foreach($data0['asesores'] as $row) {
+                $data1['asesores'] [ utf8_encode($row['nombre']) ]['info']
+                    = array( 'fecha_entrada' => $row['fecha_entrada'], 'fecha_cese' => $row['fecha_cese'] );
                 if ( isset($data1['ventas'][ $row['id'] ]) ) {
-                    $data1['asesores'] [ utf8_encode($row['nombre']) ]
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ]['estados']
                         = $data1['ventas'][ $row['id'] ];
                 } else {
-                    $data1['asesores'] [ utf8_encode($row['nombre']) ] = array();
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ]['estados']
+                        = array();
                 }               
             }
         // ---------------------------------------------------------------------------------------
@@ -123,18 +126,18 @@ if (isset($_GET['campania_id'])) {
             }
         if (isset($data0['asesores']) && $in['tipo'] == '04')
             foreach($data0['asesores'] as $row) {
+                $data1['asesores'] [ utf8_encode($row['nombre']) ]['info']
+                    = array('fecha_entrada' => $row['fecha_entrada']
+                            , 'fecha_cese' => $row['fecha_cese'] );                
                 if ( isset($data1['ventas'][ $row['id'] ]) ) {
-                    $data1['asesores'] [ utf8_encode($row['nombre']) ]
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ] ['estados']
                         = $data1['ventas'][ $row['id'] ];
                 } else {
-                    $data1['asesores'] [ utf8_encode($row['nombre']) ] = array();
+                    $data1['asesores'] [ utf8_encode($row['nombre']) ] ['estados']
+                        = array();
                 }
             }
-        // if (isset($data0['asesores']) && $in['tipo'] == '04')
-        //     foreach($data0['asesores'] as $row) {
-        //         $data1['asesores'] [ utf8_encode($row['asesor_venta']) ]
-        //             [ $row['estado_id'] ] = $row['total'];
-        //     }
+
     }
     
     // --------------------------------------------------------- TEST

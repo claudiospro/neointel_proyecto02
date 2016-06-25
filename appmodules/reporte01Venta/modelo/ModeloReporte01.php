@@ -217,9 +217,11 @@ class ModeloVenta {
             $this->q->fields = array(
                 'id'     => '',
                 'nombre' => '',
+                'fecha_entrada' => '',
+                'fecha_cese' => '',
             );
             $this->q->sql = '
-            SELECT u.id, u.nombre 
+            SELECT u.id, u.nombre, fecha_entrada, fecha_cese
             FROM usu_usuario u
             JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
             JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
@@ -236,7 +238,6 @@ class ModeloVenta {
             ';
             // Utilidades::printr($this->q->sql);
             $data['asesores'] = $this->q->exe();
-            // ----------------------------------------------------- asesores
         }
         elseif ($in['tipo'] == '04')
         {
@@ -270,11 +271,13 @@ class ModeloVenta {
             $this->q->fields = array(
                 'id'     => '',
                 'nombre' => '',
+                'fecha_entrada' => '',
+                'fecha_cese' => '',
             );
             $this->q->sql = '
-            SELECT DISTINCT unido.id, unido.nombre FROM (
+            SELECT DISTINCT unido.id, unido.nombre, fecha_entrada, fecha_cese FROM (
             (
-            SELECT u.id, u.nombre 
+            SELECT u.id, u.nombre, u.fecha_entrada, u.fecha_cese
             FROM usu_usuario u
             JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
             JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
@@ -288,7 +291,7 @@ class ModeloVenta {
             )
             UNION
             (
-            SELECT u.id, u.nombre 
+            SELECT u.id, u.nombre, u.fecha_entrada, u.fecha_cese
             FROM usu_usuario u
             JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
             JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
@@ -309,29 +312,7 @@ class ModeloVenta {
             ';
             // Utilidades::printr($this->q->sql);
             $data['asesores'] = $this->q->exe();
-            // ---------------------------------------------------------------- estados x asesores
-            // $this->q->fields = array(
-            //     'asesor_venta'    => '',
-            //     'estado_id'       => '',
-            //     'asesor_venta_id' => '',
-            //     'total'           => '',
-            //     'campania'        => '',
-            // );
-            // $this->q->sql = '
-            //  SELECT d.estado, v.asesor_venta_id, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
-            //  FROM venta_' . $in['campania_id'] . ' d
-            //  JOIN venta v ON v.id=d.id
-            //  WHERE ' . $filtros . '
-            //  GROUP by 1,2
-            // ';
-            // $this->q->sql = '
-            //  SELECT av.nombre, t.* FROM (' . $this->q->sql . ') as t 
-            //  JOIN usu_usuario av ON av.id = t.asesor_venta_id
-            //  WHERE av.info_status = 0
-            //  ORDER BY 1
-            // ';
-            // // Utilidades::printr($this->q->sql);
-            // $data['asesores'] = $this->q->exe();
+
         }
         return $data;
     }

@@ -7,7 +7,7 @@ if (isset($data['asesores']))
     $js_encabezado = '';
     foreach($data['asesores'] as $key => $row) {
         $total = 0;
-        foreach($row as $r)
+        foreach($row['estados'] as $r)
         {
             $total += $r;
         }
@@ -23,19 +23,36 @@ if (isset($data['asesores']))
     foreach($js_orden2 as $key => $row)
     {
         $total = 0;
-        foreach($row as $r)
+        foreach($row['estados'] as $r)
         {
             $total += $r;
         }
-        if ($js_encabezado != '') $js_encabezado .= ', ';
-        $js_encabezado .= "'" . $key . "<br> <string>Total</string>: " . $total . "'";
+        
+        $row['info']['fecha_entrada'] = substr($row['info']['fecha_entrada'], 0, -9);
+        if ($row['info']['fecha_entrada'] == '0000-00-00') {
+            $row['info']['fecha_entrada'] = 'Vacio';
+            $dias = 'Vacio';
+        } else {
+            $datetime1 = date_create($row['info']['fecha_entrada']);
+            $datetime2 = date_create(date('Y-m-d'));
+            $datetimeR = date_diff($datetime1, $datetime2);
+            $dias = $datetimeR->format('%R%a');
+        }
+        
+        if ($js_encabezado != '') $js_encabezado .= ', ';    
+        $js_encabezado .= "'" .
+                          "<strong>". $key . "</strong> (" . $total . ")" .
+                          "<br><strong>Entrada</strong>: " . $row['info']['fecha_entrada'] .
+                          "<br><strong>Días Hábiles </strong>: " . $dias .
+                          "'";
+
         
         foreach($data['estados'] as $k => $r)
         {
             if ($data['estados'][$k]['js'] != '')
                 $data['estados'][$k]['js'] .= ', ';
-            if (isset($row[$k])) {
-                $data['estados'][$k]['js'] .= $row[$k];
+            if (isset($row['estados'][$k])) {
+                $data['estados'][$k]['js'] .= $row['estados'][$k];
             }
             else
             {

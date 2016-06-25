@@ -215,7 +215,6 @@ class ModeloUsuario {
         $this->q->data = NULL;
         $fecha = '';
         if ($in['info_status'] == 0) {
-            $fecha .= ', fecha_entrada = ""';
             $fecha .= ', fecha_cese = "' . date('Y-m-d') . '"';
         } elseif ($in['info_status'] == 1) {
             $fecha .= ', fecha_entrada = "' . date('Y-m-d') . '"';

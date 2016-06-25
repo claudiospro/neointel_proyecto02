@@ -175,11 +175,6 @@ $(document).ready(function() {
             alert('Para que este VIGENTE debe estar vacio FECHA_CESE');
             $('#field_modal_usuario_fecha_cese').val('');
         }
-        if (fechas.vigente == false && fechas.entrada != '') {
-            out = false;
-            alert('Para que este CESADO debe estar vacio FECHA_ENTRADA');
-            $('#field_modal_usuario_fecha_entrada').val('');
-        }
         if (fechas.vigente == false && fechas.cese == '') {
             out = false;
             alert('Para que este CESADO debe indicar FECHA_CESE');
