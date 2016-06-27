@@ -6,7 +6,6 @@ $(document).ready(function() {
     // --------------------------------------------------------------- LOAD
     usuario_listado_tabla();
     usuario_listado_combos();
-
     
     // ------------------------------------------------------------ EVENTOS
     $(prefixId+'tabla .reload').on('click', function (event) {
@@ -232,7 +231,7 @@ $(document).ready(function() {
         }
 
         return out;
-    } 
+    }
     function usuario_listado_modal_reseteo_pwd() {
         var enviar = {
             'usuario_id': $('#field_usuario_id').val()

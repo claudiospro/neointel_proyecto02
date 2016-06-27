@@ -131,7 +131,7 @@ if( !empty($requestData['columns'][++$col]['search']['value']) ) {
 }
 if( !empty($requestData['columns'][++$col]['search']['value']) ) {
     $tmp = Utilidades::sanear_complete_string($requestData['columns'][$col]['search']['value']);
-    $sql_filter.=' AND (fecha_entrega LIKE "%' . $tmp . '%" OR fecha_entrega_observacion LIKE "%' . $tmp . '%")';
+    $sql_filter.=' AND fecha_entrega LIKE "%' . $tmp . '%"';
 }
 
 if( !empty($requestData['columns'][++$col]['search']['value']) ) {
