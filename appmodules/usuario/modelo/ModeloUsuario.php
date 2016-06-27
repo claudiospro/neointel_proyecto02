@@ -338,4 +338,28 @@ class ModeloUsuario {
         $data = $this->q->exe();        
         return $data[0]['id'];
     }
+    //
+    function verificar_usuario($in) {
+        $ou = '1';
+        $this->q->fields = array('id' => '');
+        $this->q->data = NULL;
+        $this->q->sql = '
+        SELECT id FROM usu_usuario where login = "' . $in['dni'] . '"
+        ';
+        // echo $this->q->sql;
+        
+        $data = $this->q->exe();
+        $i = 0;
+        $es_id = false;
+        if (isset($data))
+            foreach($data as $row) {
+                $i++;
+                if ($row['id'] == $in['usuario_id']) $es_id = true;
+            }
+        if ($i == 1 && $es_id) $ou = '1';
+        elseif ($i == 0) $ou = '1';
+        else $ou = '0';
+        
+        return $ou;
+    }
 }

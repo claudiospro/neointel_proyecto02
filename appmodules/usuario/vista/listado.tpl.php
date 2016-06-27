@@ -31,7 +31,7 @@ $prefix = 'usuario_listado_';
 <script src="../../lib/main/sesion.js"></script>
 
 <script src="../../static/usuario/usuario_listado.js?v=1.1.5"></script>
-<script src="../../static/usuario/grupo_listado.js?v=1.0.0"></script>
+<script src="../../static/usuario/grupo_listado.js?v=1.0.1"></script>
 
 <?php $js = ob_get_clean() ?>
 

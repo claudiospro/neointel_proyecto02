@@ -7,16 +7,15 @@ session_start();
 $modelo = new ModeloUsuario();
 // -------------------------------------------------------- INPUT
 $in['usuario_id'] = Utilidades::clear_input_id($_POST['usuario_id']);
+$in['dni'] = Utilidades::clear_input_id($_POST['dni']);
 
 
 // -------------------------------------------------------- Data
-// $dato = $modelo->setUsuarioPwd($in);
-
+echo $modelo->verificar_usuario($in);
 
 // -------------------------------------------------------- TEST
 // Utilidades::printr($in);
 // Utilidades::printr($_SESSION);
 // Utilidades::printr($dato);
 
-// -------------------------------------------------------- OUT
-echo '0';
+

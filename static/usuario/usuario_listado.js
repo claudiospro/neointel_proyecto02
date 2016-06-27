@@ -64,6 +64,17 @@ $(document).ready(function() {
     $('body').on('change', '.item-grupo', function (event) {
         usuario_listado_modal_grupo_checkbox($(this));
     });
+    //
+    $('body').on('keyup', 'form.myform #field_modal_usuario_login', function (event) {
+        var v = $(this).val();
+        v = v.trim();        
+        if (v.length >= 8) {
+            usuario_listado_modal_comprobar_dni();
+        } else {
+            $('#field_modal_usuario_login').removeClass('error');
+            $('#field_modal_usuario_existe_dni').val('no');
+        }
+    });
     // ---------------------------------------------------------- FUNCIONES
     function usuario_listado_tabla() {
         
@@ -210,6 +221,10 @@ $(document).ready(function() {
             out = false;
             alert('Debe pertenecer a un grupo');
         }
+        if ($('#field_modal_usuario_existe_dni').val() == 'si' ) {
+            out = false;
+            alert('DNI existe');   
+        }
         
         if (out) {
             $.ajax({
@@ -234,8 +249,9 @@ $(document).ready(function() {
     }
     function usuario_listado_modal_reseteo_pwd() {
         var enviar = {
-            'usuario_id': $('#field_usuario_id').val()
+            'usuario_id': $('#field_modal_usuario_usuario_id').val()
         }
+        // c(enviar);
         none_simple(
             './procesos/ajax/click/usuario_listado_modal_pwd_click.php',
             enviar
@@ -261,5 +277,29 @@ $(document).ready(function() {
         //     './procesos/ajax/change/usuario_listado_modal_grupo_change.php',
         //     enviar
         // );
+    }
+    //
+    function usuario_listado_modal_comprobar_dni() {
+        var enviar = {
+            'usuario_id': $('#field_modal_usuario_usuario_id').val(),
+            'dni'       : $('#field_modal_usuario_login').val(),
+        }
+        // c(enviar);
+        $.ajax({
+	    type: "POST",
+	    data: enviar,
+	    url: './procesos/ajax/click/usuario_listado_modal_click_verificar_usuario.php',
+	    success: function(data) {
+                // c(data.trim());
+                if (data.trim() == '0') {
+                    $('#field_modal_usuario_login').addClass('error');
+                    $('#field_modal_usuario_existe_dni').val('si');
+                    alert('DNI existe');
+                } else {
+                    $('#field_modal_usuario_login').removeClass('error');
+                    $('#field_modal_usuario_existe_dni').val('no');
+                }
+            }
+        });
     }
 });

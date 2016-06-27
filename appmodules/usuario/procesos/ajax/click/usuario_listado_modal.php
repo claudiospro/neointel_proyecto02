@@ -42,6 +42,7 @@ $grupos = $modelo->getGrupoByUsuario($in);
 echo '<form class="myform">';
 echo '<div class="row">';
 echo '<div class="large-12 medium-12 small-12 columns">';
+echo '<input type="hidden" id="field_modal_usuario_existe_dni" value="no">';
 foreach($form as $name => $row) {
     if ($row['type'] == 'hidden') {
         echo '<input type="hidden" 
