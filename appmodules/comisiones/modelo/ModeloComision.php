@@ -186,18 +186,33 @@ AND d.tramitacion_postventa_intalar = 1
             // ----------------------------------------------- las tarifa
             if ($r['producto'] == '13')
             {
-                $mo = 'Alta Nueva';
-                if ($r['fijo_modalidad'] == '1') $mo = 'Alta Nueva';
-                if ($r['fijo_modalidad'] == '2') $mo = 'Portabilidad';
-                
-                $ou['fibra']['total']['autonomo']['adsl']
-                    [$mo][] = $r['id'];
-                $ou['fibra']['supervisor'][$r['supervisor']]['autonomo']['adsl']
-                    [$mo][] = $r['id'];
-                $ou['fibra']['asesor_venta'][$r['asesor_venta']]['autonomo']['adsl']
-                    [$mo][] = $r['id'];
-                $tipo = 'autonomo';
-                
+                if ($r['cliente_tipo'] == '2') {
+                    $tipo = 'autonomo';                    
+                    
+                    $mo = 'Alta Nueva';                    
+                    if ($r['fijo_modalidad'] == '1') $mo = 'Alta Nueva';
+                    if ($r['fijo_modalidad'] == '2') $mo = 'Portabilidad';
+                    
+                    $ou['fibra']['total']['autonomo']
+                        ['adsl'][$mo][] = $r['id'];
+                    $ou['fibra']['supervisor'][$r['supervisor']]['autonomo']
+                        ['adsl'][$mo][] = $r['id'];
+                    $ou['fibra']['asesor_venta'][$r['asesor_venta']]['autonomo']
+                        ['adsl'][$mo][] = $r['id'];
+                    
+                } elseif ($r['cliente_tipo'] == '1') {
+                    $tipo = 'residencial';
+                    
+                    if ($r['con_television'] == '2' || $r['con_television'] == '3') $p = '3P';
+                    else $p = '2P';
+
+                    $ou['fibra']['total']['residencial'][$p]
+                        ['adsl'][] = $r['id'];
+                    $ou['fibra']['supervisor'][$r['supervisor']]['residencial'][$p]
+                        ['adsl'][] = $r['id'];
+                    $ou['fibra']['asesor_venta'][$r['asesor_venta']]['residencial'][$p]
+                        ['adsl'][] = $r['id'];
+                }
             } else
             {
                 if ($r['cliente_tipo'] == '2')
@@ -234,9 +249,6 @@ AND d.tramitacion_postventa_intalar = 1
                     $ou['fibra']['asesor_venta'][$r['asesor_venta']]['residencial'][$p]
                         [$mb][] = $r['id'];
                     $tipo = 'residencial';
-
-
-                    
                 }
             }
             // ----------------------------------------------- las lineas
@@ -412,6 +424,11 @@ AND d.tramitacion_postventa_intalar = 1
             $fibra['autonomo']['adsl']['Alta Nueva'] = array();
         if (!isset($fibra['autonomo']['adsl']['Portabilidad']))
             $fibra['autonomo']['adsl']['Portabilidad'] = array();
+        // 
+        if (!isset($fibra['residencial']['3P']['adsl']))
+            $fibra['residencial']['3P']['adsl'] = array();
+        if (!isset($fibra['residencial']['2P']['adsl']))
+            $fibra['residencial']['2P']['adsl'] = array();
 
         // ------------------------------------------ TOTAL
         $total_1 = count($fibra['residencial']['2P']['300MB']) 
@@ -449,11 +466,11 @@ AND d.tramitacion_postventa_intalar = 1
                <th>Fibra 300MB</th>
                <td>' . count($fibra['residencial']['2P']['300MB']) . '</td>
                <td>' . count($fibra['residencial']['3P']['300MB']) . '</td>
-               <th rowspan="3">' . $total_1 . '</th>
-               <td rowspan="3">' . count($movil['residencial']['S']) . '</td>
-               <td rowspan="3">' . count($movil['residencial']['M']) . '</td>
-               <td rowspan="3">' . count($movil['residencial']['L']) . '</td>
-               <th rowspan="3">' . $total_2 . '</th>
+               <th rowspan="4">' . $total_1 . '</th>
+               <td rowspan="4">' . count($movil['residencial']['S']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['M']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['L']) . '</td>
+               <th rowspan="4">' . $total_2 . '</th>
                <!--  --!>
                <td>' . count($fibra['autonomo']['fibra']['300MB']['Alta Nueva']) . '</td>
                <td>' . count($fibra['autonomo']['fibra']['300MB']['Portabilidad']) . '</td>
@@ -494,7 +511,8 @@ AND d.tramitacion_postventa_intalar = 1
         
         $ou .= '<tr>
                <th>ADSL</th>
-               <td colspan="7">&nbsp;</td>
+               <td>' . count($fibra['residencial']['2P']['adsl']) . '</td>
+               <td>' . count($fibra['residencial']['3P']['adsl']) . '</td>
                <!--  --!>
                <td>' . count($fibra['autonomo']['adsl']['Alta Nueva']) . '</td> 
                <td>' . count($fibra['autonomo']['adsl']['Portabilidad']) . '</td> 

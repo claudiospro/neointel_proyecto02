@@ -371,6 +371,7 @@ $(document).ready(function() {
 	    url: './procesos/ajax/select/ventas_listado_campanias_onload.php',
 	    success: function(data) {
                 $('#declarativo_field_campanias').html(data);
+                $('.declarativo_field_campanias').html(data);
 	    }
         });
         // element_simple(
