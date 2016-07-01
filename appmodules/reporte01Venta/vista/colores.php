@@ -2,6 +2,7 @@
 $color['estado'][1] = '#f9ff9d';
 $color['estado'][2] = '#3add53';
 $color['estado'][3] = '#ff9d9d';
+$color['estado'][4] = '#cdcdcd';
 
 $color['estado_real'][1]  = '#c9ee70';
 $color['estado_real'][2]  = '#f9ff9d';

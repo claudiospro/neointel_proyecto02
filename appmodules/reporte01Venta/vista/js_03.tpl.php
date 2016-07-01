@@ -69,7 +69,7 @@ if (isset($data['asesores']))
 <?php if (isset($data['asesores'])):  ?>
   <script type="text/javascript">
    $(function () {
-       $('#pai-0').css('height','<?php echo ($js_num * 65) + 100 ?>px');
+       $('#pai-0').css('height','<?php echo ($js_num * 75) + 100 ?>px');
        $('#pai-0').highcharts({
            chart: { type: 'bar' },
            title: { text: '' },

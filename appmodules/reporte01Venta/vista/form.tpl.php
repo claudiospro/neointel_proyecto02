@@ -12,6 +12,7 @@
                     '2'=>'Tipo Cliente',
                     '3'=>'Comparativo de Asesores Activos',
                     '4'=>'Comparativo de Asesores Cesados',
+                    '5'=>'Curvatura Comportamiento',
         );
         $total = count($ll);
         for($i = 1; $i<=$total; $i++)

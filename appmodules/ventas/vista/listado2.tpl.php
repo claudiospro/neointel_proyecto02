@@ -121,6 +121,7 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <?php
 include './vista/declarativo.tpl.php';
+include './vista/colores.tpl.php';
 include './vista/tabla_' . $in['campania'] . '.tpl.php';
 ?>
 
