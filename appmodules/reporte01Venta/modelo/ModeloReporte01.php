@@ -314,6 +314,42 @@ class ModeloVenta {
             $data['asesores'] = $this->q->exe();
 
         }
+        elseif ($in['tipo'] == '05')
+        {
+            // ---------------------------------------------------- estados
+            $this->q->fields = array(
+                'id' => '',
+                'nombre' => '',
+            );
+            $this->q->sql = '
+            SELECT id, nombre FROM venta_estado
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['estados'] = $this->q->exe();
+            // ----------------------------------------------------- estados x fecha (ventas)
+            $this->q->fields = array(
+                'estado_id'       => '',
+                'fecha' => '',
+                'total'           => '',
+                'campania'        => '',
+            );
+            $rango_fecha = '%Y-%m-%d';
+            if ($in['rango_fechas'] == '04') $rango_fecha = '%Y-%m';
+            $this->q->sql = '
+            SELECT d.estado
+                 , DATE_FORMAT(v.info_create_fecha,"' . $rango_fecha . '") fecha
+                 , SUM(d.producto_cantidad)
+                 , "' . $in['campania_id'] . '" campania
+            FROM venta_' . $in['campania_id'] . ' d
+            JOIN venta v ON v.id=d.id
+            WHERE ' . $filtros . '
+            GROUP BY 2,1
+            ORDER BY 2
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['ventas'] = $this->q->exe();
+
+        }
         return $data;
     }
     function getSupervisorByFechas($in) {

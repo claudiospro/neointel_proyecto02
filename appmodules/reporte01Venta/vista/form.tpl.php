@@ -6,13 +6,13 @@
       </select>
     </div>
     <div class="large-3 medium-5 small-9 columns">
-      <select name="tipo" class="no-margin" style="font-size:.8em">
+      <select id="tipo" name="tipo" class="no-margin" style="font-size:.8em">
         <?php
         $ll = array('1'=> 'Estados',
                     '2'=>'Tipo Cliente',
                     '3'=>'Comparativo de Asesores Activos',
                     '4'=>'Comparativo de Asesores Cesados',
-                    '5'=>'Curvatura Comportamiento',
+                    '5'=>'Historico',
         );
         $total = count($ll);
         for($i = 1; $i<=$total; $i++)
@@ -29,10 +29,33 @@
         ?>
       </select>
     </div>
+    <div class="large-2 medium-2 small-3 columns" id="rango_fechas_div">
+      <select  name="rango_fechas" id="rango_fechas" class="no-margin" style="font-size:.8em">
+        <?php
+        $ll = array('1'=> 'Día',
+                    // '2'=> '7 Días',
+                    // '3'=> '14 Días',
+                    '4'=> 'Mes',
+        );
+        foreach($ll as $k => $r)
+        {
+            $selected = '';
+            if ($k === (int)$in['rango_fechas'])
+            {
+                $selected = 'selected';
+            }
+
+            printf('<option value="%\'.02d" ' . $selected . '>%s</option>'
+                 , $k, $r
+            );            
+        }
+        ?>        
+      </select>
+    </div>
     <div class="large-1 medium-2 small-3 columns">
       <button type="submit" class="button no-margin expanded success">Ver</button>
     </div>
-    <div class="large-1 medium-1 small-0 columns"></div>
+    <div class="large-1 medium-1 small-1 columns"></div>
   </div>  
   <div class="row">
     <div class="large-6 medium-6 small-12 columns">

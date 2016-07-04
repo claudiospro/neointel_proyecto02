@@ -4,10 +4,10 @@ $(document).ready(function() {
     var prefixClass = '.reporte_01_ventas_';
     var dataTable_listado = '';
     // --------------------------------------------------------------- LOAD
-    reporte_01_campania_id();
-    
+    reporte_01_campania_id();    
     reporte_01_supervisor_id();
     reporte_01_asesor_comercial_id();
+    reporte_01_tipo($('#tipo'));
     
     // ------------------------------------------------------------ EVENTOS
     $('#campania_id').on('change', function (event) {
@@ -33,7 +33,10 @@ $(document).ready(function() {
     $('#supervisor_id').on('change', function (event) {
         reporte_01_asesor_comercial_id();
     });
-    
+    //
+    $('#tipo').on('change', function (event) {
+        reporte_01_tipo($(this));
+    });
     // ---------------------------------------------------------- FUNCIONES
     function reporte_01_campania_id() {
         var enviar = {
@@ -79,5 +82,13 @@ $(document).ready(function() {
             enviar
         );
     }
-
+    //
+    function reporte_01_tipo(item) {
+        // c(item.val());
+        if (item.val() == '05') {
+            $('#rango_fechas_div').show();
+        } else {
+            $('#rango_fechas_div').hide();
+        }
+    }
 });

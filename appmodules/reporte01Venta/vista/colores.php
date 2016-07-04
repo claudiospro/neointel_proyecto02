@@ -1,5 +1,5 @@
 <?php
-$color['estado'][1] = '#f9ff9d';
+$color['estado'][1] = '#f8f716';
 $color['estado'][2] = '#3add53';
 $color['estado'][3] = '#ff9d9d';
 $color['estado'][4] = '#cdcdcd';

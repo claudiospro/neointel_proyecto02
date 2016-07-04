@@ -354,17 +354,17 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             ->setCellValue(c1(9 , $i+21), 'Linea S')
             ->setCellValue(c1(10, $i+21), count($movil['autonomo']['linea 2']['S']))
             ->setCellValue(c1(11, $i+21), '')
-            ->setCellValue(c1(12, $i+21), '')
+            ->setCellValue(c1(12, $i+21), cProducto(10,11, $i+21))
             //
             ->setCellValue(c1(9 , $i+22), 'Linea M')
             ->setCellValue(c1(10, $i+22), count($movil['autonomo']['linea 2']['M']))
             ->setCellValue(c1(11, $i+22), '')
-            ->setCellValue(c1(12, $i+22), '')
+            ->setCellValue(c1(12, $i+22), cProducto(10,11, $i+22))
             //
             ->setCellValue(c1(9 , $i+23), 'Linea L')
             ->setCellValue(c1(10, $i+23), count($movil['autonomo']['linea 2']['L']))
             ->setCellValue(c1(11, $i+23), '')
-            ->setCellValue(c1(12, $i+23), '')
+            ->setCellValue(c1(12, $i+23), cProducto(10,11, $i+23))
             //
             ->setCellValue(c1(1 , $i+24), 'FIBRAS')
             ->setCellValue(c1(2 , $i+24), 'LINEAS')

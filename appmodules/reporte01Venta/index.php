@@ -2,11 +2,11 @@
 require_once '../autentificacion/modelo/logica.php';
 ModeloAuten::user_log('Reporte-01-Venta', '../autentificacion/index.php');
 
+
 include "../../lib/mysql/dbconnector.php";
 include "../../lib/mysql/conexion01.php";
 include "../../lib/mysql/utilidades.php";
 include "./modelo/ModeloReporte01.php";
-
 
 $data1 = null;
 
@@ -39,6 +39,12 @@ if (isset($_GET['campania_id'])) {
     } else {
         $in['asesor_comercial_id'] = '00';
     }
+    if (isset($_GET['rango_fechas'])) {
+        $in['rango_fechas'] = Utilidades::clear_input($_GET['rango_fechas']);
+    } else {
+        $in['rango_fechas'] = '00';
+    }
+    
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 
     
@@ -137,6 +143,43 @@ if (isset($_GET['campania_id'])) {
                         = array();
                 }
             }
+        // ---------------------------------------------------------------------------------------
+        // if (isset($data0['estados']) && $in['tipo'] == '05')
+        if (isset($data0['estados']) && $in['tipo'] == '05')
+            foreach($data0['estados'] as $row) {
+                $data1['estados'][ $row['id'] ] = array (
+                    'nombre' => $row['nombre'],
+                    'js' => '',
+                );
+            }
+        if (isset($data0['ventas']) && $in['tipo'] == '05')
+        {
+            $diaSemana = array(1 => 'Lun', 2 => 'Mar', 3 => 'Mier', 4 => 'Jue', 5 => 'Vie', 6 => 'Sab', 7 => 'Dom');
+            $mesLiteral = array(
+                1 => 'Ene', 2 => 'Feb', 3 => 'Mar', 4 => 'Abr', 5 => 'May', 6 => 'Jun',
+                7 => 'Jul', 8 => 'Ago', 9 => 'Sep',10 => 'Oct',11 => 'Nov',12 => 'Dic',
+                
+            );
+            foreach($data0['ventas'] as $row) {
+                
+                if ($in['rango_fechas']!='04')
+                {
+                    $date = DateTime::createFromFormat('Y-m-d', $row['fecha']);
+                    $row['fecha'] .= ' (' . $diaSemana[ $date->format('N') ]  . ')';
+                }
+                else
+                {
+                    $date = DateTime::createFromFormat('Y-m', $row['fecha']);
+                    $row['fecha'] .= ' ('.  $mesLiteral[ $date->format('n') ].')';
+                }
+                $data1['ventas']['listado'][ $row['fecha'] ] [ $row['estado_id'] ] = $row['total'];
+            }            
+            $data1['ventas']['first'] = reset($data0['ventas']);
+            $data1['ventas']['last'] = end($data0['ventas']);
+
+            $data1['ventas']['first'] = $data1['ventas']['first']['fecha'];
+            $data1['ventas']['last'] =  $data1['ventas']['last']['fecha'];
+        }
 
     }
     
@@ -153,6 +196,7 @@ if (isset($_GET['campania_id'])) {
     $in['tipo'] = '01';
     $in['supervisor_id'] = '00';
     $in['asesor_comercial_id'] = '00';
+    $in['rango_fechas'] = '00';
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 }
 
