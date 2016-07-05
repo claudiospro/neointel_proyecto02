@@ -33,7 +33,7 @@
       <select  name="rango_fechas" id="rango_fechas" class="no-margin" style="font-size:.8em">
         <?php
         $ll = array('1'=> 'Día',
-                    // '2'=> '7 Días',
+                    '2'=> 'Semana',
                     // '3'=> '14 Días',
                     '4'=> 'Mes',
         );

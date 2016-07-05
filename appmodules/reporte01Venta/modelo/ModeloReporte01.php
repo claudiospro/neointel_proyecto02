@@ -335,6 +335,7 @@ class ModeloVenta {
             );
             $rango_fecha = '%Y-%m-%d';
             if ($in['rango_fechas'] == '04') $rango_fecha = '%Y-%m';
+            if ($in['rango_fechas'] == '02') $rango_fecha = 'Semana %u';
             $this->q->sql = '
             SELECT d.estado
                  , DATE_FORMAT(v.info_create_fecha,"' . $rango_fecha . '") fecha

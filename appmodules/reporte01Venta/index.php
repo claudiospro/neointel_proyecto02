@@ -162,16 +162,21 @@ if (isset($_GET['campania_id'])) {
             );
             foreach($data0['ventas'] as $row) {
                 
-                if ($in['rango_fechas']!='04')
+                if ($in['rango_fechas']=='01')
                 {
                     $date = DateTime::createFromFormat('Y-m-d', $row['fecha']);
                     $row['fecha'] .= ' (' . $diaSemana[ $date->format('N') ]  . ')';
                 }
-                else
+                elseif ($in['rango_fechas']=='04')
                 {
                     $date = DateTime::createFromFormat('Y-m', $row['fecha']);
                     $row['fecha'] .= ' ('.  $mesLiteral[ $date->format('n') ].')';
                 }
+                elseif ($in['rango_fechas']=='02')
+                {
+                }
+                
+                
                 $data1['ventas']['listado'][ $row['fecha'] ] [ $row['estado_id'] ] = $row['total'];
             }            
             $data1['ventas']['first'] = reset($data0['ventas']);
