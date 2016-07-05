@@ -59,7 +59,7 @@ $fields = array (
     'distrito' => '', 'direccion' => '',
     'provincia' => '', 'departamento' => '', 'referencia' => '', 'fachada' => '',
     'producto' => '', 'cantidad' => '', 'color' => '',
-    'precio' => '', 'costo_envio' => '', 'obsequio' => '',
+    'tipo_pago' => '', 'precio' => '', 'costo_envio' => '', 'obsequio' => '',
     'estado_real' => '', 'estado_observacion' => '',
 );
 $sql = '
@@ -69,7 +69,7 @@ SELECT d.id
      , d01.nombre dis, d.direccion
      , d02.nombre, d03.nombre, d.referencia_lugar, d.referencia_fachada
      , d04.nombre, d.producto_cantidad, d05.nombre
-     , d.precio, d.costo_envio, d06.nombre
+     , d08.nombre, d.precio, d.costo_envio, d06.nombre
      , d07.nombre, d.estado_observacion 
 FROM venta_campania_003 d
 JOIN venta v ON v.id = d.id
@@ -80,6 +80,7 @@ LEFT JOIN venta_producto d04 ON d04.id = d.producto
 LEFT JOIN venta_color d05 ON d05.id = d.color
 LEFT JOIN venta_obsequio d06 ON d06.id = d.obsequio
 LEFT JOIN venta_estado_real d07 ON d07.id = d.estado_real
+LEFT JOIN venta_tipo_pago d08 ON d08.id = d.tipo_pago 
 WHERE v.info_status = 1
 ';
 // print $sql;
@@ -112,6 +113,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue( c0(++$j).(1) , 'PRODUCTO')
     ->setCellValue( c0(++$j).(1) , 'CANTIDAD')
     ->setCellValue( c0(++$j).(1) , 'COLOR')
+    ->setCellValue( c0(++$j).(1) , 'TIPO DE PAGO')
     ->setCellValue( c0(++$j).(1) , 'PRECIO')
     ->setCellValue( c0(++$j).(1) , 'COSTO DE ENVIO')
     ->setCellValue( c0(++$j).(1) , 'OBSEQUIO')
@@ -145,6 +147,7 @@ $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(40); // f
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(15); // producto
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(7);  // cantidad
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(15); // color
+$objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(15); // tipo_pago
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(15); // precio
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(15); // costo_envio
 $objPHPExcel->getActiveSheet()->getColumnDimension(c0(++$j))->setWidth(25); // obsequio
@@ -177,6 +180,7 @@ if (isset($ou))
             ->setCellValue( c0(++$j).($i) , strtoupper($row['producto']) )
             ->setCellValue( c0(++$j).($i) , strtoupper($row['cantidad']) )
             ->setCellValue( c0(++$j).($i) , strtoupper($row['color']) )
+            ->setCellValue( c0(++$j).($i) , strtoupper( utf8_encode($row['tipo_pago']) ))
             ->setCellValue( c0(++$j).($i) , strtoupper($row['precio']) )
             ->setCellValue( c0(++$j).($i) , strtoupper($row['costo_envio']) )
             ->setCellValue( c0(++$j).($i) , strtoupper($row['obsequio']) )
