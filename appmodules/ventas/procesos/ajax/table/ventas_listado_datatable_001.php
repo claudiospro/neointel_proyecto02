@@ -234,10 +234,38 @@ while( $row=mysqli_fetch_array($query) ) {
     if (validar_permisos('dele', $row)) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
 
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
+    
+    // $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
+    $nestedData[] = '
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="info_create_fecha">
+      ' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']) . '
+      </span>
+      <div style="display:none"></div>      
+    </div>
+    ';    
     $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion']);
-    $nestedData[] = utf8_encode($row['asesor_venta']);
-    $nestedData[] = utf8_encode($row['supervisor']);
+    // $nestedData[] = utf8_encode($row['asesor_venta']);
+    // $nestedData[] = utf8_encode($row['supervisor']);
+    $nestedData[] = '
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="asesor_venta_id">
+      ' . utf8_encode($row['asesor_venta']) . '
+      </span>
+      <div style="display:none"></div>      
+    </div>
+    ';
+    $nestedData[] = '
+    <div class="editable-inline line2" class="">
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="supervisor_id">
+      ' . utf8_encode($row['supervisor']) . '
+      </span>
+      <div style="display:none"></div>      
+    </div>
+    ';    
     $nestedData[] = utf8_encode($row['coordinador']);
     $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
 

@@ -10,6 +10,16 @@ $modelo = new ModeloVenta();
 // -------------------------------------------------------- INPUT
 $in['campo']       = Utilidades::clear_input($_POST['campo']);
 $in['venta_id']    = Utilidades::clear_input_id($_POST['venta_id']);
+
+if ($in['campo'] == 'info_create_fecha')
+    $in['tabla'] = ' venta';
+elseif ($in['campo'] == 'asesor_venta_id')
+    $in['tabla'] = ' venta';
+elseif ($in['campo'] == 'supervisor_id')
+    $in['tabla'] = ' venta';
+else
+    $in['tabla'] = ' venta_' . $in['campania'];
+
 $in['usuario']     = $_SESSION['user_id'];
 $in['perfil']      = trim($_SESSION['perfiles']);
 $in['campania']    = $modelo->getCampaniaEditable($in['venta_id']) ;
@@ -23,5 +33,18 @@ if ($in['campo'] == 'estado_real') {
     $in['campo'] = 'estado';
     $in['valor'] = $modelo->getEstadoRealToEstado($in['valor']);
     $modelo->setValorEditable($in);
+}
+if ($in['campo'] == 'supervisor_id') {
+    $in['campo'] = 'lineal_id ';
+    $sql = '
+    SELECT ul.lineal_id FROM usu_usuario_lineal ul
+    WHERE ul.usuario_id=' . $in['valor'] . '   
+    ';
+    $data = $modelo->setSQL(array('id' => '')  , $sql);
+    if (isset($data[0]['id'])) {
+        $in['valor'] = $data[0]['id'];
+        // print_r($in);
+        $modelo->setValorEditable($in);
+    }    
 }
 // Utilidades::printr($in);

@@ -71,26 +71,25 @@ class ModeloVenta {
         if ($in['supervisor_id'] != '00') {
             $in['supervisor_id_lineal'] = $this->getLinealByUser($in['supervisor_id']);
         }
-        if ($in['modo'] == 'Estructura') {
-            if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
-                $filtros .= ' AND v.supervisor_id =  "' . $in['supervisor_id'] . '" ';
-                $filtros_4 .= ' AND ul.lineal_id =  "' . $in['supervisor_id_lineal'] . '"';
-            }
-            if ($in['asesor_comercial_id'] != '00') {
-                $filtros .= ' AND v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" ';
-                $filtros_4 .= ' AND u.id =  "' . $in['asesor_comercial_id'] . '"';
-            }
-        } elseif ($in['modo'] == 'Supervisor') {
-            if ($in['supervisor_id'] != '00') {
-                $filtros .= ' AND v.supervisor_id = "' . $in['supervisor_id'] . '" ';
-                $filtros_4 .= ' AND ul.lineal_id = "' . $in['supervisor_id_lineal'] . '" ';
-            }
-            if ($in['asesor_comercial_id'] != '00') {
-                $filtros .= ' AND v.asesor_venta_id = "' . $in['asesor_comercial_id'] . '" ';
-                $filtros_4 .= ' AND u.id = "' . $in['asesor_comercial_id'] . '"';
-            }
+        if ($in['supervisor_id'] != '00' && $in['asesor_comercial_id'] == '00') {
+            $filtros .= ' AND v.supervisor_id =  "' . $in['supervisor_id'] . '" ';
+            $filtros_4 .= ' AND ul.lineal_id =  "' . $in['supervisor_id_lineal'] . '"';
         }
-
+        if ($in['asesor_comercial_id'] != '00') {
+            $filtros .= ' AND v.asesor_venta_id =  "' . $in['asesor_comercial_id'] . '" ';
+            $filtros_4 .= ' AND u.id =  "' . $in['asesor_comercial_id'] . '"';
+        }
+        // if ($in['modo'] == 'Estructura') {
+        // } elseif ($in['modo'] == 'Supervisor') {
+        //     if ($in['supervisor_id'] != '00') {
+        //         $filtros .= ' AND v.supervisor_id = "' . $in['supervisor_id'] . '" ';
+        //         $filtros_4 .= ' AND ul.lineal_id = "' . $in['supervisor_id_lineal'] . '" ';
+        //     }
+        //     if ($in['asesor_comercial_id'] != '00') {
+        //         $filtros .= ' AND v.asesor_venta_id = "' . $in['asesor_comercial_id'] . '" ';
+        //         $filtros_4 .= ' AND u.id = "' . $in['asesor_comercial_id'] . '"';
+        //     }
+        // }
         
         if ($in['tipo'] == '01')
         {

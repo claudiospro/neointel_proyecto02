@@ -1043,7 +1043,7 @@ class ModeloVenta {
             'valor' => '',            
         );
         $this->q->sql = '
-                        SELECT ' . $in['campo']  . ' FROM venta_' . $in['campania'] . ' WHERE id = "' . $in['venta_id'] . '"
+                        SELECT ' . $in['campo']  . ' FROM ' . $in['tabla'] . ' WHERE id = "' . $in['venta_id'] . '"
                         ' ;
         // print $this->q->sql .'<br>';
         $this->q->data = NULL;
@@ -1054,7 +1054,7 @@ class ModeloVenta {
         $this->q->fields = array(
         );
         $this->q->sql = '
-                        UPDATE venta_' . $in['campania'] . ' SET ' . $in['campo']  . ' = "' . $in['valor']  . '" 
+                        UPDATE ' . $in['tabla'] . ' SET ' . $in['campo']  . ' = "' . $in['valor']  . '" 
                         WHERE id = "' . $in['venta_id'] . '"
                         ' ;
         // print $this->q->sql;

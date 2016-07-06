@@ -8,12 +8,23 @@ $modelo = new ModeloVenta();
 
 
 // -------------------------------------------------------- INPUT
-$in['campo']       = Utilidades::clear_input($_POST['campo']);
-$in['venta_id']    = Utilidades::clear_input_id($_POST['venta_id']);
-$in['usuario']     = $_SESSION['user_id'];
-$in['perfil']      = trim($_SESSION['perfiles']);
-$in['campania']    = $modelo->getCampaniaEditable($in['venta_id']) ;
-$in['valor']       = $modelo->getValorEditable($in);
+$in['campo']     = Utilidades::clear_input($_POST['campo']);
+$in['venta_id']  = Utilidades::clear_input_id($_POST['venta_id']);
+$in['campania']  = $modelo->getCampaniaEditable($in['venta_id']) ;
+if ($in['campo'] == 'info_create_fecha')
+    $in['tabla'] = ' venta';
+elseif ($in['campo'] == 'asesor_venta_id')
+    $in['tabla'] = ' venta';
+elseif ($in['campo'] == 'supervisor_id')
+    $in['tabla'] = ' venta';
+else
+    $in['tabla'] = ' venta_' . $in['campania'];
+
+
+$in['usuario']   = $_SESSION['user_id'];
+$in['perfil']    = trim($_SESSION['perfiles']);
+
+$in['valor']     = $modelo->getValorEditable($in);
 
 
 // --------------------------------------------------------- Data
@@ -35,6 +46,12 @@ elseif ($in['campo'] == 'comprobante_numero')
     comprobante_numero_validar($in);
 elseif ($in['campo'] == 'dinero_empresa') 
     dinero_empresa_validar($in);
+elseif ($in['campo'] == 'info_create_fecha') 
+    validar_info_create_fecha($in);
+elseif ($in['campo'] == 'asesor_venta_id') 
+    validar_asesor_venta_id($in);
+elseif ($in['campo'] == 'supervisor_id') 
+    validar_supervisor_id($in);
 else Utilidades::printr($in);
 
 
@@ -401,5 +418,107 @@ function dinero_empresa_imprimir_1($in) {
     }
     echo '</select>';    
     echo '<button class="button tiny no-margin">Guardar</button>';      
+    // Utilidades::printr($in);    
+}
+//
+function validar_info_create_fecha($in) {
+    $mostrar = false;
+    if (
+        $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia'
+    )
+        $mostrar = true;
+    
+    if ($mostrar) 
+        imprimir_info_create_fecha($in);
+    else
+        echo '-1';
+}
+function imprimir_info_create_fecha($in) {
+    global $modelo;
+    echo '<input class="no-margin no-padding" 
+                 style="width: 150px; font-size: 0.8em; height: 28px; line-height: 20px;"
+                 type="text" value="' . $in['valor'] . '">';
+    echo '<button class="button tiny no-margin">Guardar</button>';
+    // Utilidades::printr($in);    
+}
+//
+function validar_asesor_venta_id($in) {
+    $mostrar = false;
+    if (
+        $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia'
+    )
+        $mostrar = true;
+    
+    if ($mostrar) 
+        imprimir_asesor_venta_id($in);
+    else
+        echo '-1';
+}
+function imprimir_asesor_venta_id($in) {
+    global $modelo;
+    $data = $modelo->setSQL(
+        array('id' => '', 'nombre' => '')
+        , '
+          SELECT u.id, u.nombre FROM usu_usuario u
+          LEFT JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+          LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+          LEFT JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+          LEFT JOIN campania c ON c.id = cl.campania_id
+          WHERE u.info_status = 1 
+            AND c.indice = "' . $in['campania'] . '"
+            AND up.perfil_id = 5
+          ');
+    echo '<select class="no-margin no-padding" style="font-size: .8em; width:250px;">';
+    foreach($data as $row)
+    {
+        $selected = '';
+        if ($row['id'] == $in['valor']) $selected = ' selected ';
+            
+        echo '<option value="' . $row['id'] . '" ' . $selected . '>' . utf8_encode($row['nombre']) . '</option>';
+    }
+    echo '</select>';        
+    echo '<button class="button tiny no-margin">Guardar</button>';
+    // Utilidades::printr($in);    
+}
+//
+function validar_supervisor_id($in) {
+    $mostrar = false;
+    if (
+        $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia'
+    )
+        $mostrar = true;
+    
+    if ($mostrar) 
+        imprimir_supervisor_id($in);
+    else
+        echo '-1';
+}
+function imprimir_supervisor_id($in) {
+    global $modelo;
+    $data = $modelo->setSQL(
+        array('id' => '', 'nombre' => '')
+        , '
+          SELECT u.id, u.nombre FROM usu_usuario u
+          LEFT JOIN usu_usuario_perfil up ON up.usuario_id = u.id
+          LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id = u.id
+          LEFT JOIN campania_lineal cl ON cl.lineal_id = ul.lineal_id
+          LEFT JOIN campania c ON c.id = cl.campania_id
+          WHERE u.info_status = 1 
+            AND c.indice = "' . $in['campania'] . '"
+            AND up.perfil_id = 4
+          ');
+    echo '<select class="no-margin no-padding" style="font-size: .8em; width:250px;">';
+    foreach($data as $row)
+    {
+        $selected = '';
+        if ($row['id'] == $in['valor']) $selected = ' selected ';
+            
+        echo '<option value="' . $row['id'] . '" ' . $selected . '>' . utf8_encode($row['nombre']) . '</option>';
+    }
+    echo '</select>';        
+    echo '<button class="button tiny no-margin">Guardar</button>';
     // Utilidades::printr($in);    
 }

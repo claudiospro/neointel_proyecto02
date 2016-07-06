@@ -73,9 +73,17 @@ $(document).ready(function() {
         } else if (datos.campo == 'dinero_empresa') {
             datos.valor = item.prev().val();
             datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'info_create_fecha') {
+            datos.valor = item.prev().val();
+            datos.label = datos.valor;
+        } else if (datos.campo == 'asesor_venta_id') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
+        } else if (datos.campo == 'supervisor_id') {
+            datos.valor = item.prev().val();
+            datos.label = item.prev().children('option:selected').text();
         }
-        // c(datos);     
-
+        // c(datos);
         none_simple('./procesos/ajax/editable/ventas_listado_table_td_field_save.php', datos);
         
         item.parent().prev().empty().html(datos.label);        
