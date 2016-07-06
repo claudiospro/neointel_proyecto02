@@ -10,6 +10,10 @@ $modelo = new ModeloVenta();
 // -------------------------------------------------------- INPUT
 $in['campo']       = Utilidades::clear_input($_POST['campo']);
 $in['venta_id']    = Utilidades::clear_input_id($_POST['venta_id']);
+$in['campania']    = $modelo->getCampaniaEditable($in['venta_id']) ;
+$in['fecha'] = date('Y-m-d H:i:s');
+$in['usuario']     = $_SESSION['user_id'];
+$in['perfil']      = trim($_SESSION['perfiles']);
 
 if ($in['campo'] == 'info_create_fecha')
     $in['tabla'] = ' venta';
@@ -20,9 +24,7 @@ elseif ($in['campo'] == 'supervisor_id')
 else
     $in['tabla'] = ' venta_' . $in['campania'];
 
-$in['usuario']     = $_SESSION['user_id'];
-$in['perfil']      = trim($_SESSION['perfiles']);
-$in['campania']    = $modelo->getCampaniaEditable($in['venta_id']) ;
+
 $in['valor']       = Utilidades::clear_input_text($_POST['valor']);
 
 

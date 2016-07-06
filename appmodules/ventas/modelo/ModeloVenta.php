@@ -1053,14 +1053,20 @@ class ModeloVenta {
     function setValorEditable($in) {
         $this->q->fields = array(
         );
+        $this->q->data = NULL;
         $this->q->sql = '
                         UPDATE ' . $in['tabla'] . ' SET ' . $in['campo']  . ' = "' . $in['valor']  . '" 
                         WHERE id = "' . $in['venta_id'] . '"
                         ' ;
         // print $this->q->sql;
-        $this->q->data = NULL;
         $this->q->exe();
-        
+        $this->q->data = NULL;
+        $this->q->sql = '
+                        UPDATE venta SET info_update_fecha  = "' . $in['fecha']  . '" 
+                        WHERE id = "' . $in['venta_id'] . '"
+                        ' ;
+        // print $this->q->sql;
+        $this->q->exe();        
     }
     function setSQL($fields, $sql) {
         $this->q->fields = $fields;
