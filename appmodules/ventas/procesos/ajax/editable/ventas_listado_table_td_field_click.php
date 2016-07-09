@@ -52,6 +52,10 @@ elseif ($in['campo'] == 'asesor_venta_id')
     validar_asesor_venta_id($in);
 elseif ($in['campo'] == 'supervisor_id') 
     validar_supervisor_id($in);
+elseif ($in['campo'] == 'agendado_descripcion') 
+    validar_agendado_descripcion($in);
+elseif ($in['campo'] == 'agendado_fecha') 
+    validar_agendado_fecha($in);
 else Utilidades::printr($in);
 
 
@@ -521,4 +525,59 @@ function imprimir_supervisor_id($in) {
     echo '</select>';        
     echo '<button class="button tiny no-margin">Guardar</button>';
     // Utilidades::printr($in);    
+}
+//
+function validar_agendado_descripcion($in) {
+    $mostrar = false;
+    if (
+        $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia' ||
+        $in['perfil'] == 'Tramitacion' ||
+        $in['perfil'] == 'Tramitacion-Validacion' ||
+        $in['perfil'] == 'Tramitacion-Carga' ||
+        $in['perfil'] == 'Tramitacion-Validacion-Carga'
+    )
+        $mostrar = true;
+    if ($mostrar)
+        imprimir_agendado_descripcion($in);
+     else
+         echo '-1';
+}
+function imprimir_agendado_descripcion($in) {
+    echo '<textarea class="no-margin no-padding" style="height: 100px; width: 220px; overflow-y: scroll; font-size: .8em;">' . utf8_encode($in['valor']) . '</textarea>';
+    echo '<button class="button tiny no-margin">Guardar</button>';
+    // Utilidades::printr($in);
+}
+//
+function validar_agendado_fecha($in) {
+    $mostrar = false;
+    if (
+        $in['perfil'] == 'Admin' ||
+        $in['perfil'] == 'Gerencia' ||
+        $in['perfil'] == 'Tramitacion' ||
+        $in['perfil'] == 'Tramitacion-Validacion' ||
+        $in['perfil'] == 'Tramitacion-Carga' ||
+        $in['perfil'] == 'Tramitacion-Validacion-Carga'
+    )
+        $mostrar = true;
+    if ($mostrar)
+        imprimir_agendado_fecha($in);
+     else
+         echo '-1';    
+}
+function imprimir_agendado_fecha ($in) {
+    $in['valor'] = substr(utf8_encode($in['valor']), 0, 16);
+    if ($in['valor'] == '0000-00-00 00:00') $in['valor'] = '';
+    echo '<input type="text" readonly class="datapicker-editable-hm no-margin no-padding" style="width: 200px; font-size: 0.8em; height: 28px; line-height: 20px;" value="' . $in['valor'] . '">';
+    echo '<button class="button tiny no-margin">Guardar</button>';
+    echo '<script>
+          $(".datapicker-editable-hm").fdatepicker({
+               format: "yyyy-mm-dd hh:ii"
+             , language: "es"
+             , weekStart: 1
+             , startView: 1
+             , minView: 0
+          });
+          </script>';    
+    // Utilidades::printr($in);
 }

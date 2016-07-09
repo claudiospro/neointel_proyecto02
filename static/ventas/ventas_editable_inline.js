@@ -82,7 +82,13 @@ $(document).ready(function() {
         } else if (datos.campo == 'supervisor_id') {
             datos.valor = item.prev().val();
             datos.label = item.prev().children('option:selected').text();
-        }
+        } else if (datos.campo == 'agendado_descripcion') {
+            datos.valor = item.prev().val();
+            datos.label = datos.valor;
+        } else if (datos.campo == 'agendado_fecha') {
+            datos.valor = item.prev().val();
+            datos.label = datos.valor;
+        } 
         // c(datos);
         none_simple('./procesos/ajax/editable/ventas_listado_table_td_field_save.php', datos);
         
