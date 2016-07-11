@@ -138,7 +138,7 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
         $objPHPExcel->setActiveSheetIndex($index)
             ->getStyle( c2(5 ,7 ,$i+9,$i+9) )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
             ->getStartColor()->setARGB('FFFFFE00');// amarillo
-        $objPHPExcel->setActiveSheetIndex($index)            
+        $objPHPExcel->setActiveSheetIndex($index)
             ->getStyle( c2(1 ,12 ,$i+12,$i+12) )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
             ->getStartColor()->setARGB('FFFFFE00');// amarillo
         $objPHPExcel->setActiveSheetIndex($index)
@@ -181,11 +181,17 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             ->getNumberFormat()
             ->setFormatCode($formato2);
         // formula solo para 2
-        $formula_1 =  '';
-        $formula_2 =  '';
+        $formula_13 =  '';
+        $formula_14 =  '';
+        $formula_15 =  '';
+        $formula_16 =  '';
+        $formula_23 =  '';
         if ($index == '2') {
-            $formula_1 =  "=VLOOKUP(A" . ($i+29) . ",A3:C22,3,1)";
-            $formula_2 =  "=VLOOKUP(B" . ($i+29) . ",E3:G22,3,1)";        
+            $formula_13 =  "=VLOOKUP(A" . ($i+29) . ",A3:F22,3,1)";
+            $formula_14 =  "=VLOOKUP(A" . ($i+29) . ",A3:F22,4,1)";
+            $formula_15 =  "=VLOOKUP(A" . ($i+29) . ",A3:F22,5,1)";
+            $formula_16 =  "=VLOOKUP(A" . ($i+29) . ",A3:F22,6,1)";            
+            $formula_23 =  "=VLOOKUP(B" . ($i+29) . ",H3:J22,3,1)";        
         }
         // data
         $objPHPExcel->setActiveSheetIndex($index)
@@ -207,46 +213,46 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             //
             ->setCellValue(c1(1 , $i+3), 'Fibra 300MB')
             ->setCellValue(c1(2 , $i+3), count($fibra['residencial']['2P']['300MB']))
-            ->setCellValue(c1(3 , $i+3), $formula_1)
+            ->setCellValue(c1(3 , $i+3), $formula_13)
             ->setCellValue(c1(4 , $i+3), cProducto(2,3, $i+3))
             ->setCellValue(c1(5 , $i+3), count($fibra['residencial']['3P']['300MB']))
-            ->setCellValue(c1(6 , $i+3), $formula_1)
+            ->setCellValue(c1(6 , $i+3), $formula_13)
             ->setCellValue(c1(7 , $i+3), cProducto(5,6, $i+3))
             ->setCellValue(c1(9 , $i+3), 'Linea S')
             ->setCellValue(c1(10, $i+3), count($movil['residencial']['S']))
-            ->setCellValue(c1(11, $i+3), $formula_2)
+            ->setCellValue(c1(11, $i+3), $formula_23)
             ->setCellValue(c1(12, $i+3), cProducto(10,11,$i+3))
             //
             ->setCellValue(c1(1 , $i+4), 'Fibra 120MB')
             ->setCellValue(c1(2 , $i+4), count($fibra['residencial']['2P']['120MB']))
-            ->setCellValue(c1(3 , $i+4), $formula_1)
+            ->setCellValue(c1(3 , $i+4), $formula_14)
             ->setCellValue(c1(4 , $i+4), cProducto(2,3, $i+4))
             ->setCellValue(c1(5 , $i+4), count($fibra['residencial']['3P']['120MB']))
-            ->setCellValue(c1(6 , $i+4), $formula_1)
+            ->setCellValue(c1(6 , $i+4), $formula_14)
             ->setCellValue(c1(7 , $i+4), cProducto(5,6, $i+4))
             ->setCellValue(c1(9 , $i+4), 'Linea M')
             ->setCellValue(c1(10, $i+4), count($movil['residencial']['M']))
-            ->setCellValue(c1(11, $i+4), $formula_2)
+            ->setCellValue(c1(11, $i+4), $formula_23)
             ->setCellValue(c1(12, $i+4), cProducto(10,11,$i+4))
             //
             ->setCellValue(c1(1 , $i+5), 'Fibra 50MB')
             ->setCellValue(c1(2 , $i+5), count($fibra['residencial']['2P']['50MB']))
-            ->setCellValue(c1(3 , $i+5), $formula_1)
+            ->setCellValue(c1(3 , $i+5), $formula_15)
             ->setCellValue(c1(4 , $i+5), cProducto(2,3, $i+5))
             ->setCellValue(c1(5 , $i+5), count($fibra['residencial']['3P']['50MB']))
-            ->setCellValue(c1(6 , $i+5), $formula_1)
+            ->setCellValue(c1(6 , $i+5), $formula_15)
             ->setCellValue(c1(7 , $i+5), cProducto(5,6, $i+5))
             ->setCellValue(c1(9 , $i+5), 'Linea L')
             ->setCellValue(c1(10, $i+5), count($movil['residencial']['L']))
-            ->setCellValue(c1(11, $i+5), $formula_2)
+            ->setCellValue(c1(11, $i+5), $formula_23)
             ->setCellValue(c1(12, $i+5), cProducto(10,11,$i+5))
             //
             ->setCellValue(c1(1 , $i+6), 'ADSL')
             ->setCellValue(c1(2 , $i+6), count($fibra['residencial']['2P']['adsl']))
-            ->setCellValue(c1(3 , $i+6), $formula_1)
+            ->setCellValue(c1(3 , $i+6), $formula_16)
             ->setCellValue(c1(4 , $i+6), cProducto(2,3, $i+6))
             ->setCellValue(c1(5 , $i+6), count($fibra['residencial']['3P']['adsl']))
-            ->setCellValue(c1(6 , $i+6), $formula_1)
+            ->setCellValue(c1(6 , $i+6), $formula_16)
             ->setCellValue(c1(7 , $i+6), cProducto(5,6, $i+6))
             ->setCellValue(c1(9 , $i+6), '')
             ->setCellValue(c1(10, $i+6), '')
@@ -290,46 +296,46 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             //
             ->setCellValue(c1(1 , $i+14), 'Fibra 300MB')
             ->setCellValue(c1(2 , $i+14), count($fibra['autonomo']['fibra']['300MB']['Alta Nueva']))
-            ->setCellValue(c1(3 , $i+14), $formula_1) 
+            ->setCellValue(c1(3 , $i+14), $formula_13) 
             ->setCellValue(c1(4 , $i+14), cProducto(2,3, $i+14))
             ->setCellValue(c1(5 , $i+14), count($fibra['autonomo']['fibra']['300MB']['Portabilidad']))
-            ->setCellValue(c1(6 , $i+14), $formula_1)
+            ->setCellValue(c1(6 , $i+14), $formula_13)
             ->setCellValue(c1(7 , $i+14), cProducto(5,6, $i+14))
             ->setCellValue(c1(9 , $i+14), 'Linea S')
             ->setCellValue(c1(10, $i+14), count($movil['autonomo']['linea 1']['S']))
-            ->setCellValue(c1(11, $i+14), $formula_2)
+            ->setCellValue(c1(11, $i+14), $formula_23)
             ->setCellValue(c1(12, $i+14), cProducto(10,11, $i+14))
             //
             ->setCellValue(c1(1 , $i+15), 'Fibra 120MB')
             ->setCellValue(c1(2 , $i+15), count($fibra['autonomo']['fibra']['120MB']['Alta Nueva']))
-            ->setCellValue(c1(3 , $i+15), $formula_1)
+            ->setCellValue(c1(3 , $i+15), $formula_14)
             ->setCellValue(c1(4 , $i+15), cProducto(2,3, $i+15))
             ->setCellValue(c1(5 , $i+15), count($fibra['autonomo']['fibra']['120MB']['Portabilidad']))
-            ->setCellValue(c1(6 , $i+15), $formula_1)
+            ->setCellValue(c1(6 , $i+15), $formula_14)
             ->setCellValue(c1(7 , $i+15), cProducto(5,6, $i+15))
             ->setCellValue(c1(9 , $i+15), 'Linea M')
             ->setCellValue(c1(10, $i+15), count($movil['autonomo']['linea 1']['M']))
-            ->setCellValue(c1(11, $i+15), $formula_2)
+            ->setCellValue(c1(11, $i+15), $formula_23)
             ->setCellValue(c1(12, $i+15), cProducto(10,11, $i+15))
             //
             ->setCellValue(c1(1 , $i+16), 'Fibra 50MB')
             ->setCellValue(c1(2 , $i+16), count($fibra['autonomo']['fibra']['50MB']['Alta Nueva']))
-            ->setCellValue(c1(3 , $i+16), $formula_1)
+            ->setCellValue(c1(3 , $i+16), $formula_15)
             ->setCellValue(c1(4 , $i+16), cProducto(2,3, $i+16))
             ->setCellValue(c1(5 , $i+16), count($fibra['autonomo']['fibra']['50MB']['Portabilidad']))
-            ->setCellValue(c1(6 , $i+16), $formula_1)
+            ->setCellValue(c1(6 , $i+16), $formula_15)
             ->setCellValue(c1(7 , $i+16), cProducto(5,6, $i+16))
             ->setCellValue(c1(9 , $i+16), 'Linea L')
             ->setCellValue(c1(10, $i+16), count($movil['autonomo']['linea 1']['L']))
-            ->setCellValue(c1(11, $i+16), $formula_2)
+            ->setCellValue(c1(11, $i+16), $formula_23)
             ->setCellValue(c1(12, $i+16), cProducto(10,11, $i+16))
             //
             ->setCellValue(c1(1 , $i+17), 'ADSL')
             ->setCellValue(c1(2 , $i+17), count($fibra['autonomo']['adsl']['Alta Nueva']))
-            ->setCellValue(c1(3 , $i+17), $formula_1)
+            ->setCellValue(c1(3 , $i+17), $formula_16)
             ->setCellValue(c1(4 , $i+17), cProducto(2,3, $i+17))
             ->setCellValue(c1(5 , $i+17), count($fibra['autonomo']['adsl']['Portabilidad']))
-            ->setCellValue(c1(6 , $i+17), $formula_1)
+            ->setCellValue(c1(6 , $i+17), $formula_16)
             ->setCellValue(c1(7 , $i+17), cProducto(5,6, $i+17))
             ->setCellValue(c1(9 , $i+17), '')
             ->setCellValue(c1(10, $i+17), '')
@@ -355,17 +361,17 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             //
             ->setCellValue(c1(9 , $i+21), 'Linea S')
             ->setCellValue(c1(10, $i+21), count($movil['autonomo']['linea 2']['S']))
-            ->setCellValue(c1(11, $i+21), $formula_2)
+            ->setCellValue(c1(11, $i+21), $formula_23)
             ->setCellValue(c1(12, $i+21), cProducto(10,11, $i+21))
             //
             ->setCellValue(c1(9 , $i+22), 'Linea M')
             ->setCellValue(c1(10, $i+22), count($movil['autonomo']['linea 2']['M']))
-            ->setCellValue(c1(11, $i+22), $formula_2)
+            ->setCellValue(c1(11, $i+22), $formula_23)
             ->setCellValue(c1(12, $i+22), cProducto(10,11, $i+22))
             //
             ->setCellValue(c1(9 , $i+23), 'Linea L')
             ->setCellValue(c1(10, $i+23), count($movil['autonomo']['linea 2']['L']))
-            ->setCellValue(c1(11, $i+23), $formula_2)
+            ->setCellValue(c1(11, $i+23), $formula_23)
             ->setCellValue(c1(12, $i+23), cProducto(10,11, $i+23))
             //
             ->setCellValue(c1(1 , $i+24), 'FIBRAS')
@@ -388,6 +394,69 @@ function imprimir($index, $i, $titulo, $fibra, $movil) {
             ->setCellValue(c1(1 , $i+29), '=' . c1(1,$i+10) . '+' . c1(1,$i+25))
             ->setCellValue(c1(2 , $i+29), '=' . c1(2,$i+10) . '+' . c1(2,$i+25))
         ;
+}
+function imprimir_rangos_asesores_ventas() {
+    global $objPHPExcel;
+    global $border_style;
+    $objPHPExcel->setActiveSheetIndex(2);
+    // border
+    $objPHPExcel->getActiveSheet()->getStyle( c2(1,6   ,  1,22) )->applyFromArray($border_style);
+    $objPHPExcel->getActiveSheet()->getStyle( c2(8,10  ,  1,22) )->applyFromArray($border_style);
+    // colores
+    $objPHPExcel->setActiveSheetIndex(2)
+        ->getStyle( c2(1,6  ,  1,2) )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('FFFFFE00');// amarillo
+    $objPHPExcel->setActiveSheetIndex(2)
+        ->getStyle(c2(8,10  ,  1,2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('FFFFFE00');// amarillo
+    
+    // formatos
+    $formato2 = '[$S/-280A]#,##0.00;[$S/-280A]-#,##0.00';
+    $objPHPExcel->getActiveSheet()
+        ->getStyle(c2(3,3  ,  1,22))
+        ->getNumberFormat()
+        ->setFormatCode($formato2);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle(c2(4,4  ,  1,22))
+        ->getNumberFormat()
+        ->setFormatCode($formato2);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle(c2(5,5  ,  1,22))
+        ->getNumberFormat()
+        ->setFormatCode($formato2);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle(c2(6,6  ,  1,22))
+        ->getNumberFormat()
+        ->setFormatCode($formato2);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle(c2(10,10  ,  1,22))
+        ->getNumberFormat()
+        ->setFormatCode($formato2);    
+    // datos
+    $objPHPExcel->setActiveSheetIndex(2)
+        ->setCellValue(c1(1  ,  1), '')->mergeCells(c2(1,6  ,  1,1))
+        ->setCellValue(c1(8  ,  1), 'LINEAS')->mergeCells(c2(8,10  ,  1,1))        
+        //
+        ->setCellValue(c1(1  ,  2), 'MAYOR IGUAL')
+        ->setCellValue(c1(2  ,  2), 'MENOR')
+        ->setCellValue(c1(3  ,  2), '300MB')
+        ->setCellValue(c1(4  ,  2), '120MB')
+        ->setCellValue(c1(5  ,  2), '50MB')
+        ->setCellValue(c1(6  ,  2), 'ADSL')        
+        ->setCellValue(c1(8  ,  2), 'MAYOR IGUAL')
+        ->setCellValue(c1(9  ,  2), 'MENOR')
+        ->setCellValue(c1(10 ,  2), 'MONTO')
+        //
+        ->setCellValue(c1(1  ,  22), '0')
+        ->setCellValue(c1(2  ,  22), '∞')
+        ->setCellValue(c1(3  ,  22), '0')
+        ->setCellValue(c1(4  ,  22), '0')
+        ->setCellValue(c1(5  ,  22), '0')
+        ->setCellValue(c1(6  ,  22), '0')        
+        ->setCellValue(c1(8  ,  22), '0') // d
+        ->setCellValue(c1(9  ,  22), '∞')
+        ->setCellValue(c1(10 ,  22), '0')
+        ;    
 }
 
 session_start();
@@ -444,48 +513,9 @@ if (
     'Vodafone One' == trim($in['campania_info']['nombre'])
 ) {
     // body
-    $objPHPExcel->setActiveSheetIndex(2);
-    // border
-    $objPHPExcel->getActiveSheet()->getStyle( c2(1,3  ,  1,22) )->applyFromArray($border_style);
-    $objPHPExcel->getActiveSheet()->getStyle( c2(5,7  ,  1,22) )->applyFromArray($border_style);
-    // colores
-    $objPHPExcel->setActiveSheetIndex(2)
-        ->getStyle( c2(1,3  ,  1,2) )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFFFE00');// amarillo
-    $objPHPExcel->setActiveSheetIndex(2)
-        ->getStyle(c2(5,7  ,  1,2))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFFFE00');// amarillo
-    // formatos
-    $formato2 = '[$S/-280A]#,##0.00;[$S/-280A]-#,##0.00';
-    $objPHPExcel->getActiveSheet()
-        ->getStyle(c2(3,3  ,  1,22))
-        ->getNumberFormat()
-        ->setFormatCode($formato2);
-    $objPHPExcel->getActiveSheet()
-        ->getStyle(c2(7,7  ,  1,22))
-        ->getNumberFormat()
-        ->setFormatCode($formato2);
+
 
     // data
-    $objPHPExcel->setActiveSheetIndex(2)
-        ->setCellValue(c1(1  ,  1), 'RANGO FIBRAS')->mergeCells(c2(1,3  ,  1,1))
-        ->setCellValue(c1(5  ,  1), 'RANGO FIBRAS')->mergeCells(c2(5,7  ,  1,1))
-        //
-        ->setCellValue(c1(1  ,  2), 'MAYOR IGUAL')
-        ->setCellValue(c1(2  ,  2), 'MENOR')
-        ->setCellValue(c1(3  ,  2), 'MONTO')
-        ->setCellValue(c1(5  ,  2), 'MAYOR IGUAL')
-        ->setCellValue(c1(6  ,  2), 'MENOR')
-        ->setCellValue(c1(7  ,  2), 'MONTO')
-        //
-        ->setCellValue(c1(1  ,  22), '0')
-        ->setCellValue(c1(2  ,  22), '∞')
-        ->setCellValue(c1(3  ,  22), '0')
-        ->setCellValue(c1(5  ,  22), '0')
-        ->setCellValue(c1(6  ,  22), '∞')
-        ->setCellValue(c1(7  ,  22), '0')
-        ;
-    
     
     $objPHPExcel->setActiveSheetIndex(0);
     imprimir(0
@@ -506,7 +536,9 @@ if (
         );
         $i += 32;
     }
-
+    
+    imprimir_rangos_asesores_ventas();
+    
     $objPHPExcel->setActiveSheetIndex(2);
     $i = 24;
     foreach($ou['fibra']['asesor_venta'] as $name => $r) {
