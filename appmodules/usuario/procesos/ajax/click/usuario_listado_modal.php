@@ -12,22 +12,25 @@ $in['lineas'] = trim($_SESSION['lineas']);
 
 // -------------------------------------------------------- Data
 $dato = $modelo->getUsuario($in);
-$form['usuario_id']    = array('type' => 'hidden'   , 'label' => '');
-$form['nombre']        = array('type' => 'text'     , 'label' => 'Nombre');
-$form['nombre_corto']  = array('type' => 'text'     , 'label' => 'Nombre Corto');
-$form['telefono']      = array('type' => 'text'     , 'label' => 'Teléfonos');
-$form['direccion']     =  array('type' => 'textarea', 'label' => 'Dirección');
-$form['hr_1']          = array('type' => 'hr');
-$form['login']         = array('type' => 'text'     , 'label' => 'Usuario (DNI)');
-$form['pwd']           = array('type' => 'pwd'      , 'label' => 'Contraseña');
-$form['perfil_id']     = array('type' => 'select1'  , 'label' => 'Perfil', 'combo' => 'usu_perfil');
-$form['comentario']    = array('type' => 'textarea' , 'label' => 'Comentario');
-$form['hr_2']          = array('type' => 'hr');
-$form['vigente']       = array('type' => 'bool'     , 'label' => 'Vigente');
-$form['fecha_entrada'] = array('type' => 'timestamp', 'label' => 'Fecha de Entrada');
-$form['fecha_cese']    = array('type' => 'timestamp', 'label' => 'Fecha de Cese');
+$form['usuario_id']       = array('type' => 'hidden'   , 'label' => '');
+$form['nombre']           = array('type' => 'text'     , 'label' => 'Nombre');
+$form['nombre_corto']     = array('type' => 'text'     , 'label' => 'Nombre Corto');
+$form['telefono']         = array('type' => 'text'     , 'label' => 'Teléfonos');
+$form['direccion']        = array('type' => 'textarea', 'label' => 'Dirección');
+$form['hr_1']             = array('type' => 'hr');
+$form['login']            = array('type' => 'text'     , 'label' => 'Usuario (DNI)');
+$form['pwd']              = array('type' => 'pwd'      , 'label' => 'Contraseña');
+$form['perfil_id']        = array('type' => 'select1'  , 'label' => 'Perfil', 'combo' => 'usu_perfil');
+$form['comentario']       = array('type' => 'textarea' , 'label' => 'Comentario');
+$form['hr_2']             = array('type' => 'hr');
+$form['vigente']          = array('type' => 'bool'     , 'label' => 'Vigente');
+$form['fecha_entrada']    = array('type' => 'timestamp', 'label' => 'Fecha de Entrada');
+$form['fecha_cese']       = array('type' => 'timestamp', 'label' => 'Fecha de Cese');
+$form['cese_observacion'] = array('type' => 'textarea', 'label' => 'Observación de Cese');
+$form['cese_tipo']        = array('type' => 'select2'  , 'label' => 'Perfil', 'combo' => 'usu_cese_tipo');
 
 $combo['usu_perfil'] = $modelo->getPerfil($in);
+$combo['usu_cese_tipo'] = $modelo->getCeseTipo($in);
 
 $grupos = $modelo->getGrupoByUsuario($in);
 
@@ -103,6 +106,24 @@ foreach($form as $name => $row) {
                         id = "field_modal_usuario_' . $name . '"
                         class="no-margin"
                 >';
+        foreach ($combo[$row['combo']]  as $r) {
+            $selected = '';
+            if ($r['id'] == $dato[$name])
+                $selected = 'selected';
+            echo '<option value="' . $r['id'] . '" ' . $selected . '>' . $r['nombre'] . '</option>';
+        }
+        echo '</select>';
+        echo '</div>';
+        echo '</div>';
+    }  elseif ($row['type'] == 'select2') {
+        echo '<div class="row">';
+        echo '<div class="large-2  medium-3 small-3 columns">' . $row['label'] . '</div>';
+        echo '<div class="large-10 medium-9 small-9 columns" style="background-color: #71b4e4">
+                <select name = "' . $name . '"
+                        id = "field_modal_usuario_' . $name . '"
+                        class="no-margin"
+                >';
+        echo '<option value="0"></option>';
         foreach ($combo[$row['combo']]  as $r) {
             $selected = '';
             if ($r['id'] == $dato[$name])

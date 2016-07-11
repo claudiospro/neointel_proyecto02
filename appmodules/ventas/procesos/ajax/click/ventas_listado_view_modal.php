@@ -113,7 +113,6 @@ while ($row = next($pestanias_str)) {
 if ($in['view'] == '0')
     echo '<div class="row fields">
          <div class="small-12 columns text-right">
-           <a class="button no-margin save-continue" >Guardar</a>
            <a class="button success no-margin save-exit" data-close>Guardar y Cerrar</a>
          </div>
       </div>

@@ -52,6 +52,19 @@ class ModeloUsuario {
         $data = $this->q->exe();
         return $data;
     }
+    function getCeseTipo($in) {
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );
+        $this->q->sql = '
+        SELECT id, nombre FROM usu_cese_tipo WHERE info_status = 1
+        ';
+        // echo $this->q->sql;        
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
     //
     function getUsuario($in) {
         $this->q->fields = array(
@@ -68,6 +81,8 @@ class ModeloUsuario {
             'vigente' => '1',
             'fecha_entrada' => '',
             'fecha_cese' => '',
+            'cese_tipo' => '',
+            'cese_observacion' => '',
         );
         $this->q->sql = '
         SELECT u.id
@@ -82,6 +97,8 @@ class ModeloUsuario {
              , u.info_status
              , u.fecha_entrada
              , u.fecha_cese
+             , u.cese_tipo
+             , u.cese_observacion
         FROM usu_usuario u
         LEFT JOIN usu_usuario_perfil up ON up.usuario_id = u.id
         LEFT JOIN usu_perfil p ON p.id = up.perfil_id
@@ -112,6 +129,8 @@ class ModeloUsuario {
         , "' . $in['form']['vigente']. '"
         , "' . $in['form']['fecha_entrada']. '"
         , "' . $in['form']['fecha_cese']. '"
+        , "' . $in['form']['cese_observacion']. '"
+        , "' . $in['form']['cese_tipo']. '"
         , "' . $in['form']['perfil_id']. '"
         , "' . $in['fecha'] . '"
         , "' . $in['usuario'] . '"
