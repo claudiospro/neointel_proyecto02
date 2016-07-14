@@ -4,7 +4,7 @@ $combo = new OptionComboSimple();
 $pr['campania'] = Utilidades::clear_input($in['campania']);
 $estados = $modelo->getEstadoActivas($pr);
 $estados_reales = $modelo->getEstadoRealActivas($in);
-$test = false;
+$test = true;
 ?>
 
 <table id="<?php echo $prefix . 'tabla' ?>">
@@ -19,7 +19,6 @@ $test = false;
     
     <tr>
       <?php $i = -1 ?>
-      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
@@ -71,7 +70,7 @@ $test = false;
           ?>
         </select>
       </td>
-      <td><!-- <?php echo ++$i ?>: onservacion --></td>
+      <td><!-- <?php echo ++$i ?>: onservacion --></td>      
       <td> <!-- <?php echo ++$i ?>: acciones -->
         <center>
           <span style="width: 90px; display: block;">
@@ -84,7 +83,8 @@ $test = false;
             <?php endif ?>
           </span>
         </center>
-      </td>      
+      </td>
+      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>" type="text"></td>
@@ -107,12 +107,12 @@ $test = false;
       <th>Tipo Cliente</th>
       <th><span style="display: block; width: 180px;">Cliente</span></th>
       <th>Documento</th>
-      <th>Agendado</th>
       <th>Proceso</th>
       <th>Estado</th>
       <th>Estado Real</th>
       <th><span style="display: block; width: 220px;">Observación</span></th>
       <th>Acciones</th>
+      <th>Agendado</th>
       <th>Fecha Creación</th>
       <th>Fecha Ultima</th>
       <th><span style="display: block; width: 160px;">Asesor de Venta</span></th>

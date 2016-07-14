@@ -113,10 +113,10 @@ $(document).ready(function() {
         if (enviar.campania == 'campania_001')
         {            
             order = 11;
-            unsortable = [6, 9, 10];
+            unsortable = [5, 8, 9];
             lugar = '_001';
-            if(enviar.perfil == 'Asesor Comercial') ver = [5, 6, 8, 13, 15, 16];
-            else if(enviar.perfil == 'Supervisor') ver = [5, 6, 14, 15, 16];
+            if(enviar.perfil == 'Asesor Comercial') ver = [5, 7, 10, 13, 15, 16];
+            else if(enviar.perfil == 'Supervisor') ver = [5, 10, 14, 15, 16];
             else if(enviar.perfil == 'Tramitacion' ||
                     enviar.perfil == 'Tramitacion-Carga' ||
                     enviar.perfil == 'Tramitacion-Validacion' ||

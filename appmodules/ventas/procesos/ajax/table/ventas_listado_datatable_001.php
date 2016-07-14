@@ -30,12 +30,12 @@ $sql_ini.= "
     , d9.nombre cliente_tipo
     , d.cliente_nombre
     , d.cliente_documento
-    , d.agendado_fecha
     , 'proceso'
     , d3.nombre estado
     , d8.nombre estado_real
     , d.estado_observacion
     , 'acciones'
+    , d.agendado_fecha
     , v.info_create_fecha fecha_creacion
     , v.info_update_fecha fecha_actualizacion
     , d4.nombre asesor_venta
@@ -118,9 +118,6 @@ if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
-    $sql_filter.=' AND agendado_fecha LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $valor = $requestData['columns'][$i]['search']['value'];
     if ($valor == 'a1') $sql_filter.=' AND proceso_clds = "222222"';
     if ($valor == 'a2') $sql_filter.=' AND proceso_clds = "322222"';
@@ -147,6 +144,9 @@ if( !empty($requestData['columns'][++$i]['search']['value']) ) {
 }
 ++$i; // 8
 ++$i; // 9 (acciones)
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND agendado_fecha LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
@@ -214,34 +214,13 @@ $data = array();
 while( $row=mysqli_fetch_array($query) ) {
     $nestedData = array();
 
-    $nestedData[] = utf8_encode($row['producto']);
-    $nestedData[] = utf8_encode($row['direccion_id']);
-    $nestedData[] = utf8_encode($row['cliente_tipo']);
-    $nestedData[] = utf8_encode($row['cliente_nombre']);
-    $nestedData[] = utf8_encode($row['cliente_documento']);
-
-    $tmp = substr($row['agendado_fecha'], 0, 16);
-    if ($tmp == '0000-00-00 00:00') $tmp ='';
-    $nestedData[] = utf8_encode('<u>Obs</u>:
-                                 <div class="editable-inline line2" class="">
-                                   <a></a>
-                                   <span venta_id="' . $row['venta_id'] . '" campo="agendado_descripcion">
-                                   ' . $row['agendado_descripcion'] . '
-                                   </span>
-                                   <div style="display:none"></div>
-                                 </div>
-                                 <u>Fecha</u>:
-                                 <div class="editable-inline line2" class="">
-                                   <a></a>
-                                   <span venta_id="' . $row['venta_id'] . '" campo="agendado_fecha">
-                                   ' . $tmp . '
-                                   </span>
-                                   <div style="display:none"></div>
-                                 </div>
-                                 '
-    );
-
+    $sty_color =  ' style="color: ' . mostrar_proceso_color($row) . '" ';
     
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['producto']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['direccion_id']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_tipo']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_nombre']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_documento']) . '</span>';  
     $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
     $nestedData[] = '<div class="editable-inline" class="">
@@ -252,7 +231,7 @@ while( $row=mysqli_fetch_array($query) ) {
                     ';
     $nestedData[] = '<div class="editable-inline" class="">
                        <a></a>
-                       <span venta_id="' . $row['venta_id'] . '" campo="estado_observacion">' . utf8_encode($row['estado_observacion']) . '</span>
+                       <span venta_id="' . $row['venta_id'] . '" campo="estado_observacion" ' . $sty_color . '>' . utf8_encode($row['estado_observacion']) . '</span>
                        <div style="display:none"></div>
                      </div>
                     ';
@@ -263,11 +242,29 @@ while( $row=mysqli_fetch_array($query) ) {
     if (validar_permisos('tran', $row)) $acciones.= '<a class="button tiny view no-margin warning " venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div3" title="Trasparencia" ><i class="fi-magnifying-glass medium"></i></a>';
     if (validar_permisos('dele', $row)) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
-
-    
+    $tmp = substr($row['agendado_fecha'], 0, 16);
+    if ($tmp == '0000-00-00 00:00') $tmp ='';
+    $nestedData[] = utf8_encode('<u' . $sty_color . '>Obs</u>:
+                                 <div class="editable-inline line2" class="" ' . $sty_color . '>
+                                   <a></a>
+                                   <span venta_id="' . $row['venta_id'] . '" campo="agendado_descripcion">
+                                   ' . $row['agendado_descripcion'] . '
+                                   </span>
+                                   <div style="display:none"></div>
+                                 </div>
+                                 <u' . $sty_color . '>Fecha</u>:
+                                 <div class="editable-inline line2" class=""' . $sty_color . '>
+                                   <a></a>
+                                   <span venta_id="' . $row['venta_id'] . '" campo="agendado_fecha">
+                                   ' . $tmp . '
+                                   </span>
+                                   <div style="display:none"></div>
+                                 </div>
+                                 '
+    );    
     // $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
     $nestedData[] = '
-    <div class="editable-inline line2" class="">
+    <div class="editable-inline line2" class=""' . $sty_color . '>
       <a></a>
       <span venta_id="' . $row['venta_id'] . '" campo="info_create_fecha">
       ' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']) . '
@@ -275,11 +272,11 @@ while( $row=mysqli_fetch_array($query) ) {
       <div style="display:none"></div>      
     </div>
     ';    
-    $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion']);
+    $nestedData[] = '<span' . $sty_color . '>' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion'])  . '</span>';
     // $nestedData[] = utf8_encode($row['asesor_venta']);
     // $nestedData[] = utf8_encode($row['supervisor']);
     $nestedData[] = '
-    <div class="editable-inline line2" class="">
+    <div class="editable-inline line2" class="" ' . $sty_color . '>
       <a></a>
       <span venta_id="' . $row['venta_id'] . '" campo="asesor_venta_id">
       ' . utf8_encode($row['asesor_venta']) . '
@@ -288,7 +285,7 @@ while( $row=mysqli_fetch_array($query) ) {
     </div>
     ';
     $nestedData[] = '
-    <div class="editable-inline line2" class="">
+    <div class="editable-inline line2" class=""' . $sty_color . '>
       <a></a>
       <span venta_id="' . $row['venta_id'] . '" campo="supervisor_id">
       ' . utf8_encode($row['supervisor']) . '
@@ -296,8 +293,8 @@ while( $row=mysqli_fetch_array($query) ) {
       <div style="display:none"></div>      
     </div>
     ';    
-    $nestedData[] = utf8_encode($row['coordinador']);
-    $nestedData[] = '<center>' . $bool_str[$row['info_status']] . '</center>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['coordinador']) . '</span>';
+    $nestedData[] = '<center><span' . $sty_color . '>' . $bool_str[$row['info_status']] . '</span></center>';
 
     $data[] = $nestedData;
 }
@@ -344,6 +341,26 @@ function mostrar_proceso($row) {
     if ($proceso == '111112') $ou = '<span style="color:black"><b><u>PostVenta</u></b> <br>Intalación:Pendiente</span>';
     if ($proceso == '111113') $ou = '<span style="color:red">  <b><u>PostVenta</u></b> <br>Intalación:Caida</span>';
     if ($proceso == '111111') $ou = '<span style="color:green"><b><u>PostVenta</u></b> <br>Intalación:Si</span>';
+    return $ou;
+}
+function mostrar_proceso_color($row) {
+    $ou = '';
+    $proceso = '';
+    $proceso .= $row['aprobado_supervisor'];
+    $proceso .= $row['tramitacion_venta_validar'];
+    $proceso .= $row['tramitacion_venta_cargar'];
+    $proceso .= $row['tramitacion_postventa_validar'];
+    $proceso .= $row['tramitacion_postventa_citar'];
+    $proceso .= $row['tramitacion_postventa_intalar'];
+
+    if ($proceso == '322222') $ou = 'red';
+    elseif ($proceso == '132222') $ou = 'red';
+    elseif ($proceso == '113222') $ou = 'red';
+    elseif ($proceso == '111322') $ou = 'red';
+    elseif ($proceso == '111132') $ou = 'red';
+    elseif ($proceso == '111113') $ou = 'red';
+    elseif ($proceso == '111111') $ou = 'green';
+    else $ou = 'black';
     return $ou;
 }
 
