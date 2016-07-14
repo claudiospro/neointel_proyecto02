@@ -1,3 +1,4 @@
+<?php $perfiles = trim($_SESSION['perfiles']); ?>
 <form action="index.php">
   <div class="row">
     <div class="large-3 medium-5 small-12 columns">
@@ -14,6 +15,10 @@
                     '4'=>'Comparativo de Asesores Cesados',
                     '5'=>'Historico',
         );
+        if ($perfiles == 'Admin' || $perfiles == 'Gerencia')
+        {
+            $ll['6'] = 'Ventas Instaladas Fecha';
+        }
         $total = count($ll);
         for($i = 1; $i<=$total; $i++)
         {

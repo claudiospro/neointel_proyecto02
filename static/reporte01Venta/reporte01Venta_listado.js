@@ -90,5 +90,12 @@ $(document).ready(function() {
         } else {
             $('#rango_fechas_div').hide();
         }
+        if (item.val() == '06') {
+            $('#supervisor_id').parent().parent().hide();
+            $('#asesor_comercial_id').parent().parent().hide();
+        } else {
+            $('#supervisor_id').parent().parent().show();
+            $('#asesor_comercial_id').parent().parent().show();
+        }
     }
 });

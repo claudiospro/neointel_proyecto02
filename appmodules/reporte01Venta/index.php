@@ -157,8 +157,7 @@ if (isset($_GET['campania_id'])) {
             $diaSemana = array(1 => 'Lun', 2 => 'Mar', 3 => 'Mier', 4 => 'Jue', 5 => 'Vie', 6 => 'Sab', 7 => 'Dom');
             $mesLiteral = array(
                 1 => 'Ene', 2 => 'Feb', 3 => 'Mar', 4 => 'Abr', 5 => 'May', 6 => 'Jun',
-                7 => 'Jul', 8 => 'Ago', 9 => 'Sep',10 => 'Oct',11 => 'Nov',12 => 'Dic',
-                
+                7 => 'Jul', 8 => 'Ago', 9 => 'Sep',10 => 'Oct',11 => 'Nov',12 => 'Dic',                
             );
             foreach($data0['ventas'] as $row) {
                 
@@ -185,6 +184,19 @@ if (isset($_GET['campania_id'])) {
             $data1['ventas']['first'] = $data1['ventas']['first']['fecha'];
             $data1['ventas']['last'] =  $data1['ventas']['last']['fecha'];
         }
+        if (isset($data0['ventas']) && $in['tipo'] == '06')
+        {
+            $mesLiteral = array(
+                1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio',
+                7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre',10 => 'Octubre',11 => 'Noviembre',12 => 'Diciembre',
+            );
+            foreach($data0['ventas'] as $row)
+            {
+                $date = DateTime::createFromFormat('Y-m', $row['fecha']);
+                $row['fecha'] = $date->format('Y') . ' - '.  $mesLiteral[ $date->format('n') ];
+                $data1['ventas']['listado'][ $row['fecha'] ] = $row['total'];
+            }
+        }
 
     }
     
@@ -208,5 +220,6 @@ if (isset($_GET['campania_id'])) {
 $data = $data1 ;
 // Utilidades::printr($data0);
 // Utilidades::printr($data);
+// Utilidades::printr($_SESSION);
 
 require 'vista/mes.tpl.php';

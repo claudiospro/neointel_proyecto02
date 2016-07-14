@@ -48,23 +48,28 @@ class ModeloVenta {
         ';
         $filtros_5 = '';
         $filtros_5b = '';
+        $filtros_6 = '';
         if ($in['dia-ini'] != '00') {
-            $filtros .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
-            $filtros_5 .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
+            $filtros    .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
+            $filtros_5  .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
             $filtros_5b .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
+            $filtros_6  .= ' AND v.fecha_OK >="' . $in['anio-mes-ini'] . '-' . $in['dia-ini'] . ' 00:00:00" ';
         } else {
-            $filtros .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
-            $filtros_5 .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
-            $filtros_5b .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros    .= ' AND v.info_create_fecha >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros_5  .= ' AND u.fecha_cese >="' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros_5b .= ' AND v.info_create_fecha >= "' . $in['anio-mes-ini'] . '-01 00:00:00" ';
+            $filtros_6  .= ' AND v.fecha_OK >= "' . $in['anio-mes-ini'] . '-01 00:00:00" ';
         }
         if ($in['dia-end'] != '00') {
-            $filtros .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
-            $filtros_5 .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
+            $filtros    .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
+            $filtros_5  .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
             $filtros_5b .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
+            $filtros_6  .= ' AND v.fecha_OK <="' . $in['anio-mes-end'] . '-' . $in['dia-end'] . ' 23:59:59" ';
         } else {
-            $filtros .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" ';
-            $filtros_5 .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-31 23:59:59"';
+            $filtros    .= ' AND v.info_create_fecha <="' . $in['anio-mes-end'] . '-31 23:59:59" ';
+            $filtros_5  .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-31 23:59:59"';
             $filtros_5b .= ' AND u.fecha_cese <="' . $in['anio-mes-end'] . '-31 23:59:59"';
+            $filtros_6  .= ' AND v.fecha_OK <="' . $in['anio-mes-end'] . '-31 23:59:59" ';
         }
         // filtro de usuarios
         $filtros_4 = '';
@@ -348,8 +353,31 @@ class ModeloVenta {
             ';
             // Utilidades::printr($this->q->sql);
             $data['ventas'] = $this->q->exe();
-
         }
+        elseif ($in['tipo'] == '06')
+        {
+            $this->q->fields = array(
+                'fecha'    => '',
+                'total'    => '',
+                'campania' => '',
+            );
+            $rango_fecha = '%Y-%m-%d';
+            if ($in['rango_fechas'] == '04') $rango_fecha = '%Y-%m';
+            if ($in['rango_fechas'] == '02') $rango_fecha = 'Semana %u';
+            $this->q->sql = '
+            SELECT DATE_FORMAT(v.info_create_fecha,"%Y-%m")
+                 , SUM(d.producto_cantidad)
+                 , "' . $in['campania_id'] . '" campania
+            FROM venta_' . $in['campania_id'] . ' d 
+            LEFT JOIN venta v ON v.id=d.id
+            WHERE d.estado = 2 
+            ' . $filtros_6 . '
+            GROUP BY 1
+            ORDER BY 1
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['ventas'] = $this->q->exe();
+        }    
         return $data;
     }
     function getSupervisorByFechas($in) {
