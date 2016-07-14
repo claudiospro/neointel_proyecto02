@@ -4,7 +4,7 @@ $combo = new OptionComboSimple();
 $pr['campania'] = Utilidades::clear_input($in['campania']);
 $estados = $modelo->getEstadoActivas($pr);
 $estados_reales = $modelo->getEstadoRealActivas($in);
-$test = true;
+$test = false;
 ?>
 
 <table id="<?php echo $prefix . 'tabla' ?>">
