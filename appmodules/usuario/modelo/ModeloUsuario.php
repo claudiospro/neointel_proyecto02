@@ -296,7 +296,25 @@ class ModeloUsuario {
         // echo $this->q->sql;
         $this->q->exe();
     }
-    
+    //
+    function getSupervisorByLineal($id) {
+        $this->q->fields = array('nombre'=>'');
+        $this->q->data = NULL;
+        $this->q->sql = '
+        SELECT u.nombre FROM usu_usuario_perfil up 
+        JOIN usu_usuario_lineal ul ON ul.usuario_id = up.usuario_id
+        JOIN usu_usuario u ON u.id = up.usuario_id 
+        WHERE up.perfil_id = 4 AND ul.lineal_id = ' . $id . '
+        ';
+        $data = $this->q->exe();
+        if ( 0 == count($data))
+            $ou = '<span style="color:red">Vacio</span>';
+        elseif ( 1 == count($data))
+            $ou = utf8_encode($data[0]['nombre']);
+        else
+            $ou = '<span style="color:red">Mas de 1</span>';
+        return $ou;
+    }
     // --------------------------------------- grupo
     function getGrupoItem($in) {
         $this->q->fields = array(

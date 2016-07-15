@@ -64,7 +64,7 @@ class ModeloVenta {
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
-        return $data[0]['nombre'];
+        return utf8_encode($data[0]['nombre']);
     }
     function imprimirCampo($dato, $campo, $campania) {
         $dato = utf8_encode($dato);

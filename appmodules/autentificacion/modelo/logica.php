@@ -46,8 +46,8 @@ class ModeloAuten {
         $q->data = NULL;
         $data = $q->exe();        
         if ($data) {
-            $_SESSION["user_name"] = $in['nombre'];
-            $_SESSION["user_full_name"] = $data[0]['user_full_name'];
+            $_SESSION["user_name"] = utf8_encode($in['nombre']);
+            $_SESSION["user_full_name"] = utf8_encode($data[0]['user_full_name']);
             $_SESSION["user_id"] = $data[0]['user_id'];
             $resources = ' ';
             foreach ($data as $row) {

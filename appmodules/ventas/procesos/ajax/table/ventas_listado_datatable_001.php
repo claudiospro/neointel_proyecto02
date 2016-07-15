@@ -353,12 +353,9 @@ function mostrar_proceso_color($row) {
     $proceso .= $row['tramitacion_postventa_citar'];
     $proceso .= $row['tramitacion_postventa_intalar'];
 
-    if ($proceso == '322222') $ou = 'red';
+    if ($proceso == '322222')     $ou = 'red';
     elseif ($proceso == '132222') $ou = 'red';
     elseif ($proceso == '113222') $ou = 'red';
-    elseif ($proceso == '111322') $ou = 'red';
-    elseif ($proceso == '111132') $ou = 'red';
-    elseif ($proceso == '111113') $ou = 'red';
     elseif ($proceso == '111111') $ou = 'green';
     else $ou = 'black';
     return $ou;

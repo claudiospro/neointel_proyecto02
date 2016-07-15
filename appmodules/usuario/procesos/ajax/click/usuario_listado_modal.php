@@ -168,6 +168,7 @@ if (isset($grupos))
     foreach($grupos as $row)
     {
         $checked = '';
+        $supervisor = $modelo->getSupervisorByLineal($row['id']);
         if ($row['usuario_id'] != '')
             $checked = 'checked';
         echo '<input type="checkbox"
@@ -175,7 +176,7 @@ if (isset($grupos))
                      class="no-margin item-grupo"
                      ' . $checked . '
               />';
-        echo utf8_encode($row['nombre']) . ' (' . utf8_encode($row['campania']) . ')<br>';
+        echo utf8_encode($row['nombre']). ': '. $supervisor . ' (' . utf8_encode($row['campania']) . ')<br>';
     }
 }
 echo '</div>';
