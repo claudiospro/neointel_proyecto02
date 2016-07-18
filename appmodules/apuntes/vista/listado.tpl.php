@@ -48,10 +48,10 @@ include '../autentificacion/vista/menu.tpl.php';
      width: 100%;
  }
  #apuntes_listado_principal .item a.pendiente-si {
-     background: rgba(0, 0, 0, 0) linear-gradient(#ffe401, #fffe9f) repeat scroll 0 0;
+     background-color: #ffe401;
  }
  #apuntes_listado_principal .item a.pendiente-no {
-     background: rgba(0, 0, 0, 0) linear-gradient(#a2a2a2, #e1e1e1) repeat scroll 0 0;
+     background-color: #a2a2a2;
  }
  #apuntes_listado_principal .item a .resumen {
      max-height: 200px;

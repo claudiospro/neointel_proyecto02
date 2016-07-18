@@ -320,7 +320,10 @@ class ModeloVenta {
         $perfiles = explode(', ', trim($campo['perfiles']));
         $permisos = explode(', ', trim($campo['permisos']));
         $permiso = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
-        if ($campo['nombre']=='estado') {
+        if ($campo['nombre']=='estado' ||
+            $campo['nombre']=='cliente_tipo' ||
+            $campo['nombre']=='producto')
+        {
             $permiso = 'w';
         }
         

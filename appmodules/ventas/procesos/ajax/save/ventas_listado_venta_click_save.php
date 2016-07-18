@@ -27,6 +27,12 @@ foreach ($campos as $row) {
     if (isset($dato['estado_real']) && $row['nombre'] == 'estado_real') {
         $dato['estado'] = $venta->getEstadoRealToEstado($dato['estado_real']);
     }
+    if (isset($dato['cliente_tipo_inicial']) && $row['nombre'] == 'cliente_tipo_inicial' && $in['venta_id'] == '0') {
+        $dato['cliente_tipo'] = $dato['cliente_tipo_inicial'];
+    }
+    if (isset($dato['producto_inicial']) && $row['nombre'] == 'producto_inicial' && $in['venta_id'] == '0') {
+        $dato['producto'] = $dato['producto_inicial'];
+    }
 }
 
 // construlle el sql
@@ -69,6 +75,6 @@ $venta->setVentaCampania($sql);
 /* echo '<hr>'; */
 /* print_r($campos); */
 /* echo '<hr>'; */
-// print($sql);
+print($sql);
 
 echo $id;

@@ -7,6 +7,10 @@ $(document).ready(function() {
     venta_listado_tabla();
     venta_listado_combos();
     // ------------------------------------------------------------ EVENTOS
+    $(prefixId+'campanias').on( 'change', function () {
+        var url = './index.php?campania=' + $(this).val();   
+        window.location = url;
+    });
     $(prefixId+'tabla .reload').on('click', function (event) {
         venta_listado_reload();
     });
@@ -98,46 +102,73 @@ $(document).ready(function() {
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
         var enviar = {
-            'perfil': $(prefixId+'perfiles').val()
+            'perfil':   $(prefixId+'perfiles').val() ,
+            'campania': $(prefixId+'campanias').val() ,
         };
+        // c(enviar);
         var ver = [];
-
-        if(enviar.perfil == 'Asesor Comercial') {
-            ver = [5, 7, 12, 14, 15, 16];
-        } else if(enviar.perfil == 'Supervisor') {
-            ver = [5, 13, 14, 15, 16];
-        } else if(enviar.perfil == 'Tramitacion' ||
-                  enviar.perfil == 'Tramitacion-Carga' ||
-                  enviar.perfil == 'Tramitacion-Validacion' ||
-                  enviar.perfil == 'Tramitacion-Validacion-Carga'
-                 ) {
-            ver = [14, 15, 16];
-        } else if(enviar.perfil == 'Coordinador') {
-            ver = [14, 16];
-        } else if(enviar.perfil == 'Gerencia') {
-            ver = [16];
+        var order = '';
+        var unsortable = [];
+        var lugar = '';
+        if (enviar.campania == 'campania_001')
+        {            
+            order = 13;
+            unsortable = [7, 10, 11];
+            lugar = '_001';
+            if(enviar.perfil == 'Asesor Comercial') ver = [2, 3, 7, 9, 12, 15, 17, 18, 19, 20];
+            else if(enviar.perfil == 'Supervisor') ver =  [2, 3, 7,    12, 16, 17, 18, 19, 20];
+            else if(enviar.perfil == 'Tramitacion' ||
+                    enviar.perfil == 'Tramitacion-Carga' ||
+                    enviar.perfil == 'Tramitacion-Validacion' ||
+                    enviar.perfil == 'Tramitacion-Validacion-Carga') ver = [0, 1, 17, 20];
+            else if(enviar.perfil == 'Coordinador') ver = [0, 1, 17];
+            else if(enviar.perfil == 'Gerencia') ver = [0, 1];
+            else ver = [0,1]
         }
-        dataTable_listado = $(prefixId+'tabla').DataTable({
-            "processing" : true,
-            "serverSide" : true,
-            "lengthChange": false,
-            // "searching": false,
-            "info": true,
-            //"bAutoWidth" : false,
+        if (enviar.campania == 'campania_002')
+        {            
+            order = 10;
+            unsortable = [5, 8, 9];
+            lugar = '_002';
+            if(enviar.perfil == 'Asesor Comercial') ver = [5, 7, 12, 14, 15];
+            else if(enviar.perfil == 'Supervisor') ver = [5, 13, 14, 15];
+            else if(enviar.perfil == 'Tramitacion' ||
+                    enviar.perfil == 'Tramitacion-Carga' ||
+                    enviar.perfil == 'Tramitacion-Validacion' ||
+                    enviar.perfil == 'Tramitacion-Validacion-Carga') ver = [14, 15];
+            else if(enviar.perfil == 'Coordinador') ver = [14];
+            else if(enviar.perfil == 'Gerencia') ver = [];
+        }
+        else if (enviar.campania == 'campania_003')
+        {
+            order = 15;
+            unsortable = [3, 8, 9, 10, 13, 14];
+            lugar = '_003';
+            if(enviar.perfil == 'Asesor Comercial') ver = [8, 9, 10, 12, 17, 19, 20];
+            else if(enviar.perfil == 'Supervisor') ver = [10, 18, 19, 20];
+            else if(enviar.perfil == 'Tramitacion' ||
+                    enviar.perfil == 'Tramitacion-Carga' ||
+                    enviar.perfil == 'Tramitacion-Validacion' ||
+                    enviar.perfil == 'Tramitacion-Validacion-Carga') ver = [19, 20];
+            else if(enviar.perfil == 'Coordinador') ver = [19];
+            else if(enviar.perfil == 'Gerencia') ver = [];
+        }
 
-            // "scrollY": false,
-            // "scrollX": true,
-            
-            "pageLength" : 15,
-            "order"      : [ 10, 'desc' ],
-            "aoColumnDefs": [
-                { 'aTargets': [ 5, 9, 16 ], 'bSortable': false },
-                { "targets": ver, "visible": false }
+        dataTable_listado = $(prefixId+'tabla').DataTable({
+            'processing' : true,
+            'serverSide' : true,
+            'lengthChange': false,
+            'info': true,
+            'pageLength' : 15,
+            'order'      : [ order, 'desc' ],
+            'aoColumnDefs': [
+                { 'aTargets': unsortable, 'bSortable': false },
+                { 'targets': ver, 'visible': false }
             ],
 
-            "ajax": {
-                url :"./procesos/ajax/table/ventas_listado_datatable.php", 
-                type: "post",
+            'ajax': {
+                url :'./procesos/ajax/table/ventas_listado_datatable' + lugar + '.php',
+                type: 'post',
             },
         });
         $(prefixId+'tabla_filter').hide();
@@ -334,34 +365,33 @@ $(document).ready(function() {
     function venta_listado_combos() {
         var enviar = {
         }
+        // c('aaa');
         $.ajax({
 	    type: "POST",
 	    data: enviar,
 	    url: './procesos/ajax/select/ventas_listado_campanias_onload.php',
 	    success: function(data) {
-	        $(prefixId+'campanias').html(data);
-                $(prefixId+'campanias-tbl').html(data);
                 $('#declarativo_field_campanias').html(data);
+                $('.declarativo_field_campanias').html(data);
 	    }
         });
-        element_simple(
-            './procesos/ajax/select/ventas_listado_estado.php',
-            prefixId+'estado-tbl',
-            enviar
-        );
-        var myVar = setInterval( function() {
-            var enviar = {
-                'campania': $('#venta_listado_campanias-tbl').val()  
-            }
-            // c(enviar);
-            element_simple(
-                './procesos/ajax/select/ventas_listado_estado_real.php',
-                prefixId+'estado-real-tbl',
-                enviar
-            );
-            clearInterval(myVar);
-	}, 800);
-
+        // element_simple(
+        //     './procesos/ajax/select/ventas_listado_estado.php',
+        //     prefixId+'estado-tbl',
+        //     enviar
+        // );
+        // var myVar = setInterval( function() {
+        //     var enviar = {
+        //         'campania': $('#venta_listado_campanias-tbl').val()  
+        //     }
+        //     // c(enviar);
+        //     element_simple(
+        //         './procesos/ajax/select/ventas_listado_estado_real.php',
+        //         prefixId+'estado-real-tbl',
+        //         enviar
+        //     );
+        //     clearInterval(myVar);
+	// }, 800);
     }
     // --------------------
     function venta_listado_timer_por_aprobar() {

@@ -12,13 +12,15 @@ $test = false;
     <?php if($test): ?>
       <tr>
         <?php
-        for ($i=0; $i<=16; $i++) echo '<td>' .$i .'</td>';
+        for ($i=0; $i<=20; $i++) echo '<td>' .$i .'</td>';
         ?>
       </tr>
     <?php endif ?>      
     
     <tr>
       <?php $i = -1 ?>
+      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
@@ -90,6 +92,8 @@ $test = false;
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>" type="text"></td>
       <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>" type="text"></td>
+      <td><input class="no-margin search-input-text" data-column="<?php echo ++$i ?>"  type="text"></td>
       <td>
         <select id="<?php echo $prefix ?>eliminado-tbl"
                 class="no-margin search-input-select"
@@ -103,9 +107,11 @@ $test = false;
     </tr>
     <tr>
       <th><span style="display: block; width: 150px;">Producto</span></th>
-      <th>DirecciónID</th>
       <th>Tipo Cliente</th>
+      <th><span style="display: block; width: 150px;">Producto (BackOffice)</span></th>
+      <th>Tipo Cliente (BackOffice)</th>
       <th><span style="display: block; width: 180px;">Cliente</span></th>
+      <th>DirecciónID</th>
       <th>Documento</th>
       <th>Proceso</th>
       <th>Estado</th>
@@ -118,6 +124,8 @@ $test = false;
       <th><span style="display: block; width: 160px;">Asesor de Venta</span></th>
       <th><span style="display: block; width: 160px;">Supervisor</span></th>
       <th><span style="display: block; width: 160px;">Coordinador</span></th>
+      <th><span style="display: block; width: 150px;">Producto</span></th>
+      <th>Tipo Cliente</th>
       <th>Eliminado</th>
     </tr>
   </thead>

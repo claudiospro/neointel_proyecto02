@@ -25,10 +25,12 @@ $campania = 'campania_001';
 $sql_ini='';
 $sql_ini.= "
     SELECT
-      d2.nombre producto
-    , d.direccion_id
+      d10.nombre producto_inicial1
+    , d11.nombre cliente_tipo_inicial1
+    , d2.nombre producto
     , d9.nombre cliente_tipo
     , d.cliente_nombre
+    , d.direccion_id
     , d.cliente_documento
     , 'proceso'
     , d3.nombre estado
@@ -42,6 +44,8 @@ $sql_ini.= "
     , d6.nombre supervisor
     , d7.nombre coordinador
     , v.info_status
+    , d10.nombre producto_inicial2
+    , d11.nombre cliente_tipo_inicial2
     --
     , v.id venta_id
     , v.campania
@@ -72,6 +76,8 @@ $sql_ini.= "
     LEFT JOIN usu_usuario d7 ON d7.id=v.coordinador_id
     LEFT JOIN venta_estado_real d8 ON d8.id=d.estado_real
     LEFT JOIN venta_cliente_tipo d9 ON d9.id=d.cliente_tipo
+    LEFT JOIN venta_producto d10 ON d10.id=d.producto_inicial
+    LEFT JOIN venta_cliente_tipo d11 ON d11.id=d.cliente_tipo_inicial
     WHERE v.campania = '" . $campania . "'" . $sql_activo . " " . $sql_usuario . ""
         ;
 
@@ -103,16 +109,22 @@ $sql_filter = '';
 
 $i = -1;
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
-    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+    $sql_filter.=' AND producto_inicial1 LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
-    $sql_filter.=' AND direccion_id LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+    $sql_filter.=' AND cliente_tipo_inicial1 LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND producto LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND cliente_tipo LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND cliente_nombre LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND direccion_id LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND cliente_documento LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
@@ -161,6 +173,12 @@ if( !empty($requestData['columns'][++$i]['search']['value']) ) {
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND coordinador LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND producto_inicial2 LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND cliente_tipo_inicial2 LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 $bool_str = array('0'=>'Si', '1'=>'No');
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
@@ -216,10 +234,12 @@ while( $row=mysqli_fetch_array($query) ) {
 
     $sty_color =  ' style="color: ' . mostrar_proceso_color($row) . '" ';
     
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['producto_inicial1']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_tipo_inicial1']) . '</span>';
     $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['producto']) . '</span>';
-    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['direccion_id']) . '</span>';
     $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_tipo']) . '</span>';
     $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_nombre']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['direccion_id']) . '</span>';
     $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_documento']) . '</span>';  
     $nestedData[] = mostrar_proceso($row);
     $nestedData[] = '<span class="item-estado item-estado-' . $row['estado_id'] . '">'. utf8_encode($row['estado']) .'</span>';
@@ -294,6 +314,8 @@ while( $row=mysqli_fetch_array($query) ) {
     </div>
     ';    
     $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['coordinador']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['producto_inicial2']) . '</span>';
+    $nestedData[] = '<span' . $sty_color . '>' . utf8_encode($row['cliente_tipo_inicial2']) . '</span>';    
     $nestedData[] = '<center><span' . $sty_color . '>' . $bool_str[$row['info_status']] . '</span></center>';
 
     $data[] = $nestedData;

@@ -26,4 +26,4 @@ if (isset($_GET['campania']))
 // Utilidades::printr($_SESSION);
 // Utilidades::printr($in);
 
-require 'vista/listado2.tpl.php';
+require 'vista/listado.tpl.php';

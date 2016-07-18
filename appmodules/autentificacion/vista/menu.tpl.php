@@ -10,9 +10,11 @@
           <?php if (array_search('Ventas', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'ventas' ?>">Ventas</a></li>
           <?php endif ?>
+          <!--
           <?php if (array_search('Barrido', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'barrido' ?>">Barrido de Ventas</a></li>
           <?php endif ?>
+          -->
           <?php if (array_search('Reporte-01-Venta', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'reporte01Venta' ?>">Reporte Venta</a></li>
           <?php endif ?>

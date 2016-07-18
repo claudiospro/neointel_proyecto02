@@ -63,8 +63,8 @@ class ModeloComision {
         $this->q->sql = '
 SELECT 
   d.id
-, d.cliente_tipo
-, d.producto
+, d.cliente_tipo_inicial
+, d.producto_inicial
 , d.producto_observacion
 , d.con_television
 , v.asesor_venta_id
@@ -251,66 +251,44 @@ AND d.tramitacion_postventa_intalar = 1
                     $tipo = 'residencial';
                 }
             }
-            // ----------------------------------------------- las lineas
+            // ----------------------------------------------- las lineas            
             
             
-            
-            if ('' != trim($r['movil_numero']) && $r['movil_modalidad'] != '0' && $r['movil_modalidad'] != '4')
+            if ('' != trim($r['movil_numero']) && $r['movil_tarifa'] != '0' && $r['movil_tarifa'] != '4')
             {
                 if ($r['movil_tarifa'] == '1') $m = 'S';
                 if ($r['movil_tarifa'] == '2') $m = 'M';
                 if ($r['movil_tarifa'] == '3') $m = 'L';
 
-                if ($tipo == 'autonomo')
-                {
-                    $ou['movil']['total'][$tipo]['linea 1'][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 1'][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 1'][$m][] = $r['id'];                    
-                }
-                elseif ($tipo == 'residencial')
-                {
-                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];
-                }
+                $ou['movil']['total'][$tipo]['linea 1']
+                    [$m][] = $r['id'];
+                $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 1']
+                    [$m][] = $r['id'];
+                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 1']
+                    [$m][] = $r['id'];
             }
-            if ('' != trim($r['movil_adicional_1_numero']) && $r['movil_adicional_1_modalidad'] != '0' && $r['movil_adicional_1_modalidad'] != '4')
+            if ('' != trim($r['movil_adicional_1_numero']) && $r['movil_adicional_1_tarifa'] != '0' && $r['movil_adicional_1_tarifa'] != '4')
             {
                 if ($r['movil_adicional_1_tarifa'] == '1') $m = 'S';
                 if ($r['movil_adicional_1_tarifa'] == '2') $m = 'M';
                 if ($r['movil_adicional_1_tarifa'] == '3') $m = 'L';
 
-                if ($tipo == 'autonomo')
-                {
-                    $ou['movil']['total'][$tipo]['linea 2'][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2'][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2'][$m][] = $r['id'];
-                }
-                elseif ($tipo == 'residencial')
-                {
-                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];                    
-                }
+                $ou['movil']['total'][$tipo]['linea 2']
+                    [$m][] = $r['id'];
+                $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2']
+                    [$m][] = $r['id'];
+                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2']
+                    [$m][] = $r['id'];
             }
-            if ('' != trim($r['movil_adicional_2_numero']) && $r['movil_adicional_2_modalidad'] != '0' && $r['movil_adicional_2_modalidad'] != '4')
+            if ('' != trim($r['movil_adicional_2_numero']) && $r['movil_adicional_2_tarifa'] != '0' && $r['movil_adicional_2_tarifa'] != '4')
             {
                 if ($r['movil_adicional_2_tarifa'] == '1') $m = 'S';
                 if ($r['movil_adicional_2_tarifa'] == '2') $m = 'M';
                 if ($r['movil_adicional_2_tarifa'] == '3') $m = 'L';
                 
-                if ($tipo == 'autonomo')
-                {
-                    $ou['movil']['total'][$tipo]['linea 2'][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2'][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2'][$m][] = $r['id'];                    
-                }
-                elseif ($tipo == 'residencial')
-                {
-                    $ou['movil']['total'][$tipo][$m][] = $r['id'];
-                    $ou['movil']['supervisor'][$r['supervisor']][$tipo][$m][] = $r['id'];
-                    $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo][$m][] = $r['id'];                    
-                }
+                $ou['movil']['total'][$tipo]['linea 2'][$m][] = $r['id'];
+                $ou['movil']['supervisor'][$r['supervisor']][$tipo]['linea 2'][$m][] = $r['id'];
+                $ou['movil']['asesor_venta'][$r['asesor_venta']][$tipo]['linea 2'][$m][] = $r['id'];                    
             }
         }
         return $ou;
@@ -324,7 +302,9 @@ AND d.tramitacion_postventa_intalar = 1
                 <th colspan="2" rowspan="2">&nbsp;</th>
 
                 <th colspan="3">Residencial</th>
-                <th colspan="4">Lineas</th>
+                <th colspan="3">1ra Linea</th>
+                <th colspan="3">2da y 3ra Linea</th>
+                <th colspan="1">Lineas</th>
                 <th colspan="3">Autonomos</th>
                 <th colspan="3">1ra Linea</th>
                 <th colspan="3">2da y 3ra Linea</th>
@@ -335,6 +315,9 @@ AND d.tramitacion_postventa_intalar = 1
                 <th colspan="1"><a title="(Fibra + Telf)">2P</a></th>
                 <th colspan="1"><a title="(Fibra + Telf + TV extra)">3P</a></th>
                 <th colspan="1">SubTotal</th>
+                <th colspan="1"><a title="Small">S</a></th>
+                <th colspan="1"><a title="Medium">M</a></th>
+                <th colspan="1"><a title="Large">L</a></th>
                 <th colspan="1"><a title="Small">S</a></th>
                 <th colspan="1"><a title="Medium">M</a></th>
                 <th colspan="1"><a title="Large">L</a></th>
@@ -365,13 +348,20 @@ AND d.tramitacion_postventa_intalar = 1
     function campania_001_Vodafon_one_html_body($titulo, $fibra, $movil) {
         $ou = '';
         // --------------------------------------------- lineas
-        if (!isset($movil['residencial']['S']))
-            $movil['residencial']['S'] = array();
-        if (!isset($movil['residencial']['M']))
-            $movil['residencial']['M'] = array();
-        if (!isset($movil['residencial']['L']))
-            $movil['residencial']['L'] = array();
+        if (!isset($movil['residencial']['linea 1']['S']))
+            $movil['residencial']['linea 1']['S'] = array();
+        if (!isset($movil['residencial']['linea 1']['M']))
+            $movil['residencial']['linea 1']['M'] = array();
+        if (!isset($movil['residencial']['linea 1']['L']))
+            $movil['residencial']['linea 1']['L'] = array();
         //
+        if (!isset($movil['residencial']['linea 2']['S']))
+            $movil['residencial']['linea 2']['S'] = array();
+        if (!isset($movil['residencial']['linea 2']['M']))
+            $movil['residencial']['linea 2']['M'] = array();
+        if (!isset($movil['residencial']['linea 2']['L']))
+            $movil['residencial']['linea 2']['L'] = array();
+        // ------------------------------------------------------
         if (!isset($movil['autonomo']['linea 1']['S']))
             $movil['autonomo']['linea 1']['S'] = array();
         if (!isset($movil['autonomo']['linea 1']['M']))
@@ -438,9 +428,12 @@ AND d.tramitacion_postventa_intalar = 1
                  + count($fibra['residencial']['3P']['120MB'])
                  + count($fibra['residencial']['3P']['50MB'])
                  ;
-        $total_2 = count($movil['residencial']['S'])
-                 + count($movil['residencial']['M'])
-                 + count($movil['residencial']['L'])
+        $total_2 = count($movil['residencial']['linea 1']['S'])
+                 + count($movil['residencial']['linea 1']['M'])
+                 + count($movil['residencial']['linea 1']['L'])
+                 + count($movil['residencial']['linea 2']['S'])
+                 + count($movil['residencial']['linea 2']['M'])
+                 + count($movil['residencial']['linea 2']['L'])
                  ;
         $total_3 = count($fibra['autonomo']['fibra']['300MB']['Alta Nueva'])
                  + count($fibra['autonomo']['fibra']['300MB']['Portabilidad'])
@@ -467,9 +460,12 @@ AND d.tramitacion_postventa_intalar = 1
                <td>' . count($fibra['residencial']['2P']['300MB']) . '</td>
                <td>' . count($fibra['residencial']['3P']['300MB']) . '</td>
                <th rowspan="4">' . $total_1 . '</th>
-               <td rowspan="4">' . count($movil['residencial']['S']) . '</td>
-               <td rowspan="4">' . count($movil['residencial']['M']) . '</td>
-               <td rowspan="4">' . count($movil['residencial']['L']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 1']['S']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 1']['M']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 1']['L']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 2']['S']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 2']['M']) . '</td>
+               <td rowspan="4">' . count($movil['residencial']['linea 2']['L']) . '</td>
                <th rowspan="4">' . $total_2 . '</th>
                <!--  --!>
                <td>' . count($fibra['autonomo']['fibra']['300MB']['Alta Nueva']) . '</td>
@@ -478,7 +474,6 @@ AND d.tramitacion_postventa_intalar = 1
                <td rowspan="4">' . count($movil['autonomo']['linea 1']['S']) . '</td>
                <td rowspan="4">' . count($movil['autonomo']['linea 1']['M']) . '</td>
                <td rowspan="4">' . count($movil['autonomo']['linea 1']['L']) . '</td>
-
                <td rowspan="4">' . count($movil['autonomo']['linea 2']['S']) . '</td>
                <td rowspan="4">' . count($movil['autonomo']['linea 2']['M']) . '</td>
                <td rowspan="4">' . count($movil['autonomo']['linea 2']['L']) . '</td>
@@ -519,7 +514,7 @@ AND d.tramitacion_postventa_intalar = 1
               </tr>
              ';
         $ou .= '</tr>';
-        $ou .= '<tr><th colspan="21"></th></tr>';
+        $ou .= '<tr><th colspan="24"></th></tr>';
         return $ou ;
     }
 }
