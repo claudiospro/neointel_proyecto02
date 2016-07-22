@@ -369,8 +369,10 @@ class ModeloVenta {
                 $ou['campos'] = $campo['nombre'];
                 $ou['valores'] = '"' . utf8_decode($dato) . '"';
             } elseif($tipo == 'update') {
-                $ou = $campo['nombre'] . '="' . utf8_decode($dato) . '"';
+                $ou['sql'] = $campo['nombre'] . '="' . utf8_decode($dato) . '"';                
             }
+            $ou['dato'] = utf8_decode($dato);
+            
         }
         return $ou;            
     }
@@ -1077,11 +1079,128 @@ class ModeloVenta {
                         WHERE id = "' . $in['venta_id'] . '"
                         ' ;
         // print $this->q->sql;
-        $this->q->exe();        
+        $this->q->exe();
     }
     function setSQL($fields, $sql) {
         $this->q->fields = $fields;
         $this->q->sql = $sql;
+        // print $this->q->sql .'<br>';
+        $this->q->data = NULL;
+        $data = $this->q->exe();
+        return $data;
+    }
+    
+    // ----------------------------- Transparencia
+    function drawLogItem($tabla, $campo, $old, $new) {
+        $ou = '';
+        if ($tabla == 'venta') {
+            if ($campo == 'asesor_venta_id' || $campo == 'supervisor_id') {
+                $this->q->fields = array(
+                    'id' => '' , 'nombre' => ''
+                );
+                $this->q->data = NULL;
+                $this->q->sql = '
+                SELECT id, nombre FROM usu_usuario  WHERE 
+                id = "' . $old . '" OR id = "' . $new . '"
+                ' ;
+                // print $this->q->sql;
+                $datos =  $this->q->exe();
+                if (isset($datos[0]) && $datos[0]['id'] == $old) $old2 = $datos[0]['nombre'];
+                if (isset($datos[0]) && $datos[0]['id'] == $new) $new2 = $datos[0]['nombre'];
+                if (isset($datos[1]) && $datos[1]['id'] == $old) $old2 = $datos[1]['nombre'];
+                if (isset($datos[1]) && $datos[1]['id'] == $new) $new2 = $datos[1]['nombre'];
+                $old = $old2;
+                $new = $new2;
+                if ($campo == 'asesor_venta_id') $campo = 'Asesor de Venta';
+                if ($campo == 'supervisor_id') $campo = 'Supervisor';
+            }
+        } else {
+            $this->q->fields = array(
+                'dic' => '' , 'dic_nm' => '', 'etiqueta' => ''
+            );
+            $this->q->data = NULL;
+            $this->q->sql = '
+            SELECT diccionario,  diccionario_nombre, etiqueta 
+            FROM `venta_campania_001_campos` 
+            WHERE nombre = "' . $campo . '" LIMIT 1
+            ';
+            // print $this->q->sql;
+            $dato =  $this->q->exe();
+            // print_r($dato);
+            $campo2 = $dato[0]['etiqueta'];
+            if (isset($dato[0]) && $dato[0]['dic'] != '0') {
+                if('' == trim($dato[0]['dic_nm'])) {
+                    $diccionario = 'venta_' . $campo;
+                } else {
+                    $diccionario = 'venta_' . $dato[0]['dic_nm'];
+                }               
+                $this->q->fields = array(
+                    'id' => '' , 'nombre' => ''
+                );
+                $this->q->data = NULL;
+                $this->q->sql = '
+                SELECT id, nombre FROM ' . $diccionario . '  WHERE 
+                id = "' . $old . '" OR id = "' . $new . '"
+                ' ;
+                // print $this->q->sql;
+                $datos =  $this->q->exe();
+                // print_r($datos);
+                
+                if (isset($datos[0]) && $datos[0]['id'] == $old) $old2 = $datos[0]['nombre'];
+                if (isset($datos[0]) && $datos[0]['id'] == $new) $new2 = $datos[0]['nombre'];
+                if (isset($datos[1]) && $datos[1]['id'] == $old) $old2 = $datos[1]['nombre'];
+                if (isset($datos[1]) && $datos[1]['id'] == $new) $new2 = $datos[1]['nombre'];
+                $old = $old2;
+                $new = $new2;
+            }
+            $campo = $campo2;
+        }
+        
+        $ou.= '{';
+        $ou.= '"nombre": "' . $campo . '",';
+        $ou.= '"old": "' . $old . '",';
+        $ou.= '"new": "' . $new . '"';
+        $ou.= '}';
+        return $ou;
+    }
+    function drawDivLogItem($campania, $venta, $usuario, $fecha, $campos) {
+        $ou = '';
+
+        $this->q->fields = array(
+            'nombre' => ''
+        );
+        $this->q->data = NULL;
+        $this->q->sql = '
+        SELECT nombre FROM `usu_usuario` WHERE id = "' . $usuario . '"
+        LIMIT 1
+        ' ;
+        // print $this->q->sql;
+        $dato = $this->q->exe();        
+        
+        $ou.= '{';
+        $ou.= '"usuario": "' . $dato[0]['nombre'] . '", ';
+        $ou.= '"fecha": "' . $fecha . '", ';
+        $ou.= '"campos": [' . $campos . '] ';
+        $ou.= '}';        
+        // echo $ou;
+        $this->q->fields = array();
+        $this->q->data = NULL;
+        $this->q->sql = "
+        INSERT INTO transparencia_" . $campania . "(venta_id, json) VALUES
+        ('" . $venta . "', '" . $ou . "')
+        ";
+        // print $this->q->sql;
+        $this->q->exe();
+    }
+    function getTransparenciaByVentaId($in) {
+        $this->q->fields = array(
+            'json' => '',            
+        );
+        $this->q->sql = '
+       SELECT json FROM `transparencia_' . $in['campania'] . '` 
+       WHERE venta_id = ' . $in['venta_id'] . '
+       ORDER BY id DESC
+       ' ;
         // print $this->q->sql .'<br>';
         $this->q->data = NULL;
         $data = $this->q->exe();

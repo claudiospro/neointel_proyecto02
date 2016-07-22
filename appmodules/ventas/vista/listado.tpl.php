@@ -29,7 +29,7 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=1.9.5"></script>
+<script src="../../static/ventas/ventas_listado.js?v=2.0.0"></script>
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.6"></script>
 
 <script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
@@ -113,6 +113,15 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
   <div class="ajax">
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="reveal full" id="<?php echo $prefix ?>modal_div3" data-reveal style="background-color: rgb(242, 216, 177)">
+  <div class="ajax">
+    
   </div>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>

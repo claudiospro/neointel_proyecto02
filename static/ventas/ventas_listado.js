@@ -49,6 +49,9 @@ $(document).ready(function() {
     $(prefixId+'tabla').on('click', '.delete', function (event) {
         venta_listado_modal_delete($(this));
     });
+    $(prefixId+'tabla').on('click', '.transparencia', function (event) {
+        venta_listado_modal_transparencia($(this));
+    });
     $(window).on('closed.zf.reveal', function () {
         venta_listado_modal_close();
     });    
@@ -98,6 +101,18 @@ $(document).ready(function() {
             prefixId+'estado-real-tbl',
             enviar
         );
+    });
+    //
+    $(prefixId+'modal_div3 .ajax').on('click', '.item', function (event) {
+        var display = $(this).next().css('display');
+        if (display == 'none') {
+            $(this).next().show();
+            $(this).text('Ocultar');
+        } else {
+            $(this).next().hide();
+            $(this).text('Ver');
+        }
+        return false;
     });
     // ---------------------------------------------------------- FUNCIONES
     function venta_listado_tabla() {
@@ -281,6 +296,20 @@ $(document).ready(function() {
         }
 
     }
+    function venta_listado_modal_transparencia(item) {
+        var enviar = {
+            'campania': item.attr('campania'),
+            'venta_id': item.attr('venta_id'),
+        }
+        //c(enviar);
+        element_simple(
+            './procesos/ajax/click/ventas_listado_transparencia.php',
+            prefixId+'modal_div3 .ajax',
+            enviar
+        );
+
+    }
+    //
     function venta_listado_modal_close() {
         // $('tr' ).removeClass('active');
         // var item = $('#field_venta_id').val();

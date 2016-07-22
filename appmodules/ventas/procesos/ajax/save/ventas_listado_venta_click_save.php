@@ -13,9 +13,20 @@ $in['usuario'] = $_SESSION['user_id'];
 
 $dato = $_POST;
 
+
 // -------------------------------------------------------- Data
 $campos = $venta->getcampos($in);
+if ($in['venta_id'] != '0') {
+    $in['fields']['id'] = '';
+    foreach ($campos as $r)
+    {
+        $in['fields'][$r['nombre']] = '';
+    }
+    $old = $venta->getUnDato($in);
+}
 $id = $venta->setVenta($in);
+
+
 
 $sql_campos = 'id';  // insert
 $sql_valores = $id;  // insert
@@ -36,6 +47,7 @@ foreach ($campos as $row) {
 }
 
 // construlle el sql
+$json_log = array();
 foreach ($campos as $row) {
     if ($row['diccionario'] == '1') {
         $dato[$row['nombre']] = array (
@@ -57,11 +69,38 @@ foreach ($campos as $row) {
             $sql_valores .= $tmp['valores'];
         } else {
             $tmp = $venta->sqlCampo($dato[$row['nombre']], $row, 'update');
-            if ($sql_set != '' & $tmp != '') $sql_set .= ', ';
-            $sql_set .= $tmp;
-        }        
+            if ($sql_set != '' & $tmp['sql'] != '') $sql_set .= ', ';
+            $sql_set .= $tmp['sql'];
+        }
+        // esto es para recuperar el valor actual de FK en caso de que sea distinto
+        if ($row['diccionario'] == '1') {
+            $dato[$row['nombre']]['id2'] = $tmp['dato'];
+        }
+        // bamos a compara si los datos cambiado con lo anterior si a cambiado cuidado con FK
+        $igualado = false;
+        if ($row['diccionario'] == '1') {
+            $igualado = ( utf8_encode($old[$row['nombre']]) == $dato[$row['nombre']]['id2'] );
+        } elseif($row['tipo'] == 'TIMESTAMP') {
+            $old[$row['nombre']] = substr($old[$row['nombre']], 0, 10);
+            if ($old[$row['nombre']] == '0000-00-00') $old[$row['nombre']] = ''; 
+            $igualado = ( $old[$row['nombre']] == $dato[$row['nombre']] );
+        } elseif($row['tipo'] == 'TIMESTAMP-HM') {
+            $old[$row['nombre']] = substr($old[$row['nombre']], 0, 16);
+            if ($old[$row['nombre']] == '0000-00-00 00:00') $old[$row['nombre']] = ''; 
+            $igualado = ( $old[$row['nombre']] == $dato[$row['nombre']] );            
+        } else {
+            $igualado = ( utf8_encode($old[$row['nombre']]) == $dato[$row['nombre']] );
+        }
+        if (!$igualado) { // aqui hacer los cambios
+            $json_log[] = $venta->drawLogItem(
+                'venta_' . $in['campania']
+                , $row['nombre']
+                , $old[$row['nombre']]
+                , $dato[$row['nombre']]
+            );
+            // echo $row['nombre'].': '; print_r($igualado); echo ', ';
+        }
     }
-
 }
 if ($in['venta_id'] == '0') {
     $sql = 'INSERT INTO venta_' . $in['campania'] . '(' . $sql_campos . ') VALUES(' . $sql_valores . ')';
@@ -70,11 +109,40 @@ if ($in['venta_id'] == '0') {
 }
 
 $venta->setVentaCampania($sql);
-// -------------------------------------------------------- TEST
-/* print_r($_POST); */
-/* echo '<hr>'; */
-/* print_r($campos); */
-/* echo '<hr>'; */
-print($sql);
 
-echo $id;
+// print_r($json_log);
+$tmp = '';
+foreach ($json_log as $row)
+{
+    if ($tmp !='') $tmp .= ', ';
+    $tmp .= $row;
+}
+
+if ($tmp != '')
+{
+    $healthy = array("\n\r", "\r\n", "\n", "\r", "\t");
+    $yummy   = array("<span style='color:red' > newline </span>"
+                     , "<span style='color:red' > [newline] </span>"
+                     , "<span style='color:red' > [newline] </span>"
+                     , "<span style='color:red' > [newline] </span>"
+                     , "<span style='color:red' > [tab] </span>");
+    
+    $tmp = str_replace($healthy, $yummy, $tmp);
+    $venta->drawDivLogItem(
+        $in['campania']
+        , $in['venta_id']
+        , $in['usuario']
+        , $in['fecha']
+        , utf8_encode($tmp)
+    );
+}
+
+// -------------------------------------------------------- TEST
+// print_r($dato);
+// print_r($old);
+/* echo '<hr>'; */
+// print_r($campos);
+/* print_r($datos); */
+/* echo '<hr>'; */
+
+// echo $id;
