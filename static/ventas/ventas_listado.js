@@ -307,7 +307,6 @@ $(document).ready(function() {
             prefixId+'modal_div3 .ajax',
             enviar
         );
-
     }
     //
     function venta_listado_modal_close() {

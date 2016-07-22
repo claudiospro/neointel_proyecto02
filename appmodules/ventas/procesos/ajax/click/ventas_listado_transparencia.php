@@ -27,34 +27,35 @@ echo '<td>Detalles</td>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
-foreach($listado as $row)
-{
-    $json = json_decode($row['json'], true);
-    // Utilidades::printr($json);
-    echo '<tr>';
-    echo '<td>' . $json['fecha'] . '</td>';
-    echo '<td>' . $json['usuario'] . '</td>';
-    echo '<td>';
-    $first = true;
-    foreach ($json['campos'] as $campo) {
-        if (!$first) echo ', ';
-        else $first = false;
-        echo $campo['nombre'];
-    }
-    echo '</td>';    
-    
-    echo '<td><a class="item" href="#">Ver</a>';
-    echo '<table style="margin:0; display:none">';    
-    foreach ($json['campos'] as $campo)
+if (is_array($listado))
+    foreach($listado as $row)
     {
+        $json = json_decode($row['json'], true);
+        // Utilidades::printr($json);
         echo '<tr>';
-        echo '<td>' . $campo['nombre'] . ':</td>';
-        echo '<td><div style="background-color:#fb8b8b">' . $campo['old'] . '</div>';
-        echo '<div style="background-color: #c7f8c6">' . $campo['new'] . '</div></td>';
-        echo '</tr>';
+        echo '<td>' . $json['fecha'] . '</td>';
+        echo '<td>' . $json['usuario'] . '</td>';
+        echo '<td>';
+        $first = true;
+        foreach ($json['campos'] as $campo) {
+            if (!$first) echo ', ';
+            else $first = false;
+            echo $campo['nombre'];
+        }
+        echo '</td>';    
+    
+        echo '<td><a class="item" href="#">Ver</a>';
+        echo '<table style="margin:0; display:none">';    
+        foreach ($json['campos'] as $campo)
+        {
+            echo '<tr>';
+            echo '<td>' . $campo['nombre'] . ':</td>';
+            echo '<td><div style="background-color:#fb8b8b">' . $campo['old'] . '</div>';
+            echo '<div style="background-color: #c7f8c6">' . $campo['new'] . '</div></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        echo '</td>';
     }
-    echo '</table>';
-    echo '</td>';
-}
 echo '</tbody>';
 echo '</table>';
