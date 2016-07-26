@@ -3,16 +3,18 @@ $(document).ready(function() {
     var prefixId = '#reporte_01_ventas_';
     var prefixClass = '.reporte_01_ventas_';
     var dataTable_listado = '';
-    // --------------------------------------------------------------- LOAD
+    // --------------------------------------------------------------- LOAD    
     reporte_01_campania_id();    
     reporte_01_supervisor_id();
     reporte_01_asesor_comercial_id();
     reporte_01_tipo($('#tipo'));
+    reporte_01_cliente_tipo_id();
     
     // ------------------------------------------------------------ EVENTOS
     $('#campania_id').on('change', function (event) {
         reporte_01_supervisor_id();
         reporte_01_asesor_comercial_id();
+        reporte_01_cliente_tipo_id();
     });
     $('#anio-mes-ini').on('change', function (event) {
         reporte_01_supervisor_id();
@@ -87,8 +89,10 @@ $(document).ready(function() {
         // c(item.val());
         if (item.val() == '05') {
             $('#rango_fechas_div').show();
+            $('#cliente_tipo_div').show();
         } else {
             $('#rango_fechas_div').hide();
+            $('#cliente_tipo_div').hide();
         }
         if (item.val() == '06') {
             $('#supervisor_id').parent().parent().hide();
@@ -97,5 +101,18 @@ $(document).ready(function() {
             $('#supervisor_id').parent().parent().show();
             $('#asesor_comercial_id').parent().parent().show();
         }
+    }
+    //
+    function reporte_01_cliente_tipo_id() {
+        var enviar = {
+            'campania_id'    : $('#campania_id').val(),
+            'cliente_tipo_id': $('#cliente_tipo').val(),
+        }
+        // c(enviar);
+        element_simple (
+            './procesos/ajax/select/reporte01venta_cliente_tipo_id.php',
+            '#cliente_tipo',
+            enviar
+        );
     }
 });

@@ -10,7 +10,6 @@ class ModeloAuten {
             return False;
         }
     }
-
     static function user_log($modulo, $url_exit) {
         $exit = False;
         if( isset($_SESSION['user_id']) ) {
@@ -26,11 +25,15 @@ class ModeloAuten {
             header('Location: '.$url_exit);
         }
     }
-
+    static function user_log_0($url_exit) {
+        $exit = False;
+        if(!isset($_SESSION['user_id']) ) {
+            header('Location: '.$url_exit);
+        }
+    }
     static function logOut() {
         session_destroy(); 
     }
-
     static function logIn($in) {
         $q = new Query();
         $q->fields = array('modulo' => '', 'user_id' => '', 'user_full_name' => '');
@@ -99,7 +102,6 @@ class ModeloAuten {
             }            
         }
     }
-
     static function changePWD($in) {
         $q = new Query();
         $q->fields = array('id' => '');

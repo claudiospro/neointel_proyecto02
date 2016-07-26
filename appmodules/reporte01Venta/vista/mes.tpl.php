@@ -16,7 +16,7 @@ include './vista/colores.php';
 
 <script src="../../lib/vendor/foundation-datepicker/js/foundation-datepicker.min.js"></script>
 <script src="../../lib/vendor/foundation-datepicker/js/locales/foundation-datepicker.es.js"></script>
-<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.2.0"></script>
+<script src="../../static/reporte01Venta/reporte01Venta_listado.js?v=1.5.0"></script>
 <script type="text/javascript">
  $('.datapicker-month input').fdatepicker({
      format: 'yyyy-mm',

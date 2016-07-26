@@ -44,6 +44,11 @@ if (isset($_GET['campania_id'])) {
     } else {
         $in['rango_fechas'] = '00';
     }
+    if (isset($_GET['cliente_tipo'])) {
+        $in['cliente_tipo'] = Utilidades::clear_input($_GET['cliente_tipo']);
+    } else {
+        $in['cliente_tipo'] = '00';
+    }
     
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 
@@ -214,6 +219,7 @@ if (isset($_GET['campania_id'])) {
     $in['supervisor_id'] = '00';
     $in['asesor_comercial_id'] = '00';
     $in['rango_fechas'] = '00';
+    $in['cliente_tipo'] = '00';
     $in['lineas'] = Utilidades::clear_input($_SESSION['lineas']);
 }
 

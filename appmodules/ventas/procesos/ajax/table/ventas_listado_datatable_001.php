@@ -37,9 +37,9 @@ $sql_ini.= "
     , d8.nombre estado_real
     , d.estado_observacion
     , 'acciones'
-    , d.agendado_fecha
     , v.info_create_fecha fecha_creacion
     , v.info_update_fecha fecha_actualizacion
+    , d.agendado_fecha
     , d4.nombre asesor_venta
     , d6.nombre supervisor
     , d7.nombre coordinador
@@ -157,13 +157,13 @@ if( !empty($requestData['columns'][++$i]['search']['value']) ) {
 ++$i; // 8
 ++$i; // 9 (acciones)
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
-    $sql_filter.=' AND agendado_fecha LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
-}
-if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND fecha_creacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND fecha_actualizacion LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
+}
+if( !empty($requestData['columns'][++$i]['search']['value']) ) {
+    $sql_filter.=' AND agendado_fecha LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
 }
 if( !empty($requestData['columns'][++$i]['search']['value']) ) {
     $sql_filter.=' AND asesor_venta LIKE "%' . Utilidades::sanear_complete_string($requestData['columns'][$i]['search']['value']) . '%"';
@@ -262,6 +262,16 @@ while( $row=mysqli_fetch_array($query) ) {
     if (validar_permisos('tran', $row)) $acciones.= '<a class="button tiny transparencia no-margin warning " venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" data-open="venta_listado_modal_div3" title="Trasparencia" ><i class="fi-magnifying-glass medium"></i></a>';
     if (validar_permisos('dele', $row)) $acciones.= '<a class="button tiny delete no-margin alert" venta_id="' . $row['venta_id'] . '" campania="' . $row['campania'] . '" title="Eliminar" ><i class="fi-x medium"></i></a>';
     $nestedData[] = '<center class="item-datatable item-datatable-' . $row['venta_id'] . '">' . $acciones . '</center>';
+    $nestedData[] = '
+    <div class="editable-inline line2" class=""' . $sty_color . '>
+      <a></a>
+      <span venta_id="' . $row['venta_id'] . '" campo="info_create_fecha">
+      ' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']) . '
+      </span>
+      <div style="display:none"></div>      
+    </div>
+    ';    
+    $nestedData[] = '<span' . $sty_color . '>' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion'])  . '</span>';
     $tmp = substr($row['agendado_fecha'], 0, 16);
     if ($tmp == '0000-00-00 00:00') $tmp ='';
     $nestedData[] = utf8_encode('<u' . $sty_color . '>Obs</u>:
@@ -281,20 +291,7 @@ while( $row=mysqli_fetch_array($query) ) {
                                    <div style="display:none"></div>
                                  </div>
                                  '
-    );    
-    // $nestedData[] = Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']);
-    $nestedData[] = '
-    <div class="editable-inline line2" class=""' . $sty_color . '>
-      <a></a>
-      <span venta_id="' . $row['venta_id'] . '" campo="info_create_fecha">
-      ' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_creacion']) . '
-      </span>
-      <div style="display:none"></div>      
-    </div>
-    ';    
-    $nestedData[] = '<span' . $sty_color . '>' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($row['fecha_actualizacion'])  . '</span>';
-    // $nestedData[] = utf8_encode($row['asesor_venta']);
-    // $nestedData[] = utf8_encode($row['supervisor']);
+    );
     $nestedData[] = '
     <div class="editable-inline line2" class="" ' . $sty_color . '>
       <a></a>
@@ -336,7 +333,8 @@ function validar_permisos($accion, $row) {
     }
     if ($accion == 'tran')
     {
-        if ($perfil != 'Gerencia' && $perfil != 'Admin' ) $ou = false;
+        if ($perfil == 'Gerencia' || $perfil == 'Admin' || $perfil == 'Coordinador') $ou = true;
+        else $ou = false;
     }
     return $ou;
 }

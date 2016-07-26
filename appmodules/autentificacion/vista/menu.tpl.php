@@ -34,6 +34,18 @@
           <?php endif ?>
         </ul>
       </li>
+      <li class="has-submenu" data-dropdown-menu>
+        <a href="#">Otros</a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li>
+            <a href="<?php echo $base_url . 'autentificacion' ?>"
+               title="Usuario: <?php echo $_SESSION['user_full_name'] ?>">
+              Cambiar contraseña
+            </a>
+          </li>
+          <li><a href="<?php echo $base_url . 'ayuda' ?>">Información de Ayuda</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="top-bar-right">

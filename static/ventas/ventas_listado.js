@@ -127,11 +127,11 @@ $(document).ready(function() {
         var lugar = '';
         if (enviar.campania == 'campania_001')
         {            
-            order = 13;
+            order = 12;
             unsortable = [7, 10, 11];
             lugar = '_001';
-            if(enviar.perfil == 'Asesor Comercial') ver = [2, 3, 7, 9, 12, 15, 17, 18, 19, 20];
-            else if(enviar.perfil == 'Supervisor') ver =  [2, 3, 7,    12, 16, 17, 18, 19, 20];
+            if(enviar.perfil == 'Asesor Comercial') ver = [2, 3, 7, 9, 14, 15, 17, 18, 19, 20];
+            else if(enviar.perfil == 'Supervisor') ver =  [2, 3, 7,    14, 16, 17, 18, 19, 20];
             else if(enviar.perfil == 'Tramitacion' ||
                     enviar.perfil == 'Tramitacion-Carga' ||
                     enviar.perfil == 'Tramitacion-Validacion' ||

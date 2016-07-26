@@ -118,9 +118,9 @@ $test = false;
       <th>Estado Real</th>
       <th><span style="display: block; width: 220px;">Observación</span></th>
       <th>Acciones</th>
-      <th>Agendado</th>
       <th>Fecha Creación</th>
       <th>Fecha Ultima</th>
+      <th>Agendado</th>
       <th><span style="display: block; width: 160px;">Asesor de Venta</span></th>
       <th><span style="display: block; width: 160px;">Supervisor</span></th>
       <th><span style="display: block; width: 160px;">Coordinador</span></th>

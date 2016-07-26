@@ -340,6 +340,13 @@ class ModeloVenta {
             $rango_fecha = '%Y-%m-%d';
             if ($in['rango_fechas'] == '04') $rango_fecha = '%Y-%m';
             if ($in['rango_fechas'] == '02') $rango_fecha = 'Semana %u';
+
+            if ($in['cliente_tipo'] != '00')
+            {
+                $filtros    .= ' AND d.cliente_tipo = "' . $in['cliente_tipo'] . '" 
+                ';
+            }
+            
             $this->q->sql = '
             SELECT d.estado
                  , DATE_FORMAT(v.info_create_fecha,"' . $rango_fecha . '") fecha
@@ -361,9 +368,6 @@ class ModeloVenta {
                 'total'    => '',
                 'campania' => '',
             );
-            $rango_fecha = '%Y-%m-%d';
-            if ($in['rango_fechas'] == '04') $rango_fecha = '%Y-%m';
-            if ($in['rango_fechas'] == '02') $rango_fecha = 'Semana %u';
             $this->q->sql = '
             SELECT DATE_FORMAT(v.info_create_fecha,"%Y-%m")
                  , SUM(d.producto_cantidad)
@@ -452,6 +456,21 @@ class ModeloVenta {
                          JOIN usu_usuario u on u.id = t.asesor_venta_id
                          ORDER BY 1
                         ';
+        // Utilidades::printr($this->q->sql);
+        $ou = $this->q->exe(); 
+        return $ou;
+    }
+    function getClienteTipoByCampania($in) {
+        $ou = null;
+        $this->q->fields = array(
+            'id' => '',
+            'nombre' => '',
+        );            
+        $this->q->sql = '
+        SELECT id, nombre FROM `venta_cliente_tipo`
+        WHERE `campania` LIKE "%' . $in['campania_id'] . '%" AND `info_status` = 1
+        ';
+
         // Utilidades::printr($this->q->sql);
         $ou = $this->q->exe(); 
         return $ou;

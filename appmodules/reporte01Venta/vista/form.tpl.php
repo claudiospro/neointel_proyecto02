@@ -57,6 +57,11 @@
         ?>        
       </select>
     </div>
+    <div class="large-2 medium-2 small-3 columns" id="cliente_tipo_div">
+      <select  name="cliente_tipo" id="cliente_tipo" class="no-margin" style="font-size:.8em">
+        <option value="<?php echo $in['cliente_tipo'] ?>"></option>
+      </select>
+    </div>
     <div class="large-1 medium-2 small-3 columns">
       <button type="submit" class="button no-margin expanded success">Ver</button>
     </div>
