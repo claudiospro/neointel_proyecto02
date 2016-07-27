@@ -21,6 +21,7 @@ echo '<thead>';
 echo '<tr>';
 echo '<th>Nro</th>
       <th>Fecha de Creación</th>
+      <th>Documento</th>
       <th>Cliente</th>
       <th>Campaña</th>
       <th>Supervisor</th>
@@ -35,6 +36,7 @@ if (isset($ou)) {
         echo '<tr>';
         echo '<td>' . $i++ . '</td>';
         echo '<td><center>' . Utilidades::fechas_de_MysqlTimeStamp_a_string_hm($r['fecha'])  . '</center></td>';
+        echo '<td>' . utf8_encode($r['documento']) . '</td>';
         echo '<td>' . utf8_encode($r['cliente']) . '</td>';
         echo '<td>' . utf8_encode($r['campania']) . '</td>';
         echo '<td>' . utf8_encode($r['supervisor']) . '</td>';

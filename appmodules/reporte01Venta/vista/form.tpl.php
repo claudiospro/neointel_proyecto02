@@ -11,16 +11,17 @@
         <?php
         $ll = array('1'=> 'Estados',
                     '2'=>'Tipo Cliente',
+                    '7'=>'Producto',
                     '3'=>'Comparativo de Asesores Activos',
                     '4'=>'Comparativo de Asesores Cesados',
-                    '5'=>'Historico',
+                    '5'=>'Historico',                    
         );
         if ($perfiles == 'Admin' || $perfiles == 'Gerencia')
         {
             $ll['6'] = 'Ventas Instaladas Fecha';
         }
         $total = count($ll);
-        for($i = 1; $i<=$total; $i++)
+        foreach($ll as $i => $row)
         {
             $selected = '';
             if ($i === (int)$in['tipo'])
@@ -28,7 +29,7 @@
                 $selected = 'selected';
             }
             printf('<option value="%\'.02d" ' . $selected . '>%s</option>'
-                 , $i, $ll[$i]
+                 , $i, $row
             );
         }
         ?>

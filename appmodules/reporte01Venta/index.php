@@ -44,7 +44,7 @@ if (isset($_GET['campania_id'])) {
     } else {
         $in['rango_fechas'] = '00';
     }
-    if (isset($_GET['cliente_tipo'])) {
+    if (isset($_GET['cliente_tipo']) && $_GET['cliente_tipo'] != '') {
         $in['cliente_tipo'] = Utilidades::clear_input($_GET['cliente_tipo']);
     } else {
         $in['cliente_tipo'] = '00';
@@ -224,6 +224,7 @@ if (isset($_GET['campania_id'])) {
 }
 
 $data = $data1 ;
+// Utilidades::printr($in);
 // Utilidades::printr($data0);
 // Utilidades::printr($data);
 // Utilidades::printr($_SESSION);

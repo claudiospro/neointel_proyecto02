@@ -781,6 +781,7 @@ class ModeloVenta {
         $this->q->fields = array(
             'id' => '',
             'fecha' => '',
+            'documento' => '',
             'cliente' => '',
             'campania' => '',
             'indice' => '',
@@ -864,7 +865,7 @@ class ModeloVenta {
                 if ($this->q->sql != '')
                     $this->q->sql .= ' UNION ';
                 $this->q->sql .= '
-                SELECT v.id, v.info_create_fecha, d.cliente_nombre, "' . $row['nombre'] . '", "' . $row['indice'] . '", s.nombre supervisor , a.nombre asesor
+                SELECT v.id, v.info_create_fecha, d.cliente_documento, d.cliente_nombre, "' . $row['nombre'] . '", "' . $row['indice'] . '", s.nombre supervisor , a.nombre asesor
                 FROM venta_' . $row['indice'] . ' d
                 JOIN venta v ON v.id = d.id
                 JOIN usu_usuario a ON a.id = v.asesor_venta_id
