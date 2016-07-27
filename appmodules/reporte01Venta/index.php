@@ -189,6 +189,7 @@ if (isset($_GET['campania_id'])) {
             $data1['ventas']['first'] = $data1['ventas']['first']['fecha'];
             $data1['ventas']['last'] =  $data1['ventas']['last']['fecha'];
         }
+        // --------------------------------------------------------------------------------------
         if (isset($data0['ventas']) && $in['tipo'] == '06')
         {
             $mesLiteral = array(
@@ -202,7 +203,23 @@ if (isset($_GET['campania_id'])) {
                 $data1['ventas']['listado'][ $row['fecha'] ] = $row['total'];
             }
         }
+        // -----------------------------------------------------------------------------------------
+        if (isset($data0['producto']) && $in['tipo'] == '07')
+            foreach($data0['producto'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $e = $row['agrupado'];
+                $data1[$index]['producto'][$e] = array ('name'=>$row['agrupado'], 'y'=>$row['total'], 'drilldown' => $row['agrupado']);
+            }
+        if (isset($data0['estado']) && $in['tipo'] == '07')
+            foreach($data0['estado'] as $row) {
+                // busco en listado
+                $index = $data0['indice'][$row['campania']];
+                $a = $row['agrupado'];
+                $e = $row['estado_id'];
+                $data1[$index]['estado'][$a][$e] = array ( 'name'=>$row['estado'], 'y'=>$row['total'] );
 
+            }
     }
     
     // --------------------------------------------------------- TEST

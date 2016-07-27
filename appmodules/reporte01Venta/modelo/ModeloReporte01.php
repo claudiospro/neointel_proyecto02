@@ -381,7 +381,49 @@ class ModeloVenta {
             ';
             // Utilidades::printr($this->q->sql);
             $data['ventas'] = $this->q->exe();
-        }    
+        }
+        elseif ($in['tipo'] == '07')
+        {
+            // ---------------------------------------------------- estado
+            $this->q->fields = array(
+                'agrupado' => '',
+                'total' => '',
+                'campania' => '',
+            );            
+            $this->q->sql = '
+                (SELECT p.agrupado, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+                FROM venta_' . $in['campania_id'] . ' d
+                JOIN venta v ON v.id=d.id
+                LEFT JOIN venta_producto p ON p.id = d.producto 
+                WHERE ' . $filtros . '
+                GROUP by 1)
+            ';
+            // Utilidades::printr($this->q->sql);
+            $data['producto'] = $this->q->exe();
+        
+            // ---------------------------------------------------------------- estado
+            $this->q->fields = array(
+                'estado' => '',
+                'estado_id' => '',
+                'agrupado' => '',
+                'total' => '',
+                'campania' => '',
+            );          
+            
+
+            $this->q->sql = '
+                SELECT e.nombre, d.estado, p.agrupado, SUM(d.producto_cantidad) total, "' . $in['campania_id'] . '" campania
+                FROM venta_' . $in['campania_id'] . ' d
+                JOIN venta v ON v.id=d.id
+                JOIN venta_producto p ON p.id=d.producto
+                JOIN venta_estado e ON e.id=d.estado
+                WHERE ' . $filtros . '
+                GROUP by 2,3
+            ';
+
+            //Utilidades::printr($this->q->sql);
+            $data['estado'] = $this->q->exe();            
+        }
         return $data;
     }
     function getSupervisorByFechas($in) {
