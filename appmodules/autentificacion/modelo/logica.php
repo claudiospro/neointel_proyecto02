@@ -1,7 +1,5 @@
 <?php 
 session_start();
-// funciones
-
 class ModeloAuten {
     static function exist() {
         if( isset($_SESSION['user_id']) ) {
@@ -45,6 +43,7 @@ class ModeloAuten {
         LEFT JOIN usu_recurso r ON r.id=pr.recurso_id
         WHERE u.login = "' . $in['nombre'] . '"
         AND u.pwd ="' . crypt($in['pwd'], '$4a$85$estoesparati$') . '"
+        AND u.info_status = 1
         ';
         $q->data = NULL;
         $data = $q->exe();        
