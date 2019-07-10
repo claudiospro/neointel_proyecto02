@@ -33,7 +33,7 @@ foreach($form as $name => $row) {
         echo '<input type="hidden" 
                      name = "' . $name . '"
                      id = "field_' . $name . '"
-                     value="' . utf8_encode($dato[$name]) . '"
+                     value="' . ($dato[$name]) . '"
               >';
     } elseif ($row['type'] == 'text') {
         echo '<div class="row">';
@@ -41,7 +41,7 @@ foreach($form as $name => $row) {
         echo '<div class="large-9 medium-9 small-9 columns" style="background-color: #71b4e4">
                 <input type="text"
                        name = "' . $name . '"
-                       value="' . utf8_encode($dato[$name]) . '"
+                       value="' . ($dato[$name]) . '"
                        class="no-margin" 
                 />
               </div>';
@@ -59,7 +59,7 @@ foreach($form as $name => $row) {
         echo '<div class="large-9 medium-9 small-9 columns" style="background-color: #71b4e4">
                 <textarea name = "' . $name . '"
                           rows = "2"
-                          class="no-margin">' . utf8_encode($dato[$name]) . '</textarea>
+                          class="no-margin">' . ($dato[$name]) . '</textarea>
               </div>';
         echo '</div>';
     } elseif ($row['type'] == 'bool') {

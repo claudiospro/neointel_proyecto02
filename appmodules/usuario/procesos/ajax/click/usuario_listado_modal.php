@@ -51,7 +51,7 @@ foreach($form as $name => $row) {
         echo '<input type="hidden" 
                      name = "' . $name . '"
                      id = "field_modal_usuario_' . $name . '"
-                     value="' . utf8_encode($dato[$name]) . '"
+                     value="' . ($dato[$name]) . '"
               >';
     } elseif ($row['type'] == 'text') {
         echo '<div class="row">';
@@ -60,7 +60,7 @@ foreach($form as $name => $row) {
                 <input type="text"
                        name = "' . $name . '"
                        id = "field_modal_usuario_' . $name . '"
-                       value="' . utf8_encode($dato[$name]) . '"
+                       value="' . ($dato[$name]) . '"
                        class="no-margin" 
                 />
               </div>';
@@ -79,7 +79,7 @@ foreach($form as $name => $row) {
                 <textarea name = "' . $name . '"
                           id = "field_modal_usuario_' . $name . '"
                           rows = "2"
-                          class="no-margin">' . utf8_encode($dato[$name]) . '</textarea>
+                          class="no-margin">' . ($dato[$name]) . '</textarea>
               </div>';
         echo '</div>';
     } elseif ($row['type'] == 'bool') {
@@ -176,7 +176,7 @@ if (isset($grupos))
                      class="no-margin item-grupo"
                      ' . $checked . '
               />';
-        echo utf8_encode($row['nombre']). ': '. $supervisor . ' (' . utf8_encode($row['campania']) . ')<br>';
+        echo ($row['nombre']). ': '. $supervisor . ' (' . ($row['campania']) . ')<br>';
     }
 }
 echo '</div>';

@@ -34,7 +34,7 @@ FROM usu_usuario u
 -- LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
 LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
 LEFT JOIN usu_perfil p ON p.id=up.perfil_id
-WHERE u.id !=1
+-- WHERE u.id !=1
 ';
 
 
@@ -177,9 +177,9 @@ while( $row=mysqli_fetch_array($query) ) {
     
     
     $nestedData = array();
-    $nestedData[] = utf8_encode($row['nombre']);
-    $nestedData[] = '<center>' . utf8_encode($row['login']) . '</center>';
-    $nestedData[] = '<center>' . utf8_encode($row['perfil']) . '</center>';
+    $nestedData[] = ($row['nombre']);
+    $nestedData[] = '<center>' . ($row['login']) . '</center>';
+    $nestedData[] = '<center>' . ($row['perfil']) . '</center>';
     if ($poder) {
         $tmp = $combo;
         $tmp = str_replace('option value="' . $row['vigente'] . '"', 'option value="' . $row['vigente'] . '" selected', $tmp);

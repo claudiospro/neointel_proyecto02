@@ -88,7 +88,8 @@ class ModeloUsuario {
         SELECT u.id
              , u.nombre
              , u.nombre_corto
-             , u.login, u.pwd
+             , u.login
+             , u.pwd
              , up.perfil_id
              , p.nombre
              , u.comentario
@@ -104,7 +105,7 @@ class ModeloUsuario {
         LEFT JOIN usu_perfil p ON p.id = up.perfil_id
         WHERE u.id = "' . $in['usuario_id'] . '"
         ';
-        // echo $this->q->sql;        
+        // echo "<textarea rows='30'>{$this->q->sql}</textarea>";
         $this->q->data = NULL;
         if ($in['usuario_id'] != '0') {
             $data = $this->q->exe();
@@ -120,10 +121,10 @@ class ModeloUsuario {
         $this->q->sql = '
         CALL usu_usuario_save(
           "' . $in['form']['usuario_id']. '"
-        , "' . utf8_decode($in['form']['nombre']) . '"
-        , "' . utf8_decode($in['form']['nombre_corto']) . '"
-        , "' . utf8_decode($in['form']['login']) . '"
-        , "' . utf8_decode($in['form']['comentario']) . '"
+        , "' . ($in['form']['nombre']) . '"
+        , "' . ($in['form']['nombre_corto']) . '"
+        , "' . ($in['form']['login']) . '"
+        , "' . ($in['form']['comentario']) . '"
         , "' . $in['form']['telefono']. '"
         , "' . $in['form']['direccion']. '"
         , "' . $in['form']['vigente']. '"
@@ -136,7 +137,7 @@ class ModeloUsuario {
         , "' . $in['usuario'] . '"
         )
         ';
-        // echo $this->q->sql;        
+        // echo $this->q->sql;
         $data =  $this->q->exe();
 
         $this->q->fields = array();
@@ -364,7 +365,7 @@ class ModeloUsuario {
         $this->q->sql = '
         CALL usu_lineal_save(
           "' . $in['form']['grupo_id']. '"
-        , "' . utf8_decode($in['form']['nombre']) . '"
+        , "' . ($in['form']['nombre']) . '"
         , "' . $in['form']['vigente']. '"
         , "' . $in['form']['campania_id']. '"
         , "' . $in['fecha'] . '"

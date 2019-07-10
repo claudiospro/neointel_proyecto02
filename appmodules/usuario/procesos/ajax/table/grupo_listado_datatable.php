@@ -125,8 +125,8 @@ $info_status = array('0' => 'No' , '1' => 'Si');
 while( $row=mysqli_fetch_array($query) ) {
     // l.nombre, c.nombre campania, l.info_status,
     $nestedData = array();
-    $nestedData[] = utf8_encode($row['nombre']);
-    $nestedData[] = utf8_encode($row['campania']);
+    $nestedData[] = ($row['nombre']);
+    $nestedData[] = ($row['campania']);
     $nestedData[] = '<center>' . $info_status[$row['vigente']] . '<center>';
     $acciones = '';    
     $acciones.= '<a class="button tiny edit no-margin" grupo_id="' . $row['id'] . '" data-open="usuario_listado_modal_div2" title="Editar" >
