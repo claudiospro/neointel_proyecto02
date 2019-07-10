@@ -4,7 +4,7 @@ class Query {
     public $sql;
     public $data = NULL;
     public function exe() {
-        DBConnector::set_db('neointelperu_apps2');
+        DBConnector::set_db('neointelperu_apps');
         DBConnector::$results = NULL;
         if ($this->fields == NULL) {
             DBConnector::ejecutar($this->sql, $this->data);

@@ -1,8 +1,8 @@
 <?php
 class DBConnector_Alternative {
     public  $servername = 'localhost';
-    public  $username = 'root';
-    public  $password = 'allemant';
+    public  $username = 'neo';
+    public  $password = 'neo';
     public  $dbname = 'neointelperu_apps';
 }
 class DBConnector {
@@ -14,9 +14,9 @@ class DBConnector {
     public static $results;
     
     private static $db_host = 'localhost';
-    private static $db_user = 'root';
-    private static $db_pass = 'allemant';
-    protected static $db_name = '';
+    private static $db_user = 'neo';
+    private static $db_pass = 'neo';
+    protected static $db_name = 'neointelperu_apps';
 	
     // private static $db_host = 'localhost';
     // private static $db_user = 'root';

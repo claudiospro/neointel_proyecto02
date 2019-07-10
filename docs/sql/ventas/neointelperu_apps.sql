@@ -24,7 +24,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ventas_save` (`in_id` BIGINT, `in_campania` VARCHAR(600), `in_fecha` VARCHAR(100), `in_usuario` INT)  BEGIN
+CREATE DEFINER=`neo`@`localhost` PROCEDURE `ventas_save` (`in_id` BIGINT, `in_campania` VARCHAR(600), `in_fecha` VARCHAR(100), `in_usuario` INT)  BEGIN
   DECLARE ou_id BIGINT;
   DECLARE pr_lineal_id BIGINT;
   DECLARE pr_asesor_venta_id BIGINT;
@@ -1307,7 +1307,7 @@ CREATE TABLE `vista_usuarios` (
 --
 DROP TABLE IF EXISTS `vista_usuarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_usuarios`  AS  select `u`.`id` AS `id`,`u`.`nombre` AS `nombre`,`u`.`nombre_corto` AS `nombre_corto`,`u`.`login` AS `login`,if((`u`.`pwd` = '$4nkNrBEK8ra2'),'No','Si') AS `clave`,`p`.`nombre` AS `perfil`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 1))) AS `grupo_1`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 2))) AS `grupo_2`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 5))) AS `grupo_5` from ((`usu_usuario` `u` left join `usu_usuario_perfil` `up` on((`up`.`usuario_id` = `u`.`id`))) left join `usu_perfil` `p` on((`p`.`id` = `up`.`perfil_id`))) order by `u`.`id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`neo`@`localhost` SQL SECURITY DEFINER VIEW `vista_usuarios`  AS  select `u`.`id` AS `id`,`u`.`nombre` AS `nombre`,`u`.`nombre_corto` AS `nombre_corto`,`u`.`login` AS `login`,if((`u`.`pwd` = '$4nkNrBEK8ra2'),'No','Si') AS `clave`,`p`.`nombre` AS `perfil`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 1))) AS `grupo_1`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 2))) AS `grupo_2`,(select count(`usu_usuario_lineal`.`id`) from `usu_usuario_lineal` where ((`usu_usuario_lineal`.`usuario_id` = `u`.`id`) and (`usu_usuario_lineal`.`lineal_id` = 5))) AS `grupo_5` from ((`usu_usuario` `u` left join `usu_usuario_perfil` `up` on((`up`.`usuario_id` = `u`.`id`))) left join `usu_perfil` `p` on((`p`.`id` = `up`.`perfil_id`))) order by `u`.`id` ;
 
 --
 -- Indexes for dumped tables
