@@ -1,0 +1,6 @@
++ lineal vs campaña
+  + una campaña puede tener varias lineales
+  + una liineal solo puede tener una campaña
++ requisitos de lineal
+  + debe tener supervisor y coordinador
+

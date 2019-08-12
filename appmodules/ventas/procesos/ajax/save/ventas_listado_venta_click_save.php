@@ -16,13 +16,17 @@ $dato = $_POST;
 
 // -------------------------------------------------------- Data
 $campos = $venta->getcampos($in);
+$in['f'] = 'id, ';
 if ($in['venta_id'] != '0') {
     $in['fields']['id'] = '';
     foreach ($campos as $r)
     {
         $in['fields'][$r['nombre']] = '';
+      $in['f'] .= $r['nombre'] . ', ';
     }
-    $old = $venta->getUnDato($in);
+  $in['f'] = substr(  $in['f'], 0, -2);
+
+  $old = $venta->getUnDato($in);
 }
 $id = $venta->setVenta($in);
 
@@ -34,20 +38,21 @@ $sql_set = '';       // update
 
 // lo siguiente es si existe "estado_real" para cambiar
 // print_r($campos);
-foreach ($campos as $row) {
-    if (isset($dato['estado_real']) && $row['nombre'] == 'estado_real') {
-        $dato['estado'] = $venta->getEstadoRealToEstado($dato['estado_real']);
-    }
-    if (isset($dato['cliente_tipo_inicial']) && $row['nombre'] == 'cliente_tipo_inicial' && $in['venta_id'] == '0') {
-        $dato['cliente_tipo'] = $dato['cliente_tipo_inicial'];
-    }
-    if (isset($dato['producto_inicial']) && $row['nombre'] == 'producto_inicial' && $in['venta_id'] == '0') {
-        $dato['producto'] = $dato['producto_inicial'];
-    }
-}
+// foreach ($campos as $row) {
+//     if (isset($dato['estado_real']) && $row['nombre'] == 'estado_real') {
+//         $dato['estado'] = $venta->getEstadoRealToEstado($dato['estado_real']);
+//     }
+//     if (isset($dato['cliente_tipo_inicial']) && $row['nombre'] == 'cliente_tipo_inicial' && $in['venta_id'] == '0') {
+//         $dato['cliente_tipo'] = $dato['cliente_tipo_inicial'];
+//     }
+//     if (isset($dato['producto_inicial']) && $row['nombre'] == 'producto_inicial' && $in['venta_id'] == '0') {
+//         $dato['producto'] = $dato['producto_inicial'];
+//     }
+// }
 
 // construlle el sql
 $json_log = array();
+
 foreach ($campos as $row) {
     if ($row['diccionario'] == '1') {
         $dato[$row['nombre']] = array (
@@ -92,12 +97,12 @@ foreach ($campos as $row) {
             $igualado = ( utf8_encode($old[$row['nombre']]) == $dato[$row['nombre']] );
         }
         if (!$igualado) { // aqui hacer los cambios
-            $json_log[] = $venta->drawLogItem(
-                'venta_' . $in['campania']
-                , $row['nombre']
-                , $old[$row['nombre']]
-                , $dato[$row['nombre']]
-            );
+//            $json_log[] = $venta->drawLogItem(
+//                'venta_' . $in['campania']
+//                , $row['nombre']
+//                , $old[$row['nombre']]
+//                , $dato[$row['nombre']]
+//            );
             // echo $row['nombre'].': '; print_r($igualado); echo ', ';
         }
     }

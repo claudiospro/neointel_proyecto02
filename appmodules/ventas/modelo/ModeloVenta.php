@@ -4,7 +4,7 @@ class ModeloVenta {
     function __construct() {
         $this->q = new Query();        
     }
-    function getCampos($in) {
+    function getCampos($in, $h=false) {
         $this->q->fields = array(
             'pestana' => '',
             'grupo' => '',
@@ -18,8 +18,26 @@ class ModeloVenta {
             'diccionario_orden' => '',
             'tipo' => '',
             'perfiles' => '',
-            'permisos' => ''
+            'permisos' => '',
+            'listado_aparece' => '',
+            'listado_label' => '',
+            'listado_ancho' => '',
+            'listado_permisos' => '',
+            'campo_mayuscula' => '',
+            'campo_obligatorio' => '',
+            'declarativo_fecha' => '',
+            'declarativo_columna_ancho' => '',
         );
+
+        if ($h) {
+          $order = 'listado_orden';
+          $where = 'WHERE listado_aparece=1';
+        }
+        else {
+          $order = 'orden';
+          $where = '';
+        }
+
         $this->q->sql = '
         SELECT
           pestana
@@ -35,24 +53,40 @@ class ModeloVenta {
         , tipo
         , perfiles
         , permisos
+        , listado_aparece
+        , listado_label
+        , listado_ancho
+        , listado_permisos
+        , campo_mayuscula
+        , campo_obligatorio
+        , declarativo_fecha
+        , declarativo_columna_ancho
         FROM venta_' . $in['campania'] . '_campos
-        ORDER BY orden
+        ' . $where . '
+        ORDER BY ' . $order . '
         ';
-        // echo $this->q->sql;        
+        // echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
     }
     function getUnDato($in) {
-        $this->q->fields = $in['fields'];
+
+      $this->q->fields = $in['fields'];
+
+      if (isset( $in['f'])) {
         $this->q->sql = '
-        SELECT * FROM venta_' . $in['campania'] . '
+        SELECT ' . $in['f'] . ' FROM venta_' . $in['campania'] . '
         WHERE id="' . $in['venta_id'] . '"
         ';
-        // echo $this->q->sql;        
+
+        // print $this->q->sql;
+
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data[0];
+      }
+
     }
     function getUnDato_NombreCorto($in) {
         $this->q->fields = array('nombre'=>'');
@@ -64,10 +98,10 @@ class ModeloVenta {
         // echo $this->q->sql;        
         $this->q->data = NULL;
         $data = $this->q->exe();
-        return utf8_encode($data[0]['nombre']);
+        return ($data[0]['nombre']);
     }
     function imprimirCampo($dato, $campo, $campania) {
-        $dato = utf8_encode($dato);
+        $dato = ($dato);
         $ou = $dato;
         /*
          * DICCIONARIOS
@@ -79,15 +113,21 @@ class ModeloVenta {
          * 6: combo, con vacio, con dependencia-multiple
          * 7: combo, sin vacio, con dependencia-multiple
          */
+
+        $required = '';
+        if ($campo['campo_obligatorio'] == 1) {
+            $required = ' required';
+        }
+
         
         if ($campo['permiso'] == 'w') {
             if ($campo['diccionario']=='0' && $campo['tipo']=='VARCHAR') {
-                $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin">';
+                $ou = '<input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" value="' . $ou . '" class="no-margin ' . $required . '" ' . $required . '>';
             } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP') {
                 $tmp = substr($ou, 0, 10);
                 if ($tmp == '0000-00-00') $tmp = ''; 
                 $ou = '<div class="input-group datapicker-simple no-margin">
-                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $tmp . '" readonly>
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin ' . $required . '" value="' . $tmp . '" readonly ' . $required . '>
                           <a class="input-group-label" title="Limpiar"><i class="fi-calendar"></i></a>
                        </div>
                       ';
@@ -95,20 +135,23 @@ class ModeloVenta {
                 $tmp = substr($ou, 0, 16);
                 if ($tmp == '0000-00-00 00:00') $tmp = ''; 
                 $ou = '<div class="input-group datapicker-simple-hm no-margin">
-                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $tmp . '" readonly>
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin ' . $required . '" value="' . $tmp . '" readonly ' . $required . '>
                           <a class="input-group-label" title="Limpiar"><i class="fi-calendar"></i></a>
                        </div>
                       ';
-            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP-VARCHAR') {
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='TIMESTAMP-VARCHAR') {
                 $ou = '<div class="input-group no-margin">
-                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin" value="' . $ou . '" >
+                          <input name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" type="text" class="no-margin ' . $required . '" value="' . $ou . '" ' . $required . '>
                           <i class="input-group-label fi-calendar"></i>
                          </div>
                         ';
-            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TEXT') {
-                $ou = '<textarea name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin" rows="2">' . $ou . '</textarea>
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='TEXT') {
+                $ou = '<textarea name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" rows="2" ' . $required . '>' . $ou . '</textarea>
                         ';
-            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='TELEFONO') {
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='TELEFONO') {
                 $error = 'error';
                 if (strlen($ou)==9 || strlen($ou)==0) $error = '';
                 $ou = '<input name="' . $campo['nombre'] . '" 
@@ -116,29 +159,68 @@ class ModeloVenta {
                               type="text" 
                               value="' . $ou . '" 
                               maxlength="9"
-                              class="no-margin venta_item_telefono ' . $error . '">';
-            } elseif ($campo['diccionario']=='0' && $campo['tipo']=='INT') {
-                if ('' == trim($ou)) $ou = '1';
+                              class="no-margin venta_item_telefono ' . $error . ' ' . $required . '" ' . $required . '>';
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='INT') {
                 $ou = '<input name="' . $campo['nombre'] . '" 
                               id="field_' . $campo['nombre'] . '" 
                               type="number" 
                               value="' . $ou . '"
                               min="1"
-                              class="no-margin is_number">';
-            } elseif ($campo['diccionario']=='1') {
+                              class="no-margin is_number ' . $required . '" ' . $required . '>';
+
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='FLOAT') {
+              $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="number" 
+                              step="0.01"
+                              value="' . $ou . '"
+                              class="no-margin venta_item_float ' . $required . '" ' . $required . '>';
+
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='BANCO24') {
+              $error = 'error';
+              if (strlen($ou)==24 || strlen($ou)==0) $error = '';
+              $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="text" 
+                              value="' . $ou . '" 
+                              maxlength="24"
+                              class="no-margin venta_item_banco banco24 ' . $error . ' ' . $required . '" ' . $required . '>';
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='BANCO22') {
+              $error = 'error';
+              if (strlen($ou)==22 || strlen($ou)==0) $error = '';
+              $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="text" 
+                              value="' . $ou . '" 
+                              maxlength="22"
+                              class="no-margin venta_item_banco banco22 ' . $error . ' ' . $required . '" ' . $required . '>';
+            }
+            elseif ($campo['diccionario']=='0' && $campo['tipo']=='EMAIL') {
+              $ou = '<input name="' . $campo['nombre'] . '" 
+                              id="field_' . $campo['nombre'] . '" 
+                              type="email" 
+                              value="' . $ou . '"
+                              class="no-margin ' . $required . '" ' . $required . '>';
+            }
+            elseif ($campo['diccionario']=='1') {
                 if ($dato == '') {
                     $ou = '<input name="' . $campo['nombre'] . '"
                                   id="field_' . $campo['nombre'] . '"
+                                   class=" ' . $required . '"
                                   type="hidden"
-                                  value="0">
+                                  value="0" ' . $required . '>
                            <input name="' . $campo['nombre'] . '_value"
                                   id="field_' . $campo['nombre'] . '_value"
                                   type="text" 
-                                  class="venta_item_autocomplete autocomplete no-margin"
+                                  class="venta_item_autocomplete autocomplete no-margin ' . $required . '"
                                   campo="' . $campo['nombre'] . '" 
                                   dependencia="' . $campo['dependencia'] . '"
                                   diccionario="' . $campo['diccionario_nombre'] . '"
-                                  value="">';
+                                  value="" ' . $required . '>';
                 } else {
                     $this->q->fields = array('nombre' => '');
                     if ($campo['diccionario_nombre'] == '')
@@ -151,20 +233,21 @@ class ModeloVenta {
                     $data = $data[0]['nombre'];
                     $ou = '<input name="' . $campo['nombre'] . '"
                                   id="field_' . $campo['nombre'] . '"
+                                  class=" ' . $required . '"
                                   type="hidden"
-                                  value="' . $dato . '">
+                                  value="' . $dato . '" ' . $required . '>
                            <input name="' . $campo['nombre'] . '_value" 
                                   id="field_' . $campo['nombre'] . '_value"
                                   type="text"
-                                  class="venta_item_autocomplete autocomplete no-margin active"
+                                  class="venta_item_autocomplete autocomplete no-margin active ' . $required . '"
                                   campo="' . $campo['nombre'] . '"
                                   dependencia="' . $campo['dependencia'] . '"
                                   diccionario="' . $campo['diccionario_nombre'] . '"
-                                  value="' . utf8_encode($data) . '">';
+                                  value="' . ($data) . '" ' . $required . '>';
                 }
 
             } elseif ($campo['diccionario']=='2') { // sin dependencia, con estado vacio
-                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" ' . $required . '>';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $orderby = 'ORDER BY 2';
@@ -179,9 +262,9 @@ class ModeloVenta {
                 $data = $this->q->exe();
                 foreach ($data as $row) {
                     if ($row['id'] != $dato) {
-                        $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                        $ou.= '<option value="' . $row['id'] . '">' . ($row['nombre']) . '</option>';
                     } else {
-                        $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                        $ou.= '<option value="' . $row['id'] . '" selected>' . ($row['nombre']) . '</option>';
                     }
                     
                 }
@@ -190,7 +273,7 @@ class ModeloVenta {
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
-                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" ' . $required . '>';
                 $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 if ($campo['diccionario_nombre'] == '')
@@ -203,9 +286,9 @@ class ModeloVenta {
                 if ($data) {
                     foreach ($data as $row) {
                         if ($row['id'] != $dato) {
-                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '">' . ($row['nombre']) . '</option>';
                         } else {
-                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . ($row['nombre']) . '</option>';
                         }
                     }
                 }
@@ -215,7 +298,7 @@ class ModeloVenta {
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
-                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" ' . $required . '>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 if ($campo['diccionario_nombre'] == '')
                     $this->q->sql = 'SELECT id, nombre FROM venta_' . $campo['nombre'] . ' WHERE info_status=1 and campania="' . $campania . '" ' . $orderby;
@@ -227,16 +310,16 @@ class ModeloVenta {
                 if ($data) {
                     foreach ($data as $row) {
                         if ($row['id'] != $dato) {
-                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '">' . ($row['nombre']) . '</option>';
                         } else {
-                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . ($row['nombre']) . '</option>';
                         }
                     }
                 }
                 
                 $ou.= '</select>';
             } elseif ($campo['diccionario']=='5') { // sin dependencia, sin elemento vacio
-                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" ' . $required . '>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
@@ -250,9 +333,9 @@ class ModeloVenta {
                 $data = $this->q->exe();
                 foreach ($data as $row) {
                     if ($row['id'] != $dato) {
-                        $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                        $ou.= '<option value="' . $row['id'] . '">' . ($row['nombre']) . '</option>';
                     } else {
-                        $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                        $ou.= '<option value="' . $row['id'] . '" selected>' . ($row['nombre']) . '</option>';
                     }
                     
                 }
@@ -261,7 +344,7 @@ class ModeloVenta {
                 $orderby = 'ORDER BY 2';
                 if ($campo['diccionario_orden'] == '0') $orderby = '';
                 
-                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin">';
+                $ou = '<select name="' . $campo['nombre'] . '" id="field_' . $campo['nombre'] . '" class="no-margin ' . $required . '" ' . $required . '>';
                 if ($campo['diccionario']=='6')
                     $ou.= '<option value="0"></option>';
                 $this->q->fields = array('id' => '', 'nombre' => '');
@@ -275,9 +358,9 @@ class ModeloVenta {
                 if ($data) {
                     foreach ($data as $row) {
                         if ($row['id'] != $dato) {
-                            $ou.= '<option value="' . $row['id'] . '">' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '">' . ($row['nombre']) . '</option>';
                         } else {
-                            $ou.= '<option value="' . $row['id'] . '" selected>' . utf8_encode($row['nombre']) . '</option>';
+                            $ou.= '<option value="' . $row['id'] . '" selected>' . ($row['nombre']) . '</option>';
                         }
                     }
                 }
@@ -287,8 +370,8 @@ class ModeloVenta {
                               id="field_' . $campo['nombre'] . '" 
                               type="text" 
                               value="' . $ou . '" 
-                              class="no-margin" 
-                              style="color:red">';
+                              class="no-margin ' . $required . '" 
+                              style="color:red" ' . $required . '>';
             }
         } elseif ($campo['permiso'] == 'r') {
             if ($campo['diccionario']!='0') {                
@@ -300,7 +383,7 @@ class ModeloVenta {
                 // echo $this->q->sql.'<br>';                
                 $this->q->data = NULL;
                 $ou = $this->q->exe();
-                $ou = utf8_encode($ou[0]['nombre']);
+                $ou = ($ou[0]['nombre']);
             }
             if ('TIMESTAMP' == strtoupper($campo['tipo'])) {
                 $ou = trim(substr($ou, 0, 10));
@@ -309,7 +392,7 @@ class ModeloVenta {
             }
             $ou = '
                   <a class="copy-link-wrap" style="text-decoration: none; display: block; padding: 0.5em; line-height: 1em;">    
-                     <label>'. strtoupper($ou).'</label>                
+                     <label>'. ($ou).'</label>                
                   </a>
                   ';
         }
@@ -365,13 +448,20 @@ class ModeloVenta {
                     $dato = $dato['id'];
                 }
             }
+
+            if ($campo['campo_mayuscula'] == 1) {
+                $dato = mb_strtoupper($dato);                
+            } else {
+                Utilidades::dump($campo);                
+            }
+            
             if ($tipo == 'insert') {
                 $ou['campos'] = $campo['nombre'];
-                $ou['valores'] = '"' . utf8_decode($dato) . '"';
+                $ou['valores'] = '"' . ($dato) . '"';
             } elseif($tipo == 'update') {
-                $ou['sql'] = $campo['nombre'] . '="' . utf8_decode($dato) . '"';                
+                $ou['sql'] = $campo['nombre'] . '="' . ($dato) . '"';                
             }
-            $ou['dato'] = utf8_decode($dato);
+            $ou['dato'] = ($dato);
             
         }
         return $ou;            
@@ -406,9 +496,9 @@ class ModeloVenta {
         $this->q->sql = ' 
         SELECT info_status FROM venta WHERE id="' . $in['id'] . '"
         ';
-        // echo $this->q->sql;        
+        echo $this->q->sql;        
         $this->q->data = NULL;
-        $data = $this->q->exe();
+        $data = $this->q->exe(); Utilidades::dump($data);
         
         $this->q->fields = array();
         if ($data[0]['info_status'] == '0') {
@@ -427,11 +517,14 @@ class ModeloVenta {
         $this->q->sql = '
         SELECT DISTINCT c.indice, c.nombre FROM campania c
         JOIN campania_lineal cl ON cl.campania_id = c.id
-        WHERE c.info_status = 1 AND c.venta=1';
+        WHERE c.info_status = 1 AND c.venta=1
+        ';
+//      Utilidades::dump( $this->q->sql);
+
         if ('' != trim($in['lineas'])) {
             $this->q->sql.= ' AND cl.lineal_id IN (' . $in['lineas'] . ')';
         }
-        // echo $this->q->sql;        
+        // echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
@@ -453,9 +546,12 @@ class ModeloVenta {
             'id' => '',
             'nombre' => '',
         );        
+//        $this->q->sql = '
+//        SELECT id, nombre FROM venta_estado_real WHERE info_status=1 AND campania LIKE "%' . $in['campania'] . '%"';
+
         $this->q->sql = '
-        SELECT id, nombre FROM venta_estado_real WHERE info_status=1 AND campania LIKE "%' . $in['campania'] . '%"';
-        // echo $this->q->sql;        
+        SELECT id, nombre FROM venta_estado_real WHERE info_status=1';
+//        echo $this->q->sql;
         $this->q->data = NULL;
         $data = $this->q->exe();
         return $data;
@@ -1207,4 +1303,18 @@ class ModeloVenta {
         $data = $this->q->exe();
         return $data;
     }
+
+    // ------------------------------ Listado
+  function getListado($name) {
+    $this->q->fields = array(
+      'id' => '',
+      'nombre' => '',
+    );
+    $this->q->sql = '
+        SELECT id, nombre FROM venta_' . $name . ' WHERE info_status=1';
+    // echo $this->q->sql;
+    $this->q->data = NULL;
+    $data = $this->q->exe();
+    return $data;
+  }
 }

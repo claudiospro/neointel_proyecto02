@@ -5,6 +5,7 @@ include "../../../../../lib/mysql/utilidades.php";
 include "../../../modelo/ModeloVenta.php";
 session_start();
 $venta = new ModeloVenta();
+
 // -------------------------------------------------------- INPUT
 $in['campania'] = Utilidades::clear_input(Utilidades::sanear_string($_POST['campania']));
 $in['venta_id'] = Utilidades::clear_input_id($_POST['venta_id']);
@@ -15,10 +16,13 @@ $campos = $venta->getcampos($in);
 $pestanias = $venta->getPestaniaCampania($in);
 
 
+$in['f'] = 'id, ';
 $in['fields']['id'] = '';
 foreach ($campos as $r) {
     $in['fields'][$r['nombre']] = '';
+  $in['f'] .= $r['nombre'] . ', ';
 }
+$in['f'] = substr(  $in['f'], 0, -2);
 
 $nombre_corto = '';
 if ($in['venta_id'] != '0') {
@@ -52,6 +56,12 @@ echo '<input type="hidden" id="field_venta_id" name="venta_id" value="' . $in['v
 echo '<input type="hidden"id="field_campania" name="campania" value="' . $in['campania'] . '">';
 $total = count($campos);
 for ($i=0; $i < $total; $i++) {
+    $required = '';
+    if ($campos[$i]['campo_obligatorio']) {
+      $required = '<a title="Obligatorio" style="color: red;padding: 0 .5em;">*</a>';
+    }
+
+
     $perfiles = explode(', ', trim($campos[$i]['perfiles']));
     $permisos = explode(', ', trim($campos[$i]['permisos']));
     $campos[$i]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
@@ -61,7 +71,7 @@ for ($i=0; $i < $total; $i++) {
         $row_str .= '<div class="row fields">';
         if ($campos[$i]['grupo'] == '' && $campos[$i]['grupo_etiqueta'] == '') {
             $row_str .= '<div class="small-2 columns"><label class="">';
-            $row_str .= utf8_encode($campos[$i]['etiqueta']) . ':';
+            $row_str .= ($campos[$i]['etiqueta']) . $required . ':';
             $row_str .= '</label></div>';
             $row_str .= '<div class="small-10 columns">';
             if ($in['venta_id'] != '0') {
@@ -72,10 +82,14 @@ for ($i=0; $i < $total; $i++) {
             $row_str .= '</div>'; 
         } else {
             $row_str .= '<div class="small-2 columns"><label class="">';
-            $row_str .= utf8_encode($campos[$i]['grupo_etiqueta']) . ':';
+            $row_str .= ($campos[$i]['grupo_etiqueta']) . ':';
             $row_str .= '</label></div>';
             $row_str .= '<div class="small-10 columns"><div class="callout primary">';
             for ($j=$i; (($j < $total) and ($campos[$i]['grupo'] == $campos[$j]['grupo'])); $j++) {
+                $required2 = '';
+                if ($campos[$j]['campo_obligatorio']) {
+                  $required2 = '<a title="Obligatorio" style="color: red;padding: 0 .5em;">*</a>';
+                }
                 $perfiles = explode(', ', trim($campos[$j]['perfiles']));
                 $permisos = explode(', ', trim($campos[$j]['permisos']));
                 $campos[$j]['permiso'] = $permisos[array_search($_SESSION['perfiles_id'], $perfiles)];
@@ -83,7 +97,7 @@ for ($i=0; $i < $total; $i++) {
                 if ($campos[$j]['permiso'] != 'h') {
                     $row_str .= '<div class="row">';
                     $row_str .= '<div class="small-3 columns"><label class="">';
-                    $row_str .= utf8_encode($campos[$j]['etiqueta']) . ':';
+                    $row_str .= ($campos[$j]['etiqueta']) . $required2 . ':';
                     $row_str .= '</label></div>';
                     $row_str .= '<div class="small-9 columns">';
                     if ($in['venta_id'] != '0') {

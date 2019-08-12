@@ -12,6 +12,7 @@ $prefix = 'venta_listado_';
 <link rel="stylesheet" href="../../lib/main/editable.css?v=1.5.1">
 <!-- <link rel="stylesheet" href="../../lib/vendor/zclip/style.css"> -->
 
+<link rel="stylesheet" href="../../static/ventas/ventas.css?v=1.0.0">
 <?php $css = ob_get_clean() ?>
 
 
@@ -29,11 +30,12 @@ $prefix = 'venta_listado_';
 
 <!-- <script type="text/javascript" src="../../lib/vendor/zclip/jquery.zclip.js"></script> -->
 
-<script src="../../static/ventas/ventas_listado.js?v=2.5.0"></script>
+<script src="../../static/ventas/ventas_campanias.js?v=1.0.0"></script>
+<!--<script src="../../static/ventas/ventas_listado.js?v=2.5.0"></script>-->
 <script src="../../static/ventas/ventas_editable_inline.js?v=1.0.6"></script>
 
-<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>
-<script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>
+<!--<script src="../../static/ventas/ventas_timer_estructura.js?v=1.0.3"></script>-->
+<!--<script src="../../static/ventas/ventas_timer_por_aprobar.js?v=1.0.3"></script>-->
 
 <script src="../../static/ventas/ventas_declarativo_03.js?v=1.0.0"></script>
 <?php $js = ob_get_clean() ?>
@@ -80,38 +82,36 @@ include '../autentificacion/vista/menu.tpl.php';
 
 <!-- --------------------------------------------------------------------------- -->
 
-<div class="row">
-  <div class="large-3 medium-4 small-8 columns">
-    <div class="input-group no-margin">
-      <?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial' || trim($_SESSION['perfiles']) == 'Supervisor'): ?>
-        <a id="<?php echo $prefix ?>add"
-           class="button success no-margin input-group-label"
-           data-open="venta_listado_modal_div"
-           title="Añadir">
+
+<div class="input-group no-margin" style="max-width: 400px;">
+  <?php if(trim($_SESSION['perfiles']) == 'Asesor Comercial' || trim($_SESSION['perfiles']) == 'Supervisor'): ?>
+      <a id="<?php echo $prefix ?>add"
+         class="button success no-margin input-group-label"
+         data-open="venta_listado_modal_div"
+         title="Añadir">
           <i class="fi-plus"></i>
-        </a>
-      <?php endif ?>
-      <select class="no-margin" id="<?php echo $prefix ?>campanias">
-        <?php
-        foreach($in['campanias'] as $row)
+      </a>
+  <?php endif ?>
+    <select class="no-margin" id="<?php echo $prefix ?>campanias">
+      <?php
+
+
+      foreach($in['campanias'] as $row)
+      {
+        $selected = '';
+        if ($row['id'] == $in['campania'])
         {
-            $selected = '';
-            if ($row['id'] == $in['campania'])
-            {
-                $selected = 'selected';
-            }
-            echo '<option value="' . $row['id'] . '" ' . $selected . '>' . utf8_decode($row['nombre']) . '</option>';
+          $selected = 'selected';
         }
-        ?>
-      </select>
-    </div>      
-  </div>
-  <div class="large-1 medium-1 small-2 columns text-right">
-  </div>
+        echo '<option value="' . $row['id'] . '" ' . $selected . '>' . ($row['nombre']) . '</option>';
+      }
+      ?>
+    </select>
 </div>
 
 
-<div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177)">
+
+<div class="reveal full" id="<?php echo $prefix ?>modal_div" data-reveal style="background-color: rgb(242, 216, 177);">
   <div class="ajax">
   </div>
   <button class="close-button" data-close aria-label="Close modal" type="button">
@@ -129,9 +129,11 @@ include '../autentificacion/vista/menu.tpl.php';
 </div>
 
 <?php
+
 include './vista/declarativo.tpl.php';
 include './vista/colores.tpl.php';
-include './vista/tabla_' . $in['campania'] . '.tpl.php';
+include './vista/tabla_campania_004.tpl.php';
+//include './vista/tabla_' . $in['campania'] . '.tpl.php';
 ?>
 
 <?php $content = ob_get_clean() ?>

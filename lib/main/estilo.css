@@ -61,7 +61,7 @@ tr.active td, tr.active th {
 .search-input-text.active {
   background-color: #D3FFE4; }
 
-input.error {
+.error {
   background-color: #FF8787 !important; }
 
 .fields .callout {

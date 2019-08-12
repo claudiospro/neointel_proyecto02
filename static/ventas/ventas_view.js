@@ -24,6 +24,39 @@ $(document).ready(function() {
             $(this).addClass('error');
         }
     });
+    $('.venta_item_banco').keydown(function (e) {
+        // Ignore controls such as backspace
+        var arr = [8,16,17,20,35,36,37,38,39,40,45,46,59,9];
+
+        // Allow number
+        for(var i = 48; i <= 57; i++){
+            arr.push(i);
+        }
+
+        // Allow letters
+        for(var i = 65; i <= 90; i++){
+            arr.push(i);
+        }
+
+        if(jQuery.inArray(e.which, arr) === -1){
+            e.preventDefault();
+        }
+    });
+
+    $('.venta_item_float').keydown(function (e) {
+        // Ignore controls such as backspace
+        var arr = [8,16,17,20,35,36,37,38,39,40,45,46,59,9];
+        arr.push(188); // .
+        // Allow number
+        for(var i = 48; i <= 57; i++){
+            arr.push(i);
+        }
+
+        if(jQuery.inArray(e.which, arr) === -1){
+            e.preventDefault();
+        }
+    });
+
     //
     $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
         venta_item_div($(this));

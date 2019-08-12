@@ -269,6 +269,16 @@ class Utilidades {
         print_r($in);
         echo '</pre>';
     }
+    static function dump($i) {
+      echo '<div style=" background-color: #c8c8c8;padding: 1em; margin-bottom: 1em;">';
+      var_dump($i);
+      echo '</div>';
+    }
+  static function dumpr($i) {
+    echo '<textarea rows="30" style=" background-color: #c8c8c8;padding: 1em; margin-bottom: 1em;">';
+    print_r($i);
+    echo '</textarea>';
+  }
 }
 
     

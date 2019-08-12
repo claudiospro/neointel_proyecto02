@@ -111,7 +111,7 @@ class ComboSimple extends TablaSimple {
         printf(''
                 . '<option %3$s value="%1$s">%2$s</option>'
                 , $args[$this->format[0]]
-	       , utf8_encode( $args[$this->format[1]] )
+	       , ( $args[$this->format[1]] )
                 , $selected
         );
     }
@@ -164,7 +164,7 @@ class ComboSimple_Upper extends TablaSimple {
         printf(''
                 . '<option %3$s value="%1$s">%2$s</option>'
                 , $args[$this->format[0]]
-	       , utf8_encode( strtoupper( $args[$this->format[1]] ) )
+	       , ( strtoupper( $args[$this->format[1]] ) )
                 , $selected
         );
     }

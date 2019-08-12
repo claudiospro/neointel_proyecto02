@@ -173,7 +173,7 @@ class ModeloUsuario {
         $this->q->data = NULL;
         $this->q->sql = '
         UPDATE usu_usuario SET 
-          pwd              = "$4nkNrBEK8ra2" 
+          pwd              = "$4M4mpfilkNnU" 
         , info_update      = "' . $in['fecha'] . '"
         , info_update_user = "' . $in['usuario'] . '"
         WHERE id = "' . $in['form']['usuario_id']. '"

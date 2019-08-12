@@ -56,7 +56,7 @@ tr.active td, tr.active th {
 .search-input-text.active{
     @include activado();
 }
-input.error{
+.error{
     background-color: #FF8787!important;
 }
 .fields {

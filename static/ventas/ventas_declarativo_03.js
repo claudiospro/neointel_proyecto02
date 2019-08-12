@@ -1,15 +1,24 @@
 $(document).ready(function() {
- $('#declarativo_field_export_3').on('click', function (event) {
-     venta_listado_report_3($(this));
+ $('#declarativo_field_export').on('click', function (event) {
+    var out  = declarativo_field_export($(this));
+
+
+    if (out == false) {
+        event.preventDefault();
+    }
  });
- function venta_listado_report_3(item) {
+ function declarativo_field_export(item) {
+     var out = true;
      var enviar = {
-         'ini1': $('#declarativo_field_ini_3').val(),
-         'ini2': '',
-         'end1': $('#declarativo_field_end_3').val(),
-         'end2': '',
+         'ini1'     : $('#declarativo_field_ini').val(),
+         'end1'     : $('#declarativo_field_end').val(),
+         'ini2'    : '',
+         'end2'    : '',
+         'campania': $('#declarativo_field_campanias').val(),
      }
-     //c(enviar);
+     // c(enviar);
+
+
      var comparar = true;
      var enlace = '';
      
@@ -29,12 +38,17 @@ $(document).ready(function() {
          }
      }
      if (comparar) {            
-         enlace = 'procesos/ajax/click/ventas_listado_declarativo_excel_campania_03.php?';
+         enlace = 'procesos/ajax/click/ventas_listado_declarativo_excel.php?';
          enlace+= 'ini=' + enviar.ini1 + '&';
-         enlace+= 'end=' + enviar.end1;
+         enlace+= 'end=' + enviar.end1 + '&';
+         enlace+= 'campania=' + enviar.campania;
          item.attr('href', enlace);
+
      } else {
          a('La Fecha INICIO no puede ser MAYOR a la de FIN');
+         out = false;
      }
+
+     return out;
  }    
 });
