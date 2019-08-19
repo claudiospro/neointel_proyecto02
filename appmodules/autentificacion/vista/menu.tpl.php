@@ -7,6 +7,9 @@
       <li class="has-submenu" data-dropdown-menu>
         <a href="#">Menu</a>
         <ul class="submenu menu vertical" data-submenu>
+          <?php if (array_search('Importado', explode(' ',trim($_SESSION['resources']))) !== false): ?>
+              <li><a href="<?php echo $base_url . 'importado' ?>">Importado</a></li>
+          <?php endif ?>
           <?php if (array_search('Ventas', explode(' ',trim($_SESSION['resources']))) !== false): ?>
             <li><a href="<?php echo $base_url . 'ventas' ?>">Ventas</a></li>
           <?php endif ?>

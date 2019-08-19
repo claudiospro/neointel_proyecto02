@@ -34,7 +34,7 @@ FROM usu_usuario u
 -- LEFT JOIN usu_usuario_lineal ul ON ul.usuario_id=u.id
 LEFT JOIN usu_usuario_perfil up ON up.usuario_id=u.id
 LEFT JOIN usu_perfil p ON p.id=up.perfil_id
--- WHERE u.id !=1
+WHERE u.id !=1
 ';
 
 
