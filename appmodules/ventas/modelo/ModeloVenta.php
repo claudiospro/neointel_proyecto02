@@ -472,7 +472,7 @@ class ModeloVenta {
         );
         $this->q->sql = '
         CALL ventas_save(
-          "' . $in['venta_id'] . '"
+          "' . (int) $in['venta_id'] . '"
         , "' . $in['campania'] . '"
         , "' . $in['fecha'] . '"
         , "' . $in['usuario'] . '"
@@ -847,7 +847,7 @@ class ModeloVenta {
         );
         $this->q->sql = '
                         CALL ventas_timer_reporte_estructura(
-                          "' . $campania_id . '",
+                          "' . (int) $campania_id . '",
                           "' . $lineas . '"
                         )
                         ';

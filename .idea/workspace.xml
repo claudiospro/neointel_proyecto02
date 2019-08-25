@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3de4e9c9-2c8b-465a-a92d-0831f28518d8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/modelo/ModeloImportado.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/procesos/ajax/save/ventas_listado_cambiar_estado_click_save.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/procesos/ajax/select/ventas_listado_estado_row_change.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/procesos/ajax/select/ventas_listado_estados_select.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/procesos/ajax/table/ventas_listado_datatable.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/procesos/importado.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/appmodules/importado/vista/listado.tpl.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/importado/importado_listado.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appmodules/autentificacion/vista/menu.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/appmodules/autentificacion/vista/menu.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appmodules/autentificacion/vista/url.php" beforeDir="false" afterPath="$PROJECT_DIR$/appmodules/autentificacion/vista/url.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php" beforeDir="false" afterPath="$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/horas/julio.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/horas/julio.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/docs/horas/julio.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="780">
+              <first_editor relative-caret-position="320">
                 <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
               </first_editor>
               <second_editor />
@@ -57,58 +44,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/importado/vista/listado.tpl.php">
+        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="39" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="39" />
+            <state relative-caret-position="240">
+              <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/importado/procesos/importado.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/importado/modelo/ModeloImportado.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
-              <folding>
-                <element signature="n#getEstados#0;n#ModeloImportado#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/autentificacion/vista/url.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/appmodules/usuario/modelo/ModeloUsuario.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="39" column="51" lean-forward="true" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+            <state relative-caret-position="120">
+              <caret line="121" column="29" selection-start-line="121" selection-start-column="13" selection-end-line="121" selection-end-column="29" />
               <folding>
                 <element signature="n#getGrupo#0;n#ModeloUsuario#0;n#!!top" />
                 <element signature="e#176#244#0#PHP" />
@@ -121,7 +69,6 @@
                 <element signature="n#getCeseTipo#0;n#ModeloUsuario#0;n#!!top" />
                 <element signature="e#1876#1944#0#PHP" />
                 <element signature="n#getUsuario#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#setUsuario#0;n#ModeloUsuario#0;n#!!top" />
                 <element signature="n#setUsuarioPwd#0;n#ModeloUsuario#0;n#!!top" />
                 <element signature="n#getGrupoByUsuario#0;n#ModeloUsuario#0;n#!!top" />
                 <element signature="n#updateVigente#0;n#ModeloUsuario#0;n#!!top" />
@@ -137,32 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/mysql/conexion01.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="46" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/click/usuario_listado_modal.php">
+        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#hr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="285">
+              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -179,9 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>modal</find>
-      <find>add</find>
-      <find>$in['fields']</find>
       <find>imprimir</find>
       <find>grupo-tbl</find>
       <find>picker</find>
@@ -209,6 +132,9 @@
       <find>getNameFromNumber</find>
       <find>$j</find>
       <find>$in</find>
+      <find>procedure</find>
+      <find>usu_lineal_save</find>
+      <find>usu_usuario_save</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -265,6 +191,7 @@
         <option value="$PROJECT_DIR$/appmodules/importado/procesos/importado.php" />
         <option value="$PROJECT_DIR$/appmodules/autentificacion/vista/url.php" />
         <option value="$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php" />
+        <option value="$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908182125.sql" />
       </list>
     </option>
   </component>
@@ -293,6 +220,54 @@
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
               <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="procesos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="procesos" type="462c0819:PsiDirectoryNode" />
+              <item name="ajax" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="procesos" type="462c0819:PsiDirectoryNode" />
+              <item name="ajax" type="462c0819:PsiDirectoryNode" />
+              <item name="save" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+              <item name="bk" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
@@ -379,7 +354,8 @@
       <workItem from="1564797724591" duration="5228000" />
       <workItem from="1565534660563" duration="20196000" />
       <workItem from="1566070760375" duration="6379000" />
-      <workItem from="1566179116525" duration="2626000" />
+      <workItem from="1566179116525" duration="3705000" />
+      <workItem from="1566355141994" duration="4559000" />
     </task>
     <task id="LOCAL-00001" summary="Correcciones para Modulo auth">
       <created>1562732606653</created>
@@ -399,15 +375,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156952000" />
+    <option name="totallyTimeSpent" value="162590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="25" width="1372" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.29984894" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.30438066" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -418,7 +393,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32890365" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32890365" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3283582" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -458,40 +433,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Correcciones de accesos" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/mysql/test_mysql/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
-          <folding>
-            <element signature="n#style#0;n#pre#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#pre#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#pre#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#pre#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docs/sql/ventas.main.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/sql/ventas/procedures/ventas_save.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-371">
@@ -1066,27 +1007,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/horas/julio.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="780">
-            <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/appmodules/autentificacion/vista/url.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/importado/vista/listado.tpl.php">
+    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="39" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="39" />
+        <state relative-caret-position="555">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/importado/procesos/importado.php">
+    <entry file="file://$PROJECT_DIR$/lib/mysql/conexion01.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        <state relative-caret-position="90">
+          <caret line="6" column="46" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -1100,17 +1038,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/autentificacion/vista/url.php">
+    <entry file="file://$PROJECT_DIR$/appmodules/importado/procesos/importado.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+        <state relative-caret-position="225">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php">
+    <entry file="file://$PROJECT_DIR$/appmodules/importado/vista/listado.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="321">
+          <caret line="39" column="39" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/horas/julio.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="320">
+            <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1133,10 +1081,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908112035.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="1727" column="23" selection-start-line="1727" selection-start-column="14" selection-end-line="1727" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908182125.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/appmodules/usuario/modelo/ModeloUsuario.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="39" column="51" lean-forward="true" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        <state relative-caret-position="120">
+          <caret line="121" column="29" selection-start-line="121" selection-start-column="13" selection-end-line="121" selection-end-column="29" />
           <folding>
             <element signature="n#getGrupo#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="e#176#244#0#PHP" />
@@ -1149,7 +1125,6 @@
             <element signature="n#getCeseTipo#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="e#1876#1944#0#PHP" />
             <element signature="n#getUsuario#0;n#ModeloUsuario#0;n#!!top" />
-            <element signature="n#setUsuario#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#setUsuarioPwd#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#getGrupoByUsuario#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#updateVigente#0;n#ModeloUsuario#0;n#!!top" />
@@ -1161,13 +1136,6 @@
             <element signature="n#getCampaniasActivas#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#verificar_usuario#0;n#ModeloUsuario#0;n#!!top" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/mysql/conexion01.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="46" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="46" />
         </state>
       </provider>
     </entry>

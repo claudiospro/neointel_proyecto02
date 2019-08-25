@@ -120,7 +120,7 @@ class ModeloUsuario {
         $this->q->data = NULL;
         $this->q->sql = '
         CALL usu_usuario_save(
-          "' . $in['form']['usuario_id']. '"
+          "' . (int) $in['form']['usuario_id']. '"
         , "' . ($in['form']['nombre']) . '"
         , "' . ($in['form']['nombre_corto']) . '"
         , "' . ($in['form']['login']) . '"
@@ -364,7 +364,7 @@ class ModeloUsuario {
         $this->q->data = NULL;
         $this->q->sql = '
         CALL usu_lineal_save(
-          "' . $in['form']['grupo_id']. '"
+          "' . (int) $in['form']['grupo_id']. '"
         , "' . ($in['form']['nombre']) . '"
         , "' . $in['form']['vigente']. '"
         , "' . $in['form']['campania_id']. '"
