@@ -1499,7 +1499,7 @@ CREATE TABLE `venta_tipo_venta_005` (
 
 LOCK TABLES `venta_tipo_venta_005` WRITE;
 /*!40000 ALTER TABLE `venta_tipo_venta_005` DISABLE KEYS */;
-INSERT INTO `venta_tipo_venta_005` VALUES (1,'LUZ',1),(2,'GAZ',1);
+INSERT INTO `venta_tipo_venta_005` VALUES (1,'LUZ',1),(2,'GAS',1);
 /*!40000 ALTER TABLE `venta_tipo_venta_005` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -7,7 +7,7 @@
     padding: 0 1em;
     text-align: center  ;
     display: block;
-    border: black dashed;
+    border: black solid 1px;
 }
 
 .venta_estado_005.id_1{ background-color: #c8e6c9; }
