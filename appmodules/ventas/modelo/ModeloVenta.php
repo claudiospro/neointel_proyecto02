@@ -164,7 +164,7 @@ class ModeloVenta {
             elseif ($campo['diccionario']=='0' && $campo['tipo']=='INT') {
                 $ou = '<input name="' . $campo['nombre'] . '" 
                               id="field_' . $campo['nombre'] . '" 
-                              type="number" 
+                              type="text" 
                               value="' . $ou . '"
                               min="1"
                               class="no-margin is_number ' . $required . '" ' . $required . '>';
@@ -173,7 +173,7 @@ class ModeloVenta {
             elseif ($campo['diccionario']=='0' && $campo['tipo']=='FLOAT') {
               $ou = '<input name="' . $campo['nombre'] . '" 
                               id="field_' . $campo['nombre'] . '" 
-                              type="number" 
+                              type="text" 
                               step="0.01"
                               value="' . $ou . '"
                               class="no-margin venta_item_float ' . $required . '" ' . $required . '>';

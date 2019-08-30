@@ -9,7 +9,9 @@ $(document).ready(function() {
     });
     $('.venta_item_telefono').keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
-            (e.keyCode == 65 && e.ctrlKey === true) || 
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            (e.keyCode == 86 && e.ctrlKey === true) ||
+            (e.keyCode == 67 && e.ctrlKey === true) ||
             (e.keyCode >= 35 && e.keyCode <= 39)) {
                  return;
         }
@@ -43,19 +45,33 @@ $(document).ready(function() {
         }
     });
 
+    // $('.venta_item_float').keydown(function (e) {
+    //     // Ignore controls such as backspace
+    //     var arr = [8,16,17,20,35,36,37,38,39,40,45,46,59,9];
+    //     arr.push(188); // .
+    //     // Allow number
+    //     for(var i = 48; i <= 57; i++){
+    //         arr.push(i);
+    //     }
+    //
+    //     if(jQuery.inArray(e.which, arr) === -1){
+    //         e.preventDefault();
+    //     }
+    // });
     $('.venta_item_float').keydown(function (e) {
-        // Ignore controls such as backspace
-        var arr = [8,16,17,20,35,36,37,38,39,40,45,46,59,9];
-        arr.push(188); // .
-        // Allow number
-        for(var i = 48; i <= 57; i++){
-            arr.push(i);
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            (e.keyCode == 86 && e.ctrlKey === true) ||
+            (e.keyCode == 67 && e.ctrlKey === true) ||
+            e.keyCode >= 188 ||
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            return;
         }
-
-        if(jQuery.inArray(e.which, arr) === -1){
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }
     });
+
 
     //
     $('#venta_listado_modal_div').on('click', '.breadcrumbs a', function (e) {
@@ -166,6 +182,8 @@ $(document).ready(function() {
         if (
             $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1
                 || (e.keyCode == 65 && e.ctrlKey === true)
+                || (e.keyCode == 86 && e.ctrlKey === true)
+                || (e.keyCode == 67 && e.ctrlKey === true)
                 || (e.keyCode >= 35 && e.keyCode <= 39))
         {
             return;
@@ -174,19 +192,19 @@ $(document).ready(function() {
             e.preventDefault();
         }        
     });
-    $('.is_number').keyup(function (e) {
-        var obj = $(this);
-        if ( obj.val().length == 0) {
-            
-            var myVar = setInterval( function(){
-                if ( obj.val().length == 0) {
-                    obj.val('1');
-                }
-                clearInterval(myVar);
-	    }, 1000);
-            
-        } 
-    });
+    // $('.is_number').keyup(function (e) {
+    //     var obj = $(this);
+    //     if ( obj.val().length == 0) {
+    //
+    //         var myVar = setInterval( function(){
+    //             if ( obj.val().length == 0) {
+    //                 obj.val('1');
+    //             }
+    //             clearInterval(myVar);
+	//     }, 1000);
+    //
+    //     }
+    // });
     // ---------------------------------------------------------- FUNCIONES
     function venta_item_autocomplete(item) {
         var my_url = './procesos/ajax/autocomplete/ventas_listado_view_autocomplete.php?';

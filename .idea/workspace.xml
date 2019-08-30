@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3de4e9c9-2c8b-465a-a92d-0831f28518d8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php" beforeDir="false" afterPath="$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ventas/ventas_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/ventas/ventas_view.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,51 +45,196 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
+        <entry file="file://$PROJECT_DIR$/appmodules/ventas/vista/tabla_campania_004.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/appmodules/usuario/modelo/ModeloUsuario.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="121" column="29" selection-start-line="121" selection-start-column="13" selection-end-line="121" selection-end-column="29" />
+            <state relative-caret-position="15">
+              <caret line="113" column="5" lean-forward="true" selection-start-line="113" selection-start-column="5" selection-end-line="113" selection-end-column="5" />
               <folding>
-                <element signature="n#getGrupo#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="e#176#244#0#PHP" />
-                <element signature="e#612#731#0#PHP" />
-                <element signature="e#969#1037#0#PHP" />
-                <element signature="e#1138#1645#0#PHP" />
-                <element signature="e#1366#1464#0#PHP" />
-                <element signature="e#1465#1560#0#PHP" />
-                <element signature="e#1561#1645#0#PHP" />
-                <element signature="n#getCeseTipo#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="e#1876#1944#0#PHP" />
-                <element signature="n#getUsuario#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#setUsuarioPwd#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#getGrupoByUsuario#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#updateVigente#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#updateUsuarioGrupo#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#getSupervisorByLineal#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#getGrupoItem#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#getCampaniasActivas#0;n#ModeloUsuario#0;n#!!top" />
-                <element signature="n#verificar_usuario#0;n#ModeloUsuario#0;n#!!top" />
+                <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
+        <entry file="file://$PROJECT_DIR$/static/ventas/ventas.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/ventas/ventas_campanias.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/ventas/ventas_listado.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+              <folding>
+                <element signature="e#454#554#0" />
+                <element signature="e#618#657#0" />
+                <element signature="e#724#770#0" />
+                <element signature="e#858#1209#0" />
+                <element signature="e#967#1203#0" />
+                <element signature="e#1051#1128#0" />
+                <element signature="e#1134#1193#0" />
+                <element signature="e#1283#1558#0" />
+                <element signature="e#1426#1495#0" />
+                <element signature="e#1501#1552#0" />
+                <element signature="e#1623#1673#0" />
+                <element signature="e#1738#1788#0" />
+                <element signature="e#1855#1907#0" />
+                <element signature="e#1981#2040#0" />
+                <element signature="e#2092#2136#0" />
+                <element signature="e#2194#2236#0" />
+                <element signature="e#2313#2583#0" />
+                <element signature="e#2392#2513#0" />
+                <element signature="e#2519#2577#0" />
+                <element signature="e#2656#2897#0" />
+                <element signature="e#2735#2825#0" />
+                <element signature="e#2831#2891#0" />
+                <element signature="e#2998#3048#0" />
+                <element signature="e#3125#3175#0" />
+                <element signature="e#3255#3317#0" />
+                <element signature="e#3392#3442#0" />
+                <element signature="e#3521#3812#0" />
+                <element signature="e#3544#3621#0" />
+                <element signature="e#3895#4177#0" />
+                <element signature="e#3981#4064#0" />
+                <element signature="e#4070#4149#0" />
+                <element signature="e#4291#7421#0" />
+                <element signature="e#4314#4436#0" />
+                <element signature="e#4614#5351#0" />
+                <element signature="e#5407#6057#0" />
+                <element signature="e#6118#6777#0" />
+                <element signature="e#6837#7370#0" />
+                <element signature="e#7071#7203#0" />
+                <element signature="e#7226#7359#0" />
+                <element signature="e#7458#7499#0" />
+                <element signature="e#7540#8807#0" />
+                <element signature="e#7563#7797#0" />
+                <element signature="e#7920#8039#0" />
+                <element signature="e#8078#8197#0" />
+                <element signature="e#8264#8288#0" />
+                <element signature="e#8294#8398#0" />
+                <element signature="e#8339#8388#0" />
+                <element signature="e#8421#8719#0" />
+                <element signature="e#8725#8801#0" />
+                <element signature="e#8859#9199#0" />
+                <element signature="e#8882#9010#0" />
+                <element signature="e#9239#9571#0" />
+                <element signature="e#9262#9382#0" />
+                <element signature="e#9616#9958#0" />
+                <element signature="e#9639#9769#0" />
+                <element signature="e#10005#11013#0" />
+                <element signature="e#10079#10136#0" />
+                <element signature="e#10238#11006#0" />
+                <element signature="e#10544#10800#0" />
+                <element signature="e#10683#10778#0" />
+                <element signature="e#10806#10996#0" />
+                <element signature="e#11067#11387#0" />
+                <element signature="e#11090#11195#0" />
+                <element signature="e#11436#11687#0" />
+                <element signature="e#11446#11480#0" />
+                <element signature="e#11737#13109#0" />
+                <element signature="e#11825#13020#0" />
+                <element signature="e#11863#12201#0" />
+                <element signature="e#12333#12372#0" />
+                <element signature="e#12478#12517#0" />
+                <element signature="e#12623#12662#0" />
+                <element signature="e#12700#12888#0" />
+                <element signature="e#12906#12997#0" />
+                <element signature="e#13026#13057#0" />
+                <element signature="e#13159#13470#0" />
+                <element signature="e#13249#13461#0" />
+                <element signature="e#13388#13451#0" />
+                <element signature="e#13516#14221#0" />
+                <element signature="e#13584#14213#0" />
+                <element signature="e#13723#14203#0" />
+                <element signature="e#13927#13947#0" />
+                <element signature="e#14265#15241#0" />
+                <element signature="e#14288#14299#0" />
+                <element signature="e#14336#14619#0" />
+                <element signature="e#14477#14609#0" />
+                <element signature="e#14630#14648#0" />
+                <element signature="e#15317#15496#0" />
+                <element signature="e#15553#16035#0" />
+                <element signature="e#15576#15683#0" />
+                <element signature="e#15945#16021#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/ventas/ventas_view.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="194" selection-start-line="194" selection-end-line="206" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_view_modal.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="77" column="43" lean-forward="true" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="175" column="40" selection-start-line="175" selection-start-column="40" selection-end-line="175" selection-end-column="40" />
+              <folding>
+                <element signature="n#__construct#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getUnDato_NombreCorto#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setVenta#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setVentaCampania#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#deleteVenta#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getEstadoRealActivas#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getEstadoTramitacionActivas#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getEstadoTramitacionPerfilActivas#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getEstadoRealToEstado#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getAutoComplete#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getPestaniaCampania#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getDeclarativo_01#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getDeclarativo_02#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getDeclarativo_value#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTimerEstructura#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTimerRepoirteEstructura#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getCampaniaIdByLinealId#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTimerEstructuraListado#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setTimerEstructuraSave#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTimerPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTimerRepoirtePorAprobar#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getCampaniaNombreByLinealId#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getVentasPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setVentaPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getCampaniaEditable#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getEstadoTramitacionIdEditable#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getValorEditable#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setValorEditable#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#setSQL#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#drawLogItem#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#drawDivLogItem#0;n#ModeloVenta#0;n#!!top" />
+                <element signature="n#getTransparenciaByVentaId#0;n#ModeloVenta#0;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,9 +251,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>imprimir</find>
-      <find>grupo-tbl</find>
-      <find>picker</find>
       <find>$in['f']</find>
       <find>getUnDato</find>
       <find>getUnDa</find>
@@ -135,6 +278,9 @@
       <find>procedure</find>
       <find>usu_lineal_save</find>
       <find>usu_usuario_save</find>
+      <find>is_</find>
+      <find>venta_item_float</find>
+      <find>keyup</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -170,7 +316,6 @@
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/save/ventas_listado_venta_click_save.php" />
         <option value="$PROJECT_DIR$/lib/main/estilo.scss" />
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_view_modal.php" />
-        <option value="$PROJECT_DIR$/static/ventas/ventas_view.js" />
         <option value="$PROJECT_DIR$/appmodules/ventas/vista/listado.tpl.php" />
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/table/ventas_listado_datatable.php" />
         <option value="$PROJECT_DIR$/static/ventas/ventas.css" />
@@ -178,7 +323,6 @@
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_declarativo_excel_02.php" />
         <option value="$PROJECT_DIR$/static/ventas/ventas_declarativo_03.js" />
         <option value="$PROJECT_DIR$/appmodules/ventas/vista/declarativo.tpl.php" />
-        <option value="$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php" />
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/table/datatables_libs.php" />
         <option value="$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_declarativo_excel.php" />
         <option value="$PROJECT_DIR$/appmodules/importado/modelo/ModeloBarrido.php" />
@@ -192,13 +336,15 @@
         <option value="$PROJECT_DIR$/appmodules/autentificacion/vista/url.php" />
         <option value="$PROJECT_DIR$/appmodules/usuario/procesos/ajax/table/usuario_listado_datatable.php" />
         <option value="$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908182125.sql" />
+        <option value="$PROJECT_DIR$/static/ventas/ventas_view.js" />
+        <option value="$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php" />
       </list>
     </option>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="27" />
     <option name="width" value="1356" />
     <option name="height" value="741" />
@@ -208,7 +354,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,65 +370,55 @@
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
               <item name="appmodules" type="462c0819:PsiDirectoryNode" />
-              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
               <item name="appmodules" type="462c0819:PsiDirectoryNode" />
-              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
               <item name="procesos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
               <item name="appmodules" type="462c0819:PsiDirectoryNode" />
-              <item name="usuario" type="462c0819:PsiDirectoryNode" />
-              <item name="procesos" type="462c0819:PsiDirectoryNode" />
-              <item name="ajax" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
-              <item name="usuario" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
               <item name="procesos" type="462c0819:PsiDirectoryNode" />
               <item name="ajax" type="462c0819:PsiDirectoryNode" />
-              <item name="save" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
+              <item name="procesos" type="462c0819:PsiDirectoryNode" />
+              <item name="ajax" type="462c0819:PsiDirectoryNode" />
+              <item name="click" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
+              <item name="appmodules" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
+              <item name="vista" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
-              <item name="bk" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="mysql" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="ventas" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,6 +491,7 @@
       <workItem from="1566070760375" duration="6379000" />
       <workItem from="1566179116525" duration="3705000" />
       <workItem from="1566355141994" duration="4559000" />
+      <workItem from="1567132976449" duration="3136000" />
     </task>
     <task id="LOCAL-00001" summary="Correcciones para Modulo auth">
       <created>1562732606653</created>
@@ -375,14 +511,15 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162590000" />
+    <option name="totallyTimeSpent" value="165726000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="25" width="1372" height="744" extended-state="6" />
+    <frame x="-3" y="25" width="1372" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="0" sideWeight="0.5016611" side_tool="true" visible="true" weight="0.3089124" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.30438066" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49833888" visible="true" weight="0.3089124" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -393,7 +530,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32890365" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32890365" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3283582" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -642,88 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_listado.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="193" column="30" selection-start-line="193" selection-start-column="29" selection-end-line="193" selection-end-column="30" />
-          <folding>
-            <element signature="e#1623#1673#0" />
-            <element signature="e#1738#1788#0" />
-            <element signature="e#1855#1907#0" />
-            <element signature="e#1981#2040#0" />
-            <element signature="e#2092#2136#0" />
-            <element signature="e#2194#2236#0" />
-            <element signature="e#2313#2583#0" />
-            <element signature="e#2392#2513#0" />
-            <element signature="e#2519#2577#0" />
-            <element signature="e#2656#2897#0" />
-            <element signature="e#2735#2825#0" />
-            <element signature="e#2831#2891#0" />
-            <element signature="e#2998#3048#0" />
-            <element signature="e#3125#3175#0" />
-            <element signature="e#3255#3317#0" />
-            <element signature="e#3392#3442#0" />
-            <element signature="e#3521#3812#0" />
-            <element signature="e#3544#3621#0" />
-            <element signature="e#3895#4177#0" />
-            <element signature="e#3981#4064#0" />
-            <element signature="e#4070#4149#0" />
-            <element signature="e#4314#4436#0" />
-            <element signature="e#6118#6777#0" />
-            <element signature="e#7540#8807#0" />
-            <element signature="e#7563#7797#0" />
-            <element signature="e#7920#8039#0" />
-            <element signature="e#8078#8197#0" />
-            <element signature="e#8264#8288#0" />
-            <element signature="e#8294#8398#0" />
-            <element signature="e#8339#8388#0" />
-            <element signature="e#8421#8719#0" />
-            <element signature="e#8725#8801#0" />
-            <element signature="e#8859#9199#0" />
-            <element signature="e#8882#9010#0" />
-            <element signature="e#9239#9571#0" />
-            <element signature="e#9262#9382#0" />
-            <element signature="e#9616#9958#0" />
-            <element signature="e#9639#9769#0" />
-            <element signature="e#10005#11013#0" />
-            <element signature="e#10079#10136#0" />
-            <element signature="e#10238#11006#0" />
-            <element signature="e#10544#10800#0" />
-            <element signature="e#10683#10778#0" />
-            <element signature="e#10806#10996#0" />
-            <element signature="e#11067#11387#0" />
-            <element signature="e#11090#11195#0" />
-            <element signature="e#11436#11687#0" />
-            <element signature="e#11446#11480#0" />
-            <element signature="e#11737#13109#0" />
-            <element signature="e#11825#13020#0" />
-            <element signature="e#11863#12201#0" />
-            <element signature="e#12333#12372#0" />
-            <element signature="e#12478#12517#0" />
-            <element signature="e#12623#12662#0" />
-            <element signature="e#12700#12888#0" />
-            <element signature="e#12906#12997#0" />
-            <element signature="e#13026#13057#0" />
-            <element signature="e#13159#13470#0" />
-            <element signature="e#13249#13461#0" />
-            <element signature="e#13388#13451#0" />
-            <element signature="e#13516#14221#0" />
-            <element signature="e#13584#14213#0" />
-            <element signature="e#13723#14203#0" />
-            <element signature="e#13927#13947#0" />
-            <element signature="e#14265#15241#0" />
-            <element signature="e#14288#14299#0" />
-            <element signature="e#14336#14619#0" />
-            <element signature="e#14477#14609#0" />
-            <element signature="e#14630#14648#0" />
-            <element signature="e#15317#15496#0" />
-            <element signature="e#15553#16035#0" />
-            <element signature="e#15576#15683#0" />
-            <element signature="e#15945#16021#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/ventas/ventas_datapicker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -755,13 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/appmodules/ventas/procesos/ajax/table/ventas_listado_datatable_001.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -782,13 +830,6 @@
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/ventas/ventas.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -820,42 +861,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_campanias.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/ventas/vista/tabla_campania_004.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#th#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/ventas/ventas_declarativo_03.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_view_modal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="22" selection-end-column="34" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -924,47 +933,6 @@
           <folding>
             <element signature="e#300#497#0#PHP" />
             <element signature="n#c1#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="62" column="35" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
-          <folding>
-            <element signature="n#__construct#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getUnDato_NombreCorto#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setVenta#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setVentaCampania#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#deleteVenta#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getEstadoRealActivas#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getEstadoTramitacionActivas#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getEstadoTramitacionPerfilActivas#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getEstadoRealToEstado#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getAutoComplete#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getPestaniaCampania#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getDeclarativo_01#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getDeclarativo_02#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getDeclarativo_value#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTimerEstructura#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTimerRepoirteEstructura#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getCampaniaIdByLinealId#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTimerEstructuraListado#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setTimerEstructuraSave#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTimerPorAprobar#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTimerRepoirtePorAprobar#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getCampaniaNombreByLinealId#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getVentasPorAprobar#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setVentaPorAprobar#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getCampaniaEditable#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getEstadoTramitacionIdEditable#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getValorEditable#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setValorEditable#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#setSQL#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#drawLogItem#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#drawDivLogItem#0;n#ModeloVenta#0;n#!!top" />
-            <element signature="n#getTransparenciaByVentaId#0;n#ModeloVenta#0;n#!!top" />
           </folding>
         </state>
       </provider>
@@ -1052,16 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/horas/julio.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="320">
-            <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/click/usuario_listado_modal.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
@@ -1081,13 +1039,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908112035.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="97">
@@ -1095,17 +1046,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/sql/bk/dump-neointelperu_apps-201908182125.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/usuario_listado_click_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1135,6 +1086,204 @@
             <element signature="n#getGrupoItem#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#getCampaniasActivas#0;n#ModeloUsuario#0;n#!!top" />
             <element signature="n#verificar_usuario#0;n#ModeloUsuario#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/usuario/procesos/ajax/save/grupo_listado_click_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/horas/julio.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="320">
+            <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/ventas/vista/tabla_campania_004.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="113" column="5" lean-forward="true" selection-start-line="113" selection-start-column="5" selection-end-line="113" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/ventas/ventas.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_campanias.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_listado.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding>
+            <element signature="e#454#554#0" />
+            <element signature="e#618#657#0" />
+            <element signature="e#724#770#0" />
+            <element signature="e#858#1209#0" />
+            <element signature="e#967#1203#0" />
+            <element signature="e#1051#1128#0" />
+            <element signature="e#1134#1193#0" />
+            <element signature="e#1283#1558#0" />
+            <element signature="e#1426#1495#0" />
+            <element signature="e#1501#1552#0" />
+            <element signature="e#1623#1673#0" />
+            <element signature="e#1738#1788#0" />
+            <element signature="e#1855#1907#0" />
+            <element signature="e#1981#2040#0" />
+            <element signature="e#2092#2136#0" />
+            <element signature="e#2194#2236#0" />
+            <element signature="e#2313#2583#0" />
+            <element signature="e#2392#2513#0" />
+            <element signature="e#2519#2577#0" />
+            <element signature="e#2656#2897#0" />
+            <element signature="e#2735#2825#0" />
+            <element signature="e#2831#2891#0" />
+            <element signature="e#2998#3048#0" />
+            <element signature="e#3125#3175#0" />
+            <element signature="e#3255#3317#0" />
+            <element signature="e#3392#3442#0" />
+            <element signature="e#3521#3812#0" />
+            <element signature="e#3544#3621#0" />
+            <element signature="e#3895#4177#0" />
+            <element signature="e#3981#4064#0" />
+            <element signature="e#4070#4149#0" />
+            <element signature="e#4291#7421#0" />
+            <element signature="e#4314#4436#0" />
+            <element signature="e#4614#5351#0" />
+            <element signature="e#5407#6057#0" />
+            <element signature="e#6118#6777#0" />
+            <element signature="e#6837#7370#0" />
+            <element signature="e#7071#7203#0" />
+            <element signature="e#7226#7359#0" />
+            <element signature="e#7458#7499#0" />
+            <element signature="e#7540#8807#0" />
+            <element signature="e#7563#7797#0" />
+            <element signature="e#7920#8039#0" />
+            <element signature="e#8078#8197#0" />
+            <element signature="e#8264#8288#0" />
+            <element signature="e#8294#8398#0" />
+            <element signature="e#8339#8388#0" />
+            <element signature="e#8421#8719#0" />
+            <element signature="e#8725#8801#0" />
+            <element signature="e#8859#9199#0" />
+            <element signature="e#8882#9010#0" />
+            <element signature="e#9239#9571#0" />
+            <element signature="e#9262#9382#0" />
+            <element signature="e#9616#9958#0" />
+            <element signature="e#9639#9769#0" />
+            <element signature="e#10005#11013#0" />
+            <element signature="e#10079#10136#0" />
+            <element signature="e#10238#11006#0" />
+            <element signature="e#10544#10800#0" />
+            <element signature="e#10683#10778#0" />
+            <element signature="e#10806#10996#0" />
+            <element signature="e#11067#11387#0" />
+            <element signature="e#11090#11195#0" />
+            <element signature="e#11436#11687#0" />
+            <element signature="e#11446#11480#0" />
+            <element signature="e#11737#13109#0" />
+            <element signature="e#11825#13020#0" />
+            <element signature="e#11863#12201#0" />
+            <element signature="e#12333#12372#0" />
+            <element signature="e#12478#12517#0" />
+            <element signature="e#12623#12662#0" />
+            <element signature="e#12700#12888#0" />
+            <element signature="e#12906#12997#0" />
+            <element signature="e#13026#13057#0" />
+            <element signature="e#13159#13470#0" />
+            <element signature="e#13249#13461#0" />
+            <element signature="e#13388#13451#0" />
+            <element signature="e#13516#14221#0" />
+            <element signature="e#13584#14213#0" />
+            <element signature="e#13723#14203#0" />
+            <element signature="e#13927#13947#0" />
+            <element signature="e#14265#15241#0" />
+            <element signature="e#14288#14299#0" />
+            <element signature="e#14336#14619#0" />
+            <element signature="e#14477#14609#0" />
+            <element signature="e#14630#14648#0" />
+            <element signature="e#15317#15496#0" />
+            <element signature="e#15553#16035#0" />
+            <element signature="e#15576#15683#0" />
+            <element signature="e#15945#16021#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/ventas/ventas_view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="194" selection-start-line="194" selection-end-line="206" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/ventas/procesos/ajax/click/ventas_listado_view_modal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="77" column="43" lean-forward="true" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appmodules/ventas/modelo/ModeloVenta.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="175" column="40" selection-start-line="175" selection-start-column="40" selection-end-line="175" selection-end-column="40" />
+          <folding>
+            <element signature="n#__construct#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getUnDato_NombreCorto#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setVenta#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setVentaCampania#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#deleteVenta#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getEstadoRealActivas#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getEstadoTramitacionActivas#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getEstadoTramitacionPerfilActivas#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getEstadoRealToEstado#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getAutoComplete#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getPestaniaCampania#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getDeclarativo_01#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getDeclarativo_02#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getDeclarativo_value#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTimerEstructura#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTimerRepoirteEstructura#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getCampaniaIdByLinealId#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTimerEstructuraListado#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setTimerEstructuraSave#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTimerPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTimerRepoirtePorAprobar#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getCampaniaNombreByLinealId#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getVentasPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setVentaPorAprobar#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getCampaniaEditable#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getEstadoTramitacionIdEditable#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getValorEditable#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setValorEditable#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#setSQL#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#drawLogItem#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#drawDivLogItem#0;n#ModeloVenta#0;n#!!top" />
+            <element signature="n#getTransparenciaByVentaId#0;n#ModeloVenta#0;n#!!top" />
           </folding>
         </state>
       </provider>
