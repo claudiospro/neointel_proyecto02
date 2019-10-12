@@ -51,6 +51,11 @@
 | 2019-08-11 | 20:10 | modulo ventas: campanias |
 | 2019-08-17 | 15:15 | modulo importar |
 | 2019-08-17 | 16:05 | modulo importar |
+| 2019-09-29 | 11:50 | modulo importar |
+| 2019-09-29 | 12:25 | modulo importar |
+| 2019-10-04 | 11:50 | modulo importar |
+| 2019-10-04 | 12:22 | modulo importar |
+| 2019-10-05 | 01:21 | modulo importar |
 
 Listado de objetivos
 * usuarios: echo

@@ -24,7 +24,12 @@ $prefix = 'venta_listado_';
       class="form_importado"
       enctype="multipart/form-data">
     <div class="input-group no-margin">
-        <select class="no-margin" name="campania">campanias">
+        <label>Delimitador</label>
+        <select class="no-margin" name="delimiter">
+            <option value="|">|</option>
+        </select>
+        <label>Campaña</label>
+        <select class="no-margin" name="campania">
           <?php
           foreach($in['campanias'] as $row)
           {
@@ -37,7 +42,7 @@ $prefix = 'venta_listado_';
           }
           ?>
         </select>
-        <input type="file" name="myfile">
+        <input type="file" name="myfile" required>
         <button class="button success no-margin">Importar</button>
     </div>
 
